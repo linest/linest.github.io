@@ -1,0 +1,395 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Java BitSet | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="BitSet&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;&amp;#x4F4D;&amp;#x56FE;&amp;#x6CD5;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x5B58;&amp;#x50A8;&amp;#x7ED3;&amp;#x6784;&amp;#x3002;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java BitSet">
+<meta property="og:url" content="http://linest.github.io/2017/02/10/java-bitset/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="BitSet&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;&amp;#x4F4D;&amp;#x56FE;&amp;#x6CD5;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x5B58;&amp;#x50A8;&amp;#x7ED3;&amp;#x6784;&amp;#x3002;">
+<meta property="og:updated_time" content="2018-03-24T11:39:06.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java BitSet">
+<meta name="twitter:description" content="BitSet&amp;#x662F;&amp;#x57FA;&amp;#x4E8E;&amp;#x4F4D;&amp;#x56FE;&amp;#x6CD5;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x5B58;&amp;#x50A8;&amp;#x7ED3;&amp;#x6784;&amp;#x3002;">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
+  
+</head>
+<body><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">&#x4E3B;&#x9875;</a></li>
+				        
+							<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+				        
+							<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo&#x6269;&#x5C55;/" style="font-size: 16px;">Hexo&#x6269;&#x5C55;</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/&#x4E8C;&#x8FDB;&#x5236;/" style="font-size: 14px;">&#x4E8C;&#x8FDB;&#x5236;</a> <a href="/tags/&#x535A;&#x5F08;&#x8BBA;/" style="font-size: 10px;">&#x535A;&#x5F08;&#x8BBA;</a> <a href="/tags/&#x6392;&#x5217;&#x7EC4;&#x5408;/" style="font-size: 10px;">&#x6392;&#x5217;&#x7EC4;&#x5408;</a> <a href="/tags/&#x65C5;&#x884C;&#x9752;&#x86D9;/" style="font-size: 18px;">&#x65C5;&#x884C;&#x9752;&#x86D9;</a> <a href="/tags/&#x6E90;&#x7801;/" style="font-size: 20px;">&#x6E90;&#x7801;</a> <a href="/tags/&#x7089;&#x77F3;/" style="font-size: 12px;">&#x7089;&#x77F3;</a> <a href="/tags/&#x7B97;&#x6570;&#x9898;/" style="font-size: 10px;">&#x7B97;&#x6570;&#x9898;</a> <a href="/tags/&#x8BED;&#x6CD5;&#x7CD6;/" style="font-size: 10px;">&#x8BED;&#x6CD5;&#x7CD6;</a> <a href="/tags/&#x9634;&#x9633;&#x5E08;/" style="font-size: 10px;">&#x9634;&#x9633;&#x5E08;</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">&#x52E4;&#x594B;&#x7684;&#x61D2;&#x60F0;&#x8005;&#xFF0C;&#x7231;&#x542C;&#x6545;&#x4E8B;&#x7684;&#x4EBA;~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">&#x4E3B;&#x9875;</a></li>
+		        
+					<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+		        
+					<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+      <div class="body-wrap"><article id="post-java-bitset" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/10/java-bitset/" class="article-date">
+  	<time datetime="2017-02-10T12:49:12.000Z" itemprop="datePublished">2017-02-10</time>
+</a><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+      Java BitSet
+    </h1>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+      </header>
+      
+      <div class="article-info article-info-post">
+        <div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x4E8C;&#x8FDB;&#x5236;/">&#x4E8C;&#x8FDB;&#x5236;</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x6E90;&#x7801;/">&#x6E90;&#x7801;</a></li></ul>
+	</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+        <div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>BitSet&#x662F;&#x57FA;&#x4E8E;&#x4F4D;&#x56FE;&#x6CD5;&#x7684;&#x9AD8;&#x6548;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x3002;</p>
+<a id="more"></a>
+<p>&#x4F4D;&#x56FE;&#x6CD5;&#xFF0C;&#x9002;&#x7528;&#x8FDE;&#x7EED;&#x8303;&#x56F4;&#x533A;&#x95F4;&#x3002;&#x9884;&#x5148;&#x5206;&#x914D;&#x7A7A;&#x95F4;&#xFF0C;&#x7528;&#x6BCF;&#x4E00;&#x4E2A;bit&#x6765;&#x8868;&#x8FBE;&#x6570;&#x5B57;&#x5B58;&#x5728;&#x4E0E;&#x5426;&#x3002;<br>
+&#x666E;&#x901A;&#x7684;&#x65B9;&#x5F0F;&#x65E2;&#x8981;&#x4FDD;&#x5B58;&#x6570;&#x5B57;&#x672C;&#x8EAB;&#xFF0C;&#x8FD8;&#x8981;&#x5173;&#x8054;&#x4E00;&#x4E2A;boolean&#x53D8;&#x91CF;&#xFF0C;&#x800C;&#x4F4D;&#x56FE;&#x6CD5;&#x5219;&#x5C06;bit&#x4F4D;&#x7F6E;&#x4F5C;&#x4E3A;&#x6570;&#x5B57;&#xFF0C;bit&#x503C;&#x4F5C;&#x4E3A;&#x72B6;&#x6001;&#xFF0C;&#x6781;&#x5927;&#x7684;&#x7F29;&#x51CF;&#x4E86;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x5178;&#x578B;&#x95EE;&#x9898;</p>
+<ul>
+<li>N&#x4E2A;&#x672A;&#x6392;&#x5E8F;&#x7684;&#x6574;&#x6570;&#xFF0C;&#x5728;&#x7EBF;&#x6027;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x6C42;&#x8FD9;N&#x4E2A;&#x6574;&#x6570;&#x5728;&#x6570;&#x8F74;&#x4E0A;&#x76F8;&#x90BB;&#x4E24;&#x4E2A;&#x6570;&#x4E4B;&#x95F4;&#x7684;&#x6700;&#x5927;&#x5DEE;&#x503C;</li>
+</ul>
+<p>&#x4EE3;&#x7801;&#x7248;&#x672C;<code>jdk1.8.0_101</code></p>
+<p>&#x5E95;&#x5C42;&#x5B58;&#x50A8;&#x7531;&#x4E00;&#x4E2A;long&#x6570;&#x7EC4;&#x7EC4;&#x6210;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@92</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">long</span>[] words;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E00;&#x4E2A;long&#x63D0;&#x4F9B;64&#x4F4D;&#xFF0C;&#x5373;&#x80FD;&#x8868;&#x8FBE;64&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x90A3;&#x4E48;&#x5B9E;&#x9645;&#x4E0A;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x9664;&#x4EE5;64&#x5C31;&#x80FD;&#x627E;&#x5230;word&#x7684;&#x7D22;&#x5F15;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@111</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">wordIndex</span><span class="params">(<span class="keyword">int</span> bitIndex)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> bitIndex &gt;&gt; ADDRESS_BITS_PER_WORD;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x521D;&#x59CB;&#x5316;&#x80FD;&#x5BB9;&#x7EB3;n&#x4E2A;bit&#x4F4D;&#x7684;&#x6570;&#x7EC4;,bit&#x7D22;&#x5F15;0~n-1,&#x53EF;&#x4EE5;&#x670D;&#x7528;&#x4E0A;&#x9762;&#x65B9;&#x6CD5;&#x7B97;&#x51FA;&#x9700;&#x8981;&#x591A;&#x5C11;word</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@165</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initWords</span><span class="params">(<span class="keyword">int</span> nbits)</span> </span>{</span><br><span class="line">    words = <span class="keyword">new</span> <span class="keyword">long</span>[wordIndex(nbits-<span class="number">1</span>) + <span class="number">1</span>];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1>&#x64CD;&#x4F5C;</h1>
+<p>&#x5411;set&#x4E2D;&#x52A0;&#x5165;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x76F8;&#x5F53;&#x4E8E;&#x628A;&#x76F8;&#x5E94;&#x4F4D;&#x7F6E;1<br>
+java&#x4E2D;&#x7684;&#x5DE6;&#x79FB;&#x4F1A;&#x81EA;&#x52A8;&#x53D6;&#x6A21;&#xFF0C;&#x56E0;&#x6B64;&#x76F4;&#x63A5;&#x5DE6;&#x79FB;&#x5373;&#x53EF;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@442</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> bitIndex)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (bitIndex &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">&quot;bitIndex &lt; 0: &quot;</span> + bitIndex);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> wordIndex = wordIndex(bitIndex);</span><br><span class="line">    expandTo(wordIndex);</span><br><span class="line"></span><br><span class="line">    words[wordIndex] |= (<span class="number">1L</span> &lt;&lt; bitIndex); <span class="comment">// Restores invariants</span></span><br><span class="line"></span><br><span class="line">    checkInvariants();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x540C;&#x7406;&#x4ECE;set&#x4E2D;&#x5220;&#x9664;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x76F8;&#x5F53;&#x4E8E;&#x628A;&#x76F8;&#x5E94;&#x4F4D;&#x7F6E;0</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@442</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="keyword">int</span> bitIndex)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (bitIndex &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">&quot;bitIndex &lt; 0: &quot;</span> + bitIndex);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> wordIndex = wordIndex(bitIndex);</span><br><span class="line">    <span class="keyword">if</span> (wordIndex &gt;= wordsInUse)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    words[wordIndex] &amp;= ~(<span class="number">1L</span> &lt;&lt; bitIndex);</span><br><span class="line"></span><br><span class="line">    recalculateWordsInUse();</span><br><span class="line">    checkInvariants();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BFB;&#x627E;&#x4E0B;&#x4E00;&#x4E2A;&#x5143;&#x7D20;<br>
+&#x5173;&#x952E;&#x662F;&#x9020;&#x51FA;111&#x2026;000&#x8FD9;&#x6837;&#x7684;mask&#x3002;&#x53EF;&#x4EE5;&#x7528;&#x5168;1&#x503C;&#x5DE6;&#x79FB;&#x83B7;&#x5F97;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@710</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nextSetBit</span><span class="params">(<span class="keyword">int</span> fromIndex)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (fromIndex &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">&quot;fromIndex &lt; 0: &quot;</span> + fromIndex);</span><br><span class="line"></span><br><span class="line">    checkInvariants();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> u = wordIndex(fromIndex);</span><br><span class="line">    <span class="keyword">if</span> (u &gt;= wordsInUse)</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> word = words[u] &amp; (WORD_MASK &lt;&lt; fromIndex);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (word != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> (u * BITS_PER_WORD) + Long.numberOfTrailingZeros(word);</span><br><span class="line">        <span class="keyword">if</span> (++u == wordsInUse)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        word = words[u];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x540C;&#x7406;&#x53EF;&#x4EE5;&#x5BFB;&#x627E;&#x524D;&#x4E00;&#x4E2A;&#x5143;&#x7D20;<br>
+&#x5173;&#x952E;&#x662F;&#x9020;&#x51FA;000&#x2026;111&#x8FD9;&#x6837;&#x7684;mask&#x3002;&#x7528;&#x5168;1&#x503C;&#x65E0;&#x7B26;&#x53F7;&#x53F3;&#x79FB;&#x3002;<br>
+&#x53F3;&#x79FB;&#x4E00;&#x4E2A;&#x8D1F;&#x6570;&#x503C;-n&#x76F8;&#x5F53;&#x4E8E;&#x53F3;&#x79FB;(64-n)%64</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@784</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">previousSetBit</span><span class="params">(<span class="keyword">int</span> fromIndex)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (fromIndex &lt; <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">if</span> (fromIndex == -<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(</span><br><span class="line">            <span class="string">&quot;fromIndex &lt; -1: &quot;</span> + fromIndex);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    checkInvariants();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> u = wordIndex(fromIndex);</span><br><span class="line">    <span class="keyword">if</span> (u &gt;= wordsInUse)</span><br><span class="line">        <span class="keyword">return</span> length() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> word = words[u] &amp; (WORD_MASK &gt;&gt;&gt; -(fromIndex+<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (word != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> (u+<span class="number">1</span>) * BITS_PER_WORD - <span class="number">1</span> - Long.numberOfLeadingZeros(word);</span><br><span class="line">        <span class="keyword">if</span> (u-- == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        word = words[u];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1>&#x5BB9;&#x91CF;</h1>
+<p>size&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;BitSet&#x7684;&#x7269;&#x7406;&#x5927;&#x5C0F;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@1047</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> words.length * BITS_PER_WORD;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>length&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;BitSet&#x7684;&#x903B;&#x8F91;&#x5927;&#x5C0F;,&#x5373;&#x5F53;&#x524D;&#x7684;&#x6700;&#x5927;&#x503C;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public int length() {</span><br><span class="line">    if (wordsInUse == 0)</span><br><span class="line">        return 0;</span><br><span class="line"></span><br><span class="line">    return BITS_PER_WORD * (wordsInUse - 1) +</span><br><span class="line">        (BITS_PER_WORD - Long.numberOfLeadingZeros(words[wordsInUse - 1]));</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1>&#x6269;&#x5BB9;</h1>
+<p>&#x5F53;&#x524D;&#x6570;&#x7EC4;&#x5927;&#x5C0F;&#x7684;&#x4E8C;&#x500D;&#x548C;&#x76EE;&#x6807;&#x5927;&#x5C0F;&#x7684;&#x6700;&#x5927;&#x503C;</p>
+<figure class="highlight java"><figcaption><span>BitSet.java@333</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> wordsRequired)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (words.length &lt; wordsRequired) {</span><br><span class="line">        <span class="comment">// Allocate larger of doubled size or required size</span></span><br><span class="line">        <span class="keyword">int</span> request = Math.max(<span class="number">2</span> * words.length, wordsRequired);</span><br><span class="line">        words = Arrays.copyOf(words, request);</span><br><span class="line">        sizeIsSticky = <span class="keyword">false</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+      
+    </div>
+    
+  </div>
+  
+    <nav id="article-nav">
+  
+    <a href="/2017/02/13/java-integer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          Java Integer
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/09/java-exception/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java &#x5F02;&#x5E38;</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &#xA0; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="java-bitset" data-title="Java BitSet" data-url="http://linest.github.io/2017/02/10/java-bitset/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"linest"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&#xA9; 2018 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> modified by <a href="#">Linest</a> with <span class="octicon octicon-heart"></span>
+      	</div>
+    </div>
+  </div>
+</footer>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></body></html>
