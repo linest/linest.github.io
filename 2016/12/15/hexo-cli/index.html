@@ -1,22 +1,23 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Hexo&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3; | Blog of Linest</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Hexo命令行入口 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x5728;&amp;#x5F00;&amp;#x59CB;&amp;#x7528;Hexo&amp;#x65F6;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x6B65;&amp;#x5C31;&amp;#x662F;&amp;#x5168;&amp;#x5C40;&amp;#x5B89;&amp;#x88C5;hexo-cli&amp;#x6A21;&amp;#x5757;
-&amp;#x8FD9;&amp;#x662F;Hexo&amp;#x7684;&amp;#x547D;&amp;#x4EE4;&amp;#x884C">
+  <meta name="description" content="在开始用Hexo时，第一步就是全局安装hexo-cli模块 这是Hexo的命令行入口，通过这个模块可以顺藤摸瓜找到Hexo的核心">
+<meta name="keywords" content="源码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;">
+<meta property="og:title" content="Hexo命令行入口">
 <meta property="og:url" content="http://linest.github.io/2016/12/15/hexo-cli/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="&amp;#x5728;&amp;#x5F00;&amp;#x59CB;&amp;#x7528;Hexo&amp;#x65F6;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x6B65;&amp;#x5C31;&amp;#x662F;&amp;#x5168;&amp;#x5C40;&amp;#x5B89;&amp;#x88C5;hexo-cli&amp;#x6A21;&amp;#x5757;
-&amp;#x8FD9;&amp;#x662F;Hexo&amp;#x7684;&amp;#x547D;&amp;#x4EE4;&amp;#x884C">
+<meta property="og:description" content="在开始用Hexo时，第一步就是全局安装hexo-cli模块 这是Hexo的命令行入口，通过这个模块可以顺藤摸瓜找到Hexo的核心">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-03-24T11:39:06.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;">
-<meta name="twitter:description" content="&amp;#x5728;&amp;#x5F00;&amp;#x59CB;&amp;#x7528;Hexo&amp;#x65F6;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x6B65;&amp;#x5C31;&amp;#x662F;&amp;#x5168;&amp;#x5C40;&amp;#x5B89;&amp;#x88C5;hexo-cli&amp;#x6A21;&amp;#x5757;
-&amp;#x8FD9;&amp;#x662F;Hexo&amp;#x7684;&amp;#x547D;&amp;#x4EE4;&amp;#x884C">
+<meta name="twitter:title" content="Hexo命令行入口">
+<meta name="twitter:description" content="在开始用Hexo时，第一步就是全局安装hexo-cli模块 这是Hexo的命令行入口，通过这个模块可以顺藤摸瓜找到Hexo的核心">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -28,8 +29,8 @@
   <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
   
 </head>
-<body><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
 
+<body>
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
@@ -46,7 +47,7 @@
 		</hgroup>
 
 		
-		<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
 		
 
 		
@@ -90,11 +91,13 @@
 					<nav class="header-menu">
 						<ul>
 						
-							<li><a href="/">&#x4E3B;&#x9875;</a></li>
+							<li><a href="/">主页</a></li>
 				        
-							<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+							<li><a href="/doodle">涂鸦</a></li>
 				        
-							<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
 				        
 						</ul>
 					</nav>
@@ -112,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo&#x6269;&#x5C55;/" style="font-size: 16px;">Hexo&#x6269;&#x5C55;</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/&#x4E8C;&#x8FDB;&#x5236;/" style="font-size: 14px;">&#x4E8C;&#x8FDB;&#x5236;</a> <a href="/tags/&#x535A;&#x5F08;&#x8BBA;/" style="font-size: 10px;">&#x535A;&#x5F08;&#x8BBA;</a> <a href="/tags/&#x6392;&#x5217;&#x7EC4;&#x5408;/" style="font-size: 10px;">&#x6392;&#x5217;&#x7EC4;&#x5408;</a> <a href="/tags/&#x65C5;&#x884C;&#x9752;&#x86D9;/" style="font-size: 18px;">&#x65C5;&#x884C;&#x9752;&#x86D9;</a> <a href="/tags/&#x6E90;&#x7801;/" style="font-size: 20px;">&#x6E90;&#x7801;</a> <a href="/tags/&#x7089;&#x77F3;/" style="font-size: 12px;">&#x7089;&#x77F3;</a> <a href="/tags/&#x7B97;&#x6570;&#x9898;/" style="font-size: 10px;">&#x7B97;&#x6570;&#x9898;</a> <a href="/tags/&#x8BED;&#x6CD5;&#x7CD6;/" style="font-size: 10px;">&#x8BED;&#x6CD5;&#x7CD6;</a> <a href="/tags/&#x9634;&#x9633;&#x5E08;/" style="font-size: 10px;">&#x9634;&#x9633;&#x5E08;</a>
+						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/二进制/" style="font-size: 14px;">二进制</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 12px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/阴阳师/" style="font-size: 10px;">阴阳师</a>
 					</div>
 				</section>
 				
@@ -123,14 +126,14 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">&#x52E4;&#x594B;&#x7684;&#x61D2;&#x60F0;&#x8005;&#xFF0C;&#x7231;&#x542C;&#x6545;&#x4E8B;&#x7684;&#x4EBA;~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
 				</section>
 				
 			</div>
 		</div>
 	</header>				
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
@@ -149,16 +152,18 @@
 			  <h1 class="header-author">Linest</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
 			
 			<nav class="header-menu">
 				<ul>
 				
-					<li><a href="/">&#x4E3B;&#x9875;</a></li>
+					<li><a href="/">主页</a></li>
 		        
-					<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+					<li><a href="/doodle">涂鸦</a></li>
 		        
-					<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>
@@ -175,102 +180,149 @@
 		</header>				
 	</div>
 </nav>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
-      <div class="body-wrap"><article id="post-hexo-cli" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+      <div class="body-wrap"><article id="post-hexo-cli" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/12/15/hexo-cli/" class="article-date">
   	<time datetime="2016-12-15T09:46:36.000Z" itemprop="datePublished">2016-12-15</time>
-</a><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+</a>
     </div>
   
   <div class="article-inner">
     
     
       <header class="article-header">
-        <h1 class="article-title" itemprop="name">
-      Hexo&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo命令行入口
     </h1>
   
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
       </header>
       
       <div class="article-info article-info-post">
-        <div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x6E90;&#x7801;/">&#x6E90;&#x7801;</a></li></ul>
-	</div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
-        <div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/&#x6298;&#x817E;Hexo/">&#x6298;&#x817E;Hexo</a>
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 	</div>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/折腾Hexo/">折腾Hexo</a>
+	</div>
+
+
         <div class="clearfix"></div>
       </div>
       
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x5728;&#x5F00;&#x59CB;&#x7528;Hexo&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x5C31;&#x662F;&#x5168;&#x5C40;&#x5B89;&#x88C5;hexo-cli&#x6A21;&#x5757;<br>
-&#x8FD9;&#x662F;Hexo&#x7684;&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x53EF;&#x4EE5;&#x987A;&#x85E4;&#x6478;&#x74DC;&#x627E;&#x5230;Hexo&#x7684;&#x6838;&#x5FC3;</p>
+        <p>在开始用Hexo时，第一步就是全局安装hexo-cli模块<br>
+这是Hexo的命令行入口，通过这个模块可以顺藤摸瓜找到Hexo的核心</p>
 <a id="more"></a>
-<p>hexo-cli&#x7684;&#x7ED3;&#x6784;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x8D77;&#x70B9;bin&#x76EE;&#x5F55;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E0B;&#x4F7F;&#x7528;hexo&#x547D;&#x4EE4;<br>
-hexo&#x547D;&#x4EE4;&#x5B9E;&#x9645;&#x4E0A;&#x8FDB;&#x5165;&#x4E86;lib&#x4E0B;&#x7684;hexo.js&#x6587;&#x4EF6;</p>
-<figure class="highlight shell"><figcaption><span>bin/hexo</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&apos;../lib/hexo&apos;)();</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x6BCF;&#x6B21;&#x6572;&#x51FB;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#xFF0C;&#x9996;&#x5148;&#x4F1A;&#x5B9A;&#x4F4D;&#x5F53;&#x524D;&#x8DEF;&#x5F84;&#xFF0C;&#x89E3;&#x6790;&#x4F20;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;Context&#x5BF9;&#x8C61;<br>
-Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B80;&#x6613;&#x7248;&#xFF0C;&#x5982;&#x679C;&#x4E4B;&#x540E;&#x6210;&#x529F;&#x52A0;&#x8F7D;&#x4E86;&#x4E3B;&#x6A21;&#x5757;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5C06;&#x4F1A;&#x66FF;&#x6362;</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cwd = cwd || process.cwd();</span><br><span class="line">args = camelCaseKeys(args || minimist(process.argv.slice(<span class="number">2</span>)));</span><br><span class="line"><span class="keyword">var</span> hexo = <span class="keyword">new</span> Context(cwd, args);</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x7136;&#x540E;&#x4F1A;&#x5728;&#x5F53;&#x524D;&#x8DEF;&#x5F84;&#x4E0B;&#x5BFB;&#x627E;package.json<br>
-&#x5982;&#x679C;&#x627E;&#x5230;&#x5E76;&#x5305;&#x542B;&#x540D;&#x4E3A;Hexo&#x7684;key,&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x8DEF;&#x5F84;&#x5C31;&#x662F;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x7684;&#x8DEF;&#x5F84;<br>
-&#x6CA1;&#x627E;&#x5230;&#x7684;&#x8BDD;&#x4F1A;&#x91CD;&#x65B0;&#x627E;&#x7236;&#x8DEF;&#x5F84;&#xFF0C;&#x6240;&#x4EE5;&#x5373;&#x4F7F;&#x6DF1;&#x5165;&#x5230;&#x5DE5;&#x4F5C;&#x8DEF;&#x5F84;&#x4E0B;&#x7684;&#x5B50;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x6267;&#x884C;hexo&#x547D;&#x4EE4;</p>
-<figure class="highlight javascript"><figcaption><span>lib/find_pkg.js</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkPkg</span>(<span class="params">path</span>) </span>{</span><br><span class="line">  <span class="keyword">var</span> pkgPath = pathFn.join(path, <span class="string">&apos;package.json&apos;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> fs.readFile(pkgPath).then(<span class="function"><span class="keyword">function</span>(<span class="params">content</span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> json = <span class="built_in">JSON</span>.parse(content);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> json.hexo === <span class="string">&apos;object&apos;</span>) <span class="keyword">return</span> path;</span><br><span class="line">  }).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>{</span><br><span class="line">    <span class="keyword">if</span> (err &amp;&amp; err.cause.code === <span class="string">&apos;ENOENT&apos;</span>) {</span><br><span class="line">      <span class="keyword">var</span> parent = pathFn.dirname(path);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (parent === path) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">return</span> checkPkg(parent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">throw</span> err;</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x4ECE;&#x5F53;&#x524D;&#x8DEF;&#x5F84;&#x5F00;&#x59CB;&#x627E;&#x8D77;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;cwd&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;</p>
-<figure class="highlight javascript"><figcaption><span>lib/find_pkg.js</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findPkg</span>(<span class="params">cwd, args</span>) </span>{</span><br><span class="line">  args = args || {};</span><br><span class="line">  <span class="keyword">if</span> (args.cwd) {</span><br><span class="line">    cwd = pathFn.resolve(cwd, args.cwd);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> checkPkg(cwd);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x786E;&#x5B9A;&#x5DE5;&#x4F5C;&#x8DEF;&#x5F84;&#x540E;&#x4F1A;&#x5C1D;&#x8BD5;&#x52A0;&#x8F7D;node_modules&#x4E2D;&#x7684;Hexo&#x4E3B;&#x6A21;&#x5757;</p>
-<figure class="highlight javascript"><figcaption><span>lib/hexo.js</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadModule</span>(<span class="params">path, args</span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.try(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> modulePath = pathFn.join(path, <span class="string">&apos;node_modules&apos;</span>, <span class="string">&apos;hexo&apos;</span>);</span><br><span class="line">    <span class="keyword">var</span> Hexo = <span class="built_in">require</span>(modulePath);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Hexo(path, args);</span><br><span class="line">  });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x4E4B;&#x540E;&#x4F1A;&#x8FDB;&#x884C;&#x4E3B;&#x6A21;&#x5757;&#x66FF;&#x6362;&#xFF0C;&#x521D;&#x59CB;&#x5316;console&#x4EE5;&#x53CA;&#x521D;&#x59CB;&#x5316;hexo<br>
-&#x521D;&#x59CB;&#x5316;console&#x4F1A;&#x5728;&#x4E3B;&#x6A21;&#x5757;&#x4E2D;&#x6CE8;&#x518C;3&#x4E2A;&#x547D;&#x4EE4;&#xFF0C;&#x5206;&#x522B;&#x4E3A;help,init&#x548C;version<br>
-&#x8FD9;&#x4E09;&#x4E2A;&#x547D;&#x4EE4;&#x662F;&#x5168;&#x5C40;&#x547D;&#x4EE4;&#xFF0C;&#x5728;&#x54EA;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x6267;&#x884C;</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mod) hexo = mod;</span><br><span class="line">log = hexo.log;</span><br><span class="line"><span class="built_in">require</span>(<span class="string">&apos;./console&apos;</span>)(hexo);</span><br><span class="line"><span class="keyword">return</span> hexo.init();</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x63A5;&#x4E0B;&#x6765;&#x4F1A;&#x67E5;&#x627E;&#x547D;&#x4EE4;&#xFF0C;&#x5982;&#x679C;&#x627E;&#x4E0D;&#x5230;&#x5C31;&#x901A;&#x901A;&#x8F6C;&#x5316;&#x6210;help&#x547D;&#x4EE4;</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cmd = <span class="string">&apos;&apos;</span>;</span><br><span class="line"><span class="keyword">if</span> (!args.h &amp;&amp; !args.help) {</span><br><span class="line">  cmd = args._.shift();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cmd) {</span><br><span class="line">	<span class="keyword">var</span> c = hexo.extend.console.get(cmd);</span><br><span class="line">	<span class="keyword">if</span> (!c) cmd = <span class="string">&apos;help&apos;</span>;</span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">	cmd = <span class="string">&apos;help&apos;</span>;</span><br><span class="line">  }</span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">  cmd = <span class="string">&apos;help&apos;</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x6700;&#x540E;&#x5C31;&#x662F;&#x8C03;&#x7528;&#x547D;&#x4EE4;&#x6267;&#x884C;,&#x5B8C;&#x6210;&#x4E86;&#x6574;&#x6761;&#x94FE;&#x8DEF;~</p>
-<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> hexo.call(cmd, args)</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x5F69;&#x86CB;&#xFF1A;&#x5982;&#x679C;&#x4F7F;&#x7528;Ctrl+C&#x7EC8;&#x6B62;Hexo, &#x4F1A;&#x968F;&#x673A;&#x663E;&#x793A;&#x4E00;&#x6761;&#x7ED3;&#x675F;&#x8BED;</p>
-<figure class="highlight javascript"><figcaption><span>lib/goodbye.js</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> byeWords = [</span><br><span class="line">  <span class="string">&apos;Good bye&apos;</span>,</span><br><span class="line">  <span class="string">&apos;See you again&apos;</span>,</span><br><span class="line">  <span class="string">&apos;Farewell&apos;</span>,</span><br><span class="line">  <span class="string">&apos;Have a nice day&apos;</span>,</span><br><span class="line">  <span class="string">&apos;Bye!&apos;</span>,</span><br><span class="line">  <span class="string">&apos;Catch you later&apos;</span></span><br><span class="line">];</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> byeWords[(<span class="built_in">Math</span>.random() * byeWords.length) | <span class="number">0</span>];</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+<p>hexo-cli的结构比较简单，起点bin目录，这样就可以在命令行下使用hexo命令<br>
+hexo命令实际上进入了lib下的hexo.js文件</p>
+<figure class="highlight shell"><figcaption><span>bin/hexo</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require('../lib/hexo')();</span><br></pre></td></tr></table></figure>
+<p>每次敲击一条命令，首先会定位当前路径，解析传入参数，并建立一个Context对象<br>
+Context对象其实是Hexo模块的简易版，如果之后成功加载了主模块，那么这个变量将会替换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cwd = cwd || process.cwd();</span><br><span class="line">args = camelCaseKeys(args || minimist(process.argv.slice(<span class="number">2</span>)));</span><br><span class="line"><span class="keyword">var</span> hexo = <span class="keyword">new</span> Context(cwd, args);</span><br></pre></td></tr></table></figure>
+<p>然后会在当前路径下寻找package.json<br>
+如果找到并包含名为Hexo的key,那么这个路径就是工作目录的路径<br>
+没找到的话会重新找父路径，所以即使深入到工作路径下的子文件夹，依然可以执行hexo命令</p>
+<figure class="highlight javascript"><figcaption><span>lib/find_pkg.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkPkg</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> pkgPath = pathFn.join(path, <span class="string">'package.json'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> fs.readFile(pkgPath).then(<span class="function"><span class="keyword">function</span>(<span class="params">content</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> json = <span class="built_in">JSON</span>.parse(content);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> json.hexo === <span class="string">'object'</span>) <span class="keyword">return</span> path;</span><br><span class="line">  &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err &amp;&amp; err.cause.code === <span class="string">'ENOENT'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> parent = pathFn.dirname(path);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (parent === path) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">return</span> checkPkg(parent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">throw</span> err;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以不从当前路径开始找起，可以通过cwd参数指定一个路径</p>
+<figure class="highlight javascript"><figcaption><span>lib/find_pkg.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findPkg</span>(<span class="params">cwd, args</span>) </span>&#123;</span><br><span class="line">  args = args || &#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span> (args.cwd) &#123;</span><br><span class="line">    cwd = pathFn.resolve(cwd, args.cwd);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> checkPkg(cwd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>确定工作路径后会尝试加载node_modules中的Hexo主模块</p>
+<figure class="highlight javascript"><figcaption><span>lib/hexo.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadModule</span>(<span class="params">path, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.try(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> modulePath = pathFn.join(path, <span class="string">'node_modules'</span>, <span class="string">'hexo'</span>);</span><br><span class="line">    <span class="keyword">var</span> Hexo = <span class="built_in">require</span>(modulePath);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Hexo(path, args);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后会进行主模块替换，初始化console以及初始化hexo<br>
+初始化console会在主模块中注册3个命令，分别为help,init和version<br>
+这三个命令是全局命令，在哪个目录，都可以执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mod) hexo = mod;</span><br><span class="line">log = hexo.log;</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./console'</span>)(hexo);</span><br><span class="line"><span class="keyword">return</span> hexo.init();</span><br></pre></td></tr></table></figure>
+<p>接下来会查找命令，如果找不到就通通转化成help命令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cmd = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">if</span> (!args.h &amp;&amp; !args.help) &#123;</span><br><span class="line">  cmd = args._.shift();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cmd) &#123;</span><br><span class="line">	<span class="keyword">var</span> c = hexo.extend.console.get(cmd);</span><br><span class="line">	<span class="keyword">if</span> (!c) cmd = <span class="string">'help'</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	cmd = <span class="string">'help'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  cmd = <span class="string">'help'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后就是调用命令执行,完成了整条链路~</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> hexo.call(cmd, args)</span><br></pre></td></tr></table></figure>
+<p>彩蛋：如果使用Ctrl+C终止Hexo, 会随机显示一条结束语</p>
+<figure class="highlight javascript"><figcaption><span>lib/goodbye.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> byeWords = [</span><br><span class="line">  <span class="string">'Good bye'</span>,</span><br><span class="line">  <span class="string">'See you again'</span>,</span><br><span class="line">  <span class="string">'Farewell'</span>,</span><br><span class="line">  <span class="string">'Have a nice day'</span>,</span><br><span class="line">  <span class="string">'Bye!'</span>,</span><br><span class="line">  <span class="string">'Catch you later'</span></span><br><span class="line">];</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> byeWords[(<span class="built_in">Math</span>.random() * byeWords.length) | <span class="number">0</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div>
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2016/12/15/hexo-cli/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2016/12/15/hexo-cli/">http://linest.github.io/2016/12/15/hexo-cli/</a></p>
+</div>
       
     </div>
     
   </div>
   
-    <nav id="article-nav">
+    
+<nav id="article-nav">
   
     <a href="/2017/01/11/java8-functional/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
+      <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Java8 &#x51FD;&#x6570;&#x5F0F;&#x7F16;&#x7A0B;
+          Java8 函数式编程
         
       </div>
     </a>
   
   
     <a href="/2016/12/15/basic-math-puzzle/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">&#x7B80;&#x5355;&#x7B97;&#x672F;&#x9898;</div>
-      <strong class="article-nav-caption">&gt;</strong>
+      <div class="article-nav-title">简单算术题</div>
+      <strong class="article-nav-caption">></strong>
     </a>
   
 </nav>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
   
 </article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 <div class="share_jia">
 	<!-- JiaThis Button BEGIN -->
 	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &#xA0; </span>
+		<span class="jiathis_txt">Share to: &nbsp; </span>
 		<a class="jiathis_button_facebook"></a> 
     <a class="jiathis_button_twitter"></a>
     <a class="jiathis_button_plus"></a> 
@@ -284,7 +336,7 @@ Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B
 	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
 	<!-- JiaThis Button END -->
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
 
 
 
@@ -292,7 +344,7 @@ Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hexo-cli" data-title="Hexo&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;" data-url="http://linest.github.io/2016/12/15/hexo-cli/"></div>
+	<div class="ds-thread" data-thread-key="hexo-cli" data-title="Hexo命令行入口" data-url="http://linest.github.io/2016/12/15/hexo-cli/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -308,26 +360,28 @@ Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B
 	</script>
 	<!-- 多说公共JS代码 end -->
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></div>
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&#xA9; 2018 Linest
+    		&copy; 2018 Linest
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> modified by <a href="#">Linest</a> with <span class="octicon octicon-heart"></span>
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
       	</div>
     </div>
   </div>
 </footer>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
     </div>
-    <script>
+    
+
+<script>
 	var yiliaConfig = {
 		fancybox: false,
 		mathjax: true,
@@ -337,7 +391,8 @@ Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false
+		open_in_new: false,
+		toc_hide_index: true
 	}
 </script>
 
@@ -360,7 +415,8 @@ Context&#x5BF9;&#x8C61;&#x5176;&#x5B9E;&#x662F;Hexo&#x6A21;&#x5757;&#x7684;&#x7B
 <script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
 
 
 <script type="text/x-mathjax-config">
@@ -382,8 +438,8 @@ MathJax.Hub.Queue(function() {
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
   </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></body></html>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>

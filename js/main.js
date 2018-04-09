@@ -106,5 +106,14 @@ require([], function (){
 	if(yiliaConfig.open_in_new == true){
 		$(".article a[href]").attr("target", "_blank")
 	}
-	
+
+	//侧方工具栏
+	require(['/js/aside.js'], function(aside){
+		aside.init();
+	});	
+
+	//打赏
+	require(['/js/reward.js'],function(reward){
+		reward.init();
+	});
 });

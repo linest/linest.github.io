@@ -1,19 +1,23 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+<head>
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Nim Game | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x5404;&amp;#x79CD;&amp;#x82B1;&amp;#x5F0F;&amp;#x53D6;&amp;#x77F3;&amp;#x5934;~">
+  <meta name="description" content="各种花式取石头~">
+<meta name="keywords" content="二进制,Game,博弈论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nim Game">
 <meta property="og:url" content="http://linest.github.io/2016/10/07/nim-game/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="&amp;#x5404;&amp;#x79CD;&amp;#x82B1;&amp;#x5F0F;&amp;#x53D6;&amp;#x77F3;&amp;#x5934;~">
+<meta property="og:description" content="各种花式取石头~">
+<meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-03-24T11:39:06.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nim Game">
-<meta name="twitter:description" content="&amp;#x5404;&amp;#x79CD;&amp;#x82B1;&amp;#x5F0F;&amp;#x53D6;&amp;#x77F3;&amp;#x5934;~">
+<meta name="twitter:description" content="各种花式取石头~">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -25,8 +29,8 @@
   <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
   
 </head>
-<body><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
 
+<body>
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
@@ -43,7 +47,7 @@
 		</hgroup>
 
 		
-		<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
 		
 
 		
@@ -87,11 +91,13 @@
 					<nav class="header-menu">
 						<ul>
 						
-							<li><a href="/">&#x4E3B;&#x9875;</a></li>
+							<li><a href="/">主页</a></li>
 				        
-							<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+							<li><a href="/doodle">涂鸦</a></li>
 				        
-							<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
 				        
 						</ul>
 					</nav>
@@ -109,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo&#x6269;&#x5C55;/" style="font-size: 16px;">Hexo&#x6269;&#x5C55;</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/&#x4E8C;&#x8FDB;&#x5236;/" style="font-size: 14px;">&#x4E8C;&#x8FDB;&#x5236;</a> <a href="/tags/&#x535A;&#x5F08;&#x8BBA;/" style="font-size: 10px;">&#x535A;&#x5F08;&#x8BBA;</a> <a href="/tags/&#x6392;&#x5217;&#x7EC4;&#x5408;/" style="font-size: 10px;">&#x6392;&#x5217;&#x7EC4;&#x5408;</a> <a href="/tags/&#x65C5;&#x884C;&#x9752;&#x86D9;/" style="font-size: 18px;">&#x65C5;&#x884C;&#x9752;&#x86D9;</a> <a href="/tags/&#x6E90;&#x7801;/" style="font-size: 20px;">&#x6E90;&#x7801;</a> <a href="/tags/&#x7089;&#x77F3;/" style="font-size: 12px;">&#x7089;&#x77F3;</a> <a href="/tags/&#x7B97;&#x6570;&#x9898;/" style="font-size: 10px;">&#x7B97;&#x6570;&#x9898;</a> <a href="/tags/&#x8BED;&#x6CD5;&#x7CD6;/" style="font-size: 10px;">&#x8BED;&#x6CD5;&#x7CD6;</a> <a href="/tags/&#x9634;&#x9633;&#x5E08;/" style="font-size: 10px;">&#x9634;&#x9633;&#x5E08;</a>
+						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/二进制/" style="font-size: 14px;">二进制</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 12px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/阴阳师/" style="font-size: 10px;">阴阳师</a>
 					</div>
 				</section>
 				
@@ -120,14 +126,14 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">&#x52E4;&#x594B;&#x7684;&#x61D2;&#x60F0;&#x8005;&#xFF0C;&#x7231;&#x542C;&#x6545;&#x4E8B;&#x7684;&#x4EBA;~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
 				</section>
 				
 			</div>
 		</div>
 	</header>				
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
@@ -146,16 +152,18 @@
 			  <h1 class="header-author">Linest</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
 			
 			<nav class="header-menu">
 				<ul>
 				
-					<li><a href="/">&#x4E3B;&#x9875;</a></li>
+					<li><a href="/">主页</a></li>
 		        
-					<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
+					<li><a href="/doodle">涂鸦</a></li>
 		        
-					<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>
@@ -172,92 +180,124 @@
 		</header>				
 	</div>
 </nav>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
-      <div class="body-wrap"><article id="post-nim-game" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+      <div class="body-wrap"><article id="post-nim-game" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/10/07/nim-game/" class="article-date">
   	<time datetime="2016-10-07T13:14:01.000Z" itemprop="datePublished">2016-10-07</time>
-</a><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+</a>
     </div>
   
   <div class="article-inner">
     
     
       <header class="article-header">
-        <h1 class="article-title" itemprop="name">
+        
+  
+    <h1 class="article-title" itemprop="name">
       Nim Game
     </h1>
   
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
       </header>
       
       <div class="article-info article-info-post">
-        <div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x4E8C;&#x8FDB;&#x5236;/">&#x4E8C;&#x8FDB;&#x5236;</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x535A;&#x5F08;&#x8BBA;/">&#x535A;&#x5F08;&#x8BBA;</a></li></ul>
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制/">二进制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博弈论/">博弈论</a></li></ul>
 	</div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
-        <div class="article-category tagcloud">
+
+        
+	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Math/">Math</a>
 	</div>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
         <div class="clearfix"></div>
       </div>
       
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x5404;&#x79CD;&#x82B1;&#x5F0F;&#x53D6;&#x77F3;&#x5934;~</p>
+        <p>各种花式取石头~</p>
 <a id="more"></a>
-<h1>&#x5355;&#x5806;&#x95EE;&#x9898;</h1>
-<p>&#x4E00;&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x4E3A;n&#xFF0C;&#x4E24;&#x4EBA;&#x8F6E;&#x6D41;&#x53D6;&#xFF0C;&#x4E00;&#x6B21;&#x81F3;&#x5C11;&#x53D6;&#x4E00;&#x4E2A;&#x6700;&#x591A;&#x53D6;r&#x4E2A;&#xFF0C;&#x6700;&#x540E;&#x62FF;&#x5149;&#x7684;&#x83B7;&#x80DC;&#xFF0C;&#x5224;&#x65AD;&#x5148;&#x624B;&#x548C;&#x540E;&#x624B;&#x7684;&#x80DC;&#x8D1F;&#x60C5;&#x51B5;<br>
-<strong>&#x5206;&#x6790;</strong>&#xFF1A;&#x6BCF;&#x6B21;&#x6700;&#x591A;&#x53D6;r&#x4E2A;&#xFF0C;&#x90A3;&#x4E48;&#x53CC;&#x65B9;&#x4E00;&#x8F6E;&#x5185;&#x603B;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x53D6;&#x7684;&#x603B;&#x6570;&#x662F;(r+1)&#x3002;<br>
-&#x90A3;&#x4E48;&#x5148;&#x624B;&#x7684;&#x4EFB;&#x52A1;&#x662F;&#x7EF4;&#x6301;&#x5269;&#x4F59;&#x77F3;&#x5934;&#x662F;(r+1)&#x7684;&#x500D;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x79CD;&#x72B6;&#x6001;&#x89C6;&#x4E3A;&#x5E73;&#x8861;&#x6001;&#xFF0C;&#x5373;<code>n % (r+1) = 0</code>&#x3002;<br>
-&#x8FD9;&#x6837;&#x603B;&#x662F;&#x7531;&#x540E;&#x624B;&#x7834;&#x574F;&#x5E73;&#x8861;&#xFF0C;&#x4ECE;&#x800C;&#x5148;&#x624B;&#x6700;&#x7EC8;&#x6536;&#x5C3E;&#x83B7;&#x80DC;&#x3002;<br>
-&#x5982;&#x679C;&#x8D77;&#x59CB;&#x65F6;&#x77F3;&#x5934;&#x603B;&#x6570;&#x5BF9;(r+1)&#x6709;&#x4F59;&#x6570;&#xFF0C;&#x90A3;&#x4E48;&#x5148;&#x624B;&#x628A;&#x8FD9;&#x4E9B;&#x53D6;&#x5149;&#x53EF;&#x4EE5;&#x5FC5;&#x80DC;&#x3002;<br>
-&#x5982;&#x679C;&#x8D77;&#x59CB;&#x65F6;&#x77F3;&#x5934;&#x603B;&#x6570;&#x6070;&#x597D;&#x662F;(r+1)&#x7684;&#x500D;&#x6570;,&#x90A3;&#x4E48;&#x5148;&#x624B;&#x5FC5;&#x7136;&#x4F1A;&#x7834;&#x574F;&#x5E73;&#x8861;&#xFF0C;&#x540E;&#x624B;&#x53EF;&#x4EE5;&#x5FC5;&#x80DC;&#x3002;</p>
-<p><strong>&#x53D8;&#x5F62;</strong>&#xFF1A;<br>
-1.&#x4E24;&#x4E2A;&#x4EBA;&#x8F6E;&#x6D41;&#x4ECE;0&#x5F00;&#x59CB;&#x52A0;1~10&#x4E4B;&#x95F4;&#x4EFB;&#x610F;&#x6570;&#x5B57;&#xFF0C;&#x5148;&#x52A0;&#x5230;100&#x7684;&#x4EBA;&#x83B7;&#x80DC;<br>
-&#x95EE;&#x9898;&#x8F6C;&#x5316;&#x4E3A;&#x4E00;&#x5806;100&#x4E2A;&#x77F3;&#x5934;&#xFF0C;&#x6BCF;&#x6B21;&#x6700;&#x591A;&#x53D6;10&#x4E2A;</p>
-<h1>&#x591A;&#x5806;&#x95EE;&#x9898;</h1>
-<p>m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,n<sub>m</sub>&#xFF0C;&#x4E24;&#x4E2A;&#x4EBA;&#x8F6E;&#x6D41;&#x53D6;&#xFF0C;&#x4E00;&#x6B21;&#x53EA;&#x80FD;&#x9009;&#x4E00;&#x5806;&#xFF0C;&#x81F3;&#x5C11;&#x53D6;&#x4E00;&#x4E2A;&#x81F3;&#x591A;&#x53D6;&#x5168;&#x90E8;&#xFF0C;&#x6700;&#x540E;&#x62FF;&#x5149;&#x7684;&#x83B7;&#x80DC;&#xFF0C;&#x5224;&#x65AD;&#x5148;&#x624B;&#x548C;&#x540E;&#x624B;&#x7684;&#x80DC;&#x8D1F;&#x60C5;&#x51B5;<br>
-&#x8BBE;&#x51FD;&#x6570;f(n1,n2,&#x2026;,n<sub>m</sub>)&#x8868;&#x793A;m&#x5806;&#x65F6;&#x5148;&#x624B;&#x662F;&#x5426;&#x5FC5;&#x80DC;</p>
-<p><strong>&#x5206;&#x6790;</strong>&#xFF1A;<br>
-&#x95EE;&#x9898;&#x7684;&#x91CD;&#x70B9;&#x662F;&#x5982;&#x4F55;&#x8FEB;&#x4F7F;&#x5BF9;&#x624B;&#x7ED9;&#x81EA;&#x5DF1;&#x7559;&#x4E0B;&#x6700;&#x540E;&#x7684;&#x4E00;&#x5806;&#x3002;&#x5206;&#x6790;&#x4E00;&#x5806;&#x4E24;&#x5806;&#x65F6;&#x7684;&#x7B80;&#x5355;&#x60C5;&#x51B5;</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f(n) = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">if</span>(n1 &gt; <span class="number">0</span> &amp;&amp; n2 &gt; <span class="number">0</span> &amp;&amp; n1 != n2) f(n1,n2) = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//&#x5148;&#x624B;&#x603B;&#x662F;&#x4F7F;&#x5F97;&#x4E24;&#x5806;&#x76F8;&#x7B49;&#xFF0C;&#x5FC5;&#x7136;&#x7531;&#x5BF9;&#x65B9;&#x5148;&#x62FF;&#x5149;&#x4E00;&#x5806;&#xFF0C;&#x9000;&#x5316;&#x5230;f(n)&#x7684;&#x5C40;&#x9762;</span></span><br></pre></td></tr></tbody></table></figure>
-<p>&#x8003;&#x8651;&#x6BCF;&#x5806;&#x4E2A;&#x6570;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5F62;&#x5F0F;&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x4F4D;&#x4E0A;&#x8FDB;&#x884C;&#x6A21;2&#x52A0;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x5404;&#x4E2A;&#x6570;&#x4F4D;&#x7684;&#x7ED3;&#x679C;&#x90FD;&#x662F;0&#xFF0C;&#x90A3;&#x4E48;&#x89C6;&#x4E3A;&#x5E73;&#x8861;&#x6001;&#x3002;&#x6A21;2&#x52A0;&#x6CD5;&#x7B49;&#x6548;&#x4E8E;&#x5F02;&#x6216;&#xFF0C;&#x5373;<code>n1^n2^...^nm = 0</code>&#x3002;<br>
-&#x5982;&#x679C;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x662F;&#x975E;&#x5E73;&#x8861;&#xFF0C;&#x90A3;&#x4E48;&#x5148;&#x624B;&#x4EFB;&#x52A1;&#x662F;&#x53D6;&#x4E00;&#x5B9A;&#x91CF;&#x77F3;&#x5934;&#x8F6C;&#x5316;&#x4E3A;&#x5E73;&#x8861;&#x6001;&#xFF0C;&#x4ECE;&#x800C;&#x53EF;&#x4EE5;&#x5FC5;&#x80DC;&#x3002;&#x53CD;&#x4E4B;&#x521D;&#x59CB;&#x5373;&#x5E73;&#x8861;&#x90A3;&#x4E48;&#x540E;&#x624B;&#x5FC5;&#x80DC;&#x3002;</p>
-<p><strong>&#x8BC1;&#x660E;</strong>&#xFF1A;<br>
-&#x5F15;&#x7406;1&#xFF1A;&#x5E73;&#x8861;&#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x4E0B;&#x4E00;&#x6B65;&#x64CD;&#x4F5C;&#x5C06;&#x4F1A;&#x6253;&#x7834;&#x5E73;&#x8861;<br>
-&#x5F15;&#x7406;2&#xFF1A;&#x975E;&#x5E73;&#x8861;&#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x603B;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x4E00;&#x6B65;&#x64CD;&#x4F5C;&#x5230;&#x8FBE;&#x5E73;&#x8861;&#x72B6;&#x6001;<br>
-&#x8BE6;&#x7EC6;&#x53EF;&#x53C2;&#x89C1;<a href="https://en.wikipedia.org/wiki/Nim" target="_blank" rel="external">&#x7EF4;&#x57FA;&#x767E;&#x79D1;</a></p>
-<p><strong>&#x53D8;&#x5F62;</strong>&#xFF1A;<br>
-1.&#x4EFB;&#x4F55;&#x5927;&#x4E8E;1&#x7684;&#x81EA;&#x7136;&#x6570;&#x90FD;&#x53EF;&#x4EE5;&#x5206;&#x89E3;&#x6210;&#x8D28;&#x6570;&#x7684;&#x4E58;&#x79EF;&#xFF0C;&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x6570;&#x4E24;&#x4EBA;&#x8F6E;&#x6D41;&#x7528;&#x8D28;&#x6570;&#x7684;&#x5E42;&#x6B21;&#x53BB;&#x9664;&#xFF0C;&#x5148;&#x5F97;&#x5230;1&#x7684;&#x83B7;&#x80DC;<br>
-&#x4F8B;&#x5982;720=2<sup>4</sup>*3<sup>2</sup>*5<sup>1</sup>&#xFF0C;&#x95EE;&#x9898;&#x8F6C;&#x5316;&#x4E3A;&#x4E09;&#x5806;&#x77F3;&#x5934;&#x5206;&#x522B;&#x4E3A;4,2,1</p>
-<p><strong>&#x5EF6;&#x4F38;</strong><br>
-1.&#x53D8;&#x66F4;&#x80DC;&#x8D1F;&#x6761;&#x4EF6;&#xFF0C;&#x53D6;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x77F3;&#x5934;&#x7684;&#x8D1F;<br>
-&#x95EE;&#x9898;&#x7684;&#x91CD;&#x70B9;&#x662F;&#x5982;&#x4F55;&#x7ED9;&#x5BF9;&#x624B;&#x7559;&#x4E00;&#x4E2A;</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">1</span>) = <span class="keyword">false</span>;<span class="comment">//&#x522B;&#x65E0;&#x9009;&#x62E9;&#xFF0C;&#x5148;&#x624B;&#x5FC5;&#x8D25;</span></span><br><span class="line"><span class="keyword">if</span>(n &gt; <span class="number">1</span>) f(n) = <span class="keyword">true</span>;<span class="comment">//&#x62FF;n-1&#x4E2A;&#xFF0C;&#x7ED9;&#x5BF9;&#x65B9;&#x7559;&#x4E00;&#x4E2A;&#xFF0C;&#x5148;&#x624B;&#x5FC5;&#x80DC;</span></span><br><span class="line"><span class="keyword">if</span>(n &gt; <span class="number">0</span>) f(<span class="number">1</span>,n) = <span class="keyword">true</span>; <span class="comment">//&#x5148;&#x624B;&#x628A;n&#x5168;&#x62FF;&#x8D70;&#xFF0C;&#x5148;&#x624B;&#x5FC5;&#x80DC;</span></span><br><span class="line"><span class="keyword">if</span>(n1 &gt; <span class="number">1</span> &amp;&amp; n2 &gt; <span class="number">1</span> &amp;&amp; n1 != n2) f(n1,n2) = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//&#x5148;&#x624B;&#x4F7F;&#x5F97;&#x4E24;&#x5806;&#x76F8;&#x7B49;&#xFF0C;&#x5FC5;&#x7136;&#x7531;&#x5BF9;&#x65B9;&#x7834;&#x574F;&#x5E73;&#x8861;&#xFF0C;&#x6700;&#x7EC8;&#x9000;&#x5316;&#x5230;&#x4E0A;&#x9762;f(1,n)&#x548C;f(n)&#x7684;&#x5C40;&#x9762;</span></span><br></pre></td></tr></tbody></table></figure>
-<p>&#x7ED3;&#x8BBA;&#xFF1A;&#x6709;&#x5947;&#x6570;&#x4E2A;&#x5806;&#xFF0C;&#x5E76;&#x4E14;&#x6BCF;&#x5806;&#x4E3A;1&#xFF0C;&#x8FD9;&#x79CD;&#x8981;&#x7279;&#x6B8A;&#x8003;&#x8651;&#xFF0C;&#x5176;&#x4F59;&#x60C5;&#x51B5;&#x548C;&#x57FA;&#x672C;&#x95EE;&#x9898;&#x7ED3;&#x8BBA;&#x4E00;&#x81F4;</p>
-<h1>&#x5E7F;&#x4E49;&#x5206;&#x6790;</h1>
-<p>&#x4E0A;&#x8FF0;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x7EDF;&#x4E00;&#x5728;&#x4E00;&#x4E2A;&#x6846;&#x67B6;&#x4E0B;&#x3002;<br>
-m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,n<sub>m</sub>&#xFF0C;&#x4E24;&#x4E2A;&#x4EBA;&#x8F6E;&#x6D41;&#x53D6;&#xFF0C;&#x4E00;&#x6B21;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x53D6;k&#x5806;&#xFF0C;&#x6BCF;&#x5806;&#x81F3;&#x5C11;&#x53D6;&#x4E00;&#x4E2A;&#x81F3;&#x591A;&#x53D6;r&#x4E2A;&#xFF0C;&#x6700;&#x540E;&#x62FF;&#x5149;&#x7684;&#x83B7;&#x80DC;&#xFF0C;&#x5224;&#x65AD;&#x5148;&#x624B;&#x548C;&#x540E;&#x624B;&#x7684;&#x80DC;&#x8D1F;&#x60C5;&#x51B5;<br>
-&#x6B64;&#x65F6;&#x7684;&#x5E73;&#x8861;&#x6761;&#x4EF6;&#x662F;&#xFF0C;n % (r + 1)&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x8868;&#x793A;&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x4F4D;&#x8FDB;&#x884C;&#x6A21;(k+1)&#x52A0;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x4F4D;&#x4E3A;0<br>
-<strong>&#x7ED3;&#x8BBA;</strong>&#xFF1A;<code>&#x5148;&#x624B;&#x5728;&#x975E;&#x5E73;&#x8861;&#x72B6;&#x6001;&#x4E0B;&#x5FC5;&#x80DC;&#xFF0C;&#x540E;&#x624B;&#x5728;&#x5E73;&#x8861;&#x72B6;&#x6001;&#x4E0B;&#x5FC5;&#x80DC;</code></p>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+<h1 id="单堆问题">单堆问题</h1>
+<p>一堆石头个数为n，两人轮流取，一次至少取一个最多取r个，最后拿光的获胜，判断先手和后手的胜负情况<br>
+<strong>分析</strong>：每次最多取r个，那么双方一轮内总可以控制取的总数是(r+1)。<br>
+那么先手的任务是维持剩余石头是(r+1)的倍数，可以把这种状态视为平衡态，即<code>n % (r+1) = 0</code>。<br>
+这样总是由后手破坏平衡，从而先手最终收尾获胜。<br>
+如果起始时石头总数对(r+1)有余数，那么先手把这些取光可以必胜。<br>
+如果起始时石头总数恰好是(r+1)的倍数,那么先手必然会破坏平衡，后手可以必胜。</p>
+<p><strong>变形</strong>：<br>
+1.两个人轮流从0开始加1~10之间任意数字，先加到100的人获胜<br>
+问题转化为一堆100个石头，每次最多取10个</p>
+<h1 id="多堆问题">多堆问题</h1>
+<p>m堆石头个数分别为n1,n2,…,n<sub>m</sub>，两个人轮流取，一次只能选一堆，至少取一个至多取全部，最后拿光的获胜，判断先手和后手的胜负情况<br>
+设函数f(n1,n2,…,n<sub>m</sub>)表示m堆时先手是否必胜</p>
+<p><strong>分析</strong>：<br>
+问题的重点是如何迫使对手给自己留下最后的一堆。分析一堆两堆时的简单情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f(n) = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">if</span>(n1 &gt; <span class="number">0</span> &amp;&amp; n2 &gt; <span class="number">0</span> &amp;&amp; n1 != n2) f(n1,n2) = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//先手总是使得两堆相等，必然由对方先拿光一堆，退化到f(n)的局面</span></span><br></pre></td></tr></table></figure>
+<p>考虑每堆个数的二进制形式，每个数位上进行模2加法，如果各个数位的结果都是0，那么视为平衡态。模2加法等效于异或，即<code>n1^n2^...^nm = 0</code>。<br>
+如果初始状态是非平衡，那么先手任务是取一定量石头转化为平衡态，从而可以必胜。反之初始即平衡那么后手必胜。</p>
+<p><strong>证明</strong>：<br>
+引理1：平衡状态下，进行任何下一步操作将会打破平衡<br>
+引理2：非平衡状态下，总可以进行一步操作到达平衡状态<br>
+详细可参见<a href="https://en.wikipedia.org/wiki/Nim" target="_blank" rel="noopener">维基百科</a></p>
+<p><strong>变形</strong>：<br>
+1.任何大于1的自然数都可以分解成质数的乘积，给定一个数两人轮流用质数的幂次去除，先得到1的获胜<br>
+例如720=2<sup>4</sup>*3<sup>2</sup>*5<sup>1</sup>，问题转化为三堆石头分别为4,2,1</p>
+<p><strong>延伸</strong><br>
+1.变更胜负条件，取最后一个石头的负<br>
+问题的重点是如何给对手留一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">1</span>) = <span class="keyword">false</span>;<span class="comment">//别无选择，先手必败</span></span><br><span class="line"><span class="keyword">if</span>(n &gt; <span class="number">1</span>) f(n) = <span class="keyword">true</span>;<span class="comment">//拿n-1个，给对方留一个，先手必胜</span></span><br><span class="line"><span class="keyword">if</span>(n &gt; <span class="number">0</span>) f(<span class="number">1</span>,n) = <span class="keyword">true</span>; <span class="comment">//先手把n全拿走，先手必胜</span></span><br><span class="line"><span class="keyword">if</span>(n1 &gt; <span class="number">1</span> &amp;&amp; n2 &gt; <span class="number">1</span> &amp;&amp; n1 != n2) f(n1,n2) = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//先手使得两堆相等，必然由对方破坏平衡，最终退化到上面f(1,n)和f(n)的局面</span></span><br></pre></td></tr></table></figure>
+<p>结论：有奇数个堆，并且每堆为1，这种要特殊考虑，其余情况和基本问题结论一致</p>
+<h1 id="广义分析">广义分析</h1>
+<p>上述两个问题可以统一在一个框架下。<br>
+m堆石头个数分别为n1,n2,…,n<sub>m</sub>，两个人轮流取，一次最多可以取k堆，每堆至少取一个至多取r个，最后拿光的获胜，判断先手和后手的胜负情况<br>
+此时的平衡条件是，n % (r + 1)的二进制表示，每个数位进行模(k+1)加法，每个数位为0<br>
+<strong>结论</strong>：<code>先手在非平衡状态下必胜，后手在平衡状态下必胜</code></p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div>
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2016/10/07/nim-game/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2016/10/07/nim-game/">http://linest.github.io/2016/10/07/nim-game/</a></p>
+</div>
       
     </div>
     
   </div>
   
-    <nav id="article-nav">
+    
+<nav id="article-nav">
   
     <a href="/2016/10/18/grid-shortest-path/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
+      <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          &#x65B9;&#x683C;&#x6700;&#x77ED;&#x8DEF;&#x5F84;
+          方格最短路径
         
       </div>
     </a>
@@ -265,19 +305,34 @@ m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,
   
     <a href="/2016/09/13/rest-soap/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">REST vs SOAP vs RPC</div>
-      <strong class="article-nav-caption">&gt;</strong>
+      <strong class="article-nav-caption">></strong>
     </a>
   
 </nav>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
   
 </article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
 
 
 <div class="share_jia">
 	<!-- JiaThis Button BEGIN -->
 	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &#xA0; </span>
+		<span class="jiathis_txt">Share to: &nbsp; </span>
 		<a class="jiathis_button_facebook"></a> 
     <a class="jiathis_button_twitter"></a>
     <a class="jiathis_button_plus"></a> 
@@ -291,7 +346,7 @@ m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,
 	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
 	<!-- JiaThis Button END -->
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
 
 
 
@@ -315,26 +370,28 @@ m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,
 	</script>
 	<!-- 多说公共JS代码 end -->
 </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></div>
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&#xA9; 2018 Linest
+    		&copy; 2018 Linest
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> modified by <a href="#">Linest</a> with <span class="octicon octicon-heart"></span>
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
       	</div>
     </div>
   </div>
 </footer>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
     </div>
-    <script>
+    
+
+<script>
 	var yiliaConfig = {
 		fancybox: false,
 		mathjax: true,
@@ -344,7 +401,8 @@ m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false
+		open_in_new: false,
+		toc_hide_index: true
 	}
 </script>
 
@@ -367,7 +425,8 @@ m&#x5806;&#x77F3;&#x5934;&#x4E2A;&#x6570;&#x5206;&#x522B;&#x4E3A;n1,n2,&#x2026;,
 <script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
 
 
 <script type="text/x-mathjax-config">
@@ -389,8 +448,8 @@ MathJax.Hub.Queue(function() {
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script>
+
+
   </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script>
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300,"vOffset":-120},"mobile":{"show":false},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></body></html>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>
