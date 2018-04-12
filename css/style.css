@@ -2940,3 +2940,8 @@ pre .css ~ * .id {
 .donate_bar a.btn_donate:hover {
   background-position: 0px -82px;
 }
+@media screen and (min-width: 1000px) {
+  .donate_space {
+    padding-left: 100px;
+  }
+}

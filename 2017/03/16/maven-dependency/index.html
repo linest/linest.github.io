@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Maven依赖管理 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="依赖  如果一个项目包含所有功能的代码，那么无需任何依赖 然而现实中本着不重复造轮子的理念，项目往往需要依赖一些已有的库，也就是说要能运行项目，必须把已有的库引入过来 项目的依赖可以通过pom文件声明，而每一个依赖也有自己的pom,这样就构成了依赖网络图，需要注意的是不能有环形依赖 Maven具有传递依赖的特性，pom中声明了一个依赖，会根据依赖关系引入不止一个库 依赖版本管理  项目可能通过不">
+  <meta name="description" content="理清错综复杂的关系">
 <meta name="keywords" content="Maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven依赖管理">
 <meta property="og:url" content="http://linest.github.io/2017/03/16/maven-dependency/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="依赖  如果一个项目包含所有功能的代码，那么无需任何依赖 然而现实中本着不重复造轮子的理念，项目往往需要依赖一些已有的库，也就是说要能运行项目，必须把已有的库引入过来 项目的依赖可以通过pom文件声明，而每一个依赖也有自己的pom,这样就构成了依赖网络图，需要注意的是不能有环形依赖 Maven具有传递依赖的特性，pom中声明了一个依赖，会根据依赖关系引入不止一个库 依赖版本管理  项目可能通过不">
+<meta property="og:description" content="理清错综复杂的关系">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-24T11:39:06.842Z">
+<meta property="og:updated_time" content="2018-04-12T17:19:26.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven依赖管理">
-<meta name="twitter:description" content="依赖  如果一个项目包含所有功能的代码，那么无需任何依赖 然而现实中本着不重复造轮子的理念，项目往往需要依赖一些已有的库，也就是说要能运行项目，必须把已有的库引入过来 项目的依赖可以通过pom文件声明，而每一个依赖也有自己的pom,这样就构成了依赖网络图，需要注意的是不能有环形依赖 Maven具有传递依赖的特性，pom中声明了一个依赖，会根据依赖关系引入不止一个库 依赖版本管理  项目可能通过不">
+<meta name="twitter:description" content="理清错综复杂的关系">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -115,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/二进制/" style="font-size: 14px;">二进制</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 12px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/阴阳师/" style="font-size: 10px;">阴阳师</a>
+						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/二进制/" style="font-size: 14px;">二进制</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 12px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/阴阳师/" style="font-size: 12px;">阴阳师</a>
 					</div>
 				</section>
 				
@@ -220,7 +220,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <p>理清错综复杂的关系</p>
+<a id="more"></a>
 <h1 id="依赖">依赖</h1>
 <hr>
 <p>如果一个项目包含所有功能的代码，那么无需任何依赖<br>
@@ -264,7 +265,7 @@
             <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
                 <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
             </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="donate_space"></span>
             <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
                 <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
             </a>
@@ -322,25 +323,6 @@
         
     </div>
 </aside>
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
 
 
 
