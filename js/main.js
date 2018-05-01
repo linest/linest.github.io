@@ -116,4 +116,9 @@ require([], function (){
 	require(['/js/reward.js'],function(reward){
 		reward.init();
 	});
+
+	//页面修正
+	require(['/js/fix.js'],function(fix){
+		fix.exec();
+	})
 });
