@@ -116,6 +116,11 @@ require([], function (){
 	require(['/js/reward.js'],function(reward){
 		reward.init();
 	});
+	
+	//源码标签
+	require(['/js/highlight/mark.js'],function(mark) {
+		mark.addMark();
+	});		
 
 	//页面修正
 	require(['/js/fix.js'],function(fix){

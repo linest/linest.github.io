@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="LeetCode竟然开数据库的新坑了，填之~ SQL相对比较简单，就都集中写在本文吧 归纳起来比较重要的点就是如何处理连续记录，如何获取排序索引">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-24T11:39:06.842Z">
+<meta property="og:updated_time" content="2018-07-22T14:25:53.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode(数据库篇)">
 <meta name="twitter:description" content="LeetCode竟然开数据库的新坑了，填之~ SQL相对比较简单，就都集中写在本文吧 归纳起来比较重要的点就是如何处理连续记录，如何获取排序索引">
@@ -115,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hamcrest/" style="font-size: 10px;">Hamcrest</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/世界杯/" style="font-size: 10px;">世界杯</a> <a href="/tags/二进制/" style="font-size: 14px;">二进制</a> <a href="/tags/函数式/" style="font-size: 10px;">函数式</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/合集/" style="font-size: 12px;">合集</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 14px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/tags/阴阳师/" style="font-size: 12px;">阴阳师</a>
+						<a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Auth/" style="font-size: 10px;">Auth</a> <a href="/tags/Concept/" style="font-size: 10px;">Concept</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hamcrest/" style="font-size: 10px;">Hamcrest</a> <a href="/tags/Hexo扩展/" style="font-size: 16px;">Hexo扩展</a> <a href="/tags/Iterator/" style="font-size: 10px;">Iterator</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java8/" style="font-size: 10px;">Java8</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/Mustache/" style="font-size: 10px;">Mustache</a> <a href="/tags/OOP/" style="font-size: 10px;">OOP</a> <a href="/tags/Protocol/" style="font-size: 12px;">Protocol</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/Tips/" style="font-size: 10px;">Tips</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/VsCode/" style="font-size: 10px;">VsCode</a> <a href="/tags/Web-Service/" style="font-size: 10px;">Web Service</a> <a href="/tags/世界杯/" style="font-size: 10px;">世界杯</a> <a href="/tags/二进制/" style="font-size: 12px;">二进制</a> <a href="/tags/函数式/" style="font-size: 10px;">函数式</a> <a href="/tags/博弈论/" style="font-size: 10px;">博弈论</a> <a href="/tags/合集/" style="font-size: 12px;">合集</a> <a href="/tags/排列组合/" style="font-size: 10px;">排列组合</a> <a href="/tags/旅行青蛙/" style="font-size: 18px;">旅行青蛙</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/炉石/" style="font-size: 14px;">炉石</a> <a href="/tags/算数题/" style="font-size: 10px;">算数题</a> <a href="/tags/纪念币/" style="font-size: 10px;">纪念币</a> <a href="/tags/语法糖/" style="font-size: 10px;">语法糖</a> <a href="/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/tags/阴阳师/" style="font-size: 12px;">阴阳师</a>
 					</div>
 				</section>
 				
@@ -224,11 +224,13 @@
 SQL相对比较简单，就都集中写在本文吧</p>
 <p>归纳起来比较重要的点就是如何处理连续记录，如何获取排序索引</p>
 <a id="more"></a>
-<h2 id="175-combine-two-tables">175. Combine Two Tables</h2>
+<h1 id="175-combine-two-tables">175. Combine Two Tables</h1>
+<hr>
 <p>人员表和地址表，求人员对应的地址情况，即使没地址也列出<br>
 以人员为基准嘛，直接left join</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> FirstName,LastName,City,State</span><br><span class="line"><span class="keyword">FROM</span> Person p <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Address a</span><br><span class="line"><span class="keyword">ON</span> p.PersonId = a.PersonId</span><br></pre></td></tr></table></figure>
-<h2 id="176-second-highest-salary">176. Second Highest Salary</h2>
+<h1 id="176-second-highest-salary">176. Second Highest Salary</h1>
+<hr>
 <p>求第二高薪水，如果没有返回null<br>
 注意点</p>
 <ul>
@@ -241,17 +243,20 @@ SQL相对比较简单，就都集中写在本文吧</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">IFNULL</span>((<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Salary <span class="keyword">FROM</span> Employee <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> <span class="keyword">LIMIT</span> <span class="number">1</span>,<span class="number">1</span>) ,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
 <p>更通行的解法是用子查询，第二大的值是比最大值小的记录中的最大值，动用了函数，没值时会返回null</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(Salary)</span><br><span class="line"><span class="keyword">FROM</span> Employee</span><br><span class="line"><span class="keyword">WHERE</span> Salary &lt; (<span class="keyword">SELECT</span> <span class="keyword">MAX</span>(Salary) <span class="keyword">FROM</span> Employee)</span><br></pre></td></tr></table></figure>
-<h2 id="177-nth-highest-salary">177. Nth Highest Salary</h2>
+<h1 id="177-nth-highest">177. Nth Highest</h1>
+<hr>
 <p>求第n高的薪水，如果没有返回null<br>
 依然可以用limit的特性，用自定义函数没有会返回null<br>
 <code>SET N = N -1</code>直接自赋值可以省去再单独定义一个变量</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> getNthHighestSalary(N <span class="built_in">INT</span>) <span class="keyword">RETURNS</span> <span class="built_in">INT</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">SET</span> N = N <span class="number">-1</span>;</span><br><span class="line">  RETURN (</span><br><span class="line">      # Write your MySQL query statement below.</span><br><span class="line">      <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Salary <span class="keyword">FROM</span> Employee <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> <span class="keyword">LIMIT</span> N,<span class="number">1</span></span><br><span class="line">  );</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
-<h2 id="178-rank-scores">178. Rank Scores</h2>
+<h1 id="178-rank-scores">178. Rank Scores</h1>
+<hr>
 <p>分数排序，求每个分数对应排名的榜单，同分同名次，名次连续不跳跃<br>
 <code>笛卡尔积</code>可以实现双重循环的效果,对每一条记录用比较可以滤出比它大的值，分组统计数量即为排名<br>
 这个方法很有用，可以用来求Top N</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Scores.Score, <span class="keyword">COUNT</span>(Ranking.Score) <span class="keyword">AS</span> <span class="string">'Rank'</span></span><br><span class="line"><span class="keyword">FROM</span> Scores, (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Score <span class="keyword">FROM</span> Scores) Ranking</span><br><span class="line"><span class="keyword">WHERE</span> Scores.Score &lt;= Ranking.Score</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Scores.Id, Scores.Score</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Scores.Score <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="180-consecutive-numbers">180. Consecutive Numbers</h2>
+<h1 id="180-consecutive-numbers">180. Consecutive Numbers</h1>
+<hr>
 <p>求至少连续3个的数字<br>
 供操作的表给出了Id并且是连续的，这个很重要，相当于给出了数字的索引<br>
 数据库跨行的逻辑很难，同一行的逻辑比较简单，既然是连续三个，直观的方法是将三个值弄到同一行去<br>
@@ -259,19 +264,23 @@ SQL相对比较简单，就都集中写在本文吧</p>
 数据可能包含超过三个连续的情况，因而取Distinct即可<br>
 Join是非常重量级的操作，如果求连续多个(大于3)的话会比较难，也许这就是题目给出3的隐含意味？</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> l1.Num</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">Logs</span> l1</span><br><span class="line"><span class="keyword">JOIN</span> <span class="keyword">Logs</span> l2</span><br><span class="line"><span class="keyword">ON</span> l1.Id = (l2.Id - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">JOIN</span> <span class="keyword">Logs</span> l3</span><br><span class="line"><span class="keyword">ON</span> l1.Id = (l3.Id - <span class="number">2</span>)</span><br><span class="line"><span class="keyword">WHERE</span> l1.Num = l2.Num <span class="keyword">AND</span> l2.Num = l3.Num</span><br></pre></td></tr></table></figure>
-<h2 id="181-employees-earning-more-than-their-managers">181. Employees Earning More Than Their Managers</h2>
+<h1 id="181-employees-earning-more-than-their-managers">181. Employees Earning More Than Their Managers</h1>
+<hr>
 <p>求比上级挣得多的员工<br>
 员工表记录了自己的工资和上级的Id,直接把自己和上级弄到一行然后比较即可</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> emp.Name</span><br><span class="line"><span class="keyword">FROM</span> Employee emp <span class="keyword">JOIN</span> Employee mgr</span><br><span class="line"><span class="keyword">ON</span> emp.ManagerId = mgr.Id</span><br><span class="line"><span class="keyword">WHERE</span> emp.Salary &gt; mgr.Salary</span><br></pre></td></tr></table></figure>
-<h2 id="182-duplicate-emails">182. Duplicate Emails</h2>
+<h1 id="182-duplicate-emails">182. Duplicate Emails</h1>
+<hr>
 <p>检测重复的邮箱记录<br>
 根据邮箱分个组计数即可</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Email</span><br><span class="line"><span class="keyword">FROM</span> Person</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> Email</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">count</span>(*) &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="183-customers-who-never-order">183. Customers Who Never Order</h2>
+<h1 id="183-customers-who-never-order">183. Customers Who Never Order</h1>
+<hr>
 <p>求没下单的客户<br>
 给出了客户表和订单表，客户表为基准left Join一下找出null即可</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Name</span></span><br><span class="line"><span class="keyword">FROM</span> Customers <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Customers.Id = Orders.CustomerId</span><br><span class="line"><span class="keyword">WHERE</span> Orders.Id <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-<h2 id="184-department-highest-salary">184. Department Highest Salary</h2>
+<h1 id="184-department-highest-salary">184. Department Highest Salary</h1>
+<hr>
 <p>求各部门最高工资的员工<br>
 问题分三步</p>
 <ol>
@@ -281,13 +290,15 @@ Join是非常重量级的操作，如果求连续多个(大于3)的话会比较�
 </ol>
 <p>题目没要求最终输出时各部门间的顺序，没必要排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Department.Name <span class="keyword">AS</span> <span class="string">'Department'</span>, Employee.Name <span class="keyword">AS</span> <span class="string">'Employee'</span>, TopSalary.Salary</span><br><span class="line"><span class="keyword">FROM</span> Employee</span><br><span class="line"><span class="keyword">JOIN</span></span><br><span class="line">(</span><br><span class="line">  <span class="keyword">SELECT</span> DepartmentId,<span class="keyword">MAX</span>(Salary) <span class="keyword">AS</span> Salary</span><br><span class="line">  <span class="keyword">FROM</span> Employee</span><br><span class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> DepartmentId</span><br><span class="line">) TopSalary</span><br><span class="line"><span class="keyword">ON</span> Employee.DepartmentId = TopSalary.DepartmentId</span><br><span class="line"><span class="keyword">JOIN</span> Department</span><br><span class="line"><span class="keyword">ON</span> Employee.DepartmentId = Department.Id</span><br><span class="line"><span class="keyword">WHERE</span> Employee.Salary = TopSalary.Salary</span><br></pre></td></tr></table></figure>
-<h2 id="185-department-top-three-salaries">185. Department Top Three Salaries</h2>
+<h1 id="185-department-top-three-salaries">185. Department Top Three Salaries</h1>
+<hr>
 <p>求各部门工资前3的员工<br>
 和上一题类似分三步，第一步变成了求每个部门的Top3工资<br>
 利用178. Rank Scores的思路，先用子查询可以求得单员工在部门的排名情况得出排名表Chart，在此基础上求出部门的Top3工资表TopSalary<br>
 题目没要求最终输出时各部门间顺序及部门内各员工顺序，最后不用排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Department.Name <span class="keyword">AS</span> <span class="string">'Department'</span>, Employee.Name <span class="keyword">AS</span> <span class="string">'Employee'</span>, TopSalary.Salary</span><br><span class="line"><span class="keyword">FROM</span> Employee</span><br><span class="line"><span class="keyword">JOIN</span></span><br><span class="line">(</span><br><span class="line">  <span class="keyword">SELECT</span> DepartmentId,Salary <span class="keyword">FROM</span></span><br><span class="line">  (</span><br><span class="line">    <span class="keyword">SELECT</span> a.Id,a.DepartmentId,a.Salary,<span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">Rank</span></span><br><span class="line">    <span class="keyword">FROM</span> Employee a <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> DepartmentId,Salary <span class="keyword">FROM</span> Employee <span class="keyword">GROUP</span> <span class="keyword">BY</span> DepartmentId,Salary) b</span><br><span class="line">    <span class="keyword">ON</span> a.DepartmentId = b.DepartmentId</span><br><span class="line">    <span class="keyword">WHERE</span> a.Salary &lt;= b.Salary</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> a.Id,a.DepartmentId,a.Salary</span><br><span class="line">  ) Chart</span><br><span class="line">  <span class="keyword">WHERE</span> <span class="keyword">Rank</span> &lt;= <span class="number">3</span></span><br><span class="line">  <span class="keyword">GROUP</span> <span class="keyword">BY</span> DepartmentId,Salary</span><br><span class="line">) TopSalary</span><br><span class="line"><span class="keyword">ON</span> Employee.DepartmentId = TopSalary.DepartmentId</span><br><span class="line"><span class="keyword">JOIN</span> Department</span><br><span class="line"><span class="keyword">ON</span> Employee.DepartmentId = Department.Id</span><br><span class="line"><span class="keyword">WHERE</span> Employee.Salary = TopSalary.Salary</span><br></pre></td></tr></table></figure>
-<h2 id="196-delete-duplicate-emails">196. Delete Duplicate Emails</h2>
+<h1 id="196-delete-duplicate-emails">196. Delete Duplicate Emails</h1>
+<hr>
 <p>删掉重复的邮箱记录，保留Id最小的<br>
 先分组求出要保留的Id,再将之外的记录全删掉<br>
 使用not in时又包了一层，这是因为MySQL的特性，官方文档说</p>
@@ -295,11 +306,13 @@ Join是非常重量级的操作，如果求连续多个(大于3)的话会比较�
 <p>You cannot update a table and select from the same table in a subquery.</p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Person</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Id</span> <span class="keyword">NOT</span> <span class="keyword">IN</span></span><br><span class="line">(</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="keyword">Id</span> <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">MIN</span>(<span class="keyword">Id</span>) <span class="keyword">AS</span> <span class="keyword">Id</span></span><br><span class="line">    <span class="keyword">FROM</span> Person</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> Email</span><br><span class="line">  ) Reserve</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h2 id="197-rising-temperature">197. Rising Temperature</h2>
+<h1 id="197-rising-temperature">197. Rising Temperature</h1>
+<hr>
 <p>求比前一天温度高的记录<br>
 相邻记录的逻辑，和180. Consecutive Numbers思路一致</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> today.Id</span><br><span class="line"><span class="keyword">FROM</span> Weather today <span class="keyword">JOIN</span> Weather yesterday</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">DATEDIFF</span>(today.Date, yesterday.Date) = <span class="number">1</span></span><br><span class="line"><span class="keyword">WHERE</span> today.Temperature &gt; yesterday.Temperature</span><br></pre></td></tr></table></figure>
-<h2 id="262-trips-and-users">262. Trips and Users</h2>
+<h1 id="262-trips-and-users">262. Trips and Users</h1>
+<hr>
 <p>计算没被禁的顾客的订单取消率<br>
 有订单表包含顾客司机Id,状态(完成，顾客取消，司机取消)和时间<br>
 人员表用角色区分（顾客，司机，合伙人），还有标识是否被禁了<br>
@@ -343,11 +356,11 @@ Join是非常重量级的操作，如果求连续多个(大于3)的话会比较�
     
 <nav id="article-nav">
   
-    <a href="/2016/04/27/leetcode-shell/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/03/git-case-sensitive/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Leetcode(Shell篇)
+          大小写造成的404
         
       </div>
     </a>
