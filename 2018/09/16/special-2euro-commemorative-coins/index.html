@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="2欧纪念币列表，数据来源欧洲央行">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-01T10:10:21.181Z">
+<meta property="og:updated_time" content="2018-10-13T13:32:02.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2欧元纪念币">
 <meta name="twitter:description" content="2欧纪念币列表，数据来源欧洲央行">
@@ -222,49 +222,6 @@
       
         <p>2欧纪念币列表，数据来源<a href="https://www.ecb.europa.eu/euro/coins/comm/html/index.en.html" target="_blank" rel="noopener">欧洲央行</a></p>
 <a id="more"></a>
-<div id="app">
-    <v-layout row="" wrap="" pa-3="" justify-center="">
-        <v-flex xs12="" sm7="" md6="" lg3="" pb-2="" mr-5="">
-            <v-img :src="common.url"></v-img>
-        </v-flex>
-    </v-layout>
-    <template v-for="year in Object.keys(collection)">
-        <v-layout row="" wrap="">
-            <v-flex xs12="">
-                <div class="headline">($$ year $$)</div>
-            </v-flex>
-            <v-flex xs12="" v-for="coin in collection[year]">
-                <v-layout row="" wrap="" pa-3="" justify-center="">
-                    <v-flex xs12="" sm7="" md6="" lg3="" pb-2="" mr-5="">
-                        <v-img :src="coin.image"></v-img>
-                    </v-flex>
-                    <v-flex xs12="" lg8="">
-                        <div class="headline pb-1 pt-2">($$ coin.feature $$)</div>
-                        <v-divider class="mb-1"></v-divider>
-                        <v-chip>
-                            <v-icon left="">euro_symbol</v-icon>
-                            ($$ coin.volumn $$)
-                        </v-chip>
-                        <v-chip>
-                            <v-icon left="">date_range</v-icon>
-                            ($$ coin.date $$)
-                        </v-chip>
-                        <v-chip>
-                            <v-icon left="">location_on</v-icon>
-                            ($$ coin.country $$)
-                        </v-chip>
-                        <div>($$ coin.description $$)</div>
-                    </v-flex>
-                </v-layout>
-            <v-flex>
-        </v-flex></v-flex></v-layout>
-    </template>
-</div>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vuetify@1.2.4/dist/vuetify.min.js"></script>
 <script>
 const collection = {
     2004: [
@@ -377,7 +334,7 @@ const collection = {
         {
             feature:'第20个世界青年日',
             description:'硬币的中心是科隆大教堂，上面有一颗彗星。“XX GIORNATA MONDIALE DELLA GIOVENT”这个词是沿着中央的上边缘刻的，中间被彗星的尾巴和大教堂的两个尖顶分开，其中一个尖顶延伸到硬币的外环。十二颗星星被描绘成沿着外环上部的一个半圆，在顶部被发行年2005和造币厂标志“R”分开。在大教堂的中心图像下方，“CITTÀ DEL VATICANO”这个词在外环上形成了一个半圆。',
-            image:'',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2005_va.jpg',
             volumn:'10万枚',
             date:'2005.12',
             country:'梵蒂冈'
@@ -401,12 +358,13 @@ const collection = {
             country:'意大利'
         },
         {
-            feature:'石勒苏益格-荷尔斯泰因',
+            feature:'石勒苏益格-荷尔斯泰因联邦州',
             description:'硬币的中心的霍尔斯坦门是吕贝克镇的象征，下面写有“Schleswig-Holstein”一词，这是德国16个联邦州中第一个出现在欧元纪念币上的州。雕刻师的首字母“HH”在图像的右边，根据铸币厂的不同，左边可能会出现字母“A”、“D”、“F”、“G”或“J”。铸币年2006，欧盟的12颗星以及“Bundesrepublik Deutschland”的字样显示在外环上。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2006_de.jpg',
             volumn:'3000万枚',
             date:'2006.02',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'
         },
         {
             feature:'原子球塔',
@@ -456,7 +414,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2007_Germany.jpg',
             volumn:'3000万枚',
             date:'2007.02',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'罗马条约签订50周年',
@@ -514,7 +473,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2008_de.jpg',
             volumn:'3000万枚',
             date:'2008.02',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'亨利大公和官邸贝格堡',
@@ -607,12 +567,13 @@ const collection = {
             country:'欧洲多国'
         },
         {
-            feature:' 萨尔州联邦',
-            description:'这枚硬币刻画了路德维希教堂教堂，它是萨尔州首都萨尔布吕肯的象征。它展示了教堂独特的东立面和钟楼，下面有“SAARLAND”和铸币厂标记“G”。它是由Friedrich Brenner设计的，它的首字母出现在图像的右边。铸币年份2009，欧盟的12颗星和“BUNDESREPUBLIK DEUTSCHLAND”这两个词被描绘在外环上。',
+            feature:' 萨尔兰联邦州',
+            description:'这枚硬币刻画了路德维希教堂教堂，它是萨尔兰州首都萨尔布吕肯的象征。它展示了教堂独特的东立面和钟楼，下面有“SAARLAND”和铸币厂标记“G”。它是由Friedrich Brenner设计的，它的首字母出现在图像的右边。铸币年份2009，欧盟的12颗星和“BUNDESREPUBLIK DEUTSCHLAND”这两个词被描绘在外环上。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2009_de.jpg',
             volumn:'3000万枚',
             date:'2009.02',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'
         },
         {
             feature:'欧洲创新年',
@@ -678,7 +639,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_de.jpg',
             volumn:'3000万枚',
             date:'2010.01',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'大公的盾形纹章',
@@ -697,12 +659,13 @@ const collection = {
             country:'意大利'
         },
         {
-            feature:'世界文化和自然遗产--科尔多瓦历史中心',
+            feature:'世界自然和文化遗产--科尔多瓦历史中心',
             description:'这枚硬币是为了纪念科尔多瓦的历史中心，这是1984年被联合国教科文组织列入世界遗产名录的第一个西班牙地点。它描绘了科尔多瓦大清真寺的“支柱森林”，这是欧洲伊斯兰艺术最重要和最古老的代表之一。清真寺建于8世纪到10世纪之间，后来被奉为基督教大教堂，并经历了一系列的改造。这枚硬币是联合国教科文组织世界遗产名录上的西班牙地点新系列中的第一枚。从2010起每年都会发行一枚纪念币。硬币的外圈承载着欧盟的12颗星。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_es.jpg',
             volumn:'800万枚',
             date:'2010.03',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'
         },
         {
             feature:'卢布尔雅那植物园200周年',
@@ -776,7 +739,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2011_de.jpg',
             volumn:'3000万枚',
             date:'2011.01',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'荷兰哲学家、人文主义者和神学家德西德里乌斯·伊拉斯谟出版著作《愚蠢颂》500周年',
@@ -824,7 +788,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2011_es.jpg',
             volumn:'800万枚',
             date:'2011.03',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'
         },
         {
             feature:'意大利统一150周年',
@@ -896,7 +861,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2011_mt.jpg',
             volumn:'43万枚',
             date:'2011.11',
-            country:'马耳他'
+            country:'马耳他',
+            series: '马耳他宪法里程碑'
         }                                                 
     ],
     2012:[
@@ -906,7 +872,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2012_de.jpg',
             volumn:'3000万枚',
             date:'2012.01',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'“大公王朝”系列--大公亨利和大公纪尧姆四世',
@@ -930,7 +897,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2012_es.jpg',
             volumn:'800万枚',
             date:'2012.03',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'
         },
         {
             feature:'乔凡尼·帕斯科里逝世100周年',
@@ -978,7 +946,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2012_mt.jpg',
             volumn:'43万枚',
             date:'2012.09',
-            country:'马耳他'
+            country:'马耳他',
+            series: '马耳他宪法里程碑'
         },
         {
             feature:'艺术家海莲娜·夏白克诞辰150周年',
@@ -1028,7 +997,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2013_es.jpg',
             volumn:'800万枚',
             date:'2013.02',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'            
         },
         {
             feature:'波斯托伊那溶洞考察800周年',
@@ -1044,7 +1014,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2013_Germany.jpg',
             volumn:'2013.02',
             date:'3000万枚',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'贝娅特丽克丝女王宣布退位',
@@ -1172,7 +1143,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2013_Malta.jpg',
             volumn:'50万枚',
             date:'2013.10',
-            country:'马耳他'
+            country:'马耳他',
+            series: '马耳他宪法里程碑'
         },
         {
             feature:'诺贝尔奖得主弗兰斯·埃米尔·西兰帕诞辰125周年',
@@ -1198,7 +1170,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2014_Germany_Niedersachsen.jpg',
             volumn:'3000万枚',
             date:'2014.01',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'卢森堡大公国独立175周年',
@@ -1222,7 +1195,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2014_Spain.jpg',
             volumn:'800万枚',
             date:'2014.03',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'            
         },
         {
             feature:'第一次世界大战开始100周年',
@@ -1346,11 +1320,12 @@ const collection = {
         },
         {
             feature:'1964马耳他独立',
-            description:'纪念1964年马耳他独立宪法的硬币是马耳他历史上纪念宪法里程碑的五枚硬币系列中的第四枚。通过1964年的宪法，马耳他经过几百年的外国统治，首次成为一个独立的国家。这枚硬币详细地展示了1989年由艺术家Gianni Bonnici设计的纪念独立纪念碑。它展示了一个年轻女子，代表马耳他，携带马耳他国旗。右边是半圆形的铭文“MALTA — Independence 1964”，底部是发行年“2014”。硬币的外圈承载着欧盟的12颗星。',
+            description:'纪念1964年马耳他独立的硬币是马耳他纪念宪法历史上里程碑的五枚硬币系列中的第四枚。通过1964年的宪法，马耳他经过几百年的外国统治，首次成为一个独立的国家。这枚硬币详细地展示了1989年由艺术家Gianni Bonnici设计的纪念独立纪念碑。它展示了一个年轻女子，代表马耳他，携带马耳他国旗。右边是半圆形的铭文“MALTA — Independence 1964”，底部是发行年“2014”。硬币的外圈承载着欧盟的12颗星。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2014_Malta_2.jpg',
             volumn:'40万枚',
             date:'2014.10',
-            country:'马耳他'
+            country:'马耳他',
+            series: '马耳他宪法里程碑'
         },
         {
             feature:'国际家庭农业年',
@@ -1448,7 +1423,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2015_de_Hessen.jpg',
             volumn:'3000万枚',
             date:'2015.01',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'德国统一25周年',
@@ -1459,12 +1435,13 @@ const collection = {
             country:'德国'
         },
         {
-            feature:'联合国自然和文化遗产--阿尔塔米拉洞窟',
+            feature:'世界自然和文化遗产--阿尔塔米拉洞窟',
             description:'该设计描绘了位于坎塔布里亚的阿尔塔米拉洞穴的野牛壁画。在图像的上面，环形大写单词“ESPAÑA”，底部有发行年份“2015”，右侧有铸币标记。硬币的外圈承载着欧盟的12颗星。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2015_Spain.jpg',
             volumn:'800万枚',
             date:'2015.02',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'
         },
         {
             feature:'2015米兰世界博览会',
@@ -1485,7 +1462,7 @@ const collection = {
         {
             feature:'马耳他首次飞行',
             description:'这枚硬币纪念了马耳他航空史上的一个重要里程碑——马耳他首次飞行的100周年。在1915年2月13日，机长Kilmer从皇家方舟号航母上起飞了水上飞机。飞机在55分钟的飞行后降落在港口。这枚硬币描绘了机长Kilmer的水上飞机和圣格莱亚，它是大港的一个显著的特征。在顶部有半圆形铭文“FIRST FLIGHT FROM MALTA”。右侧有年份“1915-2015”。在左下方有铭文“100TH ANNIVERSARY”，最底部有设计师首字母“NGB”（Noel Galea Bason）。硬币的外圈承载着欧盟的12颗星。',
-            image:'',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2015_Malta.jpg',
             volumn:'30万枚',
             date:'2015.03',
             country:'马耳他'
@@ -1557,10 +1534,11 @@ const collection = {
         {
             feature:'1974马耳他共和国',
             description:'硬币是纪念马耳他宪法里程碑系列五枚中的最后一枚。马耳他议会绝大多数人同意修改宪法，于1974年12月13日宣布建立共和国，。这个设计重现了一块贴在瓦莱塔总统府的正面的大理石碑以纪念马耳他从君主制向共和制的转变。在右上角有半圆形铭文“MALTA — Republic 1974”。在底部是年份“2015”。硬币的外圈承载着欧盟的12颗星。',
-            image:'',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2015_Malta_Republic1974.jpg',
             volumn:'40万枚',
             date:'2015.09',
-            country:'马耳他'
+            country:'马耳他',
+            series: '马耳他宪法里程碑'
         },
         {
             feature:'纪念Spyros Louis逝世75周年',
@@ -1682,7 +1660,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2016_spain.jpg',
             volumn:'800万枚',
             date:'2016.02',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'            
         },
         {
             feature:'萨克森联邦州',
@@ -1690,7 +1669,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2016_germany.jpg',
             volumn:'3000万枚',
             date:'2016.12',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'夏洛特女大公桥建成50周年',
@@ -1711,7 +1691,7 @@ const collection = {
         {
             feature:'奥林匹克运动会',
             description:'硬币的内部从上到下描绘了一个艺术化图案，奥运五环和铭文“TEAM BELGIUM”。年份2016位于硬币的左手边。国家代码“BE”出现在硬币的右侧，在布鲁塞尔造币厂的标志、天使长米迦勒的戴头盔轮廓和造币厂长的签名标志之间。硬币的外圈承载着欧盟的12颗星。',
-            image:'',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2016_belgium.jpg',
             volumn:'37.5万枚',
             date:'2016.03',
             country:'比利时'
@@ -1948,7 +1928,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2017_germany_rhineland.jpg',
             volumn:'3000万枚',
             date:'2017.02',
-            country:'德国'
+            country:'德国',
+            series: '德国联邦州'            
         },
         {
             feature:'世界自然和文化遗产--阿斯图里亚斯王国的教堂',
@@ -1956,7 +1937,8 @@ const collection = {
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2017_spain_asturias.jpg',
             volumn:'400万枚',
             date:'2017.02',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'            
         },
         {
             feature:'乔托诞辰750周年',
@@ -2225,12 +2207,13 @@ const collection = {
             country:'立陶宛,拉脱维亚,爱沙尼亚'
         },
         {
-            feature:'联合国自然和文化遗产--圣地亚哥',
+            feature:'世界自然和文化遗产--圣地亚哥',
             description:'圣地亚哥-德孔波斯特拉市在1985年被联合国教科文组织宣布成为世界文化遗产，因为它的城市美感和纪念的完整性以及圣雅各之路对中世纪精神和文化产生的深远影响。圣雅各之路是一个庞大的古代朝圣者路线网络，横跨欧洲，汇集在西班牙西北部的圣地亚哥-德孔波斯特拉市的圣雅各墓地。该设计重现了圣地亚哥大教堂圣门前的雕像。左边是半圆形的单词“ESPAÑA”，左下角是发行年份“2018”，下面是铸币标记。硬币的外圈承载着欧盟的12颗星。',
             image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2018_spain_santiago.jpg',
             volumn:'30万枚',
             date:'2018.02',
-            country:'西班牙'
+            country:'西班牙',
+            series: '西班牙世界遗产'
         }, 
         {
             feature:'国王费利佩六世50岁寿辰',
@@ -2254,13 +2237,153 @@ const collection = {
             country:''
         },
 */
-
+</script>
+<div id="app">
+    <v-app color="white">
+        <v-dialog v-model="dialog" width="500">
+            <v-card>
+                <v-card-title :class="colors[active]" class="title white--text">
+                    ($$ modeCaptions[active] $$)
+                </v-card-title>
+                <v-card-text>
+                    <select id="select" v-model="value" @change="filterChange()">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="option in options" :value="option">($$ option $$)</option>
+                    </select>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <v-layout row="" wrap="" pa-3="">
+            <v-flex xs12="" sm7="" md6="" lg3="" pb-2="" mr-5="">
+                <v-img :src="common.url"></v-img>
+            </v-flex>
+            <v-spacer></v-spacer>
+        </v-layout>
+        <div id="mark"></div>
+        <template v-for="year in Object.keys(collection)">
+            <v-layout row="" wrap="">
+                <v-flex xs12="" v-show="showYear(collection[year])">
+                    <div class="headline">($$ year $$)</div>
+                </v-flex>
+                <v-flex xs12="" v-for="coin in collection[year]" v-show="showCoin(coin)">
+                    <v-layout row="" wrap="" pa-3="" justify-center="">
+                        <v-flex xs12="" sm7="" md6="" lg3="" pb-2="" mr-5="">
+                            <v-img :src="coin.image"></v-img>
+                        </v-flex>
+                        <v-flex xs12="" lg8="">
+                            <div class="headline pb-1 pt-2">($$ coin.feature $$)</div>
+                            <v-divider class="mb-1"></v-divider>
+                            <v-chip>
+                                <v-icon left="">euro_symbol</v-icon>
+                                ($$ coin.volumn $$)
+                            </v-chip>
+                            <v-chip>
+                                <v-icon left="">date_range</v-icon>
+                                ($$ coin.date $$)
+                            </v-chip>
+                            <v-chip>
+                                <v-icon left="">location_on</v-icon>
+                                ($$ coin.country $$)
+                            </v-chip>
+                            <div>($$ coin.description $$)</div>
+                        </v-flex>
+                    </v-layout>
+                <v-flex>
+            </v-flex></v-flex></v-layout>
+        </template>
+        <v-speed-dial v-model="filter" fixed="" bottom="" right="">
+            <v-btn v-model="filter" slot="activator" :color="colors[active]" dark="" fab="">
+                <v-icon>($$ icons[active] $$)</v-icon>
+            </v-btn>
+            <v-btn v-show="active != 0" fab="" dark="" small="" color="grey" @click="active=0">
+                <v-icon>close</v-icon>
+            </v-btn>            
+            <v-btn v-for="i in 3" v-show="active != i" fab="" dark="" small="" :color="colors[i]" @click="active=i;dialog=true">
+                <v-icon>($$ icons[i] $$)</v-icon>
+            </v-btn>
+        </v-speed-dial>
+        <v-chip id="chip" v-show="active != 0" @click="dialog=true" :color="colors[active]" text-color="white">($$ value $$)</v-chip>
+    </v-app>
+</div>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vuetify@1.2.4/dist/vuetify.min.js"></script>
+<script>
 new Vue({
     el: '#app',
     data: {
+        dialog: false,
+        active: 0,
+        value: '',
+        colors: ['blue','green','indigo','red'],
+        icons: ['visibility','date_range','location_on','category'],
+        modes: ['all','year','country','series'],
+        modeCaptions: ['全部','发行年','发行国','系列'],
+        filter: false,
         collection: collection,
-        common: { 
+        common: {
             url:'https://www.ecb.europa.eu/euro/coins/common/shared/img/common_2euro_800.jpg'
+        }
+    },
+    computed: {
+        year: function() {
+            return Object.keys(this.collection)
+        },
+        country: function() {
+            var list = []
+            var allCoins = Object.values(this.collection)
+            for(i in allCoins){
+                var yearCoins = allCoins[i]
+                for(j in yearCoins){
+                    var coin = yearCoins[j]
+                    if(list.indexOf(coin.country) == -1){
+                        list.push(coin.country)
+                    }
+                }
+            }
+            return list
+        },
+        series: function() {
+            var list = []
+            var allCoins = Object.values(this.collection)
+            for(i in allCoins){
+                var yearCoins = allCoins[i]
+                for(j in yearCoins){
+                    var coin = yearCoins[j]
+                    if(coin.hasOwnProperty('series') && list.indexOf(coin.series) == -1){
+                        list.push(coin.series)
+                    }
+                }
+            }
+            return list
+        },
+        options: function() {
+            return this[this.modes[this.active]] || []
+        }
+    },
+    methods: {
+        showCoin: function(coin) {
+            if(!this.value) return true
+            switch(this.modes[this.active]) {
+                case 'all':
+                    return true
+                case 'year':
+                    return coin.date.startsWith(this.value)
+                case 'country':
+                    return coin.country.indexOf(this.value) != -1
+                case 'series':
+                    return coin.hasOwnProperty('series') && coin.series === this.value
+            }
+        },
+        showYear: function(coins) {
+            var that = this
+            return coins.some(function(x) { that.showCoin(x) })
+        },
+        filterChange: function() {
+            document.getElementById('mark').scrollIntoView()
+            this.dialog = false
         }
     },
     delimiters: ["($$","$$)"]
@@ -2272,6 +2395,27 @@ new Vue({
 }
 ol, ul {
     padding-left: 0px;
+}
+
+.wrap-side-operation {
+    display:none;
+}
+
+#select {
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
+    width:95%;
+}
+
+#chip {
+    position:fixed;
+    right:80px;
+    bottom:18px;
+    z-index:4;
+}
+
+.theme--light.application {
+    background: white;
 }
 </style>
         
@@ -2336,28 +2480,6 @@ ol, ul {
 </aside>
 
 
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="special-2euro-commemorative-coins" data-title="2欧元纪念币" data-url="http://linest.github.io/2018/09/16/special-2euro-commemorative-coins/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"linest"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
 
 
 
@@ -2437,7 +2559,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript" src="/js/mathjax/MathJax.js">
 </script>
 
 
