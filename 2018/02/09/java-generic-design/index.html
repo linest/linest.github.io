@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="不定类型的公共框架">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-24T15:26:27.072Z">
+<meta property="og:updated_time" content="2018-11-23T13:07:44.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 泛型设计">
 <meta name="twitter:description" content="不定类型的公共框架">
@@ -232,16 +232,9 @@
 <p>PECS(Producer Extends Consumer Super)原则<br>
 生产者输出内容，使用extends方便下游读取，消费者输入内容，使用super方便处理写入</p>
 </blockquote>
-<h1 id="无限制通配与不指定的区别">无限制通配与不指定的区别</h1>
-<hr>
-<p>List和List&lt;?&gt;都可以容纳任何类型</p>
-<ul>
-<li>List不指定任何类型，同时具有读写能力，但是写入时会报Raw Type类型安全的警告</li>
-<li>List&lt;?&gt;通配符限制了写入能力，只能读取</li>
-</ul>
 <h1 id="类型擦除">类型擦除</h1>
 <hr>
-<p>泛型在编译期进行约束，可以静态检查，但是考虑到兼容性，类型信息在真正运行时会被抹去</p>
+<p>泛型在编译期进行约束，可以静态检查，但是考虑到老代码兼容性，类型信息在真正运行时会被抹去</p>
 <p>虽然两个列表看上去是不同类型的，但是运行时都是加载同一个类java.util.ArrayList，没有类型信息</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; intList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; stringList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">System.out.println(intList.getClass() == stringList.getClass());  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 <p>重载失败,因为类型抹掉后参数类型是一样的</p>
@@ -280,7 +273,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;?&gt;[] listArray = <span class="keyword">new</span> ArrayList&lt;?&gt;[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
 <h1 id="enum">enum</h1>
 <hr>
-<p>描述enum类型的类定义为<code>Class&lt;? extends Enum&lt;?&gt;&gt;</code></p>
+<p>描述enum类型的类定义为<figure class="highlight plain"><figcaption><span>extends Enum<?>>```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># `List&lt;?&gt;`,`List&lt;Object&gt;`和`List`区别</span><br><span class="line">---</span><br><span class="line">表面上看，三者都可以容纳任何类型  </span><br><span class="line">* List不指定任何类型，称为Raw Type,同时具有读写能力，但是写入时会报Raw Type类型安全的警告</span><br><span class="line">* List&lt;Object&gt;明确了泛型类型，具备读写能力</span><br><span class="line">* List&lt;?&gt;通配符限制了写入能力，只能读取</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">不指定参数类型的方式只用于兼容没有泛型时的旧代码，不应该混用，使用Raw类型会丧失泛型功能，还有可能造成编译错误</span><br><span class="line">```java</span><br><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@interface Label &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Label</span><br><span class="line">public class Test &#123;</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		Class&lt;?&gt; c1 = Class.forName(&quot;test.Test&quot;);</span><br><span class="line">		Label label1 = c1.getAnnotation(Label.class);</span><br><span class="line"></span><br><span class="line">		Class c2 = Class.forName(&quot;test.Test&quot;);</span><br><span class="line">		Label label2 = c2.getAnnotation(Label.class);  //Type mismatch: cannot convert from Annotation to Label</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         
     <div class="donate_module">
@@ -356,7 +349,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型"><span class="toc-number">1.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型类与接口"><span class="toc-number">2.</span> <span class="toc-text">泛型类与接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法泛型"><span class="toc-number">3.</span> <span class="toc-text">方法泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不定类型返回值"><span class="toc-number">4.</span> <span class="toc-text">不定类型返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型约束"><span class="toc-number">5.</span> <span class="toc-text">泛型约束</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无限制通配与不指定的区别"><span class="toc-number">6.</span> <span class="toc-text">无限制通配与不指定的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类型擦除"><span class="toc-number">7.</span> <span class="toc-text">类型擦除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行时获取泛型类型"><span class="toc-number">8.</span> <span class="toc-text">运行时获取泛型类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合间继承关系"><span class="toc-number">9.</span> <span class="toc-text">集合间继承关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-number">10.</span> <span class="toc-text">泛型数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enum"><span class="toc-number">11.</span> <span class="toc-text">enum</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型"><span class="toc-number">1.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型类与接口"><span class="toc-number">2.</span> <span class="toc-text">泛型类与接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法泛型"><span class="toc-number">3.</span> <span class="toc-text">方法泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不定类型返回值"><span class="toc-number">4.</span> <span class="toc-text">不定类型返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型约束"><span class="toc-number">5.</span> <span class="toc-text">泛型约束</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类型擦除"><span class="toc-number">6.</span> <span class="toc-text">类型擦除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行时获取泛型类型"><span class="toc-number">7.</span> <span class="toc-text">运行时获取泛型类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合间继承关系"><span class="toc-number">8.</span> <span class="toc-text">集合间继承关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-number">9.</span> <span class="toc-text">泛型数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enum"><span class="toc-number">10.</span> <span class="toc-text">enum</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -425,6 +418,6 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
