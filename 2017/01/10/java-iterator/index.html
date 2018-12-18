@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="通用遍历模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-29T05:32:35.218Z">
+<meta property="og:updated_time" content="2018-12-01T08:18:40.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Iterator">
 <meta name="twitter:description" content="通用遍历模式">
@@ -189,11 +189,14 @@
 <a id="more"></a>
 <h1 id="遍历">遍历</h1>
 <hr>
+<p>链表遍历</p>
 <ul>
-<li>如果底层基于数组，一般使用索引遍历</li>
-<li>如果底层基于链表，一般使用next方法遍历<br>
-Java5提供了通用的遍历模式<code>foreach</code>，无需知道内部结构，直接遍历</li>
+<li>如果底层基于数组，比如<code>ArrayList</code>，使用下标索引遍历性能最好，使用迭代器也能接受</li>
+<li>如果底层基于链表，比如<code>LinkedList</code>，使用迭代器遍历性能最好，但是使用下标索引不可接受</li>
 </ul>
+<p>集合操作类中使用了<code>RamdomAccess</code>作为区分选择遍历模式</p>
+<figure class="highlight java"><figcaption><span>Collection.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">fill</span><span class="params">(List&lt;? <span class="keyword">super</span> T&gt; list, T obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = list.size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (size &lt; FILL_THRESHOLD || list <span class="keyword">instanceof</span> RandomAccess) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++)</span><br><span class="line">            list.set(i, obj);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ListIterator&lt;? <span class="keyword">super</span> T&gt; itr = list.listIterator();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">            itr.next();</span><br><span class="line">            itr.set(obj);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java5提供了通用的遍历模式<code>foreach</code>，无需知道内部结构，直接遍历</p>
 <h1 id="iterable">Iterable</h1>
 <hr>
 <p><code>foreach</code>遍历集合实际是基于<code>Iterable</code>接口，集合类都实现了这一接口</p>
@@ -379,6 +382,6 @@ Java5提供了通用的遍历模式<code>foreach</code>，无需知道内部结�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

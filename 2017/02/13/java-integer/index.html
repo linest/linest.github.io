@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="Integer是底层int的包装类，给数字装备了各种操作方法">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-29T05:32:35.216Z">
+<meta property="og:updated_time" content="2018-12-16T11:43:35.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Integer">
 <meta name="twitter:description" content="Integer是底层int的包装类，给数字装备了各种操作方法">
@@ -204,7 +204,8 @@
 <figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lowestOneBit</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// HD, Section 2-1</span></span><br><span class="line">    <span class="keyword">return</span> i &amp; -i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="valueof装箱">ValueOf装箱</h1>
 <hr>
-<p>valueOf并不总是创建新的对象，维护缓存，[-128, 127]之间都是返回缓存</p>
+<p>valueOf并不总是创建新的对象，维护缓存，[-128, 127]之间都是返回缓存<br>
+JVM参数<code>-XX:AutoBoxCacheMax</code>可以改变缓存范围，只针对Integer类型生效</p>
 <figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>valueOf就是装箱的本质</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">100</span>, b = <span class="number">100</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true,缓存范围，都是同一对象</span></span><br><span class="line">System.out.println(a == <span class="keyword">new</span> Integer(<span class="number">100</span>)); <span class="comment">//false,new总是创建新对象</span></span><br><span class="line">Integer c = <span class="number">200</span>, d = <span class="number">200</span>;</span><br><span class="line">System.out.println(c == d); <span class="comment">//false，超出范围，创建不同对象</span></span><br></pre></td></tr></table></figure>
@@ -346,6 +347,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

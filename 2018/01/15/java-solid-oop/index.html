@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="面向对象原则">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-24T15:38:42.292Z">
+<meta property="og:updated_time" content="2018-12-16T07:44:04.743Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Solid原则">
 <meta name="twitter:description" content="面向对象原则">
@@ -189,11 +189,11 @@
 <a id="more"></a>
 <h1 id="单一职责-single-responsibility">单一职责(<code>S</code>ingle Responsibility)</h1>
 <hr>
-<p>高内聚，一个类只干一件事</p>
+<p>高内聚，一个类只干一件事,低耦合，影响范围小</p>
 <h1 id="开闭原则-open-close">开闭原则(<code>O</code>pen-Close)</h1>
 <hr>
-<p>开放扩展，封闭修改。可以在不修改现有代码的情况下加入新功能。</p>
-<p>策略模式</p>
+<p>开放扩展，封闭修改。可以在不修改现有代码的情况下加入新功能，保持原逻辑稳定性，提升代码复用性。</p>
+<p>面向接口的编程，使用设计模式比如策略模式，装饰器等等</p>
 <h1 id="里氏替换-liskov-subtitution">里氏替换(<code>L</code>iskov Subtitution)</h1>
 <hr>
 <p>程序逻辑中使用父类的地方可以透明的替换成子类，子类可以扩展父类，不要改变父类原有行为</p>
@@ -208,7 +208,7 @@
 <p>接口要小而专，因为接口中的所有方法必须要实现，大而全的接口会造成类不需要某些方法</p>
 <h1 id="依赖倒转-dependence-inversion">依赖倒转(<code>D</code>ependence Inversion)</h1>
 <hr>
-<p>针对接口编程，不针对实现</p>
+<p>针对接口编程，不依赖具体实现</p>
 <h1 id="迪米特法则-law-of-demeter">迪米特法则(Law of Demeter)</h1>
 <hr>
 <p>最少知识原则(Least Knowledge Principle, LKP)，对象只暴露简单方法，封装内部复杂逻辑，降低类间耦合，严控访问权限<br>
@@ -224,6 +224,13 @@
 <p>缺点：<br>
 由于只和直接朋友交互，如果想调用另一模块的方法，那么需要包装出很多用于传递调用的类或方法，一定程度上增加了复杂度，过多的传递降低通信效率</p>
 <p>门面模式，调停者模式</p>
+<h1 id="组合-聚合复用原则-composite-aggregate-reuse-principle-carp">组合/聚合复用原则（Composite/Aggregate Reuse Principle CARP）</h1>
+<hr>
+<p>组合优于继承</p>
+<ul>
+<li>继承只能单继承扩展性受限</li>
+<li>父类方法子类不一定全部需要</li>
+</ul>
 
         
     <div class="donate_module">
@@ -355,6 +362,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

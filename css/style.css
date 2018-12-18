@@ -1047,10 +1047,14 @@ code {
 }
 .article-entry h1 {
   margin-top: 30px;
+  font-weight: 600;
+}
+.article-entry h1:before {
+  content: '§ ';
 }
 .article-entry h2 {
   margin-top: 20px;
-  font-weight: 300;
+  font-weight: 600;
   color: #574c4c;
   padding-bottom: 5px;
 }

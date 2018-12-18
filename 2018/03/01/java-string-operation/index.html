@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="常见的字符串操作问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-20T07:46:46.452Z">
+<meta property="og:updated_time" content="2018-12-01T08:18:40.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java字符串操作">
 <meta name="twitter:description" content="常见的字符串操作问题">
@@ -193,10 +193,13 @@
 <h1 id="字符串拼接">字符串拼接</h1>
 <hr>
 <p><code>+</code>的背后是StringBuilder,如果拼接的字符串很多，那么StringBuilder有优势</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String c = a + b;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"foo"</span>;</span><br><span class="line">String b = <span class="string">"bar"</span>;</span><br><span class="line">String c = a + b;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">sb.append(a);</span><br><span class="line">sb.append(b);</span><br><span class="line">String c = sb.toString();</span><br></pre></td></tr></table></figure>
 <p>但是如果只是两个字符串拼接，那么创建StringBuilder就有点浪费,直接使用String#contact方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String c = a.contact(b);</span><br></pre></td></tr></table></figure>
+<p>上述方法都是针对字符变量而言，如果是常量，直接使用<code>+</code>反而最快，因为直接在编译期优化,运行时已经合为一体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String helloWorld = <span class="string">"hello"</span>+<span class="string">"world"</span>;</span><br></pre></td></tr></table></figure>
+<p>如果在循环中使用<code>+</code>进行连续拼接,那么每次循环都会生成独立的<code>StringBuilder</code>，此时需要在循环外显式操作<code>StringBuilder</code>,并且如果能提前预知结果大小，提前分配容量可以提升性能</p>
 <h1 id="双端空白清除">双端空白清除</h1>
 <hr>
 <p>JDK trim</p>
@@ -363,6 +366,6 @@ lastIndexOf</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

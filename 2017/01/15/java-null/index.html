@@ -15,7 +15,7 @@
 <meta property="og:description" content="java.lang.NullPointerException">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://twemoji.maxcdn.com/2/72x72/1f635.png">
-<meta property="og:updated_time" content="2018-07-23T14:45:38.847Z">
+<meta property="og:updated_time" content="2018-12-16T07:44:04.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于null">
 <meta name="twitter:description" content="java.lang.NullPointerException">
@@ -193,12 +193,13 @@
 好的编程习惯可以减少这类异常的发生</p>
 <h1 id="返回值">返回值</h1>
 <hr>
-<p>函数的返回值不要设计成返回null， 设计成null势必需要调用者进行检查，阻碍链式调用<br>
+<p>函数的返回值尽量不要设计成返回null， 设计成null势必需要调用者进行检查，阻碍链式调用<br>
 如果没有特殊原因，可以返回空值代替null</p>
 <ul>
 <li>字符串类型：Commons-lang的StringUtils可以返回空字符串StringUtils.EMPTY</li>
 <li>数组类型：Commons-lang的ArrayUtils可以返回一系列空数组如ArrayUtils.EMPTY_INT_ARRAY</li>
-<li>集合类型：Java自带的Collections可以返回空集合,并且都是不可变的，如Collections.emptyMap(),Collections.emptySet(),Collections.emptyList()</li>
+<li>集合类型：Java自带的Collections可以返回空集合,并且都是不可变的，如Collections.emptyMap(),Collections.emptySet(),Collections.emptyList()<br>
+如果方法一定要返回null,应该详细注释</li>
 </ul>
 <h1 id="optional">Optional</h1>
 <hr>
@@ -233,7 +234,7 @@ Optional顾名思义就是可选值，也就是表示可能有null存在。语�
 <hr>
 <p>因为对等性a.equals(b)和b.equals(a)效果是一样的,但是已知量在前可以避免NullPointer。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"abc"</span>.equals(str); <span class="comment">//str为null,返回false</span></span><br><span class="line">str.equals(<span class="string">"abc"</span>); <span class="comment">//str为null,报NullPointer异常</span></span><br></pre></td></tr></table></figure>
-<p>Java7 Objects.equals()<br>
+<p>Java7 <code>Objects.equals</code><br>
 内部处理null逻辑，使用时可以无视顺序</p>
 <figure class="highlight java"><figcaption><span>Objects.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="tostring">toString</h1>
@@ -241,20 +242,27 @@ Optional顾名思义就是可选值，也就是表示可能有null存在。语�
 <p>尽量不用str.toString(),可以使用String.valueOf(str)<br>
 可以看出valueOf方法也是最终调用toString(),但好处是包含了null值检查</p>
 <figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (obj == <span class="keyword">null</span>) ? <span class="string">"null"</span> : obj.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Java7 Objects.toString()<br>
+<p>Java7 <code>Objects.toString</code><br>
 toString名字比较直观，为了继续使用，再包装一层</p>
 <figure class="highlight java"><figcaption><span>Objects.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> String.valueOf(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还可以在null值时使用替代值</p>
 <figure class="highlight java"><figcaption><span>Objects.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(Object o, String nullDefault)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (o != <span class="keyword">null</span>) ? o.toString() : nullDefault;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="参数null检查">参数null检查</h1>
+<h1 id="null防卫">null防卫</h1>
 <hr>
 <p>检查到是null就抛出NullPointerException<br>
-Java7 Objects.requireNotNULL()</p>
+Java7 <code>Objects.requireNotNULL</code></p>
 <figure class="highlight java"><figcaption><span>Objects.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">requireNonNull</span><span class="params">(T obj, String message)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(message);</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="null判断">null判断</h1>
 <hr>
 <p>如果厌倦了<code>obj == null</code>这种判断,还可以采用Objects类在Java8中提供的方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNull</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj == <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">nonNull</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj != <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>多值情况下可以用<code>commons.lang3</code>中<code>ObjectUtils.allNotNull</code>和<code>ObjectUtils.anyNotNull</code></p>
+<h1 id="null替换默认值">null替换默认值</h1>
+<hr>
+<p><code>commons.lang3</code>中<code>ObjectUtils.defaultIfNull</code><br>
+典型的情况是数字拆箱</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer objValue = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">int</span> rawValue = ObjectUtils.defaultIfNull(objValue,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
         
     <div class="donate_module">
         <div id="donate_board" class="donate_bar">
@@ -329,7 +337,7 @@ Java7 Objects.requireNotNULL()</p>
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#返回值"><span class="toc-number">1.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#optional"><span class="toc-number">2.</span> <span class="toc-text">Optional</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#equals比较"><span class="toc-number">3.</span> <span class="toc-text">equals比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tostring"><span class="toc-number">4.</span> <span class="toc-text">toString</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参数null检查"><span class="toc-number">5.</span> <span class="toc-text">参数null检查</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null判断"><span class="toc-number">6.</span> <span class="toc-text">null判断</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#返回值"><span class="toc-number">1.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#optional"><span class="toc-number">2.</span> <span class="toc-text">Optional</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#equals比较"><span class="toc-number">3.</span> <span class="toc-text">equals比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tostring"><span class="toc-number">4.</span> <span class="toc-text">toString</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null防卫"><span class="toc-number">5.</span> <span class="toc-text">null防卫</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null判断"><span class="toc-number">6.</span> <span class="toc-text">null判断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null替换默认值"><span class="toc-number">7.</span> <span class="toc-text">null替换默认值</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -398,6 +406,6 @@ Java7 Objects.requireNotNULL()</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
