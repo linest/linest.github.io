@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="点 线 面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-24T15:42:11.845Z">
+<meta property="og:updated_time" content="2018-12-23T14:32:50.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java AOP">
 <meta name="twitter:description" content="点 线 面">
@@ -212,6 +212,13 @@
 </ul>
 </li>
 </ul>
+<h1 id="静态代理">静态代理</h1>
+<hr>
+<p>手动维护代理类，代理类和目标实现同一接口</p>
+<ul>
+<li>额外维护很多代理类，实现所有接口方法可能很繁杂</li>
+<li>目标添加方法，代理类也要同步修改</li>
+</ul>
 <h1 id="jdk-动态代理">JDK 动态代理</h1>
 <hr>
 <p>运行时生成具备一组接口的新类，该类继承java.lang.reflect.Proxy<br>
@@ -221,6 +228,7 @@
 <li>目标必须实现接口</li>
 <li>需要InvocationHandler</li>
 </ul>
+<p>生成代理所需参数：目标类的加载器，目标接口数组，处理器</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; target = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;String, String&gt; proxy = (Map&lt;String, String&gt;)Proxy.newProxyInstance(</span><br><span class="line">                Map.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123; Map.class &#125;, <span class="keyword">new</span> UppercaseValueHandler(target));</span><br><span class="line">        proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">        System.out.println(proxy.getClass().getName()); <span class="comment">// com.sun.proxy.$Proxy0</span></span><br><span class="line">        System.out.println(target); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UppercaseValueHandler</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        target = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">            String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">            args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="cglib-动态代理">CGLIB 动态代理</h1>
 <hr>
@@ -306,7 +314,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Linest
+    		&copy; 2019 Linest
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
@@ -356,6 +364,6 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

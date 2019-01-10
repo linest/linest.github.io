@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="通用遍历模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-01T08:18:40.325Z">
+<meta property="og:updated_time" content="2018-12-23T14:19:07.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Iterator">
 <meta name="twitter:description" content="通用遍历模式">
@@ -215,6 +215,15 @@
 <li>数量无关，不能提前知道总量有多少</li>
 <li>不可逆，如果没有特殊实现，<code>Iterator</code>一次性使用，前进后不能倒退。如果需要多次遍历，使用<code>Iterable</code>,可再生出新的迭代器</li>
 </ul>
+<h1 id="子类">子类</h1>
+<hr>
+<p>专为list设计的迭代器</p>
+<ul>
+<li>支持双向遍历</li>
+<li>支持获取索引</li>
+<li>支持增删改操作</li>
+</ul>
+<figure class="highlight java"><figcaption><span>ListIterator.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListIterator</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasPrevious</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">previous</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">nextIndex</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">previousIndex</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(E e)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="扩展">扩展</h1>
 <hr>
 <p>可以使用装饰器模式改变迭代器的行为,在外部看来还是普通的迭代器，感知不到变化</p>
@@ -313,7 +322,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#遍历"><span class="toc-number">1.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterable"><span class="toc-number">2.</span> <span class="toc-text">Iterable</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterator"><span class="toc-number">3.</span> <span class="toc-text">Iterator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代特性"><span class="toc-number">3.1.</span> <span class="toc-text">迭代特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">4.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态转换类型"><span class="toc-number">4.1.</span> <span class="toc-text">动态转换类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-number">4.2.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拼接"><span class="toc-number">4.3.</span> <span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤"><span class="toc-number">4.4.</span> <span class="toc-text">过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量限制"><span class="toc-number">4.5.</span> <span class="toc-text">数量限制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-number">5.</span> <span class="toc-text">Enumeration</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#遍历"><span class="toc-number">1.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterable"><span class="toc-number">2.</span> <span class="toc-text">Iterable</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterator"><span class="toc-number">3.</span> <span class="toc-text">Iterator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代特性"><span class="toc-number">3.1.</span> <span class="toc-text">迭代特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#子类"><span class="toc-number">4.</span> <span class="toc-text">子类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">5.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态转换类型"><span class="toc-number">5.1.</span> <span class="toc-text">动态转换类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-number">5.2.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拼接"><span class="toc-number">5.3.</span> <span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤"><span class="toc-number">5.4.</span> <span class="toc-text">过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量限制"><span class="toc-number">5.5.</span> <span class="toc-text">数量限制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-number">6.</span> <span class="toc-text">Enumeration</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -332,7 +341,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Linest
+    		&copy; 2019 Linest
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
@@ -382,6 +391,6 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

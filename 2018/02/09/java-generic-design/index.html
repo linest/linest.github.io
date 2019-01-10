@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="不定类型的公共框架">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-23T13:07:44.545Z">
+<meta property="og:updated_time" content="2018-12-22T06:12:09.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 泛型设计">
 <meta name="twitter:description" content="不定类型的公共框架">
@@ -207,27 +207,46 @@
 <p>调用时看不到类型转换<br>
 只适合有明确约定确保类型匹配的场景，错误使用会导致强转失败</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = getValue(<span class="string">"1"</span>);</span><br><span class="line">Integer i = getValue(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="list-list-object-和list区别"><code>List&lt;?&gt;</code>,<code>List&lt;Object&gt;</code>和<code>List</code>区别</h1>
+<hr>
+<p>表面上看，三者都可以容纳任何类型</p>
+<ul>
+<li>List不指定任何类型，称为Raw Type,同时具有读写能力，但是写入时会报Raw Type类型安全的警告</li>
+<li>List<object>明确了泛型类型，具备读写能力</object></li>
+<li>List&lt;?&gt;通配符限制了写入能力（因为不确定类型，新增无法判定，删除可以），只能读取</li>
+</ul>
+<p>不指定参数类型的方式只用于兼容没有泛型时的旧代码<br>
+从兼容上看，泛型可以接受老代码Raw类型赋值，编译器不会检查</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Object&gt; list = <span class="keyword">new</span> ArrayList();</span><br></pre></td></tr></table></figure>
+<p>如果都使用泛型，那么编译器检查类型，值得注意的是泛型赋值没有协变，类型不同就会报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Object&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();  <span class="comment">//compile error</span></span><br></pre></td></tr></table></figure>
+<p>使用Raw类型会丧失泛型功能，还有可能造成编译错误</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@interface</span> Label &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Label</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Class&lt;?&gt; c1 = Class.forName(<span class="string">"test.Test"</span>);</span><br><span class="line">		Label label1 = c1.getAnnotation(Label.class);</span><br><span class="line"></span><br><span class="line">		Class c2 = Class.forName(<span class="string">"test.Test"</span>);</span><br><span class="line">		Label label2 = c2.getAnnotation(Label.class);  <span class="comment">//Type mismatch: cannot convert from Annotation to Label</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="泛型约束">泛型约束</h1>
 <hr>
 <p>考虑形状问题</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Element---Shape</span><br><span class="line">            |---Rectangle--Square</span><br><span class="line">            |---Triangle</span><br></pre></td></tr></table></figure>
 <p>标准的赋值是父类可以容纳子类对象<code>Shape s = square;</code>，不能反过来把父类对象赋给子类</p>
-<ul>
-<li>extends<br>
+<h2 id="extends">extends</h2>
+<p>对象相容性<br>
 第一行声明表示列表中存的是某种形状，也就是说每个数据都是形状的子类实例，形状是上限<br>
 第二行赋值完全合法，因为都是容纳了某种具体形状<br>
-第三行报错，因为编译器不知道列表中到底存了啥类型，万一是正方形列表，那么就相当于让子类容纳了父类对象，不合法</li>
-</ul>
+第三行报错，因为编译器不知道列表中到底存了啥类型，万一是正方形列表，那么就相当于让子类容纳了父类对象，不合法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? extends Shape&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Shape s = list.get(<span class="number">0</span>);</span><br><span class="line">list.add(<span class="keyword">new</span> Rectangel());  <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
 <p><code>extends</code>方便读取,适合作为方法返回值</p>
-<ul>
-<li>super<br>
+<p>容器相容性<br>
+根据声明这里链表是某种矩形子类，因此父类是不行的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? extends Rectangle&gt; list;</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Shape&gt;();  <span class="comment">//error</span></span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Rectangle&gt;();</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Square&gt;();</span><br></pre></td></tr></table></figure>
+<h2 id="super">super</h2>
+<p>对象相容性<br>
 第一行声明表示列表中存的是某种超越形状的存在，形状是下限<br>
 第二行赋值显然不合法，超越形状的数据显然不适合塞到形状对象里<br>
-之后的写入操作都是合法的，都符合子类加到父类容器</li>
-</ul>
+之后的写入操作都是合法的，都符合子类加到父类容器</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? <span class="keyword">super</span> Shape&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Shape s = list.get(<span class="number">0</span>);  <span class="comment">//error</span></span><br><span class="line">list.add(<span class="keyword">new</span> Rectangel());</span><br><span class="line">list.add(<span class="keyword">new</span> Square());</span><br><span class="line">list.add(<span class="keyword">new</span> Triangel());</span><br></pre></td></tr></table></figure>
 <p><code>super</code>方便写入，适合作为方法参数</p>
+<p>容器相容性<br>
+根据声明这里链表是某种矩形父类，因此子类是不行的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? <span class="keyword">super</span> Rectangle&gt; list;</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Shape&gt;();</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Rectangle&gt;();</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Square&gt;(); <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>PECS(Producer Extends Consumer Super)原则<br>
 生产者输出内容，使用extends方便下游读取，消费者输入内容，使用super方便处理写入</p>
@@ -273,7 +292,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;?&gt;[] listArray = <span class="keyword">new</span> ArrayList&lt;?&gt;[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
 <h1 id="enum">enum</h1>
 <hr>
-<p>描述enum类型的类定义为<figure class="highlight plain"><figcaption><span>extends Enum<?>>```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># `List&lt;?&gt;`,`List&lt;Object&gt;`和`List`区别</span><br><span class="line">---</span><br><span class="line">表面上看，三者都可以容纳任何类型  </span><br><span class="line">* List不指定任何类型，称为Raw Type,同时具有读写能力，但是写入时会报Raw Type类型安全的警告</span><br><span class="line">* List&lt;Object&gt;明确了泛型类型，具备读写能力</span><br><span class="line">* List&lt;?&gt;通配符限制了写入能力，只能读取</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">不指定参数类型的方式只用于兼容没有泛型时的旧代码，不应该混用，使用Raw类型会丧失泛型功能，还有可能造成编译错误</span><br><span class="line">```java</span><br><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@interface Label &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Label</span><br><span class="line">public class Test &#123;</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		Class&lt;?&gt; c1 = Class.forName(&quot;test.Test&quot;);</span><br><span class="line">		Label label1 = c1.getAnnotation(Label.class);</span><br><span class="line"></span><br><span class="line">		Class c2 = Class.forName(&quot;test.Test&quot;);</span><br><span class="line">		Label label2 = c2.getAnnotation(Label.class);  //Type mismatch: cannot convert from Annotation to Label</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>描述enum类型的类定义为<code>Class&lt;? extends Enum&lt;?&gt;&gt;</code></p>
 
         
     <div class="donate_module">
@@ -349,7 +368,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型"><span class="toc-number">1.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型类与接口"><span class="toc-number">2.</span> <span class="toc-text">泛型类与接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法泛型"><span class="toc-number">3.</span> <span class="toc-text">方法泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不定类型返回值"><span class="toc-number">4.</span> <span class="toc-text">不定类型返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型约束"><span class="toc-number">5.</span> <span class="toc-text">泛型约束</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类型擦除"><span class="toc-number">6.</span> <span class="toc-text">类型擦除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行时获取泛型类型"><span class="toc-number">7.</span> <span class="toc-text">运行时获取泛型类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合间继承关系"><span class="toc-number">8.</span> <span class="toc-text">集合间继承关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-number">9.</span> <span class="toc-text">泛型数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enum"><span class="toc-number">10.</span> <span class="toc-text">enum</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型"><span class="toc-number">1.</span> <span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型类与接口"><span class="toc-number">2.</span> <span class="toc-text">泛型类与接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方法泛型"><span class="toc-number">3.</span> <span class="toc-text">方法泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不定类型返回值"><span class="toc-number">4.</span> <span class="toc-text">不定类型返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#list-list-object-和list区别"><span class="toc-number">5.</span> <span class="toc-text">List&lt;?&gt;,List&lt;Object&gt;和List区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型约束"><span class="toc-number">6.</span> <span class="toc-text">泛型约束</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#extends"><span class="toc-number">6.1.</span> <span class="toc-text">extends</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super"><span class="toc-number">6.2.</span> <span class="toc-text">super</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#类型擦除"><span class="toc-number">7.</span> <span class="toc-text">类型擦除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行时获取泛型类型"><span class="toc-number">8.</span> <span class="toc-text">运行时获取泛型类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合间继承关系"><span class="toc-number">9.</span> <span class="toc-text">集合间继承关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#泛型数组"><span class="toc-number">10.</span> <span class="toc-text">泛型数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enum"><span class="toc-number">11.</span> <span class="toc-text">enum</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -368,7 +387,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Linest
+    		&copy; 2019 Linest
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
@@ -418,6 +437,6 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
