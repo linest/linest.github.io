@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="不定类型的公共框架">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-22T06:12:09.025Z">
+<meta property="og:updated_time" content="2019-01-30T16:46:42.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 泛型设计">
 <meta name="twitter:description" content="不定类型的公共框架">
@@ -189,8 +189,8 @@
 <a id="more"></a>
 <h1 id="泛型">泛型</h1>
 <hr>
-<p>Java是强类型语言，类型不同基本就不相容<br>
-泛型可以把相同的逻辑框架应用到不同的数据类型上，非常适合实现公共基础逻辑</p>
+<p>没有泛型时，只能用Object作为通用类型，引入泛型实现了类型约束和自动类型转换<br>
+比如List可以接受任何对象，但是取出后需要自行转换，而List<e>只能接受E类型的对象，并且取出后直接被转成E类型</e></p>
 <h1 id="泛型类与接口">泛型类与接口</h1>
 <hr>
 <p>以类为粒度的泛型，常见用法是实现定制参数类型， 返回值类型</p>
@@ -221,7 +221,14 @@
 <p>如果都使用泛型，那么编译器检查类型，值得注意的是泛型赋值没有协变，类型不同就会报错</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Object&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();  <span class="comment">//compile error</span></span><br></pre></td></tr></table></figure>
 <p>使用Raw类型会丧失泛型功能，还有可能造成编译错误</p>
+<ul>
+<li>无法调用泛型方法</li>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@interface</span> Label &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Label</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Class&lt;?&gt; c1 = Class.forName(<span class="string">"test.Test"</span>);</span><br><span class="line">		Label label1 = c1.getAnnotation(Label.class);</span><br><span class="line"></span><br><span class="line">		Class c2 = Class.forName(<span class="string">"test.Test"</span>);</span><br><span class="line">		Label label2 = c2.getAnnotation(Label.class);  <span class="comment">//Type mismatch: cannot convert from Annotation to Label</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无法类型转换</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">method</span><span class="params">(List&lt;String&gt; param)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">	Integer i = method(list).get(<span class="number">0</span>); <span class="comment">// Type mismatch: cannot convert from Object to Integer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="泛型约束">泛型约束</h1>
 <hr>
 <p>考虑形状问题</p>
@@ -248,9 +255,12 @@
 根据声明这里链表是某种矩形父类，因此子类是不行的</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? <span class="keyword">super</span> Rectangle&gt; list;</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Shape&gt;();</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Rectangle&gt;();</span><br><span class="line">list = <span class="keyword">new</span> ArrayList&lt;Square&gt;(); <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>PECS(Producer Extends Consumer Super)原则<br>
-生产者输出内容，使用extends方便下游读取，消费者输入内容，使用super方便处理写入</p>
+<p>PECS(Producer Extends Consumer Super)原则</p>
 </blockquote>
+<ul>
+<li>生产者输出内容，使用extends方便下游读取，作为上游的List</li>
+<li>消费者输入内容，使用super方便处理写入，作为下游的List</li>
+</ul>
 <h1 id="类型擦除">类型擦除</h1>
 <hr>
 <p>泛型在编译期进行约束，可以静态检查，但是考虑到老代码兼容性，类型信息在真正运行时会被抹去</p>
@@ -437,6 +447,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
