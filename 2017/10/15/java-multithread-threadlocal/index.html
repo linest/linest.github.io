@@ -10,11 +10,11 @@
 <meta name="keywords" content="源码,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java ThreadLocal">
-<meta property="og:url" content="http://linest.github.io/2016/01/15/java-multithread-threadlocal/index.html">
+<meta property="og:url" content="http://linest.github.io/2017/10/15/java-multithread-threadlocal/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="每个线程维护单独的数据副本，形式上实现变量的无锁共享">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-22T06:12:09.027Z">
+<meta property="og:updated_time" content="2019-03-12T16:31:48.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java ThreadLocal">
 <meta name="twitter:description" content="每个线程维护单独的数据副本，形式上实现变量的无锁共享">
@@ -149,8 +149,8 @@
       <div class="body-wrap"><article id="post-java-multithread-threadlocal" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/15/java-multithread-threadlocal/" class="article-date">
-  	<time datetime="2016-01-14T16:00:00.000Z" itemprop="datePublished">2016-01-15</time>
+      <a href="/2017/10/15/java-multithread-threadlocal/" class="article-date">
+  	<time datetime="2017-10-14T16:00:00.000Z" itemprop="datePublished">2017-10-15</time>
 </a>
     </div>
   
@@ -200,14 +200,18 @@ Map对所有键值对集中管理，而ThreadLocal是调用的线程各自维护
 </ul>
 <h2 id="threadlocalmap">ThreadLocalMap</h2>
 <p>名字里有map,但根本没实现Map接口，是个专有的特殊结构<br>
-底层依然是Entry数组，但是ThreadLocal本身作为key是弱引用实现，即考虑大数据量的自动释放</p>
+底层依然是Entry数组，但是ThreadLocal本身作为key是弱引用实现，即考虑大数据量的自动释放，释放后Entry还在，只是引用的ThreadLocal变为null</p>
 <figure class="highlight java"><figcaption><span>ThreadLocal.ThreadLocalMap.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalMap</span> </span>&#123;</span><br><span class="line">     <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">         Object value;</span><br><span class="line">         Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">             <span class="keyword">super</span>(k);</span><br><span class="line">             value = v;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INITIAL_CAPACITY = <span class="number">16</span>;</span><br><span class="line">     <span class="keyword">private</span> Entry[] table;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> threshold; <span class="comment">// Default to 0</span></span><br><span class="line">     <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>哈希冲突的解决不是链表，而是开放地址<br>
 查找时先看是不是直接命中</p>
 <figure class="highlight java"><figcaption><span>ThreadLocal.ThreadLocalMap.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntry</span><span class="params">(ThreadLocal&lt;?&gt; key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (table.length - <span class="number">1</span>);</span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    <span class="keyword">if</span> (e != <span class="keyword">null</span> &amp;&amp; e.get() == key)</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>没命中的情况下，会顺次向后循环查找<br>
 值得注意的是如果发现key值为null,那么说明已经通过弱引用机制回收了，会把Entry清理出去</p>
-<figure class="highlight java"><figcaption><span>ThreadLocal.ThreadLocalMap.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">        <span class="keyword">if</span> (k == key)</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">            expungeStaleEntry(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i = nextIndex(i, len);</span><br><span class="line">        e = tab[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">nextIndex</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((i + <span class="number">1</span> &lt; len) ? i + <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>ThreadLocal.ThreadLocalMap.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">    Entry[] tab = table;</span><br><span class="line">    <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">        <span class="keyword">if</span> (k == key)</span><br><span class="line">            <span class="keyword">return</span> e;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">            expungeStaleEntry(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i = nextIndex(i, len);</span><br><span class="line">        e = tab[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 向后查找，越界后从头开始</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">nextIndex</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((i + <span class="number">1</span> &lt; len) ? i + <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="threadlocal">ThreadLocal</h1>
+<hr>
+<p>ThreadLocal内部没有任何数据，只维护了一个哈希值，整体角色是作为一个key存在</p>
+<figure class="highlight java"><figcaption><span>ThreadLocal.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocal</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> threadLocalHashCode = nextHashCode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="存值操作">存值操作</h2>
 <p>线程的threadLocals初始是null,用到时才建立<code>ThreadLocalMap</code><br>
 ThreadLocal只作为key，并不持有value，value是ThreadLocalMap持有的</p>
@@ -265,9 +269,9 @@ Random本身是线程安全的，ThreadLocal版本可以避免多线程下对随
     <hr>
     <p><strong>版权声明</strong></p>
     <p><img src="/assets/copyright/cc.png" alt=""></p>
-    <p><a href="http://linest.github.io/2016/01/15/java-multithread-threadlocal/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <p><a href="http://linest.github.io/2017/10/15/java-multithread-threadlocal/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
     <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
-    <p>本文永久链接：<a href="http://linest.github.io/2016/01/15/java-multithread-threadlocal/">http://linest.github.io/2016/01/15/java-multithread-threadlocal/</a></p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/10/15/java-multithread-threadlocal/">http://linest.github.io/2017/10/15/java-multithread-threadlocal/</a></p>
 </div>
       
     </div>
@@ -277,15 +281,20 @@ Random本身是线程安全的，ThreadLocal版本可以避免多线程下对随
     
 <nav id="article-nav">
   
-    <a href="/2016/04/05/hexo-ext-markdown-it/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/22/hexo-ext-mathjax/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Markdown-it渲染器扩展
+          MathJax标签扩展
         
       </div>
     </a>
   
+  
+    <a href="/2017/09/16/mustache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mustache模板</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -367,6 +376,6 @@ Random本身是线程安全的，ThreadLocal版本可以避免多线程下对随
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

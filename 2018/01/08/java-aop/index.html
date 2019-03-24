@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="点 线 面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-23T14:32:50.756Z">
+<meta property="og:updated_time" content="2019-03-12T16:31:48.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java AOP">
 <meta name="twitter:description" content="点 线 面">
@@ -192,8 +192,10 @@
 <hr>
 <ul>
 <li>Aspect: 跨越多个类的功能层面，比如事务管理、日志管理等等</li>
-<li>Join Point: 程序执行时间点，比如方法执行时、异常处理时等等</li>
-<li>Advice：要执行的动作
+<li>Joinpoint: 连接点，程序执行时间点，比如方法执行时、异常处理时等等</li>
+<li>Target: 目标，目标类</li>
+<li>Pointcut: 切点，筛选出目标方法，关联一个表达式</li>
+<li>Advice：增强，要额外执行的动作
 <ul>
 <li>Before: 时间点前执行，不能阻止时间点执行</li>
 <li>After returning: 时间点无异常完成后执行</li>
@@ -202,13 +204,12 @@
 <li>Around: 之前之后都处理，最通用最强大的类型</li>
 </ul>
 </li>
-<li>Pointcut: 断言动作是否比配时间点，关联一个表达式</li>
 <li>Introduction: 给被代理对象增加额外的方法或属性</li>
-<li>Weaving: 构建被代理的对象
+<li>Weaving: 将增强逻辑引入目标
 <ul>
-<li>编译时构建</li>
-<li>加载时构建</li>
-<li>运行时构建</li>
+<li>编译时，直接把字节码插入，需要特殊编译器</li>
+<li>加载时，加载时添加额外逻辑，需要特殊类加载器</li>
+<li>运行时构建动态代理</li>
 </ul>
 </li>
 </ul>
@@ -229,10 +230,16 @@
 <li>需要InvocationHandler</li>
 </ul>
 <p>生成代理所需参数：目标类的加载器，目标接口数组，处理器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; target = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;String, String&gt; proxy = (Map&lt;String, String&gt;)Proxy.newProxyInstance(</span><br><span class="line">                Map.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123; Map.class &#125;, <span class="keyword">new</span> UppercaseValueHandler(target));</span><br><span class="line">        proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">        System.out.println(proxy.getClass().getName()); <span class="comment">// com.sun.proxy.$Proxy0</span></span><br><span class="line">        System.out.println(target); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UppercaseValueHandler</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        target = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">            String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">            args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; target = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;String, String&gt; proxy = (Map&lt;String, String&gt;)Proxy.newProxyInstance(</span><br><span class="line">                Map.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123; Map.class &#125;, <span class="keyword">new</span> UppercaseValueHandler(target));</span><br><span class="line">        proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">        System.out.println(proxy.getClass().getName()); <span class="comment">// com.sun.proxy.$Proxy0</span></span><br><span class="line">        System.out.println(target); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//handler需要实例参与</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UppercaseValueHandler</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        target = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">            String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">            args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="cglib-动态代理">CGLIB 动态代理</h1>
 <hr>
 <p>CGLIB字节码修改，继承生成子类，覆盖方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//interceptor不需要实例参与</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object obj, Method method, Object[] args, MethodProxy proxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">			String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">			args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> proxy.invokeSuper(obj, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">		enhancer.setSuperclass(HashMap.class);</span><br><span class="line">		enhancer.setCallback(<span class="keyword">new</span> UppercaseValueInterceptor());</span><br><span class="line"></span><br><span class="line">		Map&lt;String,String&gt; proxy = (Map&lt;String, String&gt;) enhancer.create();</span><br><span class="line">		proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">		System.out.println(proxy.getClass().getName()); <span class="comment">// $java.util.HashMap$$EnhancerByCGLIB$$3f4e67dd</span></span><br><span class="line">		System.out.println(proxy); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="对比">对比</h1>
+<hr>
+<p>JDK性能差，但是创建时间短，需要有接口<br>
+CGLIB性能好，但是创建时间长，需要能继承子类<br>
+只创建一次代理的情况下，比如单例，优先使用CGLIB</p>
 
         
     <div class="donate_module">
@@ -364,6 +371,23 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

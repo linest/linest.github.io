@@ -10,11 +10,11 @@
 <meta name="keywords" content="源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Clone">
-<meta property="og:url" content="http://linest.github.io/2018/03/24/java-clone/index.html">
+<meta property="og:url" content="http://linest.github.io/2017/07/15/java-clone/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="一变二">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-24T14:39:04.236Z">
+<meta property="og:updated_time" content="2019-03-24T10:16:20.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Clone">
 <meta name="twitter:description" content="一变二">
@@ -149,8 +149,8 @@
       <div class="body-wrap"><article id="post-java-clone" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/24/java-clone/" class="article-date">
-  	<time datetime="2018-03-24T11:39:06.842Z" itemprop="datePublished">2018-03-24</time>
+      <a href="/2017/07/15/java-clone/" class="article-date">
+  	<time datetime="2017-07-15T09:20:51.000Z" itemprop="datePublished">2017-07-15</time>
 </a>
     </div>
   
@@ -200,11 +200,11 @@
 <p>clone是Object类的基本方法之一。<br>
 从java.lang.Object类中可以发现并非由Java代码实现，clone并没有调用类构造函数而是进行二进制流拷贝</p>
 <figure class="highlight java"><figcaption><span>Object.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
-<p>使用类必须实现java.lang.Cloneable接口，如Java原生的java.util.Calendar  Cloneable是一个不包含方法的标识性接口，</p>
+<p>使用类必须实现java.lang.Cloneable接口，如Java原生的java.util.Calendar  Cloneable是一个不包含方法的标识性接口</p>
 <figure class="highlight java"><figcaption><span>Calendar.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Calendar</span> <span class="keyword">implements</span> <span class="title">Serializable</span>, <span class="title">Cloneable</span>, <span class="title">Comparable</span>&lt;<span class="title">Calendar</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ERA = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> fields[];</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">boolean</span> isSet[];</span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">private</span> <span class="keyword">int</span> stamp[];</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">long</span> time;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">private</span> TimeZone zone;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>clone方法的实现原则是调用父类clone方法，在继承链条上最终会调用到Object中的实现。Object提供的clone是<code>浅拷贝</code>机制，因此涉及可变成员的情况下，默认的clone结果是新旧对象持有相同的可变成员引用，新旧对象并没有完全独立。</p>
-<p>为了摆脱可变对象的共享，实现<code>深拷贝</code>，子类要重新实现clone方法。首先用super.clone获取基础，然后强制转换成子类，再把子类的可变属性进行重新赋值。</p>
-<p>从实现可以看出常量和long这种基本类型无需特殊逻辑，而数组和可变类TimeZone需要重新赋值，对于数组而言，直接构造新数组，对于可变类，直接交给该类的clone方法。</p>
+<p>为了摆脱可变对象的共享，实现<code>深拷贝</code>，子类要重新实现clone方法。首先用super.clone获取基础，然后强制转换成子类，再把子类的可变属性进行重新赋值。<br>
+从实现可以看出常量和long这种基本类型无需特殊逻辑，而数组和可变类TimeZone需要重新赋值，对于数组而言，直接构造新数组，对于可变类，直接交给该类的clone方法。</p>
 <figure class="highlight java"><figcaption><span>Calendar.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Calendar other = (Calendar) <span class="keyword">super</span>.clone();</span><br><span class="line"></span><br><span class="line">        other.fields = <span class="keyword">new</span> <span class="keyword">int</span>[FIELD_COUNT];</span><br><span class="line">        other.isSet = <span class="keyword">new</span> <span class="keyword">boolean</span>[FIELD_COUNT];</span><br><span class="line">        other.stamp = <span class="keyword">new</span> <span class="keyword">int</span>[FIELD_COUNT];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; FIELD_COUNT; i++) &#123;</span><br><span class="line">            other.fields[i] = fields[i];</span><br><span class="line">            other.stamp[i] = stamp[i];</span><br><span class="line">            other.isSet[i] = isSet[i];</span><br><span class="line">        &#125;</span><br><span class="line">        other.zone = (TimeZone) zone.clone();</span><br><span class="line">        <span class="keyword">return</span> other;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">        <span class="comment">// this shouldn't happen, since we are Cloneable</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InternalError(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="优缺点">优缺点</h1>
 <hr>
@@ -242,9 +242,9 @@ Spring BeanUtil</p>
     <hr>
     <p><strong>版权声明</strong></p>
     <p><img src="/assets/copyright/cc.png" alt=""></p>
-    <p><a href="http://linest.github.io/2018/03/24/java-clone/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <p><a href="http://linest.github.io/2017/07/15/java-clone/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
     <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
-    <p>本文永久链接：<a href="http://linest.github.io/2018/03/24/java-clone/">http://linest.github.io/2018/03/24/java-clone/</a></p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/07/15/java-clone/">http://linest.github.io/2017/07/15/java-clone/</a></p>
 </div>
       
     </div>
@@ -254,18 +254,18 @@ Spring BeanUtil</p>
     
 <nav id="article-nav">
   
-    <a href="/2018/03/24/maven/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/17/java-hashmap/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Maven
+          Java HashMap 与 HashSet
         
       </div>
     </a>
   
   
-    <a href="/2018/03/24/hexo-tag/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hexo标签解析</div>
+    <a href="/2017/07/15/hearthstone-back/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">传说时刻</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -349,6 +349,6 @@ Spring BeanUtil</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
