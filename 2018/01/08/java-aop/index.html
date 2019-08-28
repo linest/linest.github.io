@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="点 线 面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-12T16:31:48.319Z">
+<meta property="og:updated_time" content="2019-08-28T15:15:14.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java AOP">
 <meta name="twitter:description" content="点 线 面">
@@ -215,14 +215,15 @@
 </ul>
 <h1 id="静态代理">静态代理</h1>
 <hr>
-<p>手动维护代理类，代理类和目标实现同一接口</p>
+<p>手动编写维护代理类，代理类和目标实现同一接口</p>
 <ul>
-<li>额外维护很多代理类，实现所有接口方法可能很繁杂</li>
-<li>目标添加方法，代理类也要同步修改</li>
+<li>代理类实现接口，方法多很繁杂并且代码机械重复，而且接口变化如添加方法，代理类也要同步修改</li>
+<li>每种类型都需要自己的代理实现，数量多的话会产生大量代理类</li>
 </ul>
+<p>动态代理可以动态生成代理类，无需手动编写，只需要专注于处理逻辑</p>
 <h1 id="jdk-动态代理">JDK 动态代理</h1>
 <hr>
-<p>运行时生成具备一组接口的新类，该类继承java.lang.reflect.Proxy<br>
+<p>运行时生成具备一组接口的新类，该类继承java.lang.reflect.Proxy,由于不能多继承，因此要求必须有接口才行<br>
 调用具体方法时交给相应handler处理<br>
 要求</p>
 <ul>
@@ -233,13 +234,27 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; target = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;String, String&gt; proxy = (Map&lt;String, String&gt;)Proxy.newProxyInstance(</span><br><span class="line">                Map.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123; Map.class &#125;, <span class="keyword">new</span> UppercaseValueHandler(target));</span><br><span class="line">        proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">        System.out.println(proxy.getClass().getName()); <span class="comment">// com.sun.proxy.$Proxy0</span></span><br><span class="line">        System.out.println(target); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//handler需要实例参与</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UppercaseValueHandler</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        target = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">            String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">            args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(target, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="cglib-动态代理">CGLIB 动态代理</h1>
 <hr>
-<p>CGLIB字节码修改，继承生成子类，覆盖方法</p>
+<p>CGLIB字节码修改，继承生成子类，重写覆盖方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//interceptor不需要实例参与</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UppercaseValueInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object obj, Method method, Object[] args, MethodProxy proxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (method.getName().equals(<span class="string">"put"</span>)) &#123;</span><br><span class="line">			String value = String.valueOf(args[<span class="number">1</span>]);</span><br><span class="line">			args[<span class="number">1</span>] = value.toUpperCase();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> proxy.invokeSuper(obj, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">		enhancer.setSuperclass(HashMap.class);</span><br><span class="line">		enhancer.setCallback(<span class="keyword">new</span> UppercaseValueInterceptor());</span><br><span class="line"></span><br><span class="line">		Map&lt;String,String&gt; proxy = (Map&lt;String, String&gt;) enhancer.create();</span><br><span class="line">		proxy.put(<span class="string">"foo"</span>, <span class="string">"bar"</span>);</span><br><span class="line">		System.out.println(proxy.getClass().getName()); <span class="comment">// $java.util.HashMap$$EnhancerByCGLIB$$3f4e67dd</span></span><br><span class="line">		System.out.println(proxy); <span class="comment">// &#123;foo=BAR&#125;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注意点">注意点</h1>
+<hr>
+<p>动态代理也会把Object类的hashCode,equals,toString进行代理<br>
+其他方法不会代理，作用于代理对象本身<br>
+所以代理对象和真实对象是equal的，hashCode和toString也相同</p>
 <h1 id="对比">对比</h1>
 <hr>
 <p>JDK性能差，但是创建时间短，需要有接口<br>
 CGLIB性能好，但是创建时间长，需要能继承子类<br>
 只创建一次代理的情况下，比如单例，优先使用CGLIB</p>
+<h1 id="应用">应用</h1>
+<hr>
+<ul>
+<li>Mock框架</li>
+<li>ORM框架</li>
+<li>IOC容器</li>
+<li>诊断工具</li>
+<li>代码生成</li>
+</ul>
 
         
     <div class="donate_module">

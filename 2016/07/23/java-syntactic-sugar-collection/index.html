@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="简洁高效的数组&amp;amp;集合操作">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-23T13:48:10.861Z">
+<meta property="og:updated_time" content="2019-08-28T15:15:14.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 数据集操作语法糖">
 <meta name="twitter:description" content="简洁高效的数组&amp;amp;集合操作">
@@ -187,8 +187,9 @@
       
         <p>简洁高效的数组&amp;集合操作</p>
 <a id="more"></a>
-<h1 id="列表初始化">列表初始化</h1>
+<h1 id="list-array">List &amp; Array</h1>
 <hr>
+<h2 id="列表初始化">列表初始化</h2>
 <p>常规方法，一个一个添加，行数比较多</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">"foo"</span>);</span><br><span class="line">list.add(<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
 <p>变种方法，双括号赋值，行数并没减少<br>
@@ -202,23 +203,49 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="string">"foo"</span>,<span class="string">"bar"</span>));</span><br></pre></td></tr></table></figure>
 <p><code>Guava</code>提供更好的方案，可以直接初始化，同样可以不指定泛型类型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Lists.newArrayList(<span class="string">"foo"</span>,<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="列表获取第一个">列表获取第一个</h1>
-<hr>
+<h2 id="列表获取第一个">列表获取第一个</h2>
 <p>常规方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!list.isEmpty())&#123;</span><br><span class="line">    <span class="keyword">return</span> list.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Java8</p>
+<p><code>Java8</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;Object&gt; firstElement = list.stream().findFirst();</span><br></pre></td></tr></table></figure>
-<p>Guava</p>
+<p><code>Guava</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String firstElement = Iterables.getFirst(strings, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="数组连接">数组连接</h1>
-<hr>
+<h2 id="计数">计数</h2>
+<p><code>commons-collections</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">'foo'</span>,<span class="string">'bar'</span>,<span class="string">'bar'</span>,<span class="string">'foo'</span>,<span class="string">'bar'</span>);</span><br><span class="line">Map&lt;String,Integer&gt; map = CollectionUtils.getCardinalityMap(list);</span><br></pre></td></tr></table></figure>
+<p><code>Guava</code>利用Multiset重复计数功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Multiset&lt;String&gt; countMap = HashMultiset.create(list);</span><br><span class="line"><span class="keyword">for</span>(String key : countMap.elementSet())&#123;</span><br><span class="line">    <span class="keyword">int</span> count = countMap.count(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数组连接">数组连接</h2>
 <p>直接实现需要两步，开辟合并后空间，数组拷贝</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] result = Arrays.copyOf(first, first.length + second.length);</span><br><span class="line">System.arraycopy(second, <span class="number">0</span>, result, first.length, second.length);</span><br></pre></td></tr></table></figure>
 <p><code>Java8</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] both = Stream.concat(Arrays.stream(a), Arrays.stream(b))</span><br><span class="line">                      .toArray(String[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
 <p><code>Guava</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] both = ObjectArrays.concat(first, second, String.class);</span><br></pre></td></tr></table></figure>
-<h1 id="map缺失处理">Map缺失处理</h1>
+<h2 id="数组包含">数组包含</h2>
+<p>常规方法，循环判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(String s ： array) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">"foo"</span>.equals(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以转List,再判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.asList(array).contains(<span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
+<p><code>Java8</code>可以转Stream</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream.of(array).anyMatch(x -&gt; x.equals(<span class="string">"foo"</span>));</span><br></pre></td></tr></table></figure>
+<p><code>commons-lang3</code>的ArrayUtils提供了各种数据类型数组的<code>contains</code>方法<br>
+无需转换额外的结构，直接在原始数组上进行,本质是基于内部<code>indexOf</code>方法，就是循环判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayUtils.contains(array, <span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="列表转数组">列表转数组</h1>
+<hr>
+<p>目标是对象类型数组,可以利用泛型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">Integer[] array = list.toArray(<span class="keyword">new</span> Integer[list.size()]);</span><br></pre></td></tr></table></figure>
+<p>目标是原生类型数组, 无法利用泛型，可以用stream先转换成原生类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span>[] array = list.stream().mapToInt(Integer::intValue).toArray();</span><br></pre></td></tr></table></figure>
+<h1 id="collection">Collection</h1>
+<hr>
+<h2 id="非null添加">非null添加</h2>
+<p>常规方法，先判断再添加</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value != <span class="keyword">null</span>) &#123;</span><br><span class="line">    set.add(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>commons-collections</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CollectionUtils.addIgnoreNull(set, value);</span><br></pre></td></tr></table></figure>
+<h1 id="map">Map</h1>
 <hr>
 <h2 id="没有时插入">没有时插入</h2>
 <p>常规方法，先判断有没有，没有再插</p>
@@ -227,35 +254,17 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.putIfAbsent(<span class="string">"foo"</span>,<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
 <p><code>putIfAbsent</code>方法适合新值已经现有的情况，如果新值需要根据key计算才能获得，那么如果最后发现不需要，新值计算就浪费了<br>
 <code>Java8</code> 还提供compute方法，发现没有再计算</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.computeIfAbsent(<span class="string">"foo"</span>,s -&gt; <span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.computeIfAbsent(<span class="string">"foo"</span>, k -&gt; <span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="没有时返回默认">没有时返回默认</h2>
 <p>常规方法，三元判断</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.contains(<span class="string">"foo"</span>) ? map.get(<span class="string">"foo"</span>) : <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 <p><code>Java8</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.getOrDefault(<span class="string">"foo"</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="map新旧值合并">Map新旧值合并</h1>
-<hr>
+<h2 id="新旧值合并">新旧值合并</h2>
 <p>常规方法,先取出旧值再重新插入新值</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">"foo"</span>, map.get(<span class="string">"foo"</span>) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <p><code>Java8</code>直接merge还可以额外解决初始值问题</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.merge(<span class="string">"foo"</span>,<span class="number">1</span>,Integer::sum);</span><br></pre></td></tr></table></figure>
-<h1 id="数组包含">数组包含</h1>
-<hr>
-<p>常规方法，循环判断</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(String s ： array) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">"foo"</span>.equals(s))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以转List,再判断</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.asList(array).contains(<span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
-<p><code>Java8</code>可以转Stream</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream.of(array).anyMatch(x -&gt; x.equals(<span class="string">"foo"</span>)</span><br></pre></td></tr></table></figure>
-<p><code>Commons-Lang</code>的ArrayUtils提供了各种数据类型数组的<code>contains</code>方法<br>
-无需转换额外的结构，直接在原始数组上进行,本质是基于内部<code>indexOf</code>方法，就是循环判断</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayUtils.contains(array, <span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="计数">计数</h1>
-<hr>
-<p>commons.collections</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">'foo'</span>,<span class="string">'bar'</span>,<span class="string">'bar'</span>,<span class="string">'foo'</span>,<span class="string">'bar'</span>);</span><br><span class="line">Map&lt;String,Integer&gt; map = CollectionUtils.getCardinalityMap(list);</span><br></pre></td></tr></table></figure>
-<p>Guava</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Multiset&lt;String&gt; countMap = HashMultiset.create(list);</span><br><span class="line"><span class="keyword">for</span>(String key : countMap.elementSet())&#123;</span><br><span class="line">    <span class="keyword">int</span> count = countMap.count(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.merge(<span class="string">"foo"</span>, <span class="number">1</span>, Integer::sum);</span><br></pre></td></tr></table></figure>
 
         
     <div class="donate_module">
@@ -292,11 +301,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/09/13/rest-soap/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/10/07/game-nim/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          REST vs SOAP vs RPC
+          Nim Game
         
       </div>
     </a>
@@ -331,7 +340,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#列表初始化"><span class="toc-number">1.</span> <span class="toc-text">列表初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列表获取第一个"><span class="toc-number">2.</span> <span class="toc-text">列表获取第一个</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组连接"><span class="toc-number">3.</span> <span class="toc-text">数组连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map缺失处理"><span class="toc-number">4.</span> <span class="toc-text">Map缺失处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时插入"><span class="toc-number">4.1.</span> <span class="toc-text">没有时插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时返回默认"><span class="toc-number">4.2.</span> <span class="toc-text">没有时返回默认</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map新旧值合并"><span class="toc-number">5.</span> <span class="toc-text">Map新旧值合并</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组包含"><span class="toc-number">6.</span> <span class="toc-text">数组包含</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#计数"><span class="toc-number">7.</span> <span class="toc-text">计数</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#list-array"><span class="toc-number">1.</span> <span class="toc-text">List &amp; Array</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#列表初始化"><span class="toc-number">1.1.</span> <span class="toc-text">列表初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表获取第一个"><span class="toc-number">1.2.</span> <span class="toc-text">列表获取第一个</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数"><span class="toc-number">1.3.</span> <span class="toc-text">计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组连接"><span class="toc-number">1.4.</span> <span class="toc-text">数组连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组包含"><span class="toc-number">1.5.</span> <span class="toc-text">数组包含</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列表转数组"><span class="toc-number">2.</span> <span class="toc-text">列表转数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#collection"><span class="toc-number">3.</span> <span class="toc-text">Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#非null添加"><span class="toc-number">3.1.</span> <span class="toc-text">非null添加</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">4.</span> <span class="toc-text">Map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时插入"><span class="toc-number">4.1.</span> <span class="toc-text">没有时插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时返回默认"><span class="toc-number">4.2.</span> <span class="toc-text">没有时返回默认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新旧值合并"><span class="toc-number">4.3.</span> <span class="toc-text">新旧值合并</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

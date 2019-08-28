@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="通用遍历模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-23T14:19:07.427Z">
+<meta property="og:updated_time" content="2019-08-28T15:15:14.932Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Iterator">
 <meta name="twitter:description" content="通用遍历模式">
@@ -199,7 +199,8 @@
 <p>Java5提供了通用的遍历模式<code>foreach</code>，无需知道内部结构，直接遍历</p>
 <h1 id="iterable">Iterable</h1>
 <hr>
-<p><code>foreach</code>遍历集合实际是基于<code>Iterable</code>接口，集合类都实现了这一接口</p>
+<p><code>foreach</code>遍历集合实际是基于<code>Iterable</code>接口，集合类都实现了这一接口<br>
+自定义类只要实现这个接口也可以用foreach循环</p>
 <figure class="highlight java"><figcaption><span>Collection.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterable</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>遍历集合时,等价于在循环中使用迭代器</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"foo"</span>,<span class="string">"bar"</span>);</span><br><span class="line"><span class="keyword">for</span>(String s : list)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;String&gt; i = list.iterator; i.hasNext())&#123;</span><br><span class="line">    String s = i.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -215,7 +216,7 @@
 <li>数量无关，不能提前知道总量有多少</li>
 <li>不可逆，如果没有特殊实现，<code>Iterator</code>一次性使用，前进后不能倒退。如果需要多次遍历，使用<code>Iterable</code>,可再生出新的迭代器</li>
 </ul>
-<h1 id="子类">子类</h1>
+<h1 id="扩展接口listiterator">扩展接口ListIterator</h1>
 <hr>
 <p>专为list设计的迭代器</p>
 <ul>
@@ -322,7 +323,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#遍历"><span class="toc-number">1.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterable"><span class="toc-number">2.</span> <span class="toc-text">Iterable</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterator"><span class="toc-number">3.</span> <span class="toc-text">Iterator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代特性"><span class="toc-number">3.1.</span> <span class="toc-text">迭代特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#子类"><span class="toc-number">4.</span> <span class="toc-text">子类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">5.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态转换类型"><span class="toc-number">5.1.</span> <span class="toc-text">动态转换类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-number">5.2.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拼接"><span class="toc-number">5.3.</span> <span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤"><span class="toc-number">5.4.</span> <span class="toc-text">过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量限制"><span class="toc-number">5.5.</span> <span class="toc-text">数量限制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-number">6.</span> <span class="toc-text">Enumeration</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#遍历"><span class="toc-number">1.</span> <span class="toc-text">遍历</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterable"><span class="toc-number">2.</span> <span class="toc-text">Iterable</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iterator"><span class="toc-number">3.</span> <span class="toc-text">Iterator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代特性"><span class="toc-number">3.1.</span> <span class="toc-text">迭代特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展接口listiterator"><span class="toc-number">4.</span> <span class="toc-text">扩展接口ListIterator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展"><span class="toc-number">5.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#动态转换类型"><span class="toc-number">5.1.</span> <span class="toc-text">动态转换类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-number">5.2.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拼接"><span class="toc-number">5.3.</span> <span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤"><span class="toc-number">5.4.</span> <span class="toc-text">过滤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量限制"><span class="toc-number">5.5.</span> <span class="toc-text">数量限制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enumeration"><span class="toc-number">6.</span> <span class="toc-text">Enumeration</span></a></li></ol>
                     </div>
                 </span>
             </div>

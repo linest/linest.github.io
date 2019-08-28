@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="常见的字符串操作问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-12T16:31:48.352Z">
+<meta property="og:updated_time" content="2019-05-24T01:12:10.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java字符串操作">
 <meta name="twitter:description" content="常见的字符串操作问题">
@@ -239,6 +239,10 @@ lastIndexOf</p>
 <hr>
 <p>commons-lang</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.substringBefore(<span class="string">"aaa@bbb@ccc"</span>, <span class="string">"@"</span>); <span class="comment">//aaa</span></span><br><span class="line">StringUtils.substringBeforeLast(<span class="string">"aaa@bbb@ccc"</span>, <span class="string">"@"</span>); <span class="comment">//aaa@bbb</span></span><br></pre></td></tr></table></figure>
+<h1 id="默认值">默认值</h1>
+<hr>
+<p>commons-lang</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.<span class="keyword">default</span>(<span class="keyword">null</span>, <span class="string">"foo"</span>);</span><br><span class="line">StringUtils.defaultIfEmpty(<span class="string">""</span>, <span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
         
     <div class="donate_module">
         <div id="donate_board" class="donate_bar">
