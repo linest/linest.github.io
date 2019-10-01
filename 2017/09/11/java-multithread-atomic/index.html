@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java Atomic系列 | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="并发环境下计数">
+<meta name="keywords" content="源码,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Atomic系列">
+<meta property="og:url" content="http://linest.github.io/2017/09/11/java-multithread-atomic/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="并发环境下计数">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-01T11:56:06.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Atomic系列">
+<meta name="twitter:description" content="并发环境下计数">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-java-multithread-atomic" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/11/java-multithread-atomic/" class="article-date">
+  	<time datetime="2017-09-10T16:00:00.000Z" itemprop="datePublished">2017-09-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Atomic系列
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>并发环境下计数</p>
+<a id="more"></a>
+<h1 id="需求">需求</h1>
+<hr>
+<p>count++表面上看只有一个操作，其实在底层是有3个操作，读出-自增-写回<br>
+这3个操作在并发环境下会被打断，这种非原子操作造成了结果错误<br>
+这个原子操作问题可以被java.util.concurrent.atomic包通过CAS方式解决</p>
+<h1 id="数值类型原子性">数值类型原子性</h1>
+<hr>
+<p>以AtomicInteger实现为例，对int进行CAS原子化包装<br>
+静态初始化块初始化了unsafe对象，以及获取value属性的内存位置偏移值，为CAS做准备</p>
+<figure class="highlight java"><figcaption><span>AtomicInteger.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicInteger</span> <span class="keyword">extends</span> <span class="title">Number</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取Unsafe对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 通过反射获取要操作的字段，通过unsafe获取字段的地址</span></span><br><span class="line">            valueOffset = unsafe.objectFieldOffset(AtomicInteger.class.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>被CAS操作的字段要使用volatile保证可见性，如果是long还可以保证多字节赋值完整性</p>
+<figure class="highlight java"><figcaption><span>AtomicInteger.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">    value = newValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在原子操作方面，委派给Unsafe类实现相关功能<br>
+针对写入操作,提供直接写入和CAS操作先比较再写入</p>
+<figure class="highlight java"><figcaption><span>AtomicInteger.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndSetInt(<span class="keyword">this</span>, valueOffset, newValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对count++/count–这种先返回再增减的操作</p>
+<figure class="highlight java"><figcaption><span>AtomicInteger.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndDecrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, -<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndAdd</span><span class="params">(<span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, delta);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对++count/–count这种先增减再返回的操作,实际上和上面那组方法一样，底层上都是<code>getAndAddInt</code>实现</p>
+<figure class="highlight java"><figcaption><span>AtomicInteger.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">incrementAndGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">decrementAndGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, -<span class="number">1</span>) - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, delta) + delta;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="对象类型原子性">对象类型原子性</h1>
+<hr>
+<p>基本类型中的boolean，int，long可以分别由AtomicBoolean,AtomicInteger和AtomicLong提供原子操作<br>
+如果是自定义的类，那么就需要AtomicReference负责，实现套路和上面基本一致，依然是volatile和unsafe协同实现<br>
+不同的是这里采用了泛型支持自定义类型，并且没有数值型的增减操作</p>
+<figure class="highlight java"><figcaption><span>AtomicReference.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReference</span>&lt;<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> V value;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V expect, V update)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.compareAndSwapObject(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">getAndSet</span><span class="params">(V newValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (V)unsafe.getAndSetObject(<span class="keyword">this</span>, valueOffset, newValue);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CAS仅限对单个变量进行原子操作，如果同时操作多个变量，难以实现，可以考虑将多个变量作为一个整体组成一个对象，分散操作转变为一次整体操作，把旧的对象整体替换成新对象，效果上实现多变量原子操作</p>
+<h1 id="aba问题">ABA问题</h1>
+<hr>
+<p>CAS在比较时只能判断是不是相等，并一定能确认是不是被改变过。比如值从A改到B再改回A,如果CAS看到了A,它也不知道是否中间经历了B值。<br>
+在基本类型上，因为只是一个数值，很多情况下值相等即可，改没改变无关紧要。然而和基本类型不同，引用型在比较时可能出现问题。<br>
+按照普通的CAS逻辑，引用没变就认为对象没改过，但是实际上修改对象属性并不改变对象引用，CAS无法正确判断对象内部是否修改，这会导致更新丢失。</p>
+<h1 id="对象类型原子性和辅助标记">对象类型原子性和辅助标记</h1>
+<hr>
+<p>既然单纯从对象引用无法判断是否修改，解决方案就是增加额外的判断内容，比如版本号。<br>
+AtomicStampedReference内部除了对象引用<code>reference</code>，还绑定了一个数值<code>stamp</code>,形成Pair结构<br>
+比较时单纯的对象引用比较是不够的，同时进行数值比较。</p>
+<figure class="highlight java"><figcaption><span>AtomicStampedReference.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicStampedReference</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> T reference;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> stamp;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Pair</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.reference = reference;</span><br><span class="line">            <span class="keyword">this</span>.stamp = stamp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> &lt;T&gt; <span class="function">Pair&lt;T&gt; <span class="title">of</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(reference, stamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Pair&lt;V&gt; pair;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 同时比较引用和数值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V expectedReference, V newReference, <span class="keyword">int</span> expectedStamp, <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; current = pair;</span><br><span class="line">        <span class="keyword">return</span> expectedReference == current.reference &amp;&amp; expectedStamp == current.stamp &amp;&amp;</span><br><span class="line">            <span class="comment">//没变或者替换</span></span><br><span class="line">            ((newReference == current.reference &amp;&amp; newStamp == current.stamp) || casPair(current, Pair.of(newReference, newStamp)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">casPair</span><span class="params">(Pair&lt;V&gt; cmp, Pair&lt;V&gt; val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> UNSAFE.compareAndSwapObject(<span class="keyword">this</span>, pairOffset, cmp, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果不想绑定数值，AtomicMarkableReference提供了绑定布尔值的结构，相当于一个简化版</p>
+<figure class="highlight java"><figcaption><span>AtomicMarkableReference.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicMarkableReference</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> T reference;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">boolean</span> mark;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Pair</span><span class="params">(T reference, <span class="keyword">boolean</span> mark)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.reference = reference;</span><br><span class="line">            <span class="keyword">this</span>.mark = mark;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> &lt;T&gt; <span class="function">Pair&lt;T&gt; <span class="title">of</span><span class="params">(T reference, <span class="keyword">boolean</span> mark)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(reference, mark);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Pair&lt;V&gt; pair;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数组原子性">数组原子性</h1>
+<hr>
+<p>直接把数组当成一个引用，并不能保证每个数组元素的原子性<br>
+原子包提供AtomicIntegerArray,AtomicLongArray,AtomicReferenceArray三个版本</p>
+<p>以AtomicIntegerArray为例,不出意外，底层是个int数组，但是不同的是没有volatile,而是一个final修饰，这是因为目标是提供操作数组元素的原子性，而不是改变数组引用本身<br>
+每个操作都提供了数组索引，操作单个元素。这样单个元素就相当于AtomicInteger,可以进行各种操作</p>
+<figure class="highlight java"><figcaption><span>AtomicIntegerArray.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicIntegerArray</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//final也可以保障可见性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span>[] array;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//传入数组被复制，因此原子操作不会影响原数组</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicIntegerArray</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Visibility guaranteed by final field guarantees</span></span><br><span class="line">        <span class="keyword">this</span>.array = array.clone();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">        unsafe.putIntVolatile(array, checkedByteOffset(i), newValue);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> newValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getAndSetInt(array, checkedByteOffset(i), newValue);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> compareAndSetRaw(checkedByteOffset(i), expect, update);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndDecrement</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="对象属性原子性">对象属性原子性</h1>
+<hr>
+<p>对象内可以包含一些volatile属性，为了保证单个属性可以进行原子操作，可以简单的把每个属性替换成原子对象版本<br>
+原子包内还提供另外一种实现方式，基于反射构建的属性更新器静态工具类，提供AtomicIntegerFieldUpdater，AtomicLongFieldUpdater和AtomicReferenceFieldUpdater三个版本</p>
+<p>属性更新器是由静态方法创建，提供对象类型，属性类型，属性名三个参数。更新器只和类型有关，和具体对象实例无关，可以被复用<br>
+使用时传入操作对象和属性值即可，因为更新器已知该操作哪个属性</p>
+<figure class="highlight java"><figcaption><span>AtomicReferenceFieldUpdater.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReferenceFieldUpdater</span>&lt;<span class="title">T</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@CallerSensitive</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;U,W&gt; <span class="function">AtomicReferenceFieldUpdater&lt;U,W&gt; <span class="title">newUpdater</span><span class="params">(Class&lt;U&gt; tclass, Class&lt;W&gt; vclass, String fieldName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AtomicReferenceFieldUpdaterImpl&lt;U,W&gt;(tclass, vclass, fieldName, Reflection.getCallerClass());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(T obj, V expect, V update)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如更新Sample类中的value字段</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sample</span></span>&#123;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Sample s = <span class="keyword">new</span> Sample();</span><br><span class="line">    AtomicIntegerFieldUpdater&lt;Sample&gt; updater = AtomicIntegerFieldUpdater.newUpdater(Sample.calss, <span class="string">"old"</span>);</span><br><span class="line">    updater.compareAndSet(s,<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="adder类">Adder类</h1>
+<hr>
+<p>Java8新增的原子操作类，包括LongAdder和DoubleAdder两个版本。<br>
+AtomicLong和LongAdder两者功能类似，都可以用来计数，但是在高竞争下，LongAdder性能更好<br>
+性能区别在于实现原理不同，AtomicLong底层只维护一个变量，而LongAdder维护了一个动态大小的变量数组，分散了竞争</p>
+<p>实现上LongAdder继承了<code>Striped64</code>，即把单一变量操作分散到变量数组的公共实现<br>
+大体流程是各线程选择数组不同元素操作，尽可能避免竞争，取值时再对数组结果进行汇总。对外界透明，感觉在操作单一变量</p>
+<figure class="highlight java"><figcaption><span>LongAdder.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LongAdder</span> <span class="keyword">extends</span> <span class="title">Striped64</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加减1作为特例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        add(<span class="number">1L</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        add(-<span class="number">1L</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//累加多值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">        Cell[] as; <span class="keyword">long</span> b, v; <span class="keyword">int</span> m; Cell a;</span><br><span class="line">        <span class="keyword">if</span> ((as = cells) != <span class="keyword">null</span> || !casBase(b = base, b + x)) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> uncontended = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//选取一个Cell，对其进行CAS操作</span></span><br><span class="line">            <span class="comment">//选取过程是一个哈希处理，getProbe是线程相关的，即同一个线程操作同一个变量，减少竞争</span></span><br><span class="line">            <span class="keyword">if</span> (as == <span class="keyword">null</span> || (m = as.length - <span class="number">1</span>) &lt; <span class="number">0</span> || (a = as[getProbe() &amp; m]) == <span class="keyword">null</span> || !(uncontended = a.cas(v = a.value, v + x)))</span><br><span class="line">                longAccumulate(x, <span class="keyword">null</span>, uncontended);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//因为是变量组，因此取值其实是相加汇总</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">longValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sum();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//求和是在base基础上，再遍历数组而成</span></span><br><span class="line">    <span class="comment">//base变量用于无竞争条件下，数组是竞争条件下，结合起来</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">sum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Cell[] as = cells; Cell a;</span><br><span class="line">        <span class="keyword">long</span> sum = base;</span><br><span class="line">        <span class="keyword">if</span> (as != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; as.length; ++i) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((a = as[i]) != <span class="keyword">null</span>)</span><br><span class="line">                    sum += a.value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2017/09/11/java-multithread-atomic/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/09/11/java-multithread-atomic/">http://linest.github.io/2017/09/11/java-multithread-atomic/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/12/java-multithread-locksupport/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java LockSupport
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/06/java-multithread-cas/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java CAS</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

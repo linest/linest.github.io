@@ -1,0 +1,100 @@
+collection[2010] = [
+        {
+            feature:'不来梅联邦州',
+            description:'硬币的内部是不来梅市政厅，前景是罗兰雕像。“BREMEN”一词刻在市政厅下方的雕像的右边。以字母A、“D”、“F”、“G”或“J”为代表的铸币标志出现在市政厅上方。艺术家Bodo Broschat的名字首字母位于底部雕像下方。发行国的名称“D”和年份“2010”分别穿插在硬币外圈的顶部和底部，分布在欧盟的12颗星星之间。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_de.jpg',
+            volumn:'3000万枚',
+            date:'2010.01',
+            country:'德国',
+            series: '德国联邦州'            
+        },
+        {
+            feature:'大公的盾形纹章',
+            description:'硬币的内部，左边描绘了亨利大公朝向右边的肖像，紧邻着亨利大公的盾形纹章，上面是年发行的年份2010，两侧有铸币厂标记，稍微重叠在外环上。在肖像下面，发行国的名字“L?TZEBUERG”，略微重叠在外环上。这枚硬币的外圈描绘了欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_lu.jpg',
+            volumn:'100万枚',
+            date:'2010.01',
+            country:'卢森堡'
+        },
+        {
+            feature:'加富尔伯爵诞辰200周年',
+            description:'这枚硬币是为了纪念卡米洛·奔索，加富尔伯爵（1810-1861）诞辰200周年，卡米洛·奔索是意大利统一和早期意大利自由主义的关键人物，也是政治报纸“Il Risorgimento”的创始人。它以加富尔的肖像画为基础，由弗朗西斯科·海耶兹于1864画成。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_it.jpg',
+            volumn:'400万枚',
+            date:'2010.03',
+            country:'意大利'
+        },
+        {
+            feature:'世界自然和文化遗产--科尔多瓦历史中心',
+            description:'这枚硬币是为了纪念科尔多瓦的历史中心，这是1984年被联合国教科文组织列入世界遗产名录的第一个西班牙地点。它描绘了科尔多瓦大清真寺的“支柱森林”，这是欧洲伊斯兰艺术最重要和最古老的代表之一。清真寺建于8世纪到10世纪之间，后来被奉为基督教大教堂，并经历了一系列的改造。这枚硬币是联合国教科文组织世界遗产名录上的西班牙地点新系列中的第一枚。从2010起每年都会发行一枚纪念币。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_es.jpg',
+            volumn:'800万枚',
+            date:'2010.03',
+            country:'西班牙',
+            series: '西班牙世界遗产'
+        },
+        {
+            feature:'卢布尔雅那植物园200周年',
+            description:'硬币的内部描述了Rebrin?evolistna Hladnikija植物。在植物下面的左边是它的名字，“HLADNIKIA PASTINACIFOLIA”，用弧线书写。图像被“200 LET”、“BOTANI?NI VRT”、“LJUBLJANA”和“SLOVENIJA 2010”所包围。硬币的外圈描绘了欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_sl.jpg',
+            volumn:'100万枚',
+            date:'2010.05',
+            country:'斯洛文尼亚'
+        },
+        {
+            feature:'2010比利时担任欧盟轮值主席国',
+            description:'硬币的内部是纪念标志，即艺术风格字母“EU”和“trio.be”。中心设计被“BELGIAN PRESIDENCY OF THE COUNCIL OF THE EU 2010”和三种语言的国家名称“BELGIE BELGIQUE BELGIEN”所环绕。在标志下方和国家名称上方，发行年份，即“2010”，位于左侧的铸币标记和右侧的铸币厂长标记之间。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_be.jpg',
+            volumn:'500万枚',
+            date:'2010.06',
+            country:'比利时'
+        },
+        {
+            feature:'618宣言70周年',
+            description:'这枚硬币是为了纪念1940年6月18日法国沦陷后，自由法国组织的领导人戴高乐将军在伦敦BBC上发表的宣言（“Appel du 18 juin”）70周年。戴高乐对法国人说，战争还没有结束。这次演讲被认为是法国抵抗运动的诞生，也是法国在第二次世界大战期间开始反抗占领的开始。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_fr.jpg',
+            volumn:'2000万枚',
+            date:'2010.06',
+            country:'法国'
+        },
+        {
+            feature:'葡萄牙共和国建国100周年',
+            description:'这枚硬币是为了纪念1910年10月5日革命后，曼纽尔二世君主立宪制结束和葡萄牙共和国成立100周年而铸造的。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_pt.jpg',
+            volumn:'200万枚',
+            date:'2010.09',
+            country:'葡萄牙'
+        },
+        {
+            feature:'桑德罗·波提切利逝世500周年',
+            description:'这枚硬币是为了纪念Alessandro di Mariano di Vanni Filipepi（1445-1510）逝世500周年而铸造的。也就是佛罗伦萨画派画家桑德罗·波提切利，又称为Il Botticello ("The Little Barrel")，硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_sm.jpg',
+            volumn:'13万枚',
+            date:'2010.09',
+            country:'圣马力诺'
+        },
+        {
+            feature:'1860货币法令授予芬兰发行纸币硬币的权利',
+            description:'硬币内部部分取自芬兰盾形纹章的狮子造型图案，以及发行年份“2010”，在左侧有铸币标记和一组表示币值的数字。底边中心的是发行国名，即字母“FI”。这枚硬币的外圈描绘了欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_fi.jpg',
+            volumn:'160万枚',
+            date:'2010.10',
+            country:'芬兰'
+        },
+        {
+            feature:'司铎年',
+            description:'这枚硬币是为了纪念教皇本笃十六世宣布的从2009年6月19日到2010年6月19日为止的司铎年，这是有教皇参与的国际神父聚会。硬币上有牧羊人从狮子嘴里拉出羊羔的故事。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_va.jpg',
+            volumn:'11.5万枚',
+            date:'2010.10',
+            country:'梵蒂冈'
+        },
+        {
+            feature:'马拉松战役2500周年',
+            description:'这枚硬币纪念马拉松战役的2500周年。硬币的中心是盾牌和奔跑者/战士的综合体，代表了为自由而战和马拉松战役所代表的崇高理想。盾上的鸟象征着目前的西方文明的诞生。硬币的外圈承载着欧盟的12颗星。',
+            image:'https://www.ecb.europa.eu/euro/coins/comm/shared/img/comm_2010_el.jpg',
+            volumn:'250万枚',
+            date:'2010.10',
+            country:'希腊'
+        }
+    ]
