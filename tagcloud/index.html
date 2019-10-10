@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="($$ text $$)                                                                     /*">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-03T10:40:00.328Z">
+<meta property="og:updated_time" content="2019-10-10T00:25:05.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="标签云">
 <meta name="twitter:description" content="($$ text $$)                                                                     /*">
@@ -179,10 +179,11 @@ ol, ul {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.16/chance.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vuetify@1.2.4/dist/vuetify.min.js"></script>
-<script src="https://seregpie.github.io/VueWordCloud/VueWordCloud.js"></script>
+<!-- seregpie.github.io/VueWordCloud -->
+<script type="text/javascript" src="index/VueWordCloud.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.0.13/fontfaceobserver.standalone.js"></script>
 <script>
-new Vue({
+var vue = new Vue({
     el:"#app",
     data: {
         tagWordCount: [],
@@ -281,8 +282,7 @@ new Vue({
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
@@ -299,5 +299,6 @@ new Vue({
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end --></body>
+<!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
