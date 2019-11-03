@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>leetcode-greedy | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="❀402. Remove K Digits 从非负数中删除K个数字，使得整体数字尽量小 每遇到一个数字，如果有删除额度，并且比前面数字小，就把前面删除 12345678910111213141516171819202122public class Solution &amp;#123;    public String removeKdigits(String num, int k) &amp;#123;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="leetcode-greedy">
+<meta property="og:url" content="http://linest.github.io/leetcode/leetcode-greedy.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="❀402. Remove K Digits 从非负数中删除K个数字，使得整体数字尽量小 每遇到一个数字，如果有删除额度，并且比前面数字小，就把前面删除 12345678910111213141516171819202122public class Solution &amp;#123;    public String removeKdigits(String num, int k) &amp;#123;">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-03T02:35:31.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode-greedy">
+<meta name="twitter:description" content="❀402. Remove K Digits 从非负数中删除K个数字，使得整体数字尽量小 每遇到一个数字，如果有删除额度，并且比前面数字小，就把前面删除 12345678910111213141516171819202122public class Solution &amp;#123;    public String removeKdigits(String num, int k) &amp;#123;">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/leetcode/leetcode-greedy.html" class="article-date">
+  	<time datetime="2019-11-03T02:35:31.618Z" itemprop="datePublished">2019-11-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      leetcode-greedy
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="❀402-remove-k-digits">❀402. Remove K Digits</h2>
+<p>从非负数中删除K个数字，使得整体数字尽量小</p>
+<p>每遇到一个数字，如果有删除额度，并且比前面数字小，就把前面删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">removeKdigits</span><span class="params">(String num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> digits = num.length() - k;</span><br><span class="line">        <span class="keyword">char</span>[] stk = <span class="keyword">new</span> <span class="keyword">char</span>[num.length()];</span><br><span class="line">        <span class="keyword">int</span> top = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.length(); ++i) &#123;</span><br><span class="line">            <span class="keyword">char</span> c = num.charAt(i);</span><br><span class="line">            <span class="keyword">while</span> (top &gt; <span class="number">0</span> &amp;&amp; stk[top-<span class="number">1</span>] &gt; c &amp;&amp; k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                top -= <span class="number">1</span>;</span><br><span class="line">                k -= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk[top++] = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (idx &lt; digits &amp;&amp; stk[idx] == <span class="string">'0'</span>) &#123;</span><br><span class="line">            idx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> idx == digits? <span class="string">"0"</span>: <span class="keyword">new</span> String(stk, idx, digits - idx);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="561-array-partition-i">561. Array Partition I</h2>
+<p>长为2n的数组，两两一对划分取较小，求最大和<br>
+两两一对，肯定舍弃一半。最大的肯定不能留，那么留次大的。依次类推，留下的是位于偶数索引的数字</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">arrayPairSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                sum += nums[i]; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="942-di-string-match">942. DI String Match</h2>
+<p>给出一个DI构成的升降序列，求0~n排列满足升降关系<br>
+只顾及相邻元素间的升降关系<br>
+遇到升，优先选择最小的，这样后面确保可以升<br>
+遇到降，优先选择最大的，这样后面确保可以降</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] diStringMatch(String S) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = S.length();</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[len + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> min = <span class="number">0</span>, max = len;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(S.charAt(i) == <span class="string">'I'</span>) &#123;</span><br><span class="line">                result[i] = min;</span><br><span class="line">                min++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                result[i] = max;</span><br><span class="line">                max--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        result[len] = min;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="860-lemonade-change">860. Lemonade Change</h2>
+<p>一个5块钱，客户会付5,10,20，初始没钱，排队购买，判定是否能找开<br>
+贪心算法，找钱优先找大额，以免后面找不开</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">lemonadeChange</span><span class="params">(<span class="keyword">int</span>[] bills)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> dollar5 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> dollar10 = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bills.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bills[i] == <span class="number">5</span>)&#123;</span><br><span class="line">                dollar5++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bills[i] == <span class="number">10</span> &amp;&amp; dollar5 &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dollar5 == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                dollar5--;</span><br><span class="line">                dollar10++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(dollar10 &gt; <span class="number">0</span> &amp;&amp; dollar5 &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    dollar10--;</span><br><span class="line">                    dollar5--;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(dollar5 &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">                    dollar5 -= <span class="number">3</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="575-distribute-candies">575. Distribute Candies</h2>
+<p>偶数个蜡烛，不同种类，求每个人最多能获得多少不同种类<br>
+贪心算法，只要种类足够多，那么每个分一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">distributeCandies</span><span class="params">(<span class="keyword">int</span>[] candies)</span> </span>&#123;</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : candies) &#123;</span><br><span class="line">            set.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> kinds = set.size();</span><br><span class="line">        <span class="keyword">int</span> amount = candies.length/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span>  kinds &gt;= amount ? amount : kinds; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="984-string-without-aaa-or-bbb">984. String Without AAA or BBB</h2>
+<p>构造一个A个a,B个b的字符串，里面没有三连<br>
+贪心策略，哪个多就尝试多消耗，比如a多就构造aab形式，相等就进行abab交错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">strWithout3a3b</span><span class="params">(<span class="keyword">int</span> A, <span class="keyword">int</span> B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = A+B;</span><br><span class="line">        <span class="keyword">char</span>[] result = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; len) &#123;</span><br><span class="line">            <span class="keyword">if</span>(A &gt; B) &#123;</span><br><span class="line">                result[i++] = <span class="string">'a'</span>; A--;</span><br><span class="line">                <span class="keyword">if</span>(A &gt; <span class="number">0</span>) &#123; result[i++] = <span class="string">'a'</span>; A--; &#125;</span><br><span class="line">                <span class="keyword">if</span>(B &gt; <span class="number">0</span>) &#123; result[i++] = <span class="string">'b'</span>; B--; &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(A &lt; B) &#123;</span><br><span class="line">                result[i++] = <span class="string">'b'</span>; B--;</span><br><span class="line">                <span class="keyword">if</span>(B &gt; <span class="number">0</span>) &#123; result[i++] = <span class="string">'b'</span>; B--; &#125;</span><br><span class="line">                <span class="keyword">if</span>(A &gt; <span class="number">0</span>) &#123; result[i++] = <span class="string">'a'</span>; A--; &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                result[i++] = <span class="string">'a'</span>; A--;</span><br><span class="line">                result[i++] = <span class="string">'b'</span>; B--; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="❀55-jump-game">❀55. Jump Game</h2>
+<p>数组每个元素代表在当前位置可向后跳的范围，初始在头部，判断是否能到达尾部</p>
+<p>动态规划，从尾部开始计算，判断每个格子所有可能是否可以到达尾部</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">boolean</span>[] result = <span class="keyword">new</span> <span class="keyword">boolean</span>[len];</span><br><span class="line">        result[len-<span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = len-<span class="number">2</span>; i &gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> n = nums[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n &amp;&amp; i+j &lt; len; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(result[i+j]) &#123;</span><br><span class="line">                    result[i] = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设从头可以到达尾部，如果中间某一点可以到达尾部，那么从头也必然可到达中间点,即转化为到达中间点问题，不必遍历每个点所有可能，每个点只判断一次，O(n)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> last = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = nums.length - <span class="number">1</span>; i &gt;=<span class="number">0</span> ; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i + nums[i] &gt;= last) &#123;</span><br><span class="line">                last = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="❀45-jump-game-ii">❀45. Jump Game II</h2>
+<p>数组每个元素代表在当前位置可向后跳的范围，初始在头部，假设一定能到达尾部，求最少步数</p>
+<p>贪心策略，每一步选择能到达最远距离，新的范围作为下一步起跳范围</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> jumps = <span class="number">0</span>, curEnd = <span class="number">0</span>, curFarthest = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            curFarthest = Math.max(curFarthest, i + A[i]);</span><br><span class="line">            <span class="keyword">if</span> (i == curEnd) &#123;</span><br><span class="line">                jumps++;</span><br><span class="line">                curEnd = curFarthest;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jumps;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="❀754-reach-a-number">❀754. Reach a Number</h2>
+<p>初始在0，第n步走距离n，可以向左也可以向右，求到达目标的最少步数</p>
+<p>目标在左右其实是对称的，因此先求绝对值，先固定在右边<br>
+一直向右走，直到超过目标，如果调整其中一步的方向，正向取消，反向增加，减少2倍距离<br>
+如果超过目标偶数距离，那么直接改变其中一步方向即可<br>
+如果超过目标奇数距离，那么继续走，因为奇偶交替，会在两步内变成偶数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reachNumber</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">0</span>, dis = <span class="number">0</span>;</span><br><span class="line">        target = Math.abs(target);</span><br><span class="line">        <span class="keyword">while</span> (dis &lt; target || (dis - target) % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            step++;</span><br><span class="line">            dis += step;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1221-split-a-string-in-balanced-strings">1221. Split a String in Balanced Strings</h2>
+<p>等量LR构成的字符串，求最多能划分成多少个等量部分</p>
+<p>原始就是等量，如果能划分出一段那么剩下的也满足等量，因此贪心划分即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">balancedStringSplit</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cntL = <span class="number">0</span>, cntR = <span class="number">0</span>, result = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : s.toCharArray()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">'L'</span>) &#123;</span><br><span class="line">                cntL++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c == <span class="string">'R'</span>)&#123;</span><br><span class="line">                cntR++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cntL == cntR) &#123;</span><br><span class="line">                result++;</span><br><span class="line">                cntL = <span class="number">0</span>;</span><br><span class="line">                cntR = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="❀392-is-subsequence">❀392. Is Subsequence</h2>
+<p>判断s是否是t的子序列</p>
+<p>t中依次找s中的字母，找到第一个符合的就可以找下一个，剩下的长度越长能找到的机会越大</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubsequence</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(t.charAt(i) == s.charAt(idx)) &#123;</span><br><span class="line">                idx++;</span><br><span class="line">                <span class="keyword">if</span>(idx == s.length()) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果t很长，s很多反复判断，基于普通遍历效率比较差<br>
+收集t中每种字母出现的下标，每种字母都对应一组升序下标，便于t每次二分查找s字母位置</p>
+<h2 id="521-longest-uncommon-subsequence-i">521. Longest Uncommon Subsequence I</h2>
+<p>找最长的非公共子序列，即一个字符串的子序列不是另一字符串的子序列</p>
+<p>如果两串相等，那没有，如果不相等那最长的串整串必然不是另一串的子序列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLUSlength</span><span class="params">(String a, String b)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> a.equals(b) ? -<span class="number">1</span> : Math.max(a.length(), b.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/leetcode/leetcode-greedy.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/leetcode/leetcode-greedy.html">http://linest.github.io/leetcode/leetcode-greedy.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>
