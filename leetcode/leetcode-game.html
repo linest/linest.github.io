@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="约瑟夫环  最大公约数  365. Water and Jug Problem 水量无限，判断容量为x,y的两个杯子能否倒出z的水，即两个杯子储水量和为z 根据定理a*x+b*y = k*GCD(x,y) 正系数表示装满水，负系数表示倒掉，转化为目标是否是最大公约数的倍数 1234567891011121314151617181920212223class Solution &amp;#123;    p">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-03T02:35:31.602Z">
+<meta property="og:updated_time" content="2019-11-15T01:56:20.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode-game">
 <meta name="twitter:description" content="约瑟夫环  最大公约数  365. Water and Jug Problem 水量无限，判断容量为x,y的两个杯子能否倒出z的水，即两个杯子储水量和为z 根据定理a*x+b*y = k*GCD(x,y) 正系数表示装满水，负系数表示倒掉，转化为目标是否是最大公约数的倍数 1234567891011121314151617181920212223class Solution &amp;#123;    p">
@@ -149,7 +149,7 @@
   
     <div class="article-meta">
       <a href="/leetcode/leetcode-game.html" class="article-date">
-  	<time datetime="2019-11-03T02:35:31.602Z" itemprop="datePublished">2019-11-03</time>
+  	<time datetime="2019-11-15T01:56:20.636Z" itemprop="datePublished">2019-11-15</time>
 </a>
     </div>
   
@@ -198,7 +198,14 @@
 <h2 id="299-bulls-and-cows">299. Bulls and Cows</h2>
 <p>等长猜数字，返回数字数位都对的次数，返回数字对数位不对的次数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHint</span><span class="params">(String secret, String guess)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = secret.length(), bull = <span class="number">0</span>, cow = <span class="number">0</span>;</span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">char</span> s = secret.charAt(i), g = guess.charAt(i);</span><br><span class="line">            <span class="comment">//同位置相等统计</span></span><br><span class="line">            <span class="keyword">if</span>(s == g) &#123;</span><br><span class="line">                bull++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//不同位置哈希增减统计</span></span><br><span class="line">            <span class="keyword">int</span> cnt = map.getOrDefault(s, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(cnt &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                cow++;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(s, cnt+<span class="number">1</span>);</span><br><span class="line">            cnt = map.getOrDefault(g, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(cnt &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                cow++;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(g, cnt-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bull+<span class="string">"A"</span>+cow+<span class="string">"B"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h1 id="公式">公式</h1>
+<hr>
+<h2 id="❀453-minimum-moves-to-equal-array-elements">❀453. Minimum Moves to Equal Array Elements</h2>
+<p>一个数组n个数字，每次让n-1个数字都自增，求让数组相等的最小次数</p>
+<p>暴力解法，每次选一个位置不变，其他增加<br>
+实际策略，经过m次操作全部达到x，那么<code>sum+m*(n-1) = n*x</code>，并且最小元素每次都会参与增加，即<code>min+m = x</code><br>
+解出<code>m = sum - n*min</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minMoves</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = nums[<span class="number">0</span>], min = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">            min = Math.min(min, nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum - nums.length*min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
     <div class="donate_module">
         <div id="donate_board" class="donate_bar">
@@ -310,6 +317,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

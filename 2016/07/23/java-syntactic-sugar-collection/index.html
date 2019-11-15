@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="简洁高效的数组&amp;amp;集合操作">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-28T15:15:14.935Z">
+<meta property="og:updated_time" content="2019-11-15T01:56:20.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 数据集操作语法糖">
 <meta name="twitter:description" content="简洁高效的数组&amp;amp;集合操作">
@@ -245,6 +245,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value != <span class="keyword">null</span>) &#123;</span><br><span class="line">    set.add(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>commons-collections</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CollectionUtils.addIgnoreNull(set, value);</span><br></pre></td></tr></table></figure>
+<h2 id="最值">最值</h2>
+<p><code>Java8</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collections.max(map.entrySet(), Map.Entry.comparingByKey());</span><br><span class="line">Collections.max(map.entrySet(), Map.Entry.comparingByValue());</span><br></pre></td></tr></table></figure>
 <h1 id="map">Map</h1>
 <hr>
 <h2 id="没有时插入">没有时插入</h2>
@@ -340,7 +343,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#list-array"><span class="toc-number">1.</span> <span class="toc-text">List &amp; Array</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#列表初始化"><span class="toc-number">1.1.</span> <span class="toc-text">列表初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表获取第一个"><span class="toc-number">1.2.</span> <span class="toc-text">列表获取第一个</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数"><span class="toc-number">1.3.</span> <span class="toc-text">计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组连接"><span class="toc-number">1.4.</span> <span class="toc-text">数组连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组包含"><span class="toc-number">1.5.</span> <span class="toc-text">数组包含</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列表转数组"><span class="toc-number">2.</span> <span class="toc-text">列表转数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#collection"><span class="toc-number">3.</span> <span class="toc-text">Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#非null添加"><span class="toc-number">3.1.</span> <span class="toc-text">非null添加</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">4.</span> <span class="toc-text">Map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时插入"><span class="toc-number">4.1.</span> <span class="toc-text">没有时插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时返回默认"><span class="toc-number">4.2.</span> <span class="toc-text">没有时返回默认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新旧值合并"><span class="toc-number">4.3.</span> <span class="toc-text">新旧值合并</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#list-array"><span class="toc-number">1.</span> <span class="toc-text">List &amp; Array</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#列表初始化"><span class="toc-number">1.1.</span> <span class="toc-text">列表初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表获取第一个"><span class="toc-number">1.2.</span> <span class="toc-text">列表获取第一个</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数"><span class="toc-number">1.3.</span> <span class="toc-text">计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组连接"><span class="toc-number">1.4.</span> <span class="toc-text">数组连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组包含"><span class="toc-number">1.5.</span> <span class="toc-text">数组包含</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#列表转数组"><span class="toc-number">2.</span> <span class="toc-text">列表转数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#collection"><span class="toc-number">3.</span> <span class="toc-text">Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#非null添加"><span class="toc-number">3.1.</span> <span class="toc-text">非null添加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最值"><span class="toc-number">3.2.</span> <span class="toc-text">最值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">4.</span> <span class="toc-text">Map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时插入"><span class="toc-number">4.1.</span> <span class="toc-text">没有时插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有时返回默认"><span class="toc-number">4.2.</span> <span class="toc-text">没有时返回默认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新旧值合并"><span class="toc-number">4.3.</span> <span class="toc-text">新旧值合并</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -409,6 +412,6 @@
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
