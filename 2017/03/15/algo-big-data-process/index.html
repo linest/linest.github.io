@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>单机有限内存处理海量数据 | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一次放不下，拆分处理">
+<meta name="keywords" content="大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单机有限内存处理海量数据">
+<meta property="og:url" content="http://linest.github.io/2017/03/15/algo-big-data-process/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="一次放不下，拆分处理">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-01T02:31:21.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单机有限内存处理海量数据">
+<meta name="twitter:description" content="一次放不下，拆分处理">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-algo-big-data-process" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/15/algo-big-data-process/" class="article-date">
+  	<time datetime="2017-03-14T16:00:00.000Z" itemprop="datePublished">2017-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      单机有限内存处理海量数据
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/算法/">算法</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一次放不下，拆分处理</p>
+<a id="more"></a>
+<h1 id="量级估算">量级估算</h1>
+<hr>
+<ul>
+<li>GB在数量上是2的30次方，是billion级别，即10亿个字节</li>
+<li>MB在数量上是2的20次方，是million级别，即100万个字节</li>
+<li>32位整型理论是40亿，但是考虑到正负数，最大值大约20亿</li>
+</ul>
+<h1 id="目标特性">目标特性</h1>
+<hr>
+<ul>
+<li>范围
+<ul>
+<li>无限：单词，URL</li>
+<li>有限：整数，IP地址(32位)</li>
+</ul>
+</li>
+<li>重复性</li>
+</ul>
+<h1 id="处理方法">处理方法</h1>
+<hr>
+<ul>
+<li>位图</li>
+<li>哈希划分</li>
+<li>范围划分</li>
+<li>归并</li>
+</ul>
+<h1 id="大数据查重">大数据查重</h1>
+<hr>
+<blockquote>
+<p>单文件50亿个url，每个64字节，内存限制500M, 找出重复的</p>
+</blockquote>
+<p>哈希划分</p>
+<ol>
+<li>首先进行大小估算，单文件3200亿字节，即320G,肯定超出内存</li>
+<li>一次装不下，进行分治成1000个小文件，理论上每个小文件大概300M</li>
+<li>如果数据倾斜，个别小文件还是过大，继续哈希直到文件符合内存限制</li>
+<li>如果确实重复的很多，重复部分超过内存限制，流式读入去重</li>
+</ol>
+<blockquote>
+<p>两文件各50亿个url,每个64字节，内存限制4G，找出共同的部分</p>
+</blockquote>
+<p>哈希划分+配对比较</p>
+<ol>
+<li>首先进行大小估算，单文件3200亿字节，即320G,肯定超出内存</li>
+<li>一次装不下，进行分治成1000个小文件，分发方式是哈希%1000，这样每个小文件大概300M,同时好处是相同的url肯定位于相同的序号的小文件中</li>
+<li>内存加载一对序号相同的小文件，其中一个建立HashMap,另一个比对出结果</li>
+</ol>
+<h1 id="大数据单机排序">大数据单机排序</h1>
+<hr>
+<blockquote>
+<p>有限512MB内存下对10GB数据排序</p>
+</blockquote>
+<ul>
+<li>
+<p>位图<br>
+条件：如果数据是int类型，并且没有重复的话，可以考虑位图，用一个bit表示一个数字<br>
+整型全部数字有2<sup>32个，2</sup>32bit=0.5*2^30byte=0.5GB=512MB</p>
+</li>
+<li>
+<p>桶排序，范围划分<br>
+条件：如果范围有限，分布比较均匀的话<br>
+将数据按照所属范围分成若干小文件，每个文件内排序，因为范围也是有序的，顺序合并即可<br>
+场景：按时间排序</p>
+</li>
+<li>
+<p>分治归并<br>
+条件：数据无需满足特殊要求，通用</p>
+</li>
+</ul>
+<ol>
+<li>首先进行文件切分，10GB文件分成40份，每份256MB这样每次就可以同时加载两个文件</li>
+<li>依次将每份文件载入内存，进行排序，这样可以得到40份有序文件。</li>
+<li>接下来使用归并排序，最基本的是2路归并，每次开两个文件，输出一个文件。还可以进行多路归并，减少IO次数。最终将所有文件合并为一个文件</li>
+</ol>
+<h1 id="大数据单机topn">大数据单机topN</h1>
+<hr>
+<blockquote>
+<p>文件20亿个整数，内存2G，找出次数最多的数字</p>
+</blockquote>
+<p>直接划分，计数，结果归并</p>
+<ol>
+<li>20亿个整数，即使都是同一个数，也在int范围内，即计数采用4字节整型就够</li>
+<li>一条计数key和value各4个字节，一共8字节，2亿条记录占用1.6G，即内存能同时维护2亿个不同的数值</li>
+<li>20亿个整数最多有20亿个不同，所以划分成10个文件，这样每个文件内不同数字不超过2亿个，可以内存处理，计数结果输出成文件</li>
+<li>每个文件都可以统计出次数最多的数，不同文件结果进行归并，过程中找到最多</li>
+</ol>
+<blockquote>
+<p>有一个1G大小的文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M，要求返回频数最高的100个词</p>
+</blockquote>
+<p>哈希划分，计数排序，结果归并</p>
+<ol>
+<li>即使单词1个字节，最多出现10亿次，int计数即可</li>
+<li>单条kv最多20字节, 内存能计数50000个单词，即使单词1个字节，内存能处理50KB的文件</li>
+<li>哈希切割，相同词聚在一起，满足内存限制</li>
+<li>加载每个小文件，统计产出词频文件，内部排好序</li>
+<li>两两归并，只保留前100，最终产出一个文件</li>
+</ol>
+<blockquote>
+<p>海量访问日志中找出访问某一网站次数最多的IP</p>
+</blockquote>
+<p>哈希划分，计数</p>
+<ol>
+<li>过滤出访问某一网站的IP,写入文件</li>
+<li>IP每段有2<sup>8个取值，4段有2</sup>32 = 4G种取值，全加载内存有难度，哈希分治到1024个小文件，每个4M个地址</li>
+<li>每个小文件内部统计次数，找到最多的IP</li>
+<li>汇总，找到全局最多</li>
+</ol>
+<h1 id="大数据缺失查找">大数据缺失查找</h1>
+<hr>
+<blockquote>
+<p>文件40亿个无符号整数，内存1G，找出所有没出现的数字</p>
+</blockquote>
+<p>位图，全部整数数量的位图，大概40亿个比特位，占用512M空间</p>
+<blockquote>
+<p>内存10M，找出一个没出现的数字即可</p>
+</blockquote>
+<ol>
+<li>全部位图需要占用512M，按照范围划分成64份，每个范围4M可满足内存需求</li>
+<li>先找一个大概范围，计数统计64个区间上每个区间上出现的数字个数，如果个数小于范围，肯定缺失</li>
+<li>在区间上建立位图，找出一个缺失数字</li>
+</ol>
+<h1 id="大数据特征数查找">大数据特征数查找</h1>
+<hr>
+<blockquote>
+<p>40亿个32位无符号整数，内存1G，找到所有出现两次的数</p>
+</blockquote>
+<ul>
+<li>
+<p>位图<br>
+使用两位表示一个数据，80亿个比特位，符合1G<br>
+两个比特位可以表示4种状态，没有，1次，两次，多次</p>
+</li>
+<li>
+<p>分治<br>
+统计词频，找出词频是2</p>
+</li>
+</ul>
+<blockquote>
+<p>40亿个32位无符号整数，内存10M，找中位数</p>
+</blockquote>
+<p>粗略定位，精细统计</p>
+<ol>
+<li>200万个数约占内存8M, 可以按200万一个范围作为区间，这样能2000多个区间</li>
+<li>申请2000多的数组，先遍历一遍，进行区间词频统计，根据统计结果计算出中位数所在的区间</li>
+<li>申请200万容量数组，区间内再次词频统计，找出中位数</li>
+</ol>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2017/03/15/algo-big-data-process/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/03/15/algo-big-data-process/">http://linest.github.io/2017/03/15/algo-big-data-process/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/17/hearthstone-mammoth/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          猛犸年
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/02/java-enum/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java枚举</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Mysql | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mysql">
+<meta property="og:url" content="http://linest.github.io/tmp/db-mysql.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-07T01:09:31.517Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql">
+<meta name="twitter:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/db-mysql.html" class="article-date">
+  	<time datetime="2019-12-07T01:09:31.517Z" itemprop="datePublished">2019-12-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mysql
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>默认端口3306<br>
+服务端进程mysqld,客户端进程mysql</p>
+<a id="more"></a>
+<p>Mysql单机 8k QPS</p>
+<h1 id="对比oracle">对比Oracle</h1>
+<hr>
+<p>Mysql优势</p>
+<ul>
+<li>开源免费</li>
+<li>容易部署集群</li>
+</ul>
+<p>Oracle优势</p>
+<ul>
+<li>完全行锁支持，Mysql行锁依赖索引</li>
+<li>海量数据处理</li>
+<li>商业化与服务</li>
+</ul>
+<h1 id="架构">架构</h1>
+<hr>
+<h2 id="客户端服务端">客户端服务端</h2>
+<ul>
+<li>跨机，TCP/IP</li>
+<li>Windows同机，共享内存(默认)，命名管道</li>
+<li>Unix同机，Socket(本质是文件默认/tmp/mysql.sock)</li>
+</ul>
+<h2 id="服务端功能细分">服务端功能细分</h2>
+<ul>
+<li>连接管理</li>
+<li>缓存、解析、优化
+<ul>
+<li>收到sql先看缓存，没有再构建解析树，再交给优化器，最后查询存储</li>
+<li>查缓存在解析之前，使用原始SQL作为key, 任何字符不同都导致缓存不命中</li>
+<li>优化器不关心存储引擎细节，但要求知道某些操作的开销，用于估算成本</li>
+</ul>
+</li>
+<li>存储引擎：访问索引和数据</li>
+</ul>
+<h2 id="存储引擎交互">存储引擎交互</h2>
+<p>Server层和存储引擎以记录为单位交互，整个流程定位，回表，返回都是以记录为单位，一条一条判断</p>
+<p>二级索引范围查询</p>
+<ol>
+<li>存储引擎通过where中索引列查出第一条索引记录，回表获取数据记录，返回Server层</li>
+<li>Server层判断其他where条件，符合直接返回客户端</li>
+<li>根据记录next指针读取下一条，重复步骤2</li>
+</ol>
+<p>ICP(Index Condition Pushdown)索引条件下推，版本5.7功能新增<br>
+索引条件下推把查询中与被使用索引有关的查询条件下推到存储引擎中判断，而不是返回到server层再判断。索引条件下推只是为了减少回表次数，也就是减少读取完整的聚簇索引记录的次数，从而减少IO操作。而对于聚簇索引而言不需要回表，下推只适用于二级索引</p>
+<p>开启ICP的二级索引范围查询</p>
+<ol>
+<li>存储引擎在二级索引中定位满足条件的第一条索引记录</li>
+<li>如果where中有条件在索引中,ICP下推判断是否满足条件</li>
+<li>满足条件回表获取数据记录</li>
+<li>Server层判断其他where条件</li>
+<li>符合的结果返回客户端</li>
+<li>next指针获取索引的下一条记录，继续执行步骤2</li>
+</ol>
+<h2 id="存储引擎类型">存储引擎类型</h2>
+<p>分为不同类型是应对的不同的业务场景<br>
+底层采用存储结构，索引结构，锁策略不同</p>
+<p>显示存储引擎列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines</span><br></pre></td></tr></table></figure>
+<p>常见引擎</p>
+<ul>
+<li>MyISAM：不支持事务，速度快，表锁，查询会阻塞更新，适合查询及低并发插入更新，计数准确无需count扫描</li>
+<li>InnoDB: 支持事务，行锁，外键，5.5版本后的默认引擎</li>
+<li>Memory: 内存中存储，表锁，适合临时表</li>
+<li>Archive: 数据插入后不能更改，数据压缩存储，不支持索引，适合存档并且很少查询</li>
+<li>Blackhole: 丢弃所有写操作，读操作返回空</li>
+<li>Ndb: 集群引擎</li>
+</ul>
+<h1 id="索引">索引</h1>
+<hr>
+<p>用于高效查询，避免全扫描</p>
+<h2 id="b-树索引">B+树索引</h2>
+<hr>
+<p>内存和磁盘以页为单位交流<br>
+一个页一般16k，一行除了Blob和Text其他所有总和不能超过65535字节<br>
+规定一个页中至少放两个行记录，这导致溢出，会把数据放到其他页中</p>
+<p>页结构</p>
+<ul>
+<li>同层页双链表，所有页不必在连续存储空间</li>
+<li>页内记录单链表，记录被删不会物理删除，而是设置删除标记，在链表中剔除，之后会进入垃圾链表，如果再插入会复用</li>
+<li>每个页内维护页目录，可以二分查找槽，槽内包含多条记录</li>
+</ul>
+<p>叶子数据页和非叶索引页相同结构，构成一颗树<br>
+页内记录按照key顺序有序，NULL认为最小，排在最前</p>
+<h3 id="查找的流程">查找的流程</h3>
+<p>先定位页，再定位记录</p>
+<p>页查找</p>
+<ul>
+<li>无索引无法定位页，所有页全遍历</li>
+<li>索引就是为了定位页</li>
+</ul>
+<p>记录查找</p>
+<ul>
+<li>单页中主键查找：页目录，先二分查找到槽，然后槽内遍历</li>
+<li>单页中非主键查找：页内全遍历</li>
+</ul>
+<h3 id="引擎差异">引擎差异</h3>
+<ul>
+<li>InnoDB<br>
+默认已经存在一颗树，根据主键索引，叶节点存储数据，非叶节点存索引值，因此索引数据一体<br>
+对其他非主键列也可以建二级索引，但是叶节点只保存索引列和主键，拿到主键需要回表取完整数据<br>
+联合索引，比如两个字段，字段1相等时按字段2排序</li>
+</ul>
+<ol>
+<li>有主键，建立聚簇索引</li>
+<li>没主键，使用不包含NULL的Unique列建立聚簇索引</li>
+<li>没主键也没唯一索引，内部生成GEN_CLUST_INDEX隐藏索引，值为DB_ROW_ID</li>
+</ol>
+<ul>
+<li>MyISAM<br>
+采用数据索引分离，数据存储时不刻意排序<br>
+主键索引叶节点只保存记录偏移地址，需要拿偏移去取完整数据，即相当于所有索引都是二级索引</li>
+</ul>
+<h3 id="b-树相比b树优点">B+树相比B树优点</h3>
+<ul>
+<li>非叶节点不存数据，空间可以存更多指针，同样条记录树高更低<br>
+一个页16kb，主键算8字节，指针6字节，估算3层高度即可存2000万条数据</li>
+<li>任何查询都要到达叶子节点，查询效率稳定</li>
+</ul>
+<h3 id="索引使用">索引使用</h3>
+<p>一定要符合索引中的维护的顺序，从左到右按序，不能跳跃</p>
+<ul>
+<li>索引列精确匹配</li>
+<li>部分前序索引列精确匹配</li>
+<li>第一索引列范围</li>
+<li>部分前序索引列精确匹配+后续范围</li>
+<li>字符串前缀匹配
+<ul>
+<li>如果需要后缀匹配，考虑逆向存储</li>
+</ul>
+</li>
+<li>排序使用全部或部分前序索引列，利用索引本身有序省去不必要的内存排序
+<ul>
+<li>所有列顺序要一致，不能升降并存</li>
+</ul>
+</li>
+<li>分组使用全部或部分前序索引列，索引有序天然分组</li>
+</ul>
+<h3 id="索引开销">索引开销</h3>
+<p>索引开销</p>
+<ul>
+<li>每建一个索引都耗费额外空间</li>
+<li>每次改动都要同步维护相关索引，耗费时间</li>
+</ul>
+<p>不建索引场景</p>
+<ul>
+<li>表记录很少，不如直接遍历</li>
+<li>改动多但查询少，索引很少有机会利用</li>
+<li>区分度很小，比如布尔</li>
+<li>经常和另一索引字段一起查，并且另一字段区分度已经很高</li>
+</ul>
+<h2 id="哈希索引">哈希索引</h2>
+<p>哈希索引无序，只支持全索引列参与等值查询，不能范围<br>
+所有索引列计算哈希值，精确匹配才行，哈希可以冲突采用链表法处理</p>
+<h3 id="引擎差异-v2">引擎差异</h3>
+<ul>
+<li>
+<p>InnoDB<br>
+自适应哈希索引(adaptive hash index)<br>
+观察发现表几乎都在内存缓冲中，会内存建立哈希，不能手动建<br>
+默认开启，有些情况下高频join,like等操作不适合，需显式关闭</p>
+</li>
+<li>
+<p>Memory/Heap<br>
+索引结构只存哈希值和行指针，不存数据<br>
+通常情况下很高效，但是索引建在选择性很低的列上会导致链表很长，效率变差</p>
+</li>
+</ul>
+<h1 id="表分区">表分区</h1>
+<hr>
+<p>面向表内数据很多的场景，根据规则将同一表底层划分成多个物理分区</p>
+<ul>
+<li>可以利用更多设备，存更多数据</li>
+<li>可以查询限定分区，优化效率</li>
+<li>分区后独立维护</li>
+<li>索引也分区，不同分区上同一索引可以并行访问</li>
+</ul>
+<p>判断是否支持分区，最多划分1024个分区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%partition%&apos;</span><br></pre></td></tr></table></figure>
+<p>用于分区的字段要么不包含主键和唯一索引，要么全包含，否则单一分区内难以判定唯一性</p>
+<p>分区模式</p>
+<ul>
+<li>Range 连续范围分区</li>
+<li>List 自定义范围分区</li>
+<li>Hash 表列哈希散列分区</li>
+<li>Key Mysql内部key哈希散列分区</li>
+</ul>
+<h1 id="innodb缓冲池">InnoDB缓冲池</h1>
+<hr>
+<p>缓冲池避免了直接磁盘读写，内存操作弥补了速度差<br>
+InnoDB引擎在启动时向操作系统申请内存建立缓冲池Buffer Poll，默认128M<br>
+缓冲池划分三部分存储，前部分存控制信息，中间是碎片空间，后部分缓存页，每个缓存页对应一个控制信息(表空间，页号，数据指针等)</p>
+<p>控制信息会加入各种双向链表便于管理，比如</p>
+<ul>
+<li>free链表，空闲的缓存页</li>
+<li>flush链表，缓存页被修改变为脏页，需要被同步到磁盘</li>
+<li>lru链表</li>
+</ul>
+<p>表空间+页号可以为key信息进行哈希查找，快速定位缓存页</p>
+<h2 id="参数">参数</h2>
+<p>查看相关信息SHOW ENGINE INNODB STATUS\G</p>
+<ul>
+<li>Buffer Pool总大小<code>innodb_buffer_pool_size</code></li>
+<li>单个过大的缓冲池不利于并发，可以分割成多实例<code>innodb_buffer_pool_instances</code></li>
+<li>单实例不要求整块内存连续，而是以chunk为单位<code>innodb_buffer_pool_chunk_size</code></li>
+</ul>
+<h2 id="lru替换控制">LRU替换控制</h2>
+<p>普通的LRU策略不适合</p>
+<ul>
+<li>全表扫描，顺序大量访问造成高频数据被换掉</li>
+<li>预读机制，加载不一定会用到的额外页，造成高频数据被换掉</li>
+</ul>
+<p>为了提升命中，LRU分成两部分，高频热数据young区和低频冷数据old区，比例由<code>innodb_old_blocks_pct</code>控制</p>
+<ul>
+<li>预读机制，第一次加载的放在低频区</li>
+<li>全表扫描，由于多个记录在同一页，因此短时间内大量页被多次访问
+<ul>
+<li>记录访问时间，第一次访问和最后一次访问时间间隔很小，那么不会移动到young区，时间由<code>innodb_old_blocks_time</code>控制</li>
+</ul>
+</li>
+<li>避免热区频繁迁移
+<ul>
+<li>只有位于young区1/4之后的页被访问才移动到头部</li>
+</ul>
+</li>
+</ul>
+<h2 id="刷盘">刷盘</h2>
+<p>定期触发和请求时触发</p>
+<ul>
+<li>后台线程定期从LRU链表中冷数据区刷新到磁盘</li>
+<li>后台线程定期从flush列表刷新</li>
+<li>用户请求时没有缓存页可用，从LRU找一个脏页刷新并释放</li>
+<li>用户请求时批量从flush列表刷新</li>
+</ul>
+<h1 id="语句性能">语句性能</h1>
+<hr>
+<h2 id="慢查询">慢查询</h2>
+<p>慢查询日志记录响应时间超过阈值的SQL，默认10s<br>
+开启影响性能，默认不开启<br>
+<code>show variables like '%slow_query_log%'</code></p>
+<h2 id="explain执行计划">Explain执行计划</h2>
+<p>一条sql可能涉及多个表，多个select，那么执行计划有多行，每行表示一个单表操作</p>
+<ul>
+<li>id: 每个select语句对应一个id，涉及多表比如join那么多行共享id。同一sql中不同select语句比如子查询id不同</li>
+<li>select_type: 查询类型</li>
+<li>partitions：分区</li>
+<li>table: 表名</li>
+<li>type: 访问方法</li>
+<li>possible_keys： 可用的索引名，覆盖查询时为null</li>
+<li>key: 实际用到的索引名</li>
+<li>key_len: 使用到的索引列字段长度之和（可以区分联合索引用到了几个索引列）</li>
+<li>ref: 等值匹配时，匹配内容类型，比如const,func,列名等</li>
+<li>rows: 预计扫描行数</li>
+<li>filtered: 满足条件占总扫描百分比（可以评估join情况）</li>
+<li>extra: 额外信息，描述查询行为</li>
+</ul>
+<p>以json形式展示，并且包含查询成本信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN FORMAT=JSON &lt;SQL&gt;</span><br></pre></td></tr></table></figure>
+<p>紧接着执行会展示优化器重写后的SQL形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW WARNINGS\G</span><br></pre></td></tr></table></figure>
+<p>查询类型</p>
+<ul>
+<li>simple: 简单查询，不包含union或者子查询</li>
+<li>primary: union过程中最先执行部分或者子查询最外围</li>
+<li>union: 其余部分</li>
+<li>union result: union使用临时表去重</li>
+<li>subquery: 和主查询不相关子查询中的第一个，物化，只查询一次</li>
+<li>dependent subquery: 和主查询相关子查询中第一个</li>
+<li>derived: 子查询物化作为外层查询的数据，派生表</li>
+<li>materialized: 子查询物化作为与外层join的数据</li>
+</ul>
+<p>常用访问方法</p>
+<ul>
+<li>const: 根据主键或者唯一二级索引等值定位一条记录</li>
+<li>ref: 普通二级索引等值定位连续多条记录，回表查询</li>
+<li>ref_or_null: 等值同时还包含null，回表查询</li>
+<li>range: 范围查询，大于小于连续区间，in离散区间，回表查询</li>
+<li>index_merge：单一索引区分度不如多个好，采用交集优化</li>
+<li>index: 全索引扫描，查询列和条件列都在索引中，无需回表</li>
+<li>all: 全表扫描数据</li>
+</ul>
+<p>其他</p>
+<ul>
+<li>system: 表中只有一条记录并且引擎计数准确，比如MyISAM</li>
+<li>null: 无需查询</li>
+<li>fulltext： 全文索引</li>
+<li>eq_ref: 关联时主键或者唯一二级索引等值定位</li>
+</ul>
+<h2 id="profile">Profile</h2>
+<p>查看近期语句执行时间，标有id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set profiling=1;</span><br><span class="line">show profiles;</span><br></pre></td></tr></table></figure>
+<p>可以获知id后，展示单条语句详细执行信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show profile for query 语句id</span><br></pre></td></tr></table></figure>
+<h2 id="成本代价决策">成本代价决策</h2>
+<p>一个条件列有索引，一个没有，如果or连接，那么无法使用索引<br>
+多个条件列都有索引，一般只会使用一个索引<br>
+特殊情况下多索引合并，单个索引回表数量多开销大，多个索引合并后减少回表</p>
+<ul>
+<li>Intersection：主键可以范围，二级索引列全部等值（两个二级索引查询得到两组有序记录，便于合并，而二级索引本身就包含主键，因此主键只起过滤作用，可以范围）</li>
+<li>Union：主键可以范围，二级索引列全部等值</li>
+<li>Sort-Union: 二级索引页可以范围，只限于结果比较少的情况，可以对主键排序后再合并</li>
+</ul>
+<p>根据统计信息进行成本分析，查看表统计信息主要关注记录数目与占空间大小(推算页数目)</p>
+<p>mysql.engine_cost表：</p>
+<ul>
+<li>磁盘读块数据成本 1</li>
+<li>内存读块数据成本 1</li>
+</ul>
+<p>mysql.server_cost表:</p>
+<ul>
+<li>磁盘创建临时表成本 40</li>
+<li>磁盘写入临时记录成本 1</li>
+<li>两条记录比较成本，可用于排序  0.1</li>
+<li>内存创建临时表成本 2</li>
+<li>内存写入临时记录成本 0.2</li>
+<li>判断记录符合条件 0.2</li>
+</ul>
+<p>可以使用SELECT * FROM sample FORCE INDEX(name) WHERE name = “xxx” 强制使用索引</p>
+<h1 id="优化">优化</h1>
+<hr>
+<h2 id="结构">结构</h2>
+<ul>
+<li>主键not null auto_increment</li>
+<li>使用varchar动态长度</li>
+<li>数值避免null字段not null default 0</li>
+<li>避免大字段Text/Blob，占用空间大，操作开销高。可以单独拆分进其他表</li>
+<li>合理字段范围tinyint smallint mediumint int bigint float decimal，满足条件越小越好
+<ul>
+<li>省存储，一页存更多树更低，能缓存更多页</li>
+<li>省CPU，比较更快</li>
+</ul>
+</li>
+<li>单表1000w, 空间5G</li>
+<li>字段控制在50以内</li>
+<li>适当冗余，效率优先</li>
+</ul>
+<h2 id="索引-v2">索引</h2>
+<ul>
+<li>varchar字段建索引，使用部分前缀</li>
+<li>查询要有索引，避免全表扫描</li>
+<li>避免隐式转换导致索引失效，比如定义时字符串，传入条件是数字，查询和结构字段类型必须一致</li>
+<li>避免在索引列计算，防止索引失效</li>
+<li>尽量利用联合索引，前缀利用，避免每个查询单独建索引，减少开销</li>
+<li>自增列作为主索引，连续性能提升写入效率，避免uuid等随机值或自定义值</li>
+<li>尽量不用外键，通过应用来维护关系</li>
+</ul>
+<h2 id="sql">SQL</h2>
+<ul>
+<li>避免大sql, SQL尽可能简单提升并发</li>
+<li>避免大transaction,事务范围尽可能小</li>
+<li>避免大batch,单次大范围更新，打散成小范围多次更新</li>
+<li>只查询所需字段</li>
+<li>高效分页</li>
+<li>查询字段类型和表一致</li>
+<li>避免insert…select延迟，采用load data</li>
+<li>避免在sql层面计算，交给程序逻辑</li>
+</ul>
+<h2 id="自增主键维护">自增主键维护</h2>
+<p>自增主键的好处是写满一个页后再开另一个，顺序写入效率高<br>
+自增列必须是主键的第一部分</p>
+<ul>
+<li>Auto increment 显式自增<br>
+最大值维护在内存中，每次重启后会查当前已有的最大值放入内存，因此重启后id可能会重用<br>
+自增达到最大值后，无法继续新增，不会循环</li>
+<li>隐式自增<br>
+不指定主键时，内部采用row_id自增，超过最大值会循环</li>
+</ul>
+<h2 id="分页">分页</h2>
+<p>传统基于order by + limit<br>
+limit offset,n 从头扫描到偏移位置offset，最终返回之后n行，相当于查出了offset+n行再丢弃只保留N行，所以offset越大扫描定位时间越长<br>
+n=-1时不固定行数，返回从偏移直到表末尾</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> cond=<span class="number">100</span> <span class="keyword">limit</span> <span class="number">100000</span>，<span class="number">20</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>子查询锚点<br>
+适合分页符合id递增的情况<br>
+翻页查询时，先寻找第一个id，加入where条件中</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> cond=<span class="number">100</span> &amp;&amp; <span class="keyword">id</span> &gt;=(<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> cond=<span class="number">100</span> <span class="keyword">limit</span> <span class="number">100000</span>, <span class="number">1</span>) <span class="keyword">limit</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分页延迟关联<br>
+通用，分页可以与id顺序无关<br>
+先利用索引查id,只走索引不会查原始数据无关列，确定好id范围后再关联原始数据返回</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">form</span> t t1, (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> cond=<span class="number">100</span> <span class="keyword">limit</span> <span class="number">100000</span>, <span class="number">20</span>) t2 <span class="keyword">where</span> t1.id = t2.id</span><br></pre></td></tr></table></figure>
+<h2 id="大量插入">大量插入</h2>
+<p>循环插性能最差</p>
+<ul>
+<li>利用batch机制减少网络开销，另外Mysql insert语句原生支持可以同时写多个值，批量化插入</li>
+<li>关闭事务自动提交或者关闭每次刷新innodb_flush_log_at_trx_commit<br>
+一般基础可以达到30w/s的速度</li>
+</ul>
+<h1 id="命令">命令</h1>
+<hr>
+<p>启动服务，是mysql-safe封装，额外监控进程，挂了自动重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql.server start</span><br></pre></td></tr></table></figure>
+<p>客户端连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h主机名  -u用户名 -p密码</span><br></pre></td></tr></table></figure>
+<p>查看配置文件位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --verbose --help</span><br></pre></td></tr></table></figure>
+<p>库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名</span><br></pre></td></tr></table></figure>
+<p>命令分号结尾，可以撤销或者分行展示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语句 \c</span><br><span class="line">语句 \G</span><br></pre></td></tr></table></figure>
+<h1 id="信息获取">信息获取</h1>
+<hr>
+<h2 id="获取版本">获取版本</h2>
+<ul>
+<li>命令行查询 mysql -V</li>
+<li>语句查询 SELECT VERSION()</li>
+</ul>
+<h2 id="获取时间">获取时间</h2>
+<p>NOW(),CURTIME(),CURDATE() 获取执行开始时时间，同一SQL内多次出现结果一致<br>
+SYSDATE()实时时间，多次出现不一致</p>
+<h2 id="获取自增">获取自增</h2>
+<p>LAST_INSERT_ID()上次插入的自增，无需指定表名，和session相关</p>
+<h1 id="数据类型相关">数据类型相关</h1>
+<hr>
+<ul>
+<li>Decimal：精度保证，总有效数字位数，小数点后位数</li>
+<li>SET</li>
+<li>BLOB：二进制存储，视为字节</li>
+<li>TEXT：检索时不区分大小写的BLOB，视为字符，关联字符集</li>
+<li>Enum 提供预定义值<br>
+Create table size(name ENUM('Smail,‘Medium’,‘Large’);</li>
+</ul>
+<p>CHAR 指定固定长度1~255，不足时空格占位，取出后需要trim<br>
+VARCHAR 可变长，指定的是最大长度<br>
+字符串默认查询时都大小写不敏感，加binary区分大小写</p>
+<p>CHAR_LENGTH(str) 字符数<br>
+LENGTH(str) 字节数</p>
+<p>TIMESTAMP 时间戳<br>
+TIMESTAMP DEFAULT CURRENT_TIMESTAMP 初始值设为时间，之后不变<br>
+TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 初始值为0，之后每次修改自动更新</p>
+<p>tinyint smallint mediumint int bigint float decimal？</p>
+<h1 id="表达式">表达式</h1>
+<hr>
+<p>SELECT语句的列比较中使用=，&lt;&gt;，&lt;=，&lt;，&gt; =，&gt;，&lt;&lt;，&gt;&gt;，&lt;=&gt;，AND，OR，LIKE，BETWEEN AND运算符<br>
+REGEXP</p>
+<p>LIKE 任意多个字符<code>%</code> 单个字符<code>_</code></p>
+<h2 id="null特殊性">NULL特殊性</h2>
+<ul>
+<li>
+<p><code>&lt;=&gt;</code>支持NULL比较，两个NULL比较是相等<br>
+普通<code>=</code>只要一方是NULL结果就是NULL不确定，同理<code>!=</code>并不能使得NULL值出现，因为NULL的判定结果是不确定，不是true。要选出null结果，需要配合IS NULL或者IS NOT NULL</p>
+</li>
+<li>
+<p>Unique列对NULL无效，因为两个NULL比较不相等</p>
+</li>
+</ul>
+<h1 id="执行原理">执行原理</h1>
+<hr>
+<h2 id="exists">exists</h2>
+<p>select * from A where exists(select id from B where id = <a href="http://A.id" target="_blank" rel="noopener">A.id</a>)<br>
+先外再内，对于外围查询的每一行，验证子查询结果，exists只返回布尔结果不返回数据<br>
+适合外小内大，外部小减少了循环次数</p>
+<h2 id="in">in</h2>
+<p>select * from A where id in (select id from B)<br>
+先内再外，先获取内部子查询结果集，然后根据每行结果取外部数据<br>
+适合外大内小，内部小缩减了范围<br>
+索引？？<br>
+in注意null问题，not in判断null同样不符合，结果中不包含null</p>
+<h2 id="join">join</h2>
+<p>驱动表，被驱动表，驱动表访问一次，被驱动表访问多次<br>
+内连接ON和WHERE等价，可以没ON，内连接驱动关系可等价互换，外连接必须ON, 驱动关系不能换</p>
+<ul>
+<li>嵌套循环连接(Nested-Loop Join)<br>
+查出驱动表中符合条件的所有记录，针对每一条记录，计算连接条件值，到被驱动表中等值查一次</li>
+</ul>
+<ol>
+<li>取一条驱动表记录</li>
+<li>发起关联整个被驱动表</li>
+</ol>
+<ul>
+<li>块嵌套循环连接(Block Nested-Loop Join)<br>
+被驱动表访问开销大，每驱动一次就查一次开销太大<br>
+Join Buffer 默认256K加载多条驱动表记录，扫描被驱动表，每条记录一次性和缓冲中记录关联</li>
+</ul>
+<ol>
+<li>取一条被驱动表记录</li>
+<li>发起关联缓冲中的驱动表</li>
+</ol>
+<h1 id="日志redolog-binlog">日志Redolog Binlog</h1>
+<hr>
+<h2 id="redo-log-重做日志">Redo Log 重做日志</h2>
+<p>记录事务执行后数据页物理信息，崩溃后用于恢复已提交成功，但是没写入磁盘的数据<br>
+不是提交时写入，而是执行过程中写入Innodb_log_buffer，线程每秒刷新/提交前刷新/可用空间少于一半时刷新<br>
+事务数据写入磁盘后，日志完成使命</p>
+<h2 id="undo-log-回滚日志">Undo Log 回滚日志</h2>
+<p>用于保存事务开始前数据状态，可用于回滚，也可支持MVCC机制<br>
+事务开始之前生成<br>
+提交之后不能立刻删除，放入清理列表，其他事务不使用后可删除</p>
+<h2 id="bin-log-二进制日志">Bin Log 二进制日志</h2>
+<p>记录事务执行的SQL还有反向操作语句等，用于主从复制，数据库时间点还原<br>
+提交时刷新到磁盘<br>
+可配置过期时间清除</p>
+<ol>
+<li>新增记录</li>
+<li>更新内存数据</li>
+<li>写入redolog, 状态prepare</li>
+<li>写入binlog</li>
+<li>commit</li>
+</ol>
+<h1 id="sql语法">SQL语法</h1>
+<hr>
+<p>建表, 聚簇索引，二级索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">sample</span> (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    address <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">INDEX</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+<h1 id="锁">锁</h1>
+<hr>
+<p>内建表</p>
+<ul>
+<li>information_schema.innodb_trx查看事务</li>
+<li>information_schema.innodb_locks锁情况</li>
+<li>information_schema.innodb_lock_waits事务锁阻塞关系</li>
+</ul>
+<h2 id="锁内部实现">锁内部实现</h2>
+<p>Mysql锁是在页上操作，页上位图表示是否加锁<br>
+同一页上不管加几个锁开销都一样，因此不需要把大量行锁升级为表锁来优化性能</p>
+<h2 id="索引记录锁-record-locks">索引记录锁（Record Locks）</h2>
+<p>行锁，读锁或写锁<br>
+加载索引上，如果是二级索引，聚簇索引也加锁</p>
+<h2 id="间隙锁-gap-locks">间隙锁（Gap Locks）</h2>
+<p>行锁，在不符合条件的边界索引记录上加锁，锁定间隙不包含记录本身(第一条记录之前，索引记录之间，最后一条之后)，防止出现新的符合条件的记录<br>
+间隙锁范围重叠不冲突，目标一致都是不让插入</p>
+<h2 id="下一键锁-next-key-locks">下一键锁（Next-Key Locks）</h2>
+<p>行锁，索引记录本身锁以及前面间隙二者结合</p>
+<h2 id="意向锁-intention-locks">意向锁（Intention Locks）</h2>
+<p>表锁，表示希望细粒度加锁，已经或即将锁定某些行。事务获取行锁前，先获取意向锁<br>
+意向锁和行锁兼容，只会阻塞表锁请求<br>
+意向锁协调了表锁和行锁关系，即加行锁时要加意向锁，这样加表锁时就可根据意向锁快速判定能否加上</p>
+<ul>
+<li>事务持有IX写意向，那么只接受其他事务意向IX,IS，不支持表操作X,S</li>
+<li>事务持有IS读意向，那么拒绝其他事务表操作写X</li>
+<li>事务已经持有表写锁X，拒绝其他事务任何操作，表达意向也不行</li>
+<li>事务已经持有表读锁S, 只接受读意向IS和读操作S</li>
+</ul>
+<h2 id="插入意向锁-insert-intention-locks">插入意向锁（Insert Intention Locks）</h2>
+<p>范围是插入目标值到现有的下一索引值<br>
+意向之间不阻塞，范围重叠时间隙锁会单向阻塞意向</p>
+<h2 id="自增锁-auto-inc-locks">自增锁（AUTO-INC Locks）</h2>
+<p>表锁，插入带有自增列的记录时，插入前获取锁，插入后释放<br>
+默认配置下，只有不确定插入条数时才需要，通常不需要加锁而是使用mutex互斥</p>
+<h1 id="隔离级别实现">隔离级别实现</h1>
+<hr>
+<h2 id="mvcc机制">MVCC机制</h2>
+<p>多版本并发控制, 读不加锁，读写可以并发不冲突，提升吞吐量<br>
+每新创建一个事务，全局系统版本号增加作为事务的版本号<br>
+每行有两个隐藏域，trx_id相当于创建时版本号，roll_pointer指向undo日志中上一条形成版本链，当前版本号相当于上一条的过期时版本号</p>
+<ul>
+<li>新增，设置创建版本</li>
+<li>删除，设置过期版本</li>
+<li>修改，新增记录，同时设置旧记录过期版本</li>
+<li>查询，返回创建版本小于当前，如果有过期那么过期版本大于当前</li>
+</ul>
+<p>快照读：普通的SELECT<br>
+当前读：UPDATE，DELETE，INSERT，SELECT…LOCK IN SHARE MODE，SELECT…FOR UPDATE</p>
+<h2 id="隔离实现">隔离实现</h2>
+<p>Mysql默认RepeatableRead隔离级别</p>
+<ul>
+<li>
+<p>非锁定读<br>
+普通的select<br>
+ReadView机制，包含当前活跃的事务号，记录版本链筛选，如果记录为活跃事务说明没提交，跳过继续寻找之前版本<br>
+RU级别，直接读最新<br>
+RC级别每次读取都会生成一次ReadView，效果是读最新快照<br>
+RR级别只在事务内第一次读时生成ReadView，效果是外部事务状态可能变化但是ReadView不变读取同一快照，结果保持不变<br>
+解决了可重复读，顺便解决了部分幻读(幻读特例：事务A第一次查询完，事务B插入记录提交结束，事务A更新导致事务B插入记录一并更新并且版本号变成A，事务A第二次查询结果变化)<br>
+S级别如果开启自动提交并且只有一条查询直接MVCC，否则加读锁</p>
+</li>
+<li>
+<p>锁定读<br>
+采取加锁控制，读写不能并发，任何隔离级别下都没有脏读和不可重复读问题<br>
+lock in share mode  索引记录加共享锁S<br>
+for update  索引记录加排他锁X<br>
+RR级别下还会加间隙锁(Gap Lock), 避免幻读<br>
+S级别</p>
+</li>
+<li>
+<p>写<br>
+update/delete 先定位记录，在聚簇索引上加X锁, 然后再对应二级索引上加X锁<br>
+insert加排他写锁</p>
+</li>
+</ul>
+<h2 id="锁策略">锁策略</h2>
+<p>决定条件</p>
+<ul>
+<li>隔离级别：RC, RR</li>
+<li>索引：主键，唯一二级索引，普通二级索引，无索引</li>
+</ul>
+<p>RC: 没有间隙锁，只在完全满足条件的行上加锁<br>
+RR：</p>
+<ol>
+<li>无法使用索引全表扫描时，所有行加锁</li>
+<li>唯一索引等值查询，只需加锁目标行</li>
+<li>唯一索引范围查询，锁定范围内行，锁定间隙</li>
+<li>非唯一索引，锁定所有目标行，锁定间隙</li>
+<li>即使等值条件记录不存在，也会加间隙锁</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主键列a  唯一索引列b  普通索引列c  无索引列d</span><br><span class="line">1           2           2           1</span><br><span class="line">4           6           2           3</span><br><span class="line">7           8           6           8</span><br><span class="line">9           9           9           9</span><br></pre></td></tr></table></figure>
+<p>主键： a=4 只锁定聚簇索引a=4行<br>
+唯一二级索引：b=6  锁定聚簇索引a=4行，锁定二级索引b=6行<br>
+普通二级索引：c=6  锁定聚簇索引a=7行，锁定二级索引(2,6] (6,9)<br>
+无索引：d=8  锁定聚簇索引 (-∞,1] (1,3] (3,9] (8,9] (9,+∞)<br>
+范围查询：b&lt;=6  锁定聚簇索引a=1,a=4行，锁定二级索引(-∞,2] (2,6] (6,8] 之所以锁8因为要先读到不满足为止</p>
+<p>二级索引锁定范围后，因为二级索引也有主键，实际上主键也有隐含的范围锁定</p>
+<h1 id="sql-v2">SQL</h1>
+<hr>
+<h2 id="表存在性检测">表存在性检测</h2>
+<p>CREATE TABLE IF NOT EXIST<br>
+DROP TABLE IF EXISTS</p>
+<h2 id="主键冲突时执行更改">主键冲突时执行更改</h2>
+<p>普通的insert主键冲突直接报错，on duplicate key update冲突后执行update后面语句<br>
+INSERT INTO example(id,value) VALUES(3, ‘third’) ON DUPLICATE KEY UPDATE value =‘third’;</p>
+<h2 id="主键冲突时放弃">主键冲突时放弃</h2>
+<p>INSERT IGNORE INTO example(id,value) VALUES(3, ‘third’)</p>
+<h2 id="主键冲突时删除原有再插入">主键冲突时删除原有再插入</h2>
+<p>REPLACE INTO example(id,value) VALUES(3, ‘third’)</p>
+<h2 id="去重">去重</h2>
+<p>以行为单位去重，不能针对部分字段<br>
+DISTINCT</p>
+<p>表锁开销小，并发差，行锁开销大，并发好<br>
+表锁服务器也会参与，比如alter table时加表锁，忽略存储引擎<br>
+行锁完全由存储引擎实现，服务器不管</p>
+<p>事务日志，预写式日志，只修改内存和添加日志，慢慢刷回磁盘，日志顺序IO比随机IO高效<br>
+事务引擎InnoDB, NDB Cluster<br>
+除非显式开始事务，每个语句都是一个事务，而且默认自动提交<br>
+有些语句会强制提交当前活动事务，比如表结构修改alter table, 锁表lock table</p>
+<p>不支持事务的引擎也可以参与到事务管理，但是不能回滚，需要提前决定每张表的引擎</p>
+<p>InnoDB两阶段锁定协议，随时加锁，只有commit或者rollback会放锁，并且全部锁都放<br>
+InnoDB存储引擎额外支持的语法<br>
+select…lock in share mode<br>
+select…for update</p>
+<p>lock tables/unlock tables是服务层锁定</p>
+<p>MyISAM表锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &apos;table%&apos;;</span><br></pre></td></tr></table></figure>
+<p>Table_locks_immediate：发生表锁次数<br>
+Table_locks_waited：竞争等待表锁次数</p>
+<p>select … lock table 表锁<br>
+select … lock in share mode 读锁，锁定结果行<br>
+select … for update 写锁，锁定结果行</p>
+<p>InnoDB<br>
+行锁针对索引，不是加在数据上，只有通过索引才行锁，不索引就是表锁</p>
+<ul>
+<li>即使使用索引字段，也会根据代价衡量而采用表锁</li>
+<li>使用相同索引，即使访问不同数据行，锁也冲突</li>
+<li>范围锁定比如大于会涵盖不存在的记录，影响后续</li>
+</ul>
+<p>查看最近一次死锁情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW ENGINE INNODB STATUS</span><br></pre></td></tr></table></figure>
+<p>Mysql死锁检测，自动回滚影响较小即最少行级排它锁的事务，尝试重新启动</p>
+<ul>
+<li>业务中相同顺序访问表</li>
+<li>同一事务中，一次锁定所有资源</li>
+<li>适当使用表锁</li>
+</ul>
+<p>一定要关闭自动提交，表锁才能生效<br>
+解锁隐含提交，因此必须放事务最后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SET AUTOCOMMIT=0;</span><br><span class="line">LOCK TABLES t1 WRITE, t2 READ, ...;</span><br><span class="line">[do something with tables t1 and t2 here];</span><br><span class="line">COMMIT;</span><br><span class="line">UNLOCK TABLES;</span><br></pre></td></tr></table></figure>
+<p>默认隔离级别REPEATABLE_READ</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%iso%&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="innodb">InnoDB</h1>
+<hr>
+<p>行格式可以通过ROW_FORMAT指定Compact、Redundant、Dynamic和Compressed</p>
+<p>一个变长varchar理论上最多可占用65535字节</p>
+<ul>
+<li>Compact格式<br>
+每一行（变长字段长度，null字段，头信息，隐藏列，真实数据）</li>
+<li>Dynamic格式(5.7默认)，行溢出后，真实字段部分只存地址，而Compact还会存部分数据</li>
+</ul>
+<p>记录结构</p>
+<ul>
+<li>变长字段长度：存储每个变长字段的长度信息</li>
+<li>null字段：可选，如果所有字段都不能为null,那么这部分不存在，否则每个可以null字段使用一个二进制位标识</li>
+<li>记录头信息：记录号，记录类型，删除标记，槽内数量，下一条指针</li>
+<li>隐藏列：DB_ROW_ID（如果用户没定义主键，也没有unique列，那么产生隐藏列rowId）、DB_TRX_ID、DB_ROLL_PTR，</li>
+<li>真实字段数据</li>
+</ul>
+<p>页内结构</p>
+<ul>
+<li>File Header: 页号，页类型，前后页指针，校验和等</li>
+<li>Page Header: 页内信息</li>
+<li>Infimum+Supremum: 最大最小伪记录，最小记录指向第一条，最大记录被最后一条指向</li>
+<li>User Records: 真实数据记录，记录的单链表，按照主键顺序排列</li>
+<li>Free Space: 空闲空间</li>
+<li>Page Directory: 页目录，方便查找，将若干条记录分组(通常8条)，组内最后一条额外记录数量作为槽，搜索时根据槽信息二分查找</li>
+<li>File Tailer: 校验和，日志LSN，尾部再存一份有助于识别同步一半失败的情况</li>
+</ul>
+<h1 id="事务">事务</h1>
+<hr>
+<p>InnoDB和NDB支持事务，如果事务中操作其他不支持事务的表，那么无法回滚</p>
+<p>修改加入Buffer Pool的flush链表中，某一时刻刷新到磁盘<br>
+刷新前崩溃？ 刷新部分崩溃？</p>
+<p>begin简单开始事务<br>
+start transaction可以额外控制</p>
+<ul>
+<li>read write</li>
+<li>read only</li>
+<li>with consistent snapshot</li>
+</ul>
+<p>结束事务有两种commit和rollback</p>
+<p>自动提交，那么每句都是一个事务<br>
+系统变量SHOW VARIABLES LIKE ‘autocommit’;</p>
+<p>隐式提交，即便关闭了自动提交，遇到DDL语句或者使用数据库相关功能，那么之前操作会提交</p>
+<p>保存点<br>
+SAVEPOINT 保存点名称;<br>
+ROLLBACK [WORK] TO [SAVEPOINT] 保存点名称;<br>
+RELEASE SAVEPOINT 保存点名称;</p>
+<h1 id="约束">约束</h1>
+<hr>
+<p>Mysql支持check语法，但是没实际作用。 可以通过触发器进行约束。基于数据库机制约束有开销，特别是一些复杂约束，通常由业务端负责。</p>
+<h1 id="redo日志">redo日志</h1>
+<hr>
+<p>Buffer Pool内存缓存，故障会消失，事务持久性无法满足<br>
+如果每次磁盘同步数据：</p>
+<ul>
+<li>每次都要以页为单位</li>
+<li>可能涉及多个不连续页，随机IO开销大</li>
+</ul>
+<p>解决方案，每次修改后磁盘同步redo日志：</p>
+<ul>
+<li>轻量级，只记录少量内容</li>
+<li>顺序IO, 日志只顺序增加</li>
+</ul>
+<p>redo以512B为一块<br>
+有些操作涉及多条redo记录，按组记录，不可分割，mini-transaction，比如新插入一个索引记录<br>
+组末尾有标记，如果恢复时没发现末尾标记，说明日志不全，放弃执行</p>
+<p>redo日志也有缓存<br>
+后台线程每秒刷新<br>
+innodb_flush_log_at_trx_commit控制事务提交时的日志持久化行为</p>
+<ul>
+<li>0：延迟写，只写入日志缓冲，完全依靠后台线程写入日志文件同时flush，数据库挂了数据会丢失</li>
+<li>1：实时写实时刷，默认值，提交时从缓冲写入日志文件并同时flush到磁盘，保证事务持久性</li>
+<li>2: 实时写延迟刷，提交时从缓冲写入日志文件，后台异步flush到磁盘，如果只是数据库挂了系统没挂，依然可以保证</li>
+</ul>
+<p>磁盘上以多个文件存在，文件名为ib_logfile+数字编号，循环使用</p>
+<h1 id="索引-v3">索引</h1>
+<hr>
+<p>任何标准表最多可以创建16个索引列？？</p>
+<h1 id="myisam">MyISAM</h1>
+<hr>
+<p>myisamchk 表压缩，节约内存或磁盘</p>
+<h2 id="幻读">幻读</h2>
+<p>RepeatableRead  MVVC多版本控制+间隙锁解决幻读</p>
+<h1 id="数据损坏">数据损坏</h1>
+<hr>
+<p>服务器断电<br>
+强制关机没有退出mysql服务</p>
+<h1 id="binlog">binlog</h1>
+<hr>
+<p>binlog同步中间件，采集数据变化，可用于监控</p>
+<h1 id="触发器">触发器</h1>
+<hr>
+<p>BEFORE INSERT/AFTER INSERT<br>
+BEFORE UPDATE/AFTER UPDATE<br>
+BEFORE DELETE/AFTER DELETE</p>
+<h1 id="explain">Explain</h1>
+<hr>
+<p>explain extended 隐式转换</p>
+<h1 id="命令-v2">命令</h1>
+<hr>
+<h2 id="进程管理">进程管理</h2>
+<p>查询进程状态，进程卡死必要时可以杀掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist</span><br></pre></td></tr></table></figure>
+<h2 id="查看">查看</h2>
+<p>查看表状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show table status like &apos;xxx&apos; \G</span><br></pre></td></tr></table></figure>
+<p>末尾G用来格式化</p>
+<p>查看建表语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create table &lt;table&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show session status like &apos;Select&apos;</span><br></pre></td></tr></table></figure>
+<p>查看表上索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM &lt;tablename&gt;;</span><br></pre></td></tr></table></figure>
+<h1 id="内建表">内建表</h1>
+<hr>
+<p>权限表<br>
+mysql_install_db脚本初始化。这些权限表分别user，db，table_priv，columns_priv和host</p>
+<p>Mysql将ACL（也称为授权表）缓存在内存中。当用户尝试认证或运行命令时，Mysql会按照预定的顺序检查ACL的认证信息和权限。</p>
+<h1 id="锁-v2">锁</h1>
+<hr>
+<p>MyIsam只支持表级锁<br>
+InnoDB默认行级锁，也支持表级锁</p>
+<p>显式表锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lock tables &lt;table&gt; read/write;</span><br><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+<p>自动提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;autocommit&apos;;</span><br><span class="line">set autucommit = 0; //当前session关闭自动提交</span><br></pre></td></tr></table></figure>
+<p>显式行级锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select ... lock in share mode</span><br><span class="line">select ... for update</span><br></pre></td></tr></table></figure>
+<p>InnoDB行锁加在索引上，不走索引那么就加表锁</p>
+<p>MyISAM适合</p>
+<ul>
+<li>频繁count，内部维护变量精确计数，无需扫描</li>
+<li>读多写少，读锁共享</li>
+<li>无事务</li>
+</ul>
+<p>InnoDB适合</p>
+<ul>
+<li></li>
+</ul>
+<h1 id="数据删除">数据删除</h1>
+<hr>
+<p>drop &gt; truncate &gt; delete<br>
+delete写日志<br>
+truncate不写日志，不触发其他，空间恢复默认<br>
+drop释放空间</p>
+<h1 id="编码">编码</h1>
+<hr>
+<p>utf-8只支持3字节长度，推荐utf8mb4，接受四字节长度，可以支持emoji等特殊字符</p>
+<h1 id="性能优化">性能优化</h1>
+<hr>
+<h2 id="查询缓存">查询缓存</h2>
+<p>开启查询缓存？</p>
+<h2 id="索引条件">索引条件</h2>
+<ul>
+<li>不等于，not in等负向条件有可能不使用索引，尽可能避免</li>
+<li>like %aaa% 两侧模糊不会使用索引，like aaa%后侧模糊可以</li>
+<li>索引列出现在表达式，函数中不会走索引</li>
+<li>两个都有索引的条件用or连接，可能变成全表扫描，考虑显式写成两句union</li>
+<li>类型不匹配进行隐式转换，不会走索引。比如varchar索引，sql里写数字</li>
+<li>join两表编码不同，不会走索引，会笛卡尔积循环</li>
+</ul>
+<h2 id="联合索引">联合索引</h2>
+<ul>
+<li>多个列经常一起查询，可以建多列索引，优于多个单列索引</li>
+</ul>
+<h2 id="回表">回表</h2>
+<ul>
+<li>尽量覆盖索引，不要无关列<br>
+如果查询字段全部都在二级索引列中，那么无需回表，即覆盖索引<br>
+二级索引基于页，连续读，而回表由于数据分散，是随机读，数量多时性能差<br>
+多列索引覆盖范围更大，根据需要建立</li>
+</ul>
+<h2 id="索引列">索引列</h2>
+<ul>
+<li>数据基数大的列<br>
+数据越分散，索引值区分度越高，性能越好</li>
+<li>前缀索引列确定范围<br>
+如果字符串很长，那么需要完整存储在索引节点，可以限定前缀范围，比如只索引前10个字符，但是代价是无法用于排序因为不包含完整内容</li>
+<li>避免重复索引<br>
+联合索引已经可以覆盖时，单列无需另外建索引</li>
+</ul>
+<h2 id="主键">主键</h2>
+<ul>
+<li>优先递增主键<br>
+递增主键可顺序插入，一个页满了新开一个页，而随机插入会导致页分裂等</li>
+</ul>
+<h2 id="避免反复计算">避免反复计算</h2>
+<ul>
+<li>多次出现的子查询可以with提取出来作为中间结果集</li>
+</ul>
+<h2 id="减少数据量">减少数据量</h2>
+<ul>
+<li>尽量添加where条件缩小后续groupby的范围</li>
+<li>先where/limit再join，缩小连接范围</li>
+</ul>
+<h2 id="拆分union">拆分union</h2>
+<ul>
+<li>原本不走索引，拆分条件进行union all可能会走</li>
+</ul>
+<h2 id="避免exists-in子查询">避免exists/in子查询</h2>
+<ul>
+<li>子查询容易出现单层全表扫描，尝试使用join</li>
+</ul>
+<h1 id="二进制日志">二进制日志</h1>
+<hr>
+<h1 id="主从">主从</h1>
+<hr>
+<p>主从延迟</p>
+<ol>
+<li>主机DDL和DML操作产生binlog，顺序写效率快</li>
+<li>从机单线程取日志</li>
+<li>从机单线程执行日志内容，随机写，可能与从机本身其他查询</li>
+</ol>
+<p>如果能容忍短暂不一致，读从库分担压力，如果写入主库需要立刻读出场景，读从库读不到最新</p>
+<ul>
+<li>配置相关接口直接读主库</li>
+<li>写入缓存，设置过期时间能覆盖延迟</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/db-mysql.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/db-mysql.html">http://linest.github.io/tmp/db-mysql.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
