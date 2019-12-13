@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="点 线 面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-28T15:15:14.930Z">
+<meta property="og:updated_time" content="2019-12-13T10:55:34.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java AOP">
 <meta name="twitter:description" content="点 线 面">
@@ -207,9 +207,9 @@
 <li>Introduction: 给被代理对象增加额外的方法或属性</li>
 <li>Weaving: 将增强逻辑引入目标
 <ul>
-<li>编译时，直接把字节码插入，需要特殊编译器</li>
-<li>加载时，加载时添加额外逻辑，需要特殊类加载器</li>
-<li>运行时构建动态代理</li>
+<li>编译时，需要特殊编译器，可以添加源码再编译，也可以编译后针对class文件直接把二进制字节码插入</li>
+<li>加载时，需要特殊类加载器，加载时添加额外逻辑</li>
+<li>运行时构建动态代理，针对已经加载到JVM的类</li>
 </ul>
 </li>
 </ul>

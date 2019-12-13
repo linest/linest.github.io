@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-07T01:09:31.517Z">
+<meta property="og:updated_time" content="2019-12-09T14:54:23.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
@@ -149,7 +149,7 @@
   
     <div class="article-meta">
       <a href="/tmp/db-mysql.html" class="article-date">
-  	<time datetime="2019-12-07T01:09:31.517Z" itemprop="datePublished">2019-12-07</time>
+  	<time datetime="2019-12-09T14:54:23.168Z" itemprop="datePublished">2019-12-09</time>
 </a>
     </div>
   
@@ -207,12 +207,20 @@
 <li>缓存、解析、优化
 <ul>
 <li>收到sql先看缓存，没有再构建解析树，再交给优化器，最后查询存储</li>
-<li>查缓存在解析之前，使用原始SQL作为key, 任何字符不同都导致缓存不命中</li>
 <li>优化器不关心存储引擎细节，但要求知道某些操作的开销，用于估算成本</li>
 </ul>
 </li>
 <li>存储引擎：访问索引和数据</li>
 </ul>
+<p>查询缓存特性</p>
+<ul>
+<li>查缓存在解析之前，使用原始SQL作为key哈希查找, 任何字符不同都导致缓存不命中</li>
+<li>如果语句中带有不固定部分，则无法缓存，比如当前时间</li>
+<li>表内容发生变化则缓存失效</li>
+<li>缓存空间有限，空间不足会替换掉老的缓存</li>
+<li>查询缓存虽然省略了解析和执行时间，但带来了维护成本，需权衡</li>
+</ul>
+<p>查询缓存默认关闭，5.7已废弃，应用自己客户端缓存</p>
 <h2 id="存储引擎交互">存储引擎交互</h2>
 <p>Server层和存储引擎以记录为单位交互，整个流程定位，回表，返回都是以记录为单位，一条一条判断</p>
 <p>二级索引范围查询</p>
@@ -240,7 +248,7 @@
 <p>常见引擎</p>
 <ul>
 <li>MyISAM：不支持事务，速度快，表锁，查询会阻塞更新，适合查询及低并发插入更新，计数准确无需count扫描</li>
-<li>InnoDB: 支持事务，行锁，外键，5.5版本后的默认引擎</li>
+<li>InnoDB: 支持事务，行锁和表锁，外键，5.5版本后的默认引擎</li>
 <li>Memory: 内存中存储，表锁，适合临时表</li>
 <li>Archive: 数据插入后不能更改，数据压缩存储，不支持索引，适合存档并且很少查询</li>
 <li>Blackhole: 丢弃所有写操作，读操作返回空</li>
@@ -249,6 +257,9 @@
 <h1 id="索引">索引</h1>
 <hr>
 <p>用于高效查询，避免全扫描</p>
+<p>查看表上索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM 表名</span><br></pre></td></tr></table></figure>
+<p>InnoDB单表最多1000列，最多建64个二级索引</p>
 <h2 id="b-树索引">B+树索引</h2>
 <hr>
 <p>内存和磁盘以页为单位交流<br>
@@ -262,6 +273,30 @@
 </ul>
 <p>叶子数据页和非叶索引页相同结构，构成一颗树<br>
 页内记录按照key顺序有序，NULL认为最小，排在最前</p>
+<h3 id="innodb存储结构">InnoDB存储结构</h3>
+<p>行格式可以通过ROW_FORMAT指定Compact、Redundant、Dynamic和Compressed</p>
+<ul>
+<li>Compact格式：每一行（变长字段长度，null字段，头信息，隐藏列，真实数据）</li>
+<li>Dynamic格式(5.7默认)，行溢出后，真实字段部分只存地址，而Compact还会存部分数据</li>
+</ul>
+<p>记录结构</p>
+<ul>
+<li>变长字段长度：存储每个变长字段的长度信息</li>
+<li>null字段：可选，如果所有字段都不能为null,那么这部分不存在，否则每个可以null字段使用一个二进制位标识</li>
+<li>记录头信息：记录号，记录类型，删除标记，槽内数量，下一条指针</li>
+<li>隐藏列：DB_ROW_ID（如果用户没定义主键，也没有unique列，那么产生隐藏列rowId）、DB_TRX_ID、DB_ROLL_PTR，</li>
+<li>真实字段数据</li>
+</ul>
+<p>页内结构</p>
+<ul>
+<li>File Header: 页号，页类型，前后页指针，校验和等</li>
+<li>Page Header: 页内信息</li>
+<li>Infimum+Supremum: 最大最小伪记录，最小记录指向第一条，最大记录被最后一条指向</li>
+<li>User Records: 真实数据记录，记录的单链表，按照主键顺序排列</li>
+<li>Free Space: 空闲空间</li>
+<li>Page Directory: 页目录，方便查找，将若干条记录分组(通常8条)，组内最后一条额外记录数量作为槽，搜索时根据槽信息二分查找</li>
+<li>File Tailer: 校验和，日志LSN，尾部再存一份有助于识别同步一半失败的情况</li>
+</ul>
 <h3 id="查找的流程">查找的流程</h3>
 <p>先定位页，再定位记录</p>
 <p>页查找</p>
@@ -412,6 +447,354 @@ InnoDB引擎在启动时向操作系统申请内存建立缓冲池Buffer Poll，
 <li>用户请求时没有缓存页可用，从LRU找一个脏页刷新并释放</li>
 <li>用户请求时批量从flush列表刷新</li>
 </ul>
+<h1 id="锁">锁</h1>
+<hr>
+<h2 id="显式加锁">显式加锁</h2>
+<p>显式表锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lock tables 表名 read/write;</span><br><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+<p>显式行级锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select ... lock table ？？？</span><br><span class="line">select ... lock in share mode</span><br><span class="line">select ... for update</span><br></pre></td></tr></table></figure>
+<h2 id="锁相关内建表">锁相关内建表</h2>
+<ul>
+<li>information_schema.innodb_trx查看事务</li>
+<li>information_schema.innodb_locks锁情况</li>
+<li>information_schema.innodb_lock_waits事务锁阻塞关系</li>
+</ul>
+<h2 id="锁内部实现">锁内部实现</h2>
+<p>Mysql锁是在页上操作，页上位图表示是否加锁<br>
+同一页上不管加几个锁开销都一样，因此不需要把大量行锁升级为表锁来优化性能<br>
+InnoDB行锁加在索引上，没有索引那么就加表锁</p>
+<ul>
+<li>即使使用索引字段，也会根据代价衡量而采用表锁</li>
+<li>使用相同索引，即使访问不同数据行，锁也冲突<br>
+比如select * from sample where a = 1 and b = 2 和 select * from sample where a = 1 and b = 3，虽然两个查询访问不同数据，但是都使用了索引a = 1,也会冲突</li>
+</ul>
+<p>表锁开销小，并发差，行锁开销大，并发好<br>
+表锁服务器也会参与，比如alter table时加表锁，忽略存储引擎，行锁完全由存储引擎实现，服务器不管</p>
+<h2 id="死锁">死锁</h2>
+<p>查看最近一次死锁情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW ENGINE INNODB STATUS</span><br></pre></td></tr></table></figure>
+<p>Mysql死锁检测，自动回滚影响较小即最少行级排它锁的事务，尝试重新启动</p>
+<ul>
+<li>业务中相同顺序访问表</li>
+<li>同一事务中，一次锁定所有资源</li>
+<li>适当使用表锁</li>
+</ul>
+<h2 id="索引记录锁-record-locks">索引记录锁（Record Locks）</h2>
+<p>行锁，读锁或写锁<br>
+加载索引上，如果是二级索引，聚簇索引也加锁</p>
+<h2 id="间隙锁-gap-locks">间隙锁（Gap Locks）</h2>
+<p>行锁，在不符合条件的边界索引记录上加锁，锁定间隙不包含记录本身(第一条记录之前，索引记录之间，最后一条之后)，防止出现新的符合条件的记录<br>
+间隙锁范围重叠不冲突，目标一致都是不让插入</p>
+<h2 id="下一键锁-next-key-locks">下一键锁（Next-Key Locks）</h2>
+<p>行锁，索引记录本身锁以及前面间隙二者结合</p>
+<h2 id="意向锁-intention-locks">意向锁（Intention Locks）</h2>
+<p>表锁，表示希望细粒度加锁，已经或即将锁定某些行。事务获取行锁前，先获取意向锁<br>
+意向锁和行锁兼容，只会阻塞表锁请求<br>
+意向锁协调了表锁和行锁关系，即加行锁时要加意向锁，这样加表锁时就可根据意向锁快速判定能否加上</p>
+<ul>
+<li>事务持有IX写意向，那么只接受其他事务意向IX,IS，不支持表操作X,S</li>
+<li>事务持有IS读意向，那么拒绝其他事务表操作写X</li>
+<li>事务已经持有表写锁X，拒绝其他事务任何操作，表达意向也不行</li>
+<li>事务已经持有表读锁S, 只接受读意向IS和读操作S</li>
+</ul>
+<h2 id="插入意向锁-insert-intention-locks">插入意向锁（Insert Intention Locks）</h2>
+<p>范围是插入目标值到现有的下一索引值<br>
+意向之间不阻塞，范围重叠时间隙锁会单向阻塞意向</p>
+<h2 id="自增锁-auto-inc-locks">自增锁（AUTO-INC Locks）</h2>
+<p>表锁，插入带有自增列的记录时，插入前获取锁，插入后释放<br>
+默认配置下，只有不确定插入条数时才需要，通常不需要加锁而是使用mutex互斥</p>
+<h1 id="事务">事务</h1>
+<hr>
+<p>除非显式开始事务，每个语句都是一个事务，而且默认自动提交<br>
+自动提交功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &apos;autocommit&apos;;</span><br><span class="line">SET autucommit = 0; //当前session关闭自动提交</span><br></pre></td></tr></table></figure>
+<p>InnoDB和NDB支持事务，不支持事务的引擎也可以参与到事务，但是不能回滚，需要提前决定每张表的引擎</p>
+<p>开启事务有两种方式</p>
+<ul>
+<li>begin 简单开始事务</li>
+<li>start transaction 可以额外控制
+<ul>
+<li>read write</li>
+<li>read only</li>
+<li>with consistent snapshot</li>
+</ul>
+</li>
+</ul>
+<p>结束事务有两种commit和rollback</p>
+<h2 id="隐式提交">隐式提交</h2>
+<p>即便关闭了自动提交，遇到DDL语句或者使用数据库相关功能，那么之前操作会提交<br>
+一定要关闭自动提交，表锁才能生效，解锁隐含提交，因此必须放事务最后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SET AUTOCOMMIT=0;</span><br><span class="line">LOCK TABLES t1 WRITE, t2 READ, ...;</span><br><span class="line"># do something</span><br><span class="line">COMMIT;</span><br><span class="line">UNLOCK TABLES;</span><br></pre></td></tr></table></figure>
+<h2 id="保存点机制">保存点机制</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SAVEPOINT 保存点名称;</span><br><span class="line">ROLLBACK TO 保存点名称;</span><br><span class="line">RELEASE SAVEPOINT 保存点名称;</span><br></pre></td></tr></table></figure>
+<h1 id="隔离级别实现">隔离级别实现</h1>
+<hr>
+<h2 id="mvcc机制">MVCC机制</h2>
+<p>多版本并发控制, 读不加锁，读写可以并发不冲突，提升吞吐量<br>
+每新创建一个事务，全局系统版本号增加作为事务的版本号<br>
+每行有两个隐藏域，trx_id相当于创建时版本号，roll_pointer指向undo日志中上一条形成版本链，当前版本号相当于上一条的过期时版本号</p>
+<ul>
+<li>新增，设置创建版本</li>
+<li>删除，设置过期版本</li>
+<li>修改，新增记录，同时设置旧记录过期版本</li>
+<li>查询，返回创建版本小于当前，如果有过期那么过期版本大于当前</li>
+</ul>
+<p>快照读：普通的SELECT<br>
+当前读：UPDATE，DELETE，INSERT，SELECT…LOCK IN SHARE MODE，SELECT…FOR UPDATE</p>
+<h2 id="隔离实现">隔离实现</h2>
+<p>默认隔离级别REPEATABLE_READ</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%iso%&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>非锁定读<br>
+普通的select<br>
+ReadView机制，包含当前活跃的事务号，记录版本链筛选，如果记录为活跃事务说明没提交，跳过继续寻找之前版本<br>
+RU级别，直接读最新<br>
+RC级别每次读取都会生成一次ReadView，效果是读最新快照<br>
+RR级别只在事务内第一次读时生成ReadView，效果是外部事务状态可能变化但是ReadView不变读取同一快照，结果保持不变<br>
+解决了可重复读，顺便解决了部分幻读(幻读特例：事务A第一次查询完，事务B插入记录提交结束，事务A更新导致事务B插入记录一并更新并且版本号变成A，事务A第二次查询结果变化)<br>
+S级别如果开启自动提交并且只有一条查询直接MVCC，否则加读锁</p>
+</li>
+<li>
+<p>锁定读<br>
+采取加锁控制，读写不能并发，任何隔离级别下都没有脏读和不可重复读问题<br>
+lock in share mode  索引记录加共享锁S<br>
+for update  索引记录加排他锁X<br>
+RR级别下还会加间隙锁(Gap Lock), 避免幻读<br>
+S级别</p>
+</li>
+<li>
+<p>写<br>
+update/delete 先定位记录，在聚簇索引上加X锁, 然后再对应二级索引上加X锁<br>
+insert加排他写锁</p>
+</li>
+</ul>
+<h2 id="锁策略">锁策略</h2>
+<p>决定条件</p>
+<ul>
+<li>隔离级别：RC, RR</li>
+<li>索引：主键，唯一二级索引，普通二级索引，无索引</li>
+</ul>
+<p>RC: 没有间隙锁，只在完全满足条件的行上加锁<br>
+RR：</p>
+<ol>
+<li>无法使用索引全表扫描时，所有行加锁</li>
+<li>唯一索引等值查询，只需加锁目标行</li>
+<li>唯一索引范围查询，锁定范围内行，锁定间隙</li>
+<li>非唯一索引，锁定所有目标行，锁定间隙</li>
+<li>即使等值条件记录不存在，也会加间隙锁</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主键列a  唯一索引列b  普通索引列c  无索引列d</span><br><span class="line">1           2           2           1</span><br><span class="line">4           6           2           3</span><br><span class="line">7           8           6           8</span><br><span class="line">9           9           9           9</span><br></pre></td></tr></table></figure>
+<p>主键： a=4 只锁定聚簇索引a=4行<br>
+唯一二级索引：b=6  锁定聚簇索引a=4行，锁定二级索引b=6行<br>
+普通二级索引：c=6  锁定聚簇索引a=7行，锁定二级索引(2,6] (6,9)<br>
+无索引：d=8  锁定聚簇索引 (-∞,1] (1,3] (3,9] (8,9] (9,+∞)<br>
+范围查询：b&lt;=6  锁定聚簇索引a=1,a=4行，锁定二级索引(-∞,2] (2,6] (6,8] 之所以锁8因为要先读到不满足为止</p>
+<p>二级索引锁定范围后，因为二级索引也有主键，实际上主键也有隐含的范围锁定</p>
+<h1 id="日志">日志</h1>
+<hr>
+<h2 id="数据损坏">数据损坏</h2>
+<p>服务器断电<br>
+强制关机没有退出mysql服务</p>
+<h2 id="redo-log-重做日志">Redo Log 重做日志</h2>
+<p>记录事务执行后数据页物理信息，崩溃后用于恢复已提交成功，但是没写入磁盘的数据<br>
+磁盘上以多个文件存在，文件名为ib_logfile+数字编号，循环使用</p>
+<p>每次修改就磁盘同步数据开销太大</p>
+<ul>
+<li>写入要以页为单位</li>
+<li>可能涉及多个不连续页，随机IO开销大<br>
+解决方案是每次修改后磁盘同步redo日志</li>
+<li>轻量级，只记录少量内容</li>
+<li>顺序IO, 日志只顺序增加</li>
+</ul>
+<p>不是提交时写入，而是执行过程中写入日志缓冲Innodb_log_buffer，线程每秒刷新/提交前刷新/可用空间少于一半时刷新<br>
+innodb_flush_log_at_trx_commit控制事务提交时的日志持久化行为</p>
+<ul>
+<li>0：延迟写，只写入日志缓冲，完全依靠后台线程写入日志文件同时flush，数据库挂了数据会丢失</li>
+<li>1：实时写实时刷，默认值，提交时从缓冲写入日志文件并同时flush到磁盘，保证事务持久性</li>
+<li>2: 实时写延迟刷，提交时从缓冲写入日志文件，操作系统异步flush到磁盘，如果只是数据库挂了系统没挂，依然可以保证<br>
+事务造成的数据更改全部写入磁盘后，日志就完成使命</li>
+</ul>
+<p>redo以512B为一块<br>
+有些操作涉及多条redo记录，按组记录，不可分割，mini-transaction，比如新插入一个索引记录<br>
+组末尾有标记，如果恢复时没发现末尾标记，说明日志不全，放弃执行</p>
+<h2 id="undo-log-回滚日志">Undo Log 回滚日志</h2>
+<p>用于保存事务开始前数据状态，可用于回滚，也可支持MVCC机制<br>
+事务开始之前生成<br>
+提交之后不能立刻删除，放入清理列表，其他事务不使用后可删除</p>
+<h2 id="bin-log-二进制日志">Bin Log 二进制日志</h2>
+<p>记录事务执行的SQL还有反向操作语句等，用于主从复制，数据库时间点还原<br>
+提交时刷新到磁盘<br>
+可配置过期时间清除</p>
+<p>日志流程</p>
+<ol>
+<li>新增记录</li>
+<li>更新内存数据</li>
+<li>写入redolog, 状态prepare</li>
+<li>写入binlog</li>
+<li>commit</li>
+</ol>
+<p>binlog同步中间件，采集数据变化，可用于监控</p>
+<h1 id="类型与表达式">类型与表达式</h1>
+<ul>
+<li>
+<p>SET</p>
+</li>
+<li>
+<p>大字段</p>
+<ul>
+<li>BLOB：二进制存储，视为字节</li>
+<li>TEXT：检索时不区分大小写的BLOB，视为字符，关联字符集</li>
+</ul>
+</li>
+<li>
+<p>Enum 提供预定义值 Create table size(name ENUM('Smail,‘Medium’,‘Large’);</p>
+</li>
+<li>
+<p>字符串，字符串默认查询时都大小写不敏感，加binary区分大小写。CHAR_LENGTH(str) 字符数 LENGTH(str) 字节数</p>
+<ul>
+<li>CHAR 指定固定长度1~255，不足时空格占位，取出后需要trim</li>
+<li>VARCHAR 可变长，指定的是最大长度，理论上最多可占用65535字节</li>
+</ul>
+</li>
+<li>
+<p>时间戳</p>
+<ul>
+<li>TIMESTAMP DEFAULT CURRENT_TIMESTAMP：初始值设为时间，之后不变</li>
+<li>TIMESTAMP ON UPDATE CURRENT_TIMESTAMP：初始值为0，之后每次修改自动更新</li>
+</ul>
+</li>
+<li>
+<p>INT系列，可以指定无符号UNSIGNED，可以括号限制显示位数配合zerofill实现补0对齐效果</p>
+<ul>
+<li>TINYINT: 1字节</li>
+<li>SMALLINT: 2字节</li>
+<li>MEDIUMINT: 3字节</li>
+<li>INT: 4字节</li>
+<li>BIGINT: 8字节</li>
+</ul>
+</li>
+</ul>
+<p>不支持布尔类型，可以用TINYINT(1)将就，但是没有范围检查<br>
+高版本支持检查bool_val TINYINT CHECK(bool_val IN(0,1))</p>
+<ul>
+<li>浮点
+<ul>
+<li>FLOAT: 4字节</li>
+<li>DOUBLE: 8字节</li>
+<li>DECIMAL: 精度保证，括号指定总有效数字位数和小数点后位数</li>
+</ul>
+</li>
+</ul>
+<h1 id="表达式">表达式</h1>
+<hr>
+<p>SELECT语句的列比较中使用=，&lt;&gt;，&lt;=，&lt;，&gt; =，&gt;，&lt;&lt;，&gt;&gt;，&lt;=&gt;，AND，OR，LIKE，BETWEEN AND运算符<br>
+REGEXP<br>
+LIKE 任意多个字符<code>%</code> 单个字符<code>_</code></p>
+<h2 id="null特殊性">NULL特殊性</h2>
+<ul>
+<li><code>&lt;=&gt;</code>支持NULL比较，两个NULL比较是相等<br>
+普通<code>=</code>只要一方是NULL结果就是NULL不确定，同理<code>!=</code>并不能使得NULL值出现，因为NULL的判定结果是不确定，不是true。要选出null结果，需要配合IS NULL或者IS NOT NULL</li>
+<li>Unique列对NULL无效，因为两个NULL比较不相等</li>
+</ul>
+<h1 id="操作">操作</h1>
+<hr>
+<h2 id="建表">建表</h2>
+<p>聚簇索引，二级索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">sample</span> (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    address <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">INDEX</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+<p>※ utf-8只支持3字节长度，推荐utf8mb4，接受四字节长度，可以支持emoji等特殊字符</p>
+<h2 id="查看表信息">查看表信息</h2>
+<p>显式建表语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create table 表名</span><br></pre></td></tr></table></figure>
+<p>查看表状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show table status like &apos;xxx&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="表存在性检测">表存在性检测</h2>
+<p>CREATE TABLE IF NOT EXIST<br>
+DROP TABLE IF EXISTS</p>
+<h2 id="主键冲突时执行更改">主键冲突时执行更改</h2>
+<p>普通的insert主键冲突直接报错，on duplicate key update冲突后执行update后面语句<br>
+INSERT INTO example(id,value) VALUES(3, ‘third’) ON DUPLICATE KEY UPDATE value =‘third’;</p>
+<h2 id="主键冲突时放弃">主键冲突时放弃</h2>
+<p>INSERT IGNORE INTO example(id,value) VALUES(3, ‘third’)</p>
+<h2 id="主键冲突时删除原有再插入">主键冲突时删除原有再插入</h2>
+<p>REPLACE INTO example(id,value) VALUES(3, ‘third’)</p>
+<h2 id="去重">去重</h2>
+<p>以行为单位去重，不能针对部分字段<br>
+DISTINCT</p>
+<h2 id="数据删除">数据删除</h2>
+<p>效率上drop table优于truncate优于delete</p>
+<ul>
+<li>delete：写日志</li>
+<li>truncate 不写日志，不触发其他，空间恢复默认</li>
+<li>drop table 释放空间</li>
+</ul>
+<h2 id="服务">服务</h2>
+<p>启动服务，是mysql-safe封装，额外监控进程，挂了自动重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql.server start</span><br></pre></td></tr></table></figure>
+<p>客户端连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h主机名  -u用户名 -p密码</span><br></pre></td></tr></table></figure>
+<p>查看配置文件位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --verbose --help</span><br></pre></td></tr></table></figure>
+<p>库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名</span><br></pre></td></tr></table></figure>
+<h2 id="命令选项">命令选项</h2>
+<p>命令分号结尾，可以撤销或者分行展示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语句 \c</span><br><span class="line">语句 \G</span><br></pre></td></tr></table></figure>
+<h2 id="获取版本">获取版本</h2>
+<ul>
+<li>命令行查询 mysql -V</li>
+<li>语句查询 SELECT VERSION()</li>
+</ul>
+<h2 id="获取时间">获取时间</h2>
+<p>NOW(),CURTIME(),CURDATE() 获取执行开始时时间，同一SQL内多次出现结果一致<br>
+SYSDATE()实时时间，多次出现不一致</p>
+<h2 id="获取自增">获取自增</h2>
+<p>LAST_INSERT_ID()上次插入的自增，无需指定表名，和session相关</p>
+<h2 id="触发器">触发器</h2>
+<p>BEFORE INSERT/AFTER INSERT<br>
+BEFORE UPDATE/AFTER UPDATE<br>
+BEFORE DELETE/AFTER DELETE</p>
+<h2 id="会话进程">会话进程</h2>
+<p>进程状态，进程卡死必要时可以杀掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist</span><br></pre></td></tr></table></figure>
+<p>查询会话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show session status like &apos;Select&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="权限">权限</h2>
+<p>权限表由mysql_install_db脚本初始化，包含user，db，table_priv，columns_priv和host<br>
+Mysql将ACL（也称为授权表）缓存在内存中。当用户尝试认证或运行命令时，Mysql会按照预定的顺序检查ACL的认证信息和权限</p>
+<h1 id="执行原理">执行原理</h1>
+<hr>
+<h2 id="exists">exists</h2>
+<p>select * from A where exists(select id from B where id = <a href="http://A.id" target="_blank" rel="noopener">A.id</a>)<br>
+先外再内，对于外围查询的每一行，验证子查询结果，exists只返回布尔结果不返回数据<br>
+适合外小内大，外部小减少了循环次数</p>
+<h2 id="in">in</h2>
+<p>select * from A where id in (select id from B)<br>
+先内再外，先获取内部子查询结果集，然后根据每行结果取外部数据<br>
+适合外大内小，内部小缩减了范围<br>
+索引？？<br>
+in注意null问题，not in判断null同样不符合，结果中不包含null</p>
+<h2 id="join">join</h2>
+<p>驱动表，被驱动表，驱动表访问一次，被驱动表访问多次<br>
+内连接ON和WHERE等价，可以没ON，内连接驱动关系可等价互换，外连接必须ON, 驱动关系不能换</p>
+<ul>
+<li>嵌套循环连接(Nested-Loop Join)<br>
+查出驱动表中符合条件的所有记录，针对每一条记录，计算连接条件值，到被驱动表中等值查一次</li>
+</ul>
+<ol>
+<li>取一条驱动表记录</li>
+<li>发起关联整个被驱动表</li>
+</ol>
+<ul>
+<li>块嵌套循环连接(Block Nested-Loop Join)<br>
+被驱动表访问开销大，每驱动一次就查一次开销太大<br>
+Join Buffer 默认256K加载多条驱动表记录，扫描被驱动表，每条记录一次性和缓冲中记录关联</li>
+</ul>
+<ol>
+<li>取一条被驱动表记录</li>
+<li>发起关联缓冲中的驱动表</li>
+</ol>
 <h1 id="语句性能">语句性能</h1>
 <hr>
 <h2 id="慢查询">慢查询</h2>
@@ -435,9 +818,9 @@ InnoDB引擎在启动时向操作系统申请内存建立缓冲池Buffer Poll，
 <li>extra: 额外信息，描述查询行为</li>
 </ul>
 <p>以json形式展示，并且包含查询成本信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN FORMAT=JSON &lt;SQL&gt;</span><br></pre></td></tr></table></figure>
-<p>紧接着执行会展示优化器重写后的SQL形式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW WARNINGS\G</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN FORMAT=JSON 语句</span><br></pre></td></tr></table></figure>
+<p>使用扩展选项，紧接着执行会展示优化器重写后的SQL形式，可以观察到隐式转换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN EXTENDED 语句</span><br><span class="line">SHOW WARNINGS\G</span><br></pre></td></tr></table></figure>
 <p>查询类型</p>
 <ul>
 <li>simple: 简单查询，不包含union或者子查询</li>
@@ -516,13 +899,18 @@ InnoDB引擎在启动时向操作系统申请内存建立缓冲池Buffer Poll，
 </ul>
 <h2 id="索引-v2">索引</h2>
 <ul>
-<li>varchar字段建索引，使用部分前缀</li>
 <li>查询要有索引，避免全表扫描</li>
+<li>索引列选择时，数据越分散，索引值区分度越高，性能越好</li>
+<li>varchar字段建索引，如果字符串很长，那么需要完整存储在索引节点，可以限定前缀范围，比如只索引前10个字符，但是代价是无法用于排序因为不包含完整内容</li>
+<li>不等于，not in等负向条件有可能不使用索引，尽可能避免</li>
+<li>like %aaa% 两侧模糊不会使用索引，like aaa%后侧模糊可以</li>
 <li>避免隐式转换导致索引失效，比如定义时字符串，传入条件是数字，查询和结构字段类型必须一致</li>
-<li>避免在索引列计算，防止索引失效</li>
-<li>尽量利用联合索引，前缀利用，避免每个查询单独建索引，减少开销</li>
+<li>索引列出现在表达式，函数中不会走索引</li>
+<li>尽量利用联合索引，前缀利用，避免每个查询单独建索引，减少开销，联合索引已经可以覆盖时，单列无需另外建索引</li>
 <li>自增列作为主索引，连续性能提升写入效率，避免uuid等随机值或自定义值</li>
 <li>尽量不用外键，通过应用来维护关系</li>
+<li>join两表编码不同，不会走索引，会笛卡尔积循环</li>
+<li>两个都有索引的条件用or连接，可能变成全表扫描，考虑显式写成两句union</li>
 </ul>
 <h2 id="sql">SQL</h2>
 <ul>
@@ -534,9 +922,14 @@ InnoDB引擎在启动时向操作系统申请内存建立缓冲池Buffer Poll，
 <li>查询字段类型和表一致</li>
 <li>避免insert…select延迟，采用load data</li>
 <li>避免在sql层面计算，交给程序逻辑</li>
+<li>多次出现的子查询可以with提取出来作为中间结果集</li>
+<li>尽量添加where条件，缩小后续groupby的范围</li>
+<li>先where/limit再join，缩小连接范围</li>
+<li>子查询容易出现单层全表扫描，尝试使用join</li>
+<li>原本不走索引，拆分条件进行union all可能会走</li>
 </ul>
 <h2 id="自增主键维护">自增主键维护</h2>
-<p>自增主键的好处是写满一个页后再开另一个，顺序写入效率高<br>
+<p>自增主键的好处是可顺序插入，一个页满了新开一个页顺序写入效率高，而随机插入会导致页分裂等<br>
 自增列必须是主键的第一部分</p>
 <ul>
 <li>Auto increment 显式自增<br>
@@ -569,478 +962,6 @@ n=-1时不固定行数，返回从偏移直到表末尾</p>
 <li>关闭事务自动提交或者关闭每次刷新innodb_flush_log_at_trx_commit<br>
 一般基础可以达到30w/s的速度</li>
 </ul>
-<h1 id="命令">命令</h1>
-<hr>
-<p>启动服务，是mysql-safe封装，额外监控进程，挂了自动重启</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql.server start</span><br></pre></td></tr></table></figure>
-<p>客户端连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h主机名  -u用户名 -p密码</span><br></pre></td></tr></table></figure>
-<p>查看配置文件位置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --verbose --help</span><br></pre></td></tr></table></figure>
-<p>库操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名</span><br></pre></td></tr></table></figure>
-<p>命令分号结尾，可以撤销或者分行展示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语句 \c</span><br><span class="line">语句 \G</span><br></pre></td></tr></table></figure>
-<h1 id="信息获取">信息获取</h1>
-<hr>
-<h2 id="获取版本">获取版本</h2>
-<ul>
-<li>命令行查询 mysql -V</li>
-<li>语句查询 SELECT VERSION()</li>
-</ul>
-<h2 id="获取时间">获取时间</h2>
-<p>NOW(),CURTIME(),CURDATE() 获取执行开始时时间，同一SQL内多次出现结果一致<br>
-SYSDATE()实时时间，多次出现不一致</p>
-<h2 id="获取自增">获取自增</h2>
-<p>LAST_INSERT_ID()上次插入的自增，无需指定表名，和session相关</p>
-<h1 id="数据类型相关">数据类型相关</h1>
-<hr>
-<ul>
-<li>Decimal：精度保证，总有效数字位数，小数点后位数</li>
-<li>SET</li>
-<li>BLOB：二进制存储，视为字节</li>
-<li>TEXT：检索时不区分大小写的BLOB，视为字符，关联字符集</li>
-<li>Enum 提供预定义值<br>
-Create table size(name ENUM('Smail,‘Medium’,‘Large’);</li>
-</ul>
-<p>CHAR 指定固定长度1~255，不足时空格占位，取出后需要trim<br>
-VARCHAR 可变长，指定的是最大长度<br>
-字符串默认查询时都大小写不敏感，加binary区分大小写</p>
-<p>CHAR_LENGTH(str) 字符数<br>
-LENGTH(str) 字节数</p>
-<p>TIMESTAMP 时间戳<br>
-TIMESTAMP DEFAULT CURRENT_TIMESTAMP 初始值设为时间，之后不变<br>
-TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 初始值为0，之后每次修改自动更新</p>
-<p>tinyint smallint mediumint int bigint float decimal？</p>
-<h1 id="表达式">表达式</h1>
-<hr>
-<p>SELECT语句的列比较中使用=，&lt;&gt;，&lt;=，&lt;，&gt; =，&gt;，&lt;&lt;，&gt;&gt;，&lt;=&gt;，AND，OR，LIKE，BETWEEN AND运算符<br>
-REGEXP</p>
-<p>LIKE 任意多个字符<code>%</code> 单个字符<code>_</code></p>
-<h2 id="null特殊性">NULL特殊性</h2>
-<ul>
-<li>
-<p><code>&lt;=&gt;</code>支持NULL比较，两个NULL比较是相等<br>
-普通<code>=</code>只要一方是NULL结果就是NULL不确定，同理<code>!=</code>并不能使得NULL值出现，因为NULL的判定结果是不确定，不是true。要选出null结果，需要配合IS NULL或者IS NOT NULL</p>
-</li>
-<li>
-<p>Unique列对NULL无效，因为两个NULL比较不相等</p>
-</li>
-</ul>
-<h1 id="执行原理">执行原理</h1>
-<hr>
-<h2 id="exists">exists</h2>
-<p>select * from A where exists(select id from B where id = <a href="http://A.id" target="_blank" rel="noopener">A.id</a>)<br>
-先外再内，对于外围查询的每一行，验证子查询结果，exists只返回布尔结果不返回数据<br>
-适合外小内大，外部小减少了循环次数</p>
-<h2 id="in">in</h2>
-<p>select * from A where id in (select id from B)<br>
-先内再外，先获取内部子查询结果集，然后根据每行结果取外部数据<br>
-适合外大内小，内部小缩减了范围<br>
-索引？？<br>
-in注意null问题，not in判断null同样不符合，结果中不包含null</p>
-<h2 id="join">join</h2>
-<p>驱动表，被驱动表，驱动表访问一次，被驱动表访问多次<br>
-内连接ON和WHERE等价，可以没ON，内连接驱动关系可等价互换，外连接必须ON, 驱动关系不能换</p>
-<ul>
-<li>嵌套循环连接(Nested-Loop Join)<br>
-查出驱动表中符合条件的所有记录，针对每一条记录，计算连接条件值，到被驱动表中等值查一次</li>
-</ul>
-<ol>
-<li>取一条驱动表记录</li>
-<li>发起关联整个被驱动表</li>
-</ol>
-<ul>
-<li>块嵌套循环连接(Block Nested-Loop Join)<br>
-被驱动表访问开销大，每驱动一次就查一次开销太大<br>
-Join Buffer 默认256K加载多条驱动表记录，扫描被驱动表，每条记录一次性和缓冲中记录关联</li>
-</ul>
-<ol>
-<li>取一条被驱动表记录</li>
-<li>发起关联缓冲中的驱动表</li>
-</ol>
-<h1 id="日志redolog-binlog">日志Redolog Binlog</h1>
-<hr>
-<h2 id="redo-log-重做日志">Redo Log 重做日志</h2>
-<p>记录事务执行后数据页物理信息，崩溃后用于恢复已提交成功，但是没写入磁盘的数据<br>
-不是提交时写入，而是执行过程中写入Innodb_log_buffer，线程每秒刷新/提交前刷新/可用空间少于一半时刷新<br>
-事务数据写入磁盘后，日志完成使命</p>
-<h2 id="undo-log-回滚日志">Undo Log 回滚日志</h2>
-<p>用于保存事务开始前数据状态，可用于回滚，也可支持MVCC机制<br>
-事务开始之前生成<br>
-提交之后不能立刻删除，放入清理列表，其他事务不使用后可删除</p>
-<h2 id="bin-log-二进制日志">Bin Log 二进制日志</h2>
-<p>记录事务执行的SQL还有反向操作语句等，用于主从复制，数据库时间点还原<br>
-提交时刷新到磁盘<br>
-可配置过期时间清除</p>
-<ol>
-<li>新增记录</li>
-<li>更新内存数据</li>
-<li>写入redolog, 状态prepare</li>
-<li>写入binlog</li>
-<li>commit</li>
-</ol>
-<h1 id="sql语法">SQL语法</h1>
-<hr>
-<p>建表, 聚簇索引，二级索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">sample</span> (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    address <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">INDEX</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
-<h1 id="锁">锁</h1>
-<hr>
-<p>内建表</p>
-<ul>
-<li>information_schema.innodb_trx查看事务</li>
-<li>information_schema.innodb_locks锁情况</li>
-<li>information_schema.innodb_lock_waits事务锁阻塞关系</li>
-</ul>
-<h2 id="锁内部实现">锁内部实现</h2>
-<p>Mysql锁是在页上操作，页上位图表示是否加锁<br>
-同一页上不管加几个锁开销都一样，因此不需要把大量行锁升级为表锁来优化性能</p>
-<h2 id="索引记录锁-record-locks">索引记录锁（Record Locks）</h2>
-<p>行锁，读锁或写锁<br>
-加载索引上，如果是二级索引，聚簇索引也加锁</p>
-<h2 id="间隙锁-gap-locks">间隙锁（Gap Locks）</h2>
-<p>行锁，在不符合条件的边界索引记录上加锁，锁定间隙不包含记录本身(第一条记录之前，索引记录之间，最后一条之后)，防止出现新的符合条件的记录<br>
-间隙锁范围重叠不冲突，目标一致都是不让插入</p>
-<h2 id="下一键锁-next-key-locks">下一键锁（Next-Key Locks）</h2>
-<p>行锁，索引记录本身锁以及前面间隙二者结合</p>
-<h2 id="意向锁-intention-locks">意向锁（Intention Locks）</h2>
-<p>表锁，表示希望细粒度加锁，已经或即将锁定某些行。事务获取行锁前，先获取意向锁<br>
-意向锁和行锁兼容，只会阻塞表锁请求<br>
-意向锁协调了表锁和行锁关系，即加行锁时要加意向锁，这样加表锁时就可根据意向锁快速判定能否加上</p>
-<ul>
-<li>事务持有IX写意向，那么只接受其他事务意向IX,IS，不支持表操作X,S</li>
-<li>事务持有IS读意向，那么拒绝其他事务表操作写X</li>
-<li>事务已经持有表写锁X，拒绝其他事务任何操作，表达意向也不行</li>
-<li>事务已经持有表读锁S, 只接受读意向IS和读操作S</li>
-</ul>
-<h2 id="插入意向锁-insert-intention-locks">插入意向锁（Insert Intention Locks）</h2>
-<p>范围是插入目标值到现有的下一索引值<br>
-意向之间不阻塞，范围重叠时间隙锁会单向阻塞意向</p>
-<h2 id="自增锁-auto-inc-locks">自增锁（AUTO-INC Locks）</h2>
-<p>表锁，插入带有自增列的记录时，插入前获取锁，插入后释放<br>
-默认配置下，只有不确定插入条数时才需要，通常不需要加锁而是使用mutex互斥</p>
-<h1 id="隔离级别实现">隔离级别实现</h1>
-<hr>
-<h2 id="mvcc机制">MVCC机制</h2>
-<p>多版本并发控制, 读不加锁，读写可以并发不冲突，提升吞吐量<br>
-每新创建一个事务，全局系统版本号增加作为事务的版本号<br>
-每行有两个隐藏域，trx_id相当于创建时版本号，roll_pointer指向undo日志中上一条形成版本链，当前版本号相当于上一条的过期时版本号</p>
-<ul>
-<li>新增，设置创建版本</li>
-<li>删除，设置过期版本</li>
-<li>修改，新增记录，同时设置旧记录过期版本</li>
-<li>查询，返回创建版本小于当前，如果有过期那么过期版本大于当前</li>
-</ul>
-<p>快照读：普通的SELECT<br>
-当前读：UPDATE，DELETE，INSERT，SELECT…LOCK IN SHARE MODE，SELECT…FOR UPDATE</p>
-<h2 id="隔离实现">隔离实现</h2>
-<p>Mysql默认RepeatableRead隔离级别</p>
-<ul>
-<li>
-<p>非锁定读<br>
-普通的select<br>
-ReadView机制，包含当前活跃的事务号，记录版本链筛选，如果记录为活跃事务说明没提交，跳过继续寻找之前版本<br>
-RU级别，直接读最新<br>
-RC级别每次读取都会生成一次ReadView，效果是读最新快照<br>
-RR级别只在事务内第一次读时生成ReadView，效果是外部事务状态可能变化但是ReadView不变读取同一快照，结果保持不变<br>
-解决了可重复读，顺便解决了部分幻读(幻读特例：事务A第一次查询完，事务B插入记录提交结束，事务A更新导致事务B插入记录一并更新并且版本号变成A，事务A第二次查询结果变化)<br>
-S级别如果开启自动提交并且只有一条查询直接MVCC，否则加读锁</p>
-</li>
-<li>
-<p>锁定读<br>
-采取加锁控制，读写不能并发，任何隔离级别下都没有脏读和不可重复读问题<br>
-lock in share mode  索引记录加共享锁S<br>
-for update  索引记录加排他锁X<br>
-RR级别下还会加间隙锁(Gap Lock), 避免幻读<br>
-S级别</p>
-</li>
-<li>
-<p>写<br>
-update/delete 先定位记录，在聚簇索引上加X锁, 然后再对应二级索引上加X锁<br>
-insert加排他写锁</p>
-</li>
-</ul>
-<h2 id="锁策略">锁策略</h2>
-<p>决定条件</p>
-<ul>
-<li>隔离级别：RC, RR</li>
-<li>索引：主键，唯一二级索引，普通二级索引，无索引</li>
-</ul>
-<p>RC: 没有间隙锁，只在完全满足条件的行上加锁<br>
-RR：</p>
-<ol>
-<li>无法使用索引全表扫描时，所有行加锁</li>
-<li>唯一索引等值查询，只需加锁目标行</li>
-<li>唯一索引范围查询，锁定范围内行，锁定间隙</li>
-<li>非唯一索引，锁定所有目标行，锁定间隙</li>
-<li>即使等值条件记录不存在，也会加间隙锁</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主键列a  唯一索引列b  普通索引列c  无索引列d</span><br><span class="line">1           2           2           1</span><br><span class="line">4           6           2           3</span><br><span class="line">7           8           6           8</span><br><span class="line">9           9           9           9</span><br></pre></td></tr></table></figure>
-<p>主键： a=4 只锁定聚簇索引a=4行<br>
-唯一二级索引：b=6  锁定聚簇索引a=4行，锁定二级索引b=6行<br>
-普通二级索引：c=6  锁定聚簇索引a=7行，锁定二级索引(2,6] (6,9)<br>
-无索引：d=8  锁定聚簇索引 (-∞,1] (1,3] (3,9] (8,9] (9,+∞)<br>
-范围查询：b&lt;=6  锁定聚簇索引a=1,a=4行，锁定二级索引(-∞,2] (2,6] (6,8] 之所以锁8因为要先读到不满足为止</p>
-<p>二级索引锁定范围后，因为二级索引也有主键，实际上主键也有隐含的范围锁定</p>
-<h1 id="sql-v2">SQL</h1>
-<hr>
-<h2 id="表存在性检测">表存在性检测</h2>
-<p>CREATE TABLE IF NOT EXIST<br>
-DROP TABLE IF EXISTS</p>
-<h2 id="主键冲突时执行更改">主键冲突时执行更改</h2>
-<p>普通的insert主键冲突直接报错，on duplicate key update冲突后执行update后面语句<br>
-INSERT INTO example(id,value) VALUES(3, ‘third’) ON DUPLICATE KEY UPDATE value =‘third’;</p>
-<h2 id="主键冲突时放弃">主键冲突时放弃</h2>
-<p>INSERT IGNORE INTO example(id,value) VALUES(3, ‘third’)</p>
-<h2 id="主键冲突时删除原有再插入">主键冲突时删除原有再插入</h2>
-<p>REPLACE INTO example(id,value) VALUES(3, ‘third’)</p>
-<h2 id="去重">去重</h2>
-<p>以行为单位去重，不能针对部分字段<br>
-DISTINCT</p>
-<p>表锁开销小，并发差，行锁开销大，并发好<br>
-表锁服务器也会参与，比如alter table时加表锁，忽略存储引擎<br>
-行锁完全由存储引擎实现，服务器不管</p>
-<p>事务日志，预写式日志，只修改内存和添加日志，慢慢刷回磁盘，日志顺序IO比随机IO高效<br>
-事务引擎InnoDB, NDB Cluster<br>
-除非显式开始事务，每个语句都是一个事务，而且默认自动提交<br>
-有些语句会强制提交当前活动事务，比如表结构修改alter table, 锁表lock table</p>
-<p>不支持事务的引擎也可以参与到事务管理，但是不能回滚，需要提前决定每张表的引擎</p>
-<p>InnoDB两阶段锁定协议，随时加锁，只有commit或者rollback会放锁，并且全部锁都放<br>
-InnoDB存储引擎额外支持的语法<br>
-select…lock in share mode<br>
-select…for update</p>
-<p>lock tables/unlock tables是服务层锁定</p>
-<p>MyISAM表锁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &apos;table%&apos;;</span><br></pre></td></tr></table></figure>
-<p>Table_locks_immediate：发生表锁次数<br>
-Table_locks_waited：竞争等待表锁次数</p>
-<p>select … lock table 表锁<br>
-select … lock in share mode 读锁，锁定结果行<br>
-select … for update 写锁，锁定结果行</p>
-<p>InnoDB<br>
-行锁针对索引，不是加在数据上，只有通过索引才行锁，不索引就是表锁</p>
-<ul>
-<li>即使使用索引字段，也会根据代价衡量而采用表锁</li>
-<li>使用相同索引，即使访问不同数据行，锁也冲突</li>
-<li>范围锁定比如大于会涵盖不存在的记录，影响后续</li>
-</ul>
-<p>查看最近一次死锁情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW ENGINE INNODB STATUS</span><br></pre></td></tr></table></figure>
-<p>Mysql死锁检测，自动回滚影响较小即最少行级排它锁的事务，尝试重新启动</p>
-<ul>
-<li>业务中相同顺序访问表</li>
-<li>同一事务中，一次锁定所有资源</li>
-<li>适当使用表锁</li>
-</ul>
-<p>一定要关闭自动提交，表锁才能生效<br>
-解锁隐含提交，因此必须放事务最后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SET AUTOCOMMIT=0;</span><br><span class="line">LOCK TABLES t1 WRITE, t2 READ, ...;</span><br><span class="line">[do something with tables t1 and t2 here];</span><br><span class="line">COMMIT;</span><br><span class="line">UNLOCK TABLES;</span><br></pre></td></tr></table></figure>
-<p>默认隔离级别REPEATABLE_READ</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;%iso%&apos;</span><br></pre></td></tr></table></figure>
-<h1 id="innodb">InnoDB</h1>
-<hr>
-<p>行格式可以通过ROW_FORMAT指定Compact、Redundant、Dynamic和Compressed</p>
-<p>一个变长varchar理论上最多可占用65535字节</p>
-<ul>
-<li>Compact格式<br>
-每一行（变长字段长度，null字段，头信息，隐藏列，真实数据）</li>
-<li>Dynamic格式(5.7默认)，行溢出后，真实字段部分只存地址，而Compact还会存部分数据</li>
-</ul>
-<p>记录结构</p>
-<ul>
-<li>变长字段长度：存储每个变长字段的长度信息</li>
-<li>null字段：可选，如果所有字段都不能为null,那么这部分不存在，否则每个可以null字段使用一个二进制位标识</li>
-<li>记录头信息：记录号，记录类型，删除标记，槽内数量，下一条指针</li>
-<li>隐藏列：DB_ROW_ID（如果用户没定义主键，也没有unique列，那么产生隐藏列rowId）、DB_TRX_ID、DB_ROLL_PTR，</li>
-<li>真实字段数据</li>
-</ul>
-<p>页内结构</p>
-<ul>
-<li>File Header: 页号，页类型，前后页指针，校验和等</li>
-<li>Page Header: 页内信息</li>
-<li>Infimum+Supremum: 最大最小伪记录，最小记录指向第一条，最大记录被最后一条指向</li>
-<li>User Records: 真实数据记录，记录的单链表，按照主键顺序排列</li>
-<li>Free Space: 空闲空间</li>
-<li>Page Directory: 页目录，方便查找，将若干条记录分组(通常8条)，组内最后一条额外记录数量作为槽，搜索时根据槽信息二分查找</li>
-<li>File Tailer: 校验和，日志LSN，尾部再存一份有助于识别同步一半失败的情况</li>
-</ul>
-<h1 id="事务">事务</h1>
-<hr>
-<p>InnoDB和NDB支持事务，如果事务中操作其他不支持事务的表，那么无法回滚</p>
-<p>修改加入Buffer Pool的flush链表中，某一时刻刷新到磁盘<br>
-刷新前崩溃？ 刷新部分崩溃？</p>
-<p>begin简单开始事务<br>
-start transaction可以额外控制</p>
-<ul>
-<li>read write</li>
-<li>read only</li>
-<li>with consistent snapshot</li>
-</ul>
-<p>结束事务有两种commit和rollback</p>
-<p>自动提交，那么每句都是一个事务<br>
-系统变量SHOW VARIABLES LIKE ‘autocommit’;</p>
-<p>隐式提交，即便关闭了自动提交，遇到DDL语句或者使用数据库相关功能，那么之前操作会提交</p>
-<p>保存点<br>
-SAVEPOINT 保存点名称;<br>
-ROLLBACK [WORK] TO [SAVEPOINT] 保存点名称;<br>
-RELEASE SAVEPOINT 保存点名称;</p>
-<h1 id="约束">约束</h1>
-<hr>
-<p>Mysql支持check语法，但是没实际作用。 可以通过触发器进行约束。基于数据库机制约束有开销，特别是一些复杂约束，通常由业务端负责。</p>
-<h1 id="redo日志">redo日志</h1>
-<hr>
-<p>Buffer Pool内存缓存，故障会消失，事务持久性无法满足<br>
-如果每次磁盘同步数据：</p>
-<ul>
-<li>每次都要以页为单位</li>
-<li>可能涉及多个不连续页，随机IO开销大</li>
-</ul>
-<p>解决方案，每次修改后磁盘同步redo日志：</p>
-<ul>
-<li>轻量级，只记录少量内容</li>
-<li>顺序IO, 日志只顺序增加</li>
-</ul>
-<p>redo以512B为一块<br>
-有些操作涉及多条redo记录，按组记录，不可分割，mini-transaction，比如新插入一个索引记录<br>
-组末尾有标记，如果恢复时没发现末尾标记，说明日志不全，放弃执行</p>
-<p>redo日志也有缓存<br>
-后台线程每秒刷新<br>
-innodb_flush_log_at_trx_commit控制事务提交时的日志持久化行为</p>
-<ul>
-<li>0：延迟写，只写入日志缓冲，完全依靠后台线程写入日志文件同时flush，数据库挂了数据会丢失</li>
-<li>1：实时写实时刷，默认值，提交时从缓冲写入日志文件并同时flush到磁盘，保证事务持久性</li>
-<li>2: 实时写延迟刷，提交时从缓冲写入日志文件，后台异步flush到磁盘，如果只是数据库挂了系统没挂，依然可以保证</li>
-</ul>
-<p>磁盘上以多个文件存在，文件名为ib_logfile+数字编号，循环使用</p>
-<h1 id="索引-v3">索引</h1>
-<hr>
-<p>任何标准表最多可以创建16个索引列？？</p>
-<h1 id="myisam">MyISAM</h1>
-<hr>
-<p>myisamchk 表压缩，节约内存或磁盘</p>
-<h2 id="幻读">幻读</h2>
-<p>RepeatableRead  MVVC多版本控制+间隙锁解决幻读</p>
-<h1 id="数据损坏">数据损坏</h1>
-<hr>
-<p>服务器断电<br>
-强制关机没有退出mysql服务</p>
-<h1 id="binlog">binlog</h1>
-<hr>
-<p>binlog同步中间件，采集数据变化，可用于监控</p>
-<h1 id="触发器">触发器</h1>
-<hr>
-<p>BEFORE INSERT/AFTER INSERT<br>
-BEFORE UPDATE/AFTER UPDATE<br>
-BEFORE DELETE/AFTER DELETE</p>
-<h1 id="explain">Explain</h1>
-<hr>
-<p>explain extended 隐式转换</p>
-<h1 id="命令-v2">命令</h1>
-<hr>
-<h2 id="进程管理">进程管理</h2>
-<p>查询进程状态，进程卡死必要时可以杀掉</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist</span><br></pre></td></tr></table></figure>
-<h2 id="查看">查看</h2>
-<p>查看表状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show table status like &apos;xxx&apos; \G</span><br></pre></td></tr></table></figure>
-<p>末尾G用来格式化</p>
-<p>查看建表语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create table &lt;table&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show session status like &apos;Select&apos;</span><br></pre></td></tr></table></figure>
-<p>查看表上索引</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM &lt;tablename&gt;;</span><br></pre></td></tr></table></figure>
-<h1 id="内建表">内建表</h1>
-<hr>
-<p>权限表<br>
-mysql_install_db脚本初始化。这些权限表分别user，db，table_priv，columns_priv和host</p>
-<p>Mysql将ACL（也称为授权表）缓存在内存中。当用户尝试认证或运行命令时，Mysql会按照预定的顺序检查ACL的认证信息和权限。</p>
-<h1 id="锁-v2">锁</h1>
-<hr>
-<p>MyIsam只支持表级锁<br>
-InnoDB默认行级锁，也支持表级锁</p>
-<p>显式表锁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lock tables &lt;table&gt; read/write;</span><br><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
-<p>自动提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;autocommit&apos;;</span><br><span class="line">set autucommit = 0; //当前session关闭自动提交</span><br></pre></td></tr></table></figure>
-<p>显式行级锁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select ... lock in share mode</span><br><span class="line">select ... for update</span><br></pre></td></tr></table></figure>
-<p>InnoDB行锁加在索引上，不走索引那么就加表锁</p>
-<p>MyISAM适合</p>
-<ul>
-<li>频繁count，内部维护变量精确计数，无需扫描</li>
-<li>读多写少，读锁共享</li>
-<li>无事务</li>
-</ul>
-<p>InnoDB适合</p>
-<ul>
-<li></li>
-</ul>
-<h1 id="数据删除">数据删除</h1>
-<hr>
-<p>drop &gt; truncate &gt; delete<br>
-delete写日志<br>
-truncate不写日志，不触发其他，空间恢复默认<br>
-drop释放空间</p>
-<h1 id="编码">编码</h1>
-<hr>
-<p>utf-8只支持3字节长度，推荐utf8mb4，接受四字节长度，可以支持emoji等特殊字符</p>
-<h1 id="性能优化">性能优化</h1>
-<hr>
-<h2 id="查询缓存">查询缓存</h2>
-<p>开启查询缓存？</p>
-<h2 id="索引条件">索引条件</h2>
-<ul>
-<li>不等于，not in等负向条件有可能不使用索引，尽可能避免</li>
-<li>like %aaa% 两侧模糊不会使用索引，like aaa%后侧模糊可以</li>
-<li>索引列出现在表达式，函数中不会走索引</li>
-<li>两个都有索引的条件用or连接，可能变成全表扫描，考虑显式写成两句union</li>
-<li>类型不匹配进行隐式转换，不会走索引。比如varchar索引，sql里写数字</li>
-<li>join两表编码不同，不会走索引，会笛卡尔积循环</li>
-</ul>
-<h2 id="联合索引">联合索引</h2>
-<ul>
-<li>多个列经常一起查询，可以建多列索引，优于多个单列索引</li>
-</ul>
-<h2 id="回表">回表</h2>
-<ul>
-<li>尽量覆盖索引，不要无关列<br>
-如果查询字段全部都在二级索引列中，那么无需回表，即覆盖索引<br>
-二级索引基于页，连续读，而回表由于数据分散，是随机读，数量多时性能差<br>
-多列索引覆盖范围更大，根据需要建立</li>
-</ul>
-<h2 id="索引列">索引列</h2>
-<ul>
-<li>数据基数大的列<br>
-数据越分散，索引值区分度越高，性能越好</li>
-<li>前缀索引列确定范围<br>
-如果字符串很长，那么需要完整存储在索引节点，可以限定前缀范围，比如只索引前10个字符，但是代价是无法用于排序因为不包含完整内容</li>
-<li>避免重复索引<br>
-联合索引已经可以覆盖时，单列无需另外建索引</li>
-</ul>
-<h2 id="主键">主键</h2>
-<ul>
-<li>优先递增主键<br>
-递增主键可顺序插入，一个页满了新开一个页，而随机插入会导致页分裂等</li>
-</ul>
-<h2 id="避免反复计算">避免反复计算</h2>
-<ul>
-<li>多次出现的子查询可以with提取出来作为中间结果集</li>
-</ul>
-<h2 id="减少数据量">减少数据量</h2>
-<ul>
-<li>尽量添加where条件缩小后续groupby的范围</li>
-<li>先where/limit再join，缩小连接范围</li>
-</ul>
-<h2 id="拆分union">拆分union</h2>
-<ul>
-<li>原本不走索引，拆分条件进行union all可能会走</li>
-</ul>
-<h2 id="避免exists-in子查询">避免exists/in子查询</h2>
-<ul>
-<li>子查询容易出现单层全表扫描，尝试使用join</li>
-</ul>
-<h1 id="二进制日志">二进制日志</h1>
-<hr>
 <h1 id="主从">主从</h1>
 <hr>
 <p>主从延迟</p>

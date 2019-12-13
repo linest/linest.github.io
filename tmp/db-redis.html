@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Redis | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="REmote DIctionary Server 远程目录服务 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复用  https://gist.gi">
+  <meta name="description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Redis">
 <meta property="og:url" content="http://linest.github.io/tmp/db-redis.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="REmote DIctionary Server 远程目录服务 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复用  https://gist.gi">
+<meta property="og:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-07T01:09:31.518Z">
+<meta property="og:updated_time" content="2019-12-13T10:55:34.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
-<meta name="twitter:description" content="REmote DIctionary Server 远程目录服务 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复用  https://gist.gi">
+<meta name="twitter:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -149,7 +149,7 @@
   
     <div class="article-meta">
       <a href="/tmp/db-redis.html" class="article-date">
-  	<time datetime="2019-12-07T01:09:31.518Z" itemprop="datePublished">2019-12-07</time>
+  	<time datetime="2019-12-13T10:55:34.789Z" itemprop="datePublished">2019-12-13</time>
 </a>
     </div>
   
@@ -176,7 +176,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>REmote DIctionary Server 远程目录服务</p>
+        <p>REmote DIctionary Server 远程目录服务<br>
+默认端口 6379</p>
 <h1 id="特点">特点</h1>
 <hr>
 <p>内存KV存储<br>
@@ -189,52 +190,18 @@ redis相比memcached</p>
 </ul>
 <h1 id="高性能">高性能</h1>
 <hr>
-<p>每秒万级别处理性能10w/s</p>
+<p>高并发，低延迟，每秒万级别处理性能10w/s</p>
 <ul>
 <li>内存, 内存访问速度100ns以内</li>
 <li>C语言，更近底层</li>
 <li>单线程，避免竞争加锁和线程切换</li>
 <li>非阻塞IO，多路复用</li>
 </ul>
-<p><a href="https://gist.github.com/jboner/2841832" target="_blank" rel="noopener">https://gist.github.com/jboner/2841832</a></p>
-<h1 id="swap">swap</h1>
-<p>key一直保存在内存中，但是value不一定，可以被放入磁盘。因此Redis可以保持超过自身内存大小的数据。</p>
-<p>高并发，低延迟</p>
-<h1 id="使用事项">使用事项</h1>
-<hr>
-<ul>
-<li>没有命名空间，需要合理命名键，“业务名：对象名：id：属性”</li>
-</ul>
-<h1 id="场景">场景</h1>
-<hr>
-<ul>
-<li>缓存：加速访问，缓解压力
-<ul>
-<li>缓存用户信息Session Cache</li>
-<li>全页缓存 FPC??</li>
-</ul>
-</li>
-<li>排行榜</li>
-<li>计数器
-<ul>
-<li>统计次数用于限速</li>
-<li>持久化？</li>
-<li>CIM计数场景？已读回执？</li>
-</ul>
-</li>
-<li>社交网络</li>
-<li>消息队列：解耦，消峰</li>
-<li>发布订阅
-<ul>
-<li>脚本触发器？？</li>
-</ul>
-</li>
-</ul>
-<h1 id="单线程">单线程</h1>
+<h1 id="单线程模型">单线程模型</h1>
 <hr>
 <p>不同客户端请求进入队列<br>
-IO多路复用<br>
-依次处理请求，因此要求能快速执行，避免影响</p>
+依次处理请求，因此要求能快速执行，避免影响<br>
+IO多路复用</p>
 <h1 id="通讯协议">通讯协议</h1>
 <hr>
 <p>RESP(Redis Serialization Protocol)<br>
@@ -257,7 +224,7 @@ IO多路复用<br>
 <p>SDS(Simple Dynamic String)描述简单动态字符串，预分配一定空间，记录实际长度</p>
 <ul>
 <li>free：空闲长度</li>
-<li>len：数据长度</li>
+<li>len：数据已占长度</li>
 <li>buf: 指向分配的空间</li>
 </ul>
 <p><a href="https://blog.csdn.net/qq_35433716/article/details/85042094" target="_blank" rel="noopener">https://blog.csdn.net/qq_35433716/article/details/85042094</a></p>
@@ -267,81 +234,81 @@ IO多路复用<br>
 object encoding命令查询键的内部实现类型<br>
 总共有6中类型，8种实现</p>
 <h2 id="string">string</h2>
-<p>get/set/del,不超过512M,根据长度决定内部格式，strlen验证长度</p>
+<p>根据长度决定内部格式,不超过512M</p>
 <ul>
 <li>int：8字节的数字类型</li>
 <li>embstr：不大于39字节，sds和redis对象一次连续分配，只读，修改将转化为raw类型</li>
 <li>raw：大于39字节，sds和redis对象不连续，两次分配</li>
 </ul>
 <h2 id="hash">hash</h2>
-<p>map结构，hset/hget/hdel</p>
+<p>map结构</p>
 <ul>
 <li>ziplist：个数小于512，每个值都小于64字节，key和value连续存储，数据多时性能下降</li>
 <li>hashtable：稀疏结构，内存占用大，MurmurHash2，链表解决哈希冲突</li>
 </ul>
 <h2 id="list">list</h2>
-<p>数量上限整数范围内，可双端操作</p>
+<p>可双端操作</p>
 <ul>
-<li>ziplist：数量少且数据小时，连续内存空间</li>
+<li>ziplist：数量少且数据小时，连续内存空间，随机访问好</li>
 <li>linkedlist：链表，增删效率高</li>
-<li>quicklist 3.2版本，linkedlist分段，每一段采用ziplist，结合优势</li>
+<li>quicklist：3.2版本，linkedlist分段，每一段采用ziplist，结合优势</li>
 </ul>
-<p>索引访问<br>
-lindex,lset 遍历，复杂度O(n),n为偏移位置？，两端性能好，中间性能差</p>
-<p>阻塞式弹出<br>
-blpop,brpop,附带timeout值，有数据可以弹出就立刻返回，否则等待一段时间<br>
-timeout为0就无限等待，直到有数据<br>
-可以多个键一起，直到任意一个有数据</p>
 <h2 id="set">set</h2>
-<p>数量上限整数范围内</p>
+<p>集合</p>
 <ul>
 <li>intset：都是整数且小于512个</li>
 <li>hashtable：key为元素，值为null</li>
 </ul>
-<p>添删操作<br>
-sadd 可添加多个，返回新增个数，因为可能部分数据已存在<br>
-srem 返回删除的元素个数，因为可能部分数据不存在</p>
-<p>计数操作<br>
-scard, 读取内部维护的变量，不会遍历，复杂度O(1)</p>
-<p>随机操作<br>
-srandmember 随机返回指定个数<br>
-spop 随机弹出</p>
-<p>集合交并补<br>
-sinter,sunion,sdiff可以将结果保存在一个键中</p>
 <h2 id="zset">zset</h2>
-<p>附带分值,涉及排序时间单次复杂度多为O(logn)</p>
+<p>有序集合，附带分值,涉及排序时间单次复杂度多为O(logn)</p>
 <ul>
 <li>ziplist：个数少于128并且大小不超过64字节，数据和分值连续存储，按分值由小到大排列</li>
 <li>skiplist：除了跳表外还维护哈希结构，可以查数据对应分值</li>
 </ul>
-<p>添加选项<br>
-zadd 选项ch添加后数据和分值变化的个数</p>
-<p>排名<br>
-zrank和zrevrank正负向排名，排名从0开始记</p>
-<p>范围查询<br>
-zrange指定排名范围<br>
-zrangebyscore指定分数范围</p>
-<h1 id="命令">命令</h1>
+<h1 id="操作">操作</h1>
 <hr>
-<p>危险命令，可以通过rename配置禁用掉</p>
+<h2 id="增删改查">增删改查</h2>
 <ul>
-<li>keys 遍历所有键，复杂度O(n)，线上大量数据时避免使用</li>
-<li>flushdb/flushall删除当前库或所有库数据，危险命令</li>
-<li>config客户端修改配置</li>
+<li>string: get/set/del</li>
+<li>hash: h前缀</li>
+<li>list：l前缀</li>
+<li>set：s前缀</li>
+<li>zset：z前缀</li>
 </ul>
+<h2 id="类型特有">类型特有</h2>
 <ul>
-<li>dbsize 不遍历计算，而是内部维护统计，复杂度O(1)</li>
-<li>mset和mget批量操作效率更高，减少多次操作网络开销，但是要注意</li>
-<li>hsacn，sscan渐进式，优于lrange,smembers,hgetall数据量大可能阻塞</li>
-<li>rename重命名可能导致删除旧键，对应值数据大会阻塞</li>
+<li>string: strlen</li>
+<li>hash:</li>
+<li>list:
+<ul>
+<li>lindex 遍历，复杂度O(n)，两端性能好，中间性能差</li>
+<li>blpop,brpop，阻塞式弹出，附带timeout值，有数据可以弹出就立刻返回，否则等待一段时间，timeout为0就无限等待，直到有数据, 可以多个键一起，直到任意一个有数据</li>
 </ul>
-<h1 id="key遍历">key遍历</h1>
-<hr>
+</li>
+<li>set:
+<ul>
+<li>sadd，可添加多个，返回新增个数，因为可能部分数据已存在</li>
+<li>srem，可删除对个，返回删除个数，因为可能部分数据不存在</li>
+<li>scard，计数操作，读取内部维护的变量，不会遍历，复杂度O(1)</li>
+<li>srandmember，随机返回指定个数</li>
+<li>spop，随机弹出一个</li>
+<li>sinter，sunion，sdiff，集合交并补可以将结果保存在一个键中</li>
+</ul>
+</li>
+<li>zset:
+<ul>
+<li>zadd，选项ch添加后数据和分值变化的个数</li>
+<li>zrank和zrevrank，正负向排名，排名从0开始记</li>
+<li>zrange，范围查询，指定排名范围</li>
+<li>zrangebyscore，范围查询，指定分数范围</li>
+</ul>
+</li>
+</ul>
+<h2 id="key遍历">key遍历</h2>
 <ul>
 <li>
 <p>keys<br>
-keys命令全量遍历，长时间阻塞<br>
-只有确定key数量很少或者只有一个人使用时才适合调用</p>
+keys命令全量遍历，长时间阻塞，只有确定key数量很少或者只有一个人使用时才适合调用</p>
 </li>
 <li>
 <p>scan<br>
@@ -349,17 +316,87 @@ keys命令全量遍历，长时间阻塞<br>
 </li>
 </ul>
 <p>每次返回游标值，下次继续遍历。开始时游标为0，之后如果再次为0说明遍历结束<br>
-如果同时有增删改，那么遍历结果可能重复可能不全</p>
+非锁定，如果同时有增删改，那么遍历结果可能重复可能不全</p>
 <p>底层原理和Java的HashMap类似，数组+链表，每次返回游标就是数组索引<br>
 limit是每次扫描数组元素个数。由于每个数组元素挂载的数量不同，因此每次扫描返回数量不同<br>
-游标递增顺序是高位增加,即反序，增加，再反序: 0(00),2(10),1(01),3(11)<br>
+游标递增顺序是高位增加,即反序-增加-再反序: 0(00),2(10),1(01),3(11)<br>
 之所以采用这种顺序，是为了应对扩容和缩容时，减少重复扫描<br>
 为了不阻塞，采用维护新旧两表，渐进式容量变化，因此扫描时可能会同时访问旧表和新表</p>
-<h1 id="过期机制与内存回收">过期机制与内存回收</h1>
+<h2 id="维护命令">维护命令</h2>
+<ul>
+<li>info 查看使用状况</li>
+<li>info clients 可查看连接数量</li>
+<li>config set可以修改配置，不用重启</li>
+<li>config get maxclients 最大连接数</li>
+<li>ping 测试联通性</li>
+<li>设置密码：config set requirepass 123456</li>
+<li>授权密码：auth 123456</li>
+</ul>
+<h1 id="慢查询">慢查询</h1>
 <hr>
-<p>persist永久有效<br>
-expire指定时间长度后过期，expireat指定时间戳过期，两者底层都是pexpireat毫秒级实现</p>
-<p>ttl查询单位秒，pttl可以毫秒</p>
+<p>记录命令执行时间，不算网络传输时间和命令排队时间,有助于排查性能瓶颈<br>
+内部列表维护，可以配置容量，以及超过多少秒算慢，建议配1000容量和1s并slow get定期持久化到硬盘<br>
+结构为(id,时间戳，执行时间，命令内容)，<code>slowlog</code>命令操作</p>
+<h1 id="pipeline">Pipeline</h1>
+<hr>
+<p>命令真正的执行时间通常在微秒级，但是网络延迟可能在毫秒级，影响很大<br>
+很多命令没有批处理，可以自定义把多条命令打包，一起发往服务端提升效率<br>
+原生批处理针对同一个key并且原子操作，pipeline打包的操作间无关联非原子<br>
+Pipeline虽然可以减少传输开销，但还是要控制大小，否则容易造成网络拥塞</p>
+<p>redis-cli通过pipe参数可以高效大量插入</p>
+<h1 id="简单事务">简单事务</h1>
+<hr>
+<p>multi-&gt; … -&gt;exec/discard<br>
+multi命令后开了一个队列，后续命令在队列中，执行时连续排他执行</p>
+<ul>
+<li>命令语法错误，比如拼写,事务不执行</li>
+<li>命令操作错误，比如使用不正确的类型操作，不能回滚</li>
+</ul>
+<h2 id="watch机制">watch机制</h2>
+<p>事务开始multi前可以进行watch观察变量，如果变化了事务不会执行，乐观锁机制<br>
+底层维护watched_keys数据结构，watch一个key,会把客户端加入这个key的链表<br>
+Redis单线程，事务是串行的，一个事务执行后会从watch链表中删除自身客户端并且标记其他客户端CLIENT_DIRTY_CAS，其他客户端就会放弃执行</p>
+<h1 id="注意事项">注意事项</h1>
+<hr>
+<p>习惯</p>
+<ul>
+<li>没有命名空间，需要合理命名键，“业务名：对象名：id：属性”</li>
+</ul>
+<p>危险命令，可以通过rename配置禁用掉</p>
+<ul>
+<li>
+<p>keys 遍历所有键，复杂度O(n)，线上大量数据时避免使用</p>
+</li>
+<li>
+<p>flushdb/flushall删除当前库或所有库数据，危险命令</p>
+</li>
+<li>
+<p>config客户端修改配置</p>
+</li>
+<li>
+<p>dbsize 不遍历计算，而是内部维护统计，复杂度O(1)</p>
+</li>
+<li>
+<p>mset和mget批量操作效率更高，减少多次操作网络开销，但是要注意</p>
+</li>
+<li>
+<p>hsacn，sscan渐进式，优于lrange,smembers,hgetall数据量大可能阻塞</p>
+</li>
+<li>
+<p>rename重命名可能导致删除旧键，对应值数据大会阻塞</p>
+</li>
+</ul>
+<h1 id="内存管理">内存管理</h1>
+<hr>
+<h2 id="swap机制">swap机制</h2>
+<p>key一直保存在内存中，但是value不一定，可以被放入磁盘。因此Redis可以保持超过自身内存大小的数据。</p>
+<h2 id="过期机制与内存回收">过期机制与内存回收</h2>
+<p>过期设置</p>
+<ul>
+<li>persist: 永久有效</li>
+<li>expire: 指定时间长度后过期，expireat指定时间戳过期，两者底层都是pexpireat毫秒级实现</li>
+</ul>
+<p>ttl查询过期时间，单位秒，pttl可以毫秒</p>
 <ul>
 <li>非负数：键过期时间</li>
 <li>-1：键没设置过期时间</li>
@@ -385,7 +422,7 @@ expire指定时间长度后过期，expireat指定时间戳过期，两者底层
 <p>定期异步保存到磁盘</p>
 <ul>
 <li>RDB(Redis DataBase)：时间间隔快照<br>
-Save命令启动会进行大IO，阻塞业务，一般使用Bgsave会Fork子进程处理<br>
+save命令启动会进行大IO，阻塞业务，一般使用bgsave会Fork子进程处理<br>
 子进程和父进程初始共享内存数据，父进程数据变化时COW(Copy On Write)分离，不会影响</li>
 <li>AOF(Append-Only File)：操作后记录日志，恢复时重放<br>
 随时间退役，日志可能会非常大<br>
@@ -395,9 +432,10 @@ bgrewriteaof可以异步重写文件，进行优化，减少文件大小</li>
 <p>取舍<br>
 如果可以容忍数分钟以内的数据丢失，只使用RDB即可满足，恢复速度快<br>
 两种可以同时开启，也可以都关闭即数据丢失也无所谓</p>
-<h1 id="分布式锁">分布式锁</h1>
+<h1 id="应用">应用</h1>
 <hr>
-<p>SETNX 不存在才设值，由于是单线程模型，因此多个请求只有一个能执行<br>
+<h2 id="分布式锁">分布式锁</h2>
+<p>加锁SETNX 不存在才设值，由于是单线程模型，因此多个请求只有一个能执行<br>
 解锁使用DEL,删除记录</p>
 <p>为了避免加锁后挂掉导致无法放锁，需要关联过期时间<br>
 使用SET key value EX 10 NX在一行命令里进行设值和过期操作</p>
@@ -415,58 +453,44 @@ bgrewriteaof可以异步重写文件，进行优化，减少文件大小</li>
 <li>watchdog机制，默认锁30s过期,加锁后开启后端线程，每10s延期一次</li>
 <li>hash结构，考虑到重入情况，增加计数逻辑</li>
 </ul>
-<h1 id="消息队列">消息队列</h1>
-<hr>
-<p>lpush+brpop,产出端的阻塞队列</p>
-<p>延时队列：sortedset，拿时间戳作为score，消息内容作为key调用zadd来生产消息，消费者用zrangebyscore指令获取N秒之前的数据轮询进行处理</p>
-<h1 id="有限集合">有限集合</h1>
-<hr>
-<p>lpush+ltrim?</p>
-<h1 id="抽奖">抽奖</h1>
-<hr>
-<p>spop srandmember</p>
-<h1 id="社交图">社交图</h1>
-<hr>
-<p>sadd+sinter</p>
-<h1 id="排行榜">排行榜</h1>
-<hr>
-<p>上榜zadd<br>
-增加分值zincrby<br>
-top操作zrevrangebyrank</p>
-<h1 id="计数">计数</h1>
-<hr>
-<p>incr,decr,incrby,decrby,incrbyfloat<br>
-由于是单线程模型，完全不需要同步机制比如CAS</p>
-<p>模糊计数，HyperLogLog结构底层位图机制，最多占用12K空间，有一定误差<br>
-pfadd，pfcount</p>
-<h1 id="慢查询">慢查询</h1>
-<hr>
-<p>记录命令执行时间，不算网络传输时间和命令排队时间,有助于排查性能瓶颈<br>
-内部列表维护，可以配置容量，以及超过多少秒算慢，建议配1000容量和1s并slow get定期持久化到硬盘<br>
-结构为(id,时间戳，执行时间，命令内容)，<code>slowlog</code>命令操作</p>
-<h1 id="pipeline">Pipeline</h1>
-<hr>
-<p>命令真正的执行时间通常在微秒级，但是网络延迟可能在毫秒级，影响很大<br>
-很多命令没有批处理，可以自定义把多条命令打包，一起发往服务端提升效率<br>
-原生批处理针对一个key操作，并且原子，pipeline打包的操作间无关联，非原子<br>
-Pipeline虽然可以减少传输开销，但还是要控制大小，否则容易造成网络拥塞</p>
-<p>redis-cli通过pipe参数可以高效大量插入</p>
-<h1 id="简单事务">简单事务</h1>
-<hr>
-<p>multi-&gt; … -&gt;exec/discard<br>
-multi命令后开了一个队列，后续命令在队列中，执行时连续排他执行</p>
+<h2 id="分布式令牌桶">分布式令牌桶</h2>
+<p><a href="https://blog.csdn.net/sunlihuo/article/details/79700225" target="_blank" rel="noopener">https://blog.csdn.net/sunlihuo/article/details/79700225</a><br>
+记录时间戳，取时更新令牌数，redis本身的单线程模型配合Lua脚本保证原子性</p>
 <ul>
-<li>命令语法错误，比如拼写,事务不执行</li>
-<li>命令操作错误，比如使用不正确的类型操作，不能回滚</li>
+<li>如果有令牌，直接取</li>
+<li>如果没令牌，尝试更新令牌数，当前时间与上次时间差值除以生成间隔</li>
 </ul>
-<h2 id="watch机制">watch机制</h2>
-<p>事务开始multi前可以进行watch观察变量，如果变化了事务不会执行，乐观锁机制<br>
-底层维护watched_keys数据结构，watch一个key,会把客户端加入这个key的链表<br>
-Redis单线程，事务是串行的，一个事务执行后会从watch链表中删除自身客户端并且标记其他客户端CLIENT_DIRTY_CAS，其他客户端就会放弃执行</p>
+<h2 id="消息队列">消息队列</h2>
+<p>lpush+brpop,产出端的阻塞队列</p>
+<h2 id="延时队列">延时队列</h2>
+<p>zset，用时间戳作为score，消息内容作为key调用zadd来生产消息，消费者用zrangebyscore指令获取N秒之前的数据轮询进行处理</p>
+<h2 id="发布订阅">发布订阅</h2>
+<p>实现产生一次消费多次Pub/Sub<br>
+publish  subcribe</p>
+<p>局限：</p>
+<ul>
+<li>在消费者下线的情况下，生产的消息会丢失</li>
+<li>集群模式下，pub会发送给每个节点，消耗带宽严重</li>
+</ul>
+<h2 id="有限集合">有限集合</h2>
+<p>lpush+ltrim</p>
+<h2 id="抽奖">抽奖</h2>
+<p>spop/srandmember</p>
+<h2 id="排行榜">排行榜</h2>
+<p>zadd上榜+zincrby增加分值+zrevrangebyrank反向排名</p>
+<h2 id="计数器">计数器</h2>
+<p>incr,decr,incrby,decrby,incrbyfloat 由于是单线程模型，完全不需要同步机制比如CAS<br>
+pfadd，pfcount 模糊计数，HyperLogLog结构底层位图机制，最多占用12K空间，有一定误差</p>
+<h2 id="任务跟踪">任务跟踪</h2>
+<p>zadd 增加任务<br>
+zrem 成功执行后删除<br>
+周期zrangeByScore，找出延迟任务</p>
 <h1 id="主从备份">主从备份</h1>
 <hr>
 <p>主从是异步复制最终一致，因此会有丢失<br>
-从节点除了备份功能还可以分担读操作压力</p>
+从节点除了备份功能还可以分担读操作压力, 从节点默认不接受任何读写请求，会重定向到相应主节点<br>
+客户端访问从节点，readonly命令开启只读模式，如果槽是自己维护则返回，否则还要重定向。命令是连接级，每次建立连接后丢失<br>
+实现读写分离，客户端要维护一份主从关系，遇到读时主动选择从节点建立readonly连接</p>
 <h2 id="流程">流程</h2>
 <p>完整同步，适合初次同步</p>
 <ol>
@@ -482,11 +506,10 @@ Redis单线程，事务是串行的，一个事务执行后会从watch链表中�
 </ol>
 <p>主从之间还有定期心跳，也会发送偏移量用于同步数据</p>
 <h2 id="哨兵">哨兵</h2>
-<hr>
 <p>高可用，Sentinel哨兵节点，自动故障发现，故障转移，并同时通知应用方，避免故障时人工参与</p>
 <p>哨兵节点也是Redis节点,但是不存数据，功能有限<br>
 整个机制，只是增加了哨兵节点，没有对数据节点进行更改<br>
-哨兵节点还充当配置提供者，客户端先通过哨兵获取主从节点信心，然后再去连接进行操作</p>
+哨兵节点还充当配置提供者，客户端先通过哨兵获取主从节点信息，然后再去连接进行操作</p>
 <ol>
 <li>哨兵节点监控数据节点和其他哨兵节点，发现不可达就标记下线</li>
 <li>如果主节点不可达，就询问其他哨兵，如果大多数一致认为不可达，选出一个哨兵领导完成故障转移</li>
@@ -526,15 +549,17 @@ Keepalived检测主机，发现挂掉后转移虚拟ip到从机，并且人工�
 </ul>
 <h1 id="集群">集群</h1>
 <hr>
-<p>单一节点无法承受时，把数据分散存储，单一节点只存部分数据<br>
-3.0 Redis Cluster</p>
+<p>3.0 Redis Cluster<br>
+单一节点无法承受时，把数据分散存储，单一节点只存部分数据</p>
 <p>其他方案</p>
 <ul>
 <li>客户端分区方案，代码逻辑决定读写哪个redis节点，缺点实现复杂考虑点多，自行维护路由，高可用故障转移</li>
 <li>代理方案，Twemproxy或Codis，请求发给代理，代理根据一致性哈希决定读写哪个redis节点，缺点节点数量变化后数据无法自动迁移，适合单纯的缓存丢失不敏感</li>
 </ul>
+<p><a href="https://www.cnblogs.com/junneyang/p/5899850.html" target="_blank" rel="noopener">https://www.cnblogs.com/junneyang/p/5899850.html</a></p>
 <h2 id="虚拟槽">虚拟槽</h2>
 <p>虚拟槽哈希 slot=CRC16(key)&amp;16383 即先循环冗余散列再范围取余<br>
+如果key包含大括号，则对括号内部分进行哈希，否则以整个key进行哈希, 大括号hash tag机制增加了可控性，可以人为的使不同key分到相同槽<br>
 从槽计算公式可以看出集群支持最大节点数16384(2^14)，即一台机器一个槽</p>
 <p>槽数量考量</p>
 <ul>
@@ -546,8 +571,6 @@ Keepalived检测主机，发现挂掉后转移虚拟ip到从机，并且人工�
 </ul>
 </li>
 </ul>
-<p>如果key包含大括号，则对括号内部分进行哈希，否则以整个key进行哈希<br>
-大括号hash tag机制增加了可控性，可以人为的使不同key分到相同槽</p>
 <h2 id="节点通信">节点通信</h2>
 <p>节点专门单独使用一个端口建立TCP连接通信，检测在线，交换信息</p>
 <p>通信场景</p>
@@ -555,14 +578,14 @@ Keepalived检测主机，发现挂掉后转移虚拟ip到从机，并且人工�
 <li>meet-pong：新节点加入</li>
 <li>ping-pong：携带节点自身槽数据(约2KB)和节点总量十分之一的其他节点状态信息(10个节点约1KB)
 <ul>
-<li>每秒随机挑5个节点，从中选出最久没通信的节点发送ping</li>
+<li>每秒随机挑5个节点，从中选出最久没通信的节点发送ping, Gossip</li>
 <li>每100毫秒扫描已知节点，如果距离上次通信已经过半超时时间，发送ping</li>
 </ul>
 </li>
 <li>pong广播，自身信息更新，主动广播</li>
 <li>fail广播，判定其他下线，发起广播</li>
 </ul>
-<p>单节点ping每秒发送量为1 + 10*num(cluster_node_timeout/2)<br>
+<p>单节点ping每秒发送量为<code>1 + 10*num(node.pong_received &gt; cluster_node_timeout/2)</code><br>
 超时默认15秒，调节超时时间短，发送量大，超时时间长影响故障发现，需要权衡带宽<br>
 同时节点数也会影响带宽，能满足业务情况下，采用小集群更好</p>
 <h2 id="请求路由">请求路由</h2>
@@ -581,9 +604,6 @@ Keepalived检测主机，发现挂掉后转移虚拟ip到从机，并且人工�
 <li>如果槽正在在线迁移，返回ASK, 客户端根据返回的地址再次发起请求</li>
 <li>如果槽没命中，返回MOVED, 客户端cluster slots更新映射后，再次发起请求</li>
 </ol>
-<p>集群从节点默认不接受任何读写请求，会重定向到相应主节点<br>
-客户端访问从节点，readonly命令开启只读模式，如果槽是自己维护则返回，否则还要重定向。命令是连接级，每次建立连接后丢失<br>
-实现读写分离，客户端要维护一份主从关系，遇到读时主动选择从节点建立readonly连接</p>
 <h2 id="集群功能限制">集群功能限制</h2>
 <ul>
 <li>批量操作只支持相同槽的key，即不能跨机</li>
@@ -592,8 +612,16 @@ Keepalived检测主机，发现挂掉后转移虚拟ip到从机，并且人工�
 <li>单机可支持16个空间，集群模式下不支持多数据库空间，只能db0</li>
 <li>从节点只能复制主节点，不能树状复制</li>
 </ul>
+<h2 id="无底洞优化：查询多个key">无底洞优化：查询多个key</h2>
+<p>根据场景选择</p>
+<ul>
+<li>依次查询：最简单，key多的话延迟</li>
+<li>相同槽划分，依次每个槽mget查询：node多也比较慢</li>
+<li>相同槽划分，多线程mget查询：编程复杂</li>
+<li>提前把要一起查的业务数据根据hash_tag存储在同一槽上：业务维护复杂，数据易倾斜</li>
+</ul>
 <h2 id="集群构建">集群构建</h2>
-<p>至少6台机器3主3从<br>
+<p>需要主从，否则节点挂掉整个集群会拒绝服务，推荐至少6台机器3主3从<br>
 redis本身很轻量，占用空间1M，因此即使数据量不大，一开始就以集群方式运行，能更好处理后期扩展</p>
 <p>手动创建需要节点握手和分配哈希槽和从节点设定过程，也可使用redis-trib.rb脚本快速创建</p>
 <ul>
@@ -619,7 +647,7 @@ redis本身很轻量，占用空间1M，因此即使数据量不大，一开始�
 <li>
 <p>存储倾斜：特定节点数据量大</p>
 <ul>
-<li>big key：redis-cli-bigkeys检查，value拆分</li>
+<li>big key：单一String过大或者集合元素过多100w的集合需要1秒操作，redis-cli-bigkeys检查，拆分成多个kv</li>
 <li>槽内key太多：cluster countkeysinslot查看槽内key数量，cluster getkeysinslot遍历检查是否存在hash tag</li>
 <li>节点槽分配不均：redis-trib.rb info查看槽分布，运维调整 redis-trib.rb rebalance</li>
 </ul>
@@ -627,7 +655,7 @@ redis本身很轻量，占用空间1M，因此即使数据量不大，一开始�
 <li>
 <p>查询倾斜：hot key 查询集中在特定节点</p>
 <ul>
-<li>副本分散：范围内随机数后缀，比如分成16份，请求压力分散到不同后缀，查询时先查随机后缀查，查不到再查原key并生成随机后缀key，随机后缀过期时间由原key加随机值，避免同时失效</li>
+<li>副本分散：范围内随机数后缀，比如分成16份，请求压力分散到不同后缀，查询时先带随机后缀查，查不到再查原key并生成随机后缀key，随机后缀过期时间由原key加随机值，避免同时失效</li>
 <li>本地缓存：客户端本地缓存一份，降低集群访问</li>
 </ul>
 </li>
@@ -638,60 +666,14 @@ redis本身很轻量，占用空间1M，因此即使数据量不大，一开始�
 <li>节点定期检测，如果最后访问距今超过cluster-node-timeout, 标记为主观下线pfail</li>
 <li>状态传播，收到的节点将状态加入故障链表，标记下线状态的有效期为超时时间的2倍，过期失效，防止误报</li>
 <li>统计信息，半数以上主节点都标记某个节点主观下线，认为客观下线fail</li>
-<li>状态传播，通知从节点进行付账转义</li>
+<li>状态传播，通知从节点进行故障转移</li>
 </ol>
-<h1 id="无底洞优化：查询多个key">无底洞优化：查询多个key</h1>
-<hr>
-<p>根据场景选择</p>
-<ul>
-<li>依次查询：最简单，key多的话延迟</li>
-<li>相同槽划分，依次每个槽mget查询：node多也比较慢</li>
-<li>相同槽划分，多线程mget查询：编程复杂</li>
-<li>提前把要一起查的业务数据根据hash_tag存储在同一节点上：业务维护复杂，数据易倾斜</li>
-</ul>
-<h1 id="热点key优化">热点key优化</h1>
-<hr>
-<ul>
-<li>互斥锁，等待：思路简单，容易阻塞</li>
-<li>不等待，发起互斥更新并立刻返回： 允许已过期数据返回，容忍数据不一致</li>
-</ul>
-<h1 id="阻塞处理">阻塞处理</h1>
-<hr>
-<p>所有redis日志单独维护，便于收集不同逻辑下日志<br>
-日志监控报警</p>
-<h1 id="发布订阅">发布订阅</h1>
-<hr>
-<p>channel<br>
-实现产生一次消费多次<br>
-Pub/Sub<br>
-局限：</p>
-<ul>
-<li>在消费者下线的情况下，生产的消息会丢失</li>
-<li>集群模式下，pub会发送给每个节点，消耗带宽严重</li>
-</ul>
-<p>分布式模型<br>
-<a href="https://www.cnblogs.com/junneyang/p/5899850.html" target="_blank" rel="noopener">https://www.cnblogs.com/junneyang/p/5899850.html</a></p>
-<p>AP? CP?</p>
-<h1 id="命令-v2">命令</h1>
-<hr>
-<p>info 查看使用状况<br>
-info clients 可查看连接数量</p>
-<p>config set可以修改配置，不用重启<br>
-config get maxclients 最大连接数</p>
-<p>ping 测试联通性</p>
-<p>设置密码：config set requirepass 123456<br>
-授权密码：auth 123456</p>
-<h1 id="框架">框架</h1>
-<hr>
-<p>Jedis全面支持命令<br>
-Redisson功能简单，不支持字符串操作，不支持排序、事务、管道、分区等Redis特性？，更专注于高级的分布式协调, 提供各种完备工具Bloom filter，BitSet，锁等</p>
-<p>Redis-rb、Predis客户端支持一致性哈希</p>
-<h1 id="性能">性能</h1>
+<h1 id="性能优化">性能优化</h1>
 <hr>
 <h2 id="减少内存使用">减少内存使用</h2>
 <p>多个独立kv可以放入集合更紧凑存储<br>
 每个键值对有一套内存结构，数量多就会占空间，而放入集合只使用一个键值对结构<br>
-100w简单字符串键值对100M，而使用hash结构放到一个key内只用16M?</p>
+比如100w简单字符串键值对100M，而使用hash结构放到一个key内只用16M</p>
 <h2 id="利用多核">利用多核</h2>
 <p>启动多实例，taskset将每个实例绑定不同内核</p>
 <h2 id="主从架构">主从架构</h2>
@@ -700,21 +682,21 @@ Redisson功能简单，不支持字符串操作，不支持排序、事务、管
 <li>主从最好部署在同一局域网，提升速度</li>
 <li>不采用树状结构，采用链表 Master &lt;- Slave1 &lt;- Slave2 &lt;- Slave3，优点是主机挂掉后架构不用变</li>
 </ul>
-<p>Pub/Sub</p>
-<p>Redis Module，像BloomFilter，RedisSearch，Redis-ML</p>
-<h2 id="none"></h2>
-<p>redis到达多大量的时候会达到性能瓶颈??</p>
-<h1 id="记录">记录</h1>
-<p>zadd 增加任务<br>
-zrem 成功执行后删除<br>
-周期zrangeByScore，找出延迟任务</p>
-<h1 id="分布式令牌桶">分布式令牌桶</h1>
+<h1 id="框架">框架</h1>
 <hr>
-<p><a href="https://blog.csdn.net/sunlihuo/article/details/79700225" target="_blank" rel="noopener">https://blog.csdn.net/sunlihuo/article/details/79700225</a><br>
-记录时间戳，取时更新令牌数，redis本身的单线程模型配合Lua脚本保证原子性</p>
 <ul>
-<li>如果有令牌，直接取</li>
-<li>如果没令牌，尝试更新令牌数，当前时间与上次时间差值除以生成间隔</li>
+<li>Jedis：
+<ul>
+<li>全面支持命令</li>
+<li>同步阻塞IO, 线程不安全，需要配合连接池</li>
+</ul>
+</li>
+<li>Redisson：
+<ul>
+<li>功能简单，只支持集合不支持字符串操作，不支持排序、事务、管道、分区等Redis特性，更专注于高级的分布式协调, 提供各种完备工具Bloom filter，BitSet，锁等</li>
+<li>基于Netty，异步非阻塞IO，线程安全</li>
+</ul>
+</li>
 </ul>
 
         

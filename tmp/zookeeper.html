@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Zookeeper | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zookeeper">
+<meta property="og:url" content="http://linest.github.io/tmp/zookeeper.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-13T10:55:34.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zookeeper">
+<meta name="twitter:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/zookeeper.html" class="article-date">
+  	<time datetime="2019-12-13T10:55:34.791Z" itemprop="datePublished">2019-12-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Zookeeper
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式协调服务框架  端口2181<br>
+Google Chubby的开源实现，使用zab协议，paxos变种<br>
+解决分布式下全局数据维护，保证一致性</p>
+<h1 id="连接">连接</h1>
+<hr>
+<p>客户端长连接会话Session，心跳保持<br>
+各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效<br>
+KeeperState连接状态</p>
+<ul>
+<li>Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立</li>
+<li>Disconnected: 断开</li>
+<li>SyncConnected: 正常连接状态，同步version,zxid</li>
+<li>AuthFailed: 认证失败</li>
+</ul>
+<h1 id="节点类型">节点类型</h1>
+<hr>
+<p>znode数据以树的形式组织</p>
+<ul>
+<li>持久节点：主动删除才可移除</li>
+<li>临时节点：客户端会话失效，所创建节点自动移除</li>
+<li>时序节点：持久节点，节点名带有顺序数字编号后缀</li>
+<li>临时时序节点：临时节点，节点名带有顺序数字编号后缀</li>
+</ul>
+<p>临时节点不能有子节点<br>
+每个节点数据不能超过1M, 最好小于1K</p>
+<h1 id="普通操作">普通操作</h1>
+<hr>
+<p>节点的增删改查</p>
+<ul>
+<li>create</li>
+<li>delete</li>
+<li>set</li>
+<li>get</li>
+<li>ls</li>
+</ul>
+<p>操作模式是指定路径和数据</p>
+<h1 id="事务操作">事务操作</h1>
+<hr>
+<p>能改变集群状态的操作，比如节点增删，数据更新，会话创建断开等<br>
+每个操作关联一个全局唯一ZXID</p>
+<h1 id="事件监听">事件监听</h1>
+<hr>
+<p>节点可以注册Watcher，事件触发后给客户端发送通知<br>
+节点删除会导致上面的Watcher都被删除<br>
+事件类型EventType</p>
+<ul>
+<li>NodeCreated: 节点创建</li>
+<li>NodeDeleted: 节点删除</li>
+<li>NodeDataChanged: 节点数据变化</li>
+<li>NodeChildrenChanged: 子节点变动</li>
+<li>None: 客户端连接状态变化</li>
+</ul>
+<p>Watcher是一次性的，持续监控需要重复注册<br>
+Watcher不保证每次变化都通知到，因为一次性，重复注册有时间差，数据可能已经变化过<br>
+Watcher存储在本地WatcherManager，发生通知后，客户端从WatcherManager取出相应对象进行回调</p>
+<h1 id="集群">集群</h1>
+<hr>
+<p>角色</p>
+<ul>
+<li>Leader 提供写服务</li>
+<li>Follower 提供读服务</li>
+<li>Observer 也能提供读服务，但是不参与选举过程</li>
+</ul>
+<p>工作状态</p>
+<ul>
+<li>LOOKING：正在选举，角色不明</li>
+<li>LEADING: 当前server角色为leader</li>
+<li>FOLLOWING: 当前server角色为follower</li>
+<li>OBSERVING：当前server角色是observer</li>
+</ul>
+<p>Client可以在任意节点进行读操作，写操作会转发给Leader节点执行</p>
+<h2 id="zxid">Zxid</h2>
+<hr>
+<p>每次操作zxid由32位epoch和32位count组成，zxid全局唯一<br>
+epoch视为任期，由Leader本地最大zxid解析后增加1<br>
+count视为任期内操作序号</p>
+<h2 id="zab">ZAB</h2>
+<hr>
+<p>ZooKeeper Atomic Broadcast 原子广播</p>
+<ul>
+<li>广播模式，类似两阶段提交</li>
+</ul>
+<ol>
+<li>收到客户请求，如果不是leader就转给leader</li>
+<li>Leader接收客户端更新, 封装成事务Proposal生成唯一Zxid，Leader先进先出队列，全局有序</li>
+<li>Leader把事务发给Followers</li>
+<li>Follower接收后加入历史队列</li>
+<li>Leader收到过半应答发起commit，对所有follower发出请求后自身本地提交</li>
+<li>Follower收到提交后，如果是所有历史队列中编号最小的那么就提交，否则说明前面还有尚未提交的需要等待</li>
+<li>客户端连接的节点提交后返回</li>
+</ol>
+<ul>
+<li>恢复模式：Leader不可用时</li>
+</ul>
+<ol>
+<li>选举已提交zxid最大的作为新Leader，同zxid选server_id最大的。最大zxid保障是最新的。</li>
+<li>数据同步，Follower根据Leader的zxid修正自身</li>
+<li>进入广播模式，接受新请求</li>
+</ol>
+<p>选举流程</p>
+<ol>
+<li>Follower发现Leader不可用，进入Looking状态，初始推荐自身作为候选，广播其他节点</li>
+<li>节点收到请求后，进行本地记录，发现更合适的节点随时广播推荐</li>
+<li>收到过半承认的节点宣布成为新Leader</li>
+</ol>
+<p>情况分析</p>
+<ul>
+<li>
+<p>Leader发出commit之前挂掉<br>
+重启后要丢弃<br>
+即如果从未提交，保证会被丢弃</p>
+</li>
+<li>
+<p>Leader在发commit之后挂掉<br>
+必然有Follower收到并提交，会当选新的Leader<br>
+即只要有一个提交，那么保证都会提交</p>
+</li>
+</ul>
+<h2 id="一致性保障原理">一致性保障原理</h2>
+<ul>
+<li>可靠提交：被一台机器提交，最终一定会被所有机器提交，由ZAB的事务一致性协议保证</li>
+<li>全局有序：同一客户端发起先A后B写操作，两个操作按照先后顺序在leader队列中，按顺序执行，由TCP协议保证</li>
+<li>因果有序：leader先A后B提交，那么全部是先A后B，历史队列(history queue)保证</li>
+</ul>
+<h2 id="2pc问题解决">2PC问题解决</h2>
+<ul>
+<li>2PC在等待响应时无法处理其他，ZAB通过队列机制解决同步阻塞</li>
+<li>2PC协调者单点故障将导致参与者阻塞，ZAB通过崩溃恢复机制解决单点问题</li>
+</ul>
+<h2 id="脑裂问题解决">脑裂问题解决</h2>
+<hr>
+<p>Quorum思想</p>
+<ol>
+<li>总节点数为奇数，并且过半节点存活才提供服务，避免出现得票相等的情况，即集群总数最少3台</li>
+<li>每次投票需要获得过半数支持，因此发生脑裂后，新的Leader一定有过半数的Follower认可,也就是说任何情况下，不可能同时存在两个过半数认可的Leader</li>
+<li>旧Leader接受信息后发起更新请求，由于epoch不同，会被认可新Leader的Follower拒绝，这样无法获取过半支持，更新失败</li>
+<li>网络恢复，旧Leader重新连接到其他节点，发现epoch不同，降级成Follower,数据最终会被同步成最新</li>
+</ol>
+<h2 id="与paxos区别">与Paxos区别</h2>
+<ul>
+<li>Zab崩溃恢复机制，自主选举</li>
+<li>Zab有选举过程，单一Leader; Paxos可以同时提案，容易冲突</li>
+<li>Zab为主备设计，全局有序，因果有序；Paxos是一致性状态机，只强调最终达成一致状态</li>
+</ul>
+<h2 id="与raft区别">与Raft区别</h2>
+<p>事务流程和选举流程比较相似</p>
+<ul>
+<li>id区别，(epoch,count)与term(term,index)</li>
+<li>zk一轮肯定要选出一个leader, 而raft存在选票瓜分，可能需要重新发起</li>
+<li>zk可以多次投票，而raft同一轮只能投一次</li>
+<li>zk投票有倾向性，而raft先到先得</li>
+<li>zk读请求可从节点处理，raft读也转发主节点处理</li>
+<li>zk提交满足条件就发起，而raft要在下次心跳发</li>
+</ul>
+<h2 id="cp系统">CP系统</h2>
+<p>只要大多数节点存活即可提供服务，因此满足P<br>
+Leader无法选举或者选举过程中不能提供服务，因此不符合A<br>
+Zookeeper因为更新后只要过半完成即可，如果客户端连接了尚未同步的节点将返回旧数据<br>
+虽然Zookeeper不能任何时间任何节点返回相同数据的线性一致性，但是保证也很强的顺序一致性<br>
+Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因此也算是CP系统</p>
+<h1 id="持久化">持久化</h1>
+<hr>
+<p>平常内存数据提供服务，有持久化机制<br>
+持久化同时包含快照和事务日志</p>
+<ul>
+<li>事务日志是精确的</li>
+<li>异步Fuzzy快照，生成的同时还有事务提交，因此不精确时刻而是某一时间段</li>
+<li>为了避免节点同时快照影响服务能力，引入随机值</li>
+</ul>
+<h1 id="应用场景">应用场景</h1>
+<hr>
+<ul>
+<li>
+<p>Master动态选举<br>
+节点并发创建同一临时节点，由于全局唯一性，只有一个创建成功，成功的变成master<br>
+没成功的节点注册Watcher，当Master挂掉，重新进行选举</p>
+</li>
+<li>
+<p>发布订阅(配置中心)<br>
+整合git</p>
+</li>
+</ul>
+<ol>
+<li>配置信息保存在持久节点内</li>
+<li>客户端Watcher订阅Zookeeper</li>
+<li>git hook机制，代码变动时修改Zookeeper节点信息</li>
+<li>Zookeeper通知客户端</li>
+<li>客户端从git下载新代码</li>
+</ol>
+<ul>
+<li>命名服务(注册中心)<br>
+维护全局名称和服务资源地址的映射</li>
+</ul>
+<ol>
+<li>每个服务类型创建持久节点</li>
+<li>每个服务实例启动时注册临时节点</li>
+<li>服务挂掉或者关闭会导致临时节点自动消失</li>
+</ol>
+<ul>
+<li>分布式锁<br>
+并发在同一目录下创建临时顺序节点，临时节点分配序号有序<br>
+排在后面的临时节点监听前面的，构成监听链<br>
+如果发现成为最小序号，视为持有锁，临时节点删除后自动通知下一个</li>
+</ul>
+<h1 id="部署">部署</h1>
+<hr>
+<ul>
+<li>单机：单点</li>
+<li>伪集群：同一主机启动多个</li>
+<li>集群</li>
+</ul>
+<h1 id="框架">框架</h1>
+<hr>
+<p>Apache Curator<br>
+连接重连、反复注册Watcher</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/zookeeper.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/zookeeper.html">http://linest.github.io/tmp/zookeeper.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

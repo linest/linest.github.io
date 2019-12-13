@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Java LockSupport | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="提供线程阻塞原语的工具类 基本实现  LockSupport从名字看出是提供锁支持的，实现上定位是静态工具类 LockSupport.java1234public class LockSupport &amp;#123;    private LockSupport() &amp;#123;&amp;#125;    //...&amp;#125; 底层基于UNSAFE实现，操控对象是线程 LockSupport.java123">
+  <meta name="description" content="提供线程阻塞原语的工具类">
 <meta name="keywords" content="源码,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java LockSupport">
 <meta property="og:url" content="http://linest.github.io/2017/09/12/java-multithread-locksupport/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="提供线程阻塞原语的工具类 基本实现  LockSupport从名字看出是提供锁支持的，实现上定位是静态工具类 LockSupport.java1234public class LockSupport &amp;#123;    private LockSupport() &amp;#123;&amp;#125;    //...&amp;#125; 底层基于UNSAFE实现，操控对象是线程 LockSupport.java123">
+<meta property="og:description" content="提供线程阻塞原语的工具类">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T11:56:06.060Z">
+<meta property="og:updated_time" content="2019-12-13T11:03:08.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java LockSupport">
-<meta name="twitter:description" content="提供线程阻塞原语的工具类 基本实现  LockSupport从名字看出是提供锁支持的，实现上定位是静态工具类 LockSupport.java1234public class LockSupport &amp;#123;    private LockSupport() &amp;#123;&amp;#125;    //...&amp;#125; 底层基于UNSAFE实现，操控对象是线程 LockSupport.java123">
+<meta name="twitter:description" content="提供线程阻塞原语的工具类">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -186,6 +186,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>提供线程阻塞原语的工具类</p>
+<a id="more"></a>
 <h1 id="基本实现">基本实现</h1>
 <hr>
 <p>LockSupport从名字看出是提供锁支持的，实现上定位是静态工具类</p>
