@@ -3,7 +3,7 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
@@ -21,9 +21,32 @@
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
-  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
   
-</head>
+<style type="text/css">span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 10px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+       -moz-transition: text-shadow .5s ease;
+            transition: text-shadow .5s ease;
+}
+span.spoiler:hover {
+    text-shadow: grey 0px 0px 5px;
+}
+span.spoiler.revealed {
+    text-shadow: grey 0px 0px 0px;
+}
+</style><script type="text/javascript">window.addEventListener("load", function(){
+    var spoiler = document.getElementsByClassName("spoiler");
+    for(var i = 0; i < spoiler.length; ++i) {
+        spoiler[i].addEventListener("click", function() {
+            this.classList.toggle("revealed");
+        });
+    }
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
@@ -42,7 +65,7 @@
 		</hgroup>
 
 		
-		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
 		
 
 		
@@ -62,15 +85,15 @@
 					<nav class="header-menu">
 						<ul>
 						
-							<li><a href="/">主页</a></li>
+							<li><a href="/">&#x4E3B;&#x9875;</a></li>
 				        
-							<li><a href="/doodle">涂鸦</a></li>
+							<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
 				        
-							<li><a href="/live2d">云撸猫</a></li>
+							<li><a href="/live2d">&#x4E91;&#x64B8;&#x732B;</a></li>
 				        
-							<li><a href="/archives">所有文章</a></li>
+							<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
 				        
-							<li><a href="/tagcloud">标签&amp;分类</a></li>
+							<li><a href="/tagcloud">&#x6807;&#x7B7E;&amp;&#x5206;&#x7C7B;</a></li>
 				        
 						</ul>
 					</nav>	
@@ -84,7 +107,7 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+					<div id="js-aboutme">&#x52E4;&#x594B;&#x7684;&#x61D2;&#x60F0;&#x8005;&#xFF0C;&#x7231;&#x542C;&#x6545;&#x4E8B;&#x7684;&#x4EBA;~ Zjuer</div>
 				</section>
 				
 			</div>
@@ -110,20 +133,20 @@
 			  <h1 class="header-author">Linest</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			<p class="header-subtitle">&#x8BD5;&#x9A8C;&#x7530;|&#x5C0F;&#x9ED1;&#x5C4B;|&#x767E;&#x5B9D;&#x7BB1;|&#x91CC;&#x7A0B;&#x7891;</p>
 			
 			<nav class="header-menu">
 				<ul>
 				
-					<li><a href="/">主页</a></li>
+					<li><a href="/">&#x4E3B;&#x9875;</a></li>
 		        
-					<li><a href="/doodle">涂鸦</a></li>
+					<li><a href="/doodle">&#x6D82;&#x9E26;</a></li>
 		        
-					<li><a href="/live2d">云撸猫</a></li>
+					<li><a href="/live2d">&#x4E91;&#x64B8;&#x732B;</a></li>
 		        
-					<li><a href="/archives">所有文章</a></li>
+					<li><a href="/archives">&#x6240;&#x6709;&#x6587;&#x7AE0;</a></li>
 		        
-					<li><a href="/tagcloud">标签&amp;分类</a></li>
+					<li><a href="/tagcloud">&#x6807;&#x7B7E;&amp;&#x5206;&#x7C7B;</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>
@@ -144,11 +167,11 @@
       <div class="body-wrap">
   
 	
-		<article id="post-java-multithread-copy-on-write" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-hexo-ext-spoiler" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/01/07/java-multithread-copy-on-write/" class="article-date">
-  	<time datetime="2018-01-06T16:00:00.000Z" itemprop="datePublished">2018-01-07</time>
+      <a href="/2018/03/07/hexo-ext-spoiler/" class="article-date">
+  	<time datetime="2018-03-07T11:26:38.000Z" itemprop="datePublished">2018-03-07</time>
 </a>
     </div>
   
@@ -159,7 +182,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/07/java-multithread-copy-on-write/">Java 写时复制容器</a>
+      <a class="article-title" href="/2018/03/07/hexo-ext-spoiler/">Spoiler&#x6807;&#x7B7E;&#x6269;&#x5C55;</a>
     </h1>
   
 
@@ -169,7 +192,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <p>读多写少下场景下，快照避免读写冲突</p>
+          <p>&#x70B9;&#x51FB;&#x53EF;&#x89C1;-&gt;<span class="spoiler">&#x4E2D;&#x5956;&#x4E86;
+</span></p>
 		</div>
       
     </div>
@@ -178,166 +202,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/01/07/java-multithread-copy-on-write/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-java-void" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/28/java-void/" class="article-date">
-  	<time datetime="2017-11-28T04:55:44.000Z" itemprop="datePublished">2017-11-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/28/java-void/">Java Void</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>void字面意思是空</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/泛型/">泛型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/11/28/java-void/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-hexo-ext-mathjax" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/10/22/hexo-ext-mathjax/" class="article-date">
-  	<time datetime="2017-10-22T11:32:05.000Z" itemprop="datePublished">2017-10-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/hexo-ext-mathjax/">MathJax标签扩展</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <img src="/2017/10/22/hexo-ext-mathjax/logo.png">
-<p>前端渲染<code>LaTex</code>数学表达式</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo扩展/">Hexo扩展</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo&#x6269;&#x5C55;/">Hexo&#x6269;&#x5C55;</a></li></ul>
 	</div>
 
       
@@ -348,7 +213,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/10/22/hexo-ext-mathjax/#more">阅读 >></a>
+          <a href="/2018/03/07/hexo-ext-spoiler/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
         </p>
       
       <div class="clearfix"></div>
@@ -382,11 +247,11 @@
 	
   
 	
-		<article id="post-java-multithread-blockingqueue" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-java-serialization" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/21/java-multithread-blockingqueue/" class="article-date">
-  	<time datetime="2017-10-20T16:00:00.000Z" itemprop="datePublished">2017-10-21</time>
+      <a href="/2018/03/02/java-serialization/" class="article-date">
+  	<time datetime="2018-03-01T16:00:00.000Z" itemprop="datePublished">2018-03-02</time>
 </a>
     </div>
   
@@ -397,7 +262,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/java-multithread-blockingqueue/">Java 阻塞队列</a>
+      <a class="article-title" href="/2018/03/02/java-serialization/">Java &#x5E8F;&#x5217;&#x5316;&#x673A;&#x5236;</a>
     </h1>
   
 
@@ -407,7 +272,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <p>不满足就阻塞等待</p>
+          <p>&#x5185;&#x5B58;&#x5BF9;&#x8C61;&#x8F93;&#x51FA;&#x5916;&#x754C;</p>
 		</div>
       
     </div>
@@ -416,7 +281,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x5E8F;&#x5217;&#x5316;/">&#x5E8F;&#x5217;&#x5316;</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x6E90;&#x7801;/">&#x6E90;&#x7801;</a></li></ul>
 	</div>
 
       
@@ -427,7 +292,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/10/21/java-multithread-blockingqueue/#more">阅读 >></a>
+          <a href="/2018/03/02/java-serialization/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
         </p>
       
       <div class="clearfix"></div>
@@ -461,11 +326,11 @@
 	
   
 	
-		<article id="post-java-multithread-join" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-java-string-operation" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/21/java-multithread-join/" class="article-date">
-  	<time datetime="2017-10-20T16:00:00.000Z" itemprop="datePublished">2017-10-21</time>
+      <a href="/2018/03/01/java-string-operation/" class="article-date">
+  	<time datetime="2018-03-01T07:11:26.000Z" itemprop="datePublished">2018-03-01</time>
 </a>
     </div>
   
@@ -476,7 +341,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/java-multithread-join/">Java 线程Join</a>
+      <a class="article-title" href="/2018/03/01/java-string-operation/">Java &#x5B57;&#x7B26;&#x4E32;&#x64CD;&#x4F5C;</a>
     </h1>
   
 
@@ -486,7 +351,157 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <p>线程上的wait-notify</p>
+          <p>&#x5E38;&#x89C1;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x64CD;&#x4F5C;&#x95EE;&#x9898;</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2018/03/01/java-string-operation/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-hexo-debug" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/28/hexo-debug/" class="article-date">
+  	<time datetime="2018-02-28T06:16:07.000Z" itemprop="datePublished">2018-02-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/28/hexo-debug/">Hexo&#x8C03;&#x8BD5;</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <p>Hexo&#x6846;&#x67B6;&#x4EE3;&#x7801;debug</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2018/02/28/hexo-debug/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-hexo-ext-flowchart" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/24/hexo-ext-flowchart/" class="article-date">
+  	<time datetime="2018-02-24T06:41:27.000Z" itemprop="datePublished">2018-02-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/24/hexo-ext-flowchart/">Flowchart&#x8FC7;&#x6EE4;&#x5668;&#x6269;&#x5C55;</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <p>&#x6D41;&#x7A0B;&#x56FE;&#x7ED8;&#x5236;</p>
 		</div>
       
     </div>
@@ -495,7 +510,92 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo&#x6269;&#x5C55;/">Hexo&#x6269;&#x5C55;</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a href="/2018/02/24/hexo-ext-flowchart/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+  
+	
+  
+	
+  
+	
+		<article id="post-java-generic-design" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/09/java-generic-design/" class="article-date">
+  	<time datetime="2018-02-09T13:29:36.000Z" itemprop="datePublished">2018-02-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/09/java-generic-design/">Java &#x6CDB;&#x578B;&#x8BBE;&#x8BA1;</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <p>&#x4E0D;&#x5B9A;&#x7C7B;&#x578B;&#x7684;&#x516C;&#x5171;&#x6846;&#x67B6;</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/&#x6CDB;&#x578B;/">&#x6CDB;&#x578B;</a></li></ul>
 	</div>
 
       
@@ -506,7 +606,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/10/21/java-multithread-join/#more">阅读 >></a>
+          <a href="/2018/02/09/java-generic-design/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
         </p>
       
       <div class="clearfix"></div>
@@ -540,11 +640,11 @@
 	
   
 	
-		<article id="post-java-multithread-wait-notify" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-hexo-ext-ruby" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/19/java-multithread-wait-notify/" class="article-date">
-  	<time datetime="2017-10-18T16:00:00.000Z" itemprop="datePublished">2017-10-19</time>
+      <a href="/2018/02/09/hexo-ext-ruby/" class="article-date">
+  	<time datetime="2018-02-09T10:38:39.000Z" itemprop="datePublished">2018-02-09</time>
 </a>
     </div>
   
@@ -555,7 +655,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/19/java-multithread-wait-notify/">Java 等待通知机制</a>
+      <a class="article-title" href="/2018/02/09/hexo-ext-ruby/">Ruby&#x6807;&#x7B7E;&#x6269;&#x5C55;</a>
     </h1>
   
 
@@ -565,7 +665,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <p>解决原生锁上的条件等待问题</p>
+          <h1 id="5"><ruby>&#x6CE8;&#x97F3;<rp> (</rp><rt>zh&#xF9; y&#x12B;n</rt><rp>) </rp></ruby></h1>
 		</div>
       
     </div>
@@ -574,335 +674,18 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo&#x6269;&#x5C55;/">Hexo&#x6269;&#x5C55;</a></li></ul>
 	</div>
 
       
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
+	<a class="article-category-link" href="/categories/Hexo/">Hexo</a>
 	</div>
 
 
       
         <p class="article-more-link">
-          <a  href="/2017/10/19/java-multithread-wait-notify/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-java-multithread-condition" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/10/16/java-multithread-condition/" class="article-date">
-  	<time datetime="2017-10-15T16:00:00.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/java-multithread-condition/">Java Condition</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>提供类似Object的wait/notify功能，搭配显式锁Lock使用</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/10/16/java-multithread-condition/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-java-multithread-threadlocal" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/10/15/java-multithread-threadlocal/" class="article-date">
-  	<time datetime="2017-10-14T16:00:00.000Z" itemprop="datePublished">2017-10-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/15/java-multithread-threadlocal/">Java ThreadLocal</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>每个线程维护单独的数据副本，形式上实现变量的<code>无锁</code>共享</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/10/15/java-multithread-threadlocal/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-mustache" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/16/mustache/" class="article-date">
-  	<time datetime="2017-09-16T03:42:01.000Z" itemprop="datePublished">2017-09-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/16/mustache/">Mustache模板</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <img src="/2017/09/16/mustache/mustache.png">
-<p>通用模板引擎</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mustache/">Mustache</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/JS/">JS</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/09/16/mustache/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-java-multithread-locksupport" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/12/java-multithread-locksupport/" class="article-date">
-  	<time datetime="2017-09-11T16:00:00.000Z" itemprop="datePublished">2017-09-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/java-multithread-locksupport/">Java LockSupport</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>提供线程阻塞原语的工具类</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/09/12/java-multithread-locksupport/#more">阅读 >></a>
+          <a href="/2018/02/09/hexo-ext-ruby/#more">&#x9605;&#x8BFB; &gt;&gt;</a>
         </p>
       
       <div class="clearfix"></div>
@@ -937,7 +720,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&#xAB; &#x4E0A;&#x4E00;&#x9875;</a><a class="page-number" href="/">1</a><span class="space">&#x2026;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&#x2026;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">&#x4E0B;&#x4E00;&#x9875; &#xBB;</a>
     </nav>
   
 </div>
@@ -945,13 +728,13 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Linest
+    		&#xA9; 2019 Linest
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
 				</div>
 				<div class="hide">
-						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&amp;w=70&amp;t=n&amp;d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA"></a>
 				</div>
     </div>
   </div>
@@ -995,6 +778,6 @@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
