@@ -4,19 +4,19 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>TMP | Blog of Linest</title>
+  <title>系统设计 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+  <meta name="description" content="明确业务功能 明确数据特点 明确数据量 朋友圈设计  读多写少 不可变，无法修改 业务功能：  发表(文字，图片，分组) 浏览(个人/他人) 评论 点赞 事件通知  数据特点：  图片最多9张 内容不可修改 读多写少 好友数量上限5000  表结构： feed表：文字内容，图片url，可见范围 图片表: 图片数据 互动表：评论，点赞 时间线表： 可见的好友feed 数据量： 每日发表量10亿，浏览">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TMP">
-<meta property="og:url" content="http://linest.github.io/tmp/index.html">
+<meta property="og:title" content="系统设计">
+<meta property="og:url" content="http://linest.github.io/tmp/system-design.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+<meta property="og:description" content="明确业务功能 明确数据特点 明确数据量 朋友圈设计  读多写少 不可变，无法修改 业务功能：  发表(文字，图片，分组) 浏览(个人/他人) 评论 点赞 事件通知  数据特点：  图片最多9张 内容不可修改 读多写少 好友数量上限5000  表结构： feed表：文字内容，图片url，可见范围 图片表: 图片数据 互动表：评论，点赞 时间线表： 可见的好友feed 数据量： 每日发表量10亿，浏览">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:21:17.977Z">
+<meta property="og:updated_time" content="2019-12-15T16:14:33.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TMP">
-<meta name="twitter:description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+<meta name="twitter:title" content="系统设计">
+<meta name="twitter:description" content="明确业务功能 明确数据特点 明确数据量 朋友圈设计  读多写少 不可变，无法修改 业务功能：  发表(文字，图片，分组) 浏览(个人/他人) 评论 点赞 事件通知  数据特点：  图片最多9张 内容不可修改 读多写少 好友数量上限5000  表结构： feed表：文字内容，图片url，可见范围 图片表: 图片数据 互动表：评论，点赞 时间线表： 可见的好友feed 数据量： 每日发表量10亿，浏览">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -148,8 +148,8 @@
       <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/tmp/index.html" class="article-date">
-  	<time datetime="2019-12-15T16:21:17.977Z" itemprop="datePublished">2019-12-16</time>
+      <a href="/tmp/system-design.html" class="article-date">
+  	<time datetime="2019-12-15T16:14:33.765Z" itemprop="datePublished">2019-12-16</time>
 </a>
     </div>
   
@@ -160,7 +160,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      TMP
+      系统设计
     </h1>
   
 
@@ -176,13 +176,222 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="mysql"><a href="db-mysql.html">MySQL</a></h1>
-<h1 id="redis"><a href="db-redis.html">Redis</a></h1>
-<h1 id="zookeeper"><a href="zookeeper.html">Zookeeper</a></h1>
-<h1 id="design"><a href="system-design.html">Design</a></h1>
-<h1 id="kafka"><a href="kafka.html">Kafka</a></h1>
-<h1 id="rabbitmq"><a href="rabbitmq.html">RabbitMQ</a></h1>
-<h1 id="efficiency"><a href="java-efficiency-inspect.html">Efficiency</a></h1>
+        <p>明确业务功能<br>
+明确数据特点<br>
+明确数据量</p>
+<h1 id="朋友圈设计">朋友圈设计</h1>
+<hr>
+<p>读多写少<br>
+不可变，无法修改</p>
+<p>业务功能：</p>
+<ul>
+<li>发表(文字，图片，分组)</li>
+<li>浏览(个人/他人)</li>
+<li>评论</li>
+<li>点赞</li>
+<li>事件通知</li>
+</ul>
+<p>数据特点：</p>
+<ul>
+<li>图片最多9张</li>
+<li>内容不可修改</li>
+<li>读多写少</li>
+<li>好友数量上限5000</li>
+</ul>
+<p>表结构：<br>
+feed表：文字内容，图片url，可见范围<br>
+图片表: 图片数据<br>
+互动表：评论，点赞<br>
+时间线表： 可见的好友feed</p>
+<p>数据量：<br>
+每日发表量10亿，浏览量100亿</p>
+<p>架构：<br>
+单表无法存储，水平扩展<br>
+读多写少，采用写扩散模型，每发布一条，后端异步插入到每个好友时间线<br>
+写开销大，但是读取简单，每个用户只需要读取自己的时间线表，无需遍历每个好友<br>
+增量拉取，客户端本地有缓存</p>
+<h1 id="微博设计">微博设计</h1>
+<hr>
+<h1 id="短链接服务设计">短链接服务设计</h1>
+<hr>
+<p>业务功能</p>
+<ul>
+<li>长链接绑定短链接，十进制自增方式，转62进制字符串展示</li>
+<li>短链接映射长链接，重定向方式</li>
+</ul>
+<p>数据特点</p>
+<ul>
+<li>持久化，不能随时失效</li>
+<li>同一短链大量访问，读大于写</li>
+<li>安全，自增防遍历，增加校验位等</li>
+</ul>
+<p>架构</p>
+<ul>
+<li>缓存，维护热点映射
+<ul>
+<li>热门长链接，避免反复生成</li>
+<li>热门短链接，避免反复加载</li>
+</ul>
+</li>
+<li>分布式， 分段分配提高并发</li>
+</ul>
+<h1 id="双十一设计">双十一设计</h1>
+<hr>
+<p>双11大促的时候如何设计系统的动态扩容/缩容的机制</p>
+<h1 id="消息中间件设计">消息中间件设计</h1>
+<hr>
+<p>业务功能</p>
+<ul>
+<li>生产者写入消息</li>
+<li>消费者取出消息</li>
+<li>监控</li>
+</ul>
+<p>数据特点</p>
+<ul>
+<li>持久化：内存/文件</li>
+<li>大容量：分布式</li>
+<li>不丢失：应答重发</li>
+<li>消费模型</li>
+</ul>
+<p>架构</p>
+<ul>
+<li>持久化
+<ul>
+<li>多文件存储</li>
+<li>元数据偏移</li>
+<li>内存缓冲异步写入</li>
+</ul>
+</li>
+<li>分布式+高可用
+<ul>
+<li>数据分片</li>
+<li>冗余备份</li>
+</ul>
+</li>
+<li>应答重发
+<ul>
+<li>中间件写入多副本后应答生产者</li>
+<li>中间件收到消费者应答后才删除</li>
+</ul>
+</li>
+<li>推拉模型</li>
+</ul>
+<h1 id="rpc设计">RPC设计</h1>
+<hr>
+<ul>
+<li>通讯协议</li>
+<li>序列化方式</li>
+<li>SPI扩展</li>
+<li>底层代理</li>
+<li>超时、重试、负载均衡</li>
+<li>拦截器、插件等自定义支持</li>
+<li>注册中心的选型与交互</li>
+</ul>
+<h1 id="即时通讯im系统">即时通讯IM系统</h1>
+<hr>
+<h1 id="积分系统">积分系统</h1>
+<hr>
+<p>业务功能</p>
+<ul>
+<li>行为累积积分</li>
+<li>累积历史</li>
+<li>积分兑换商品</li>
+<li>兑换历史</li>
+</ul>
+<p>数据特点</p>
+<ul>
+<li>多种行为都能累积积分，变化</li>
+<li>仓储为第三方服务，积分扣减后无需等待仓储服务</li>
+</ul>
+<p>表结构</p>
+<ul>
+<li>积分表：自增id, 用户id, 积分</li>
+<li>积分获取表：自增id, 用户id, 增加积分，来源描述</li>
+<li>积分扣减表：自增id, 用户id, 扣减积分，商品id</li>
+</ul>
+<p>架构</p>
+<ul>
+<li>消息队列
+<ul>
+<li>解耦，来源可动态增减</li>
+<li>异步，无需等待仓储</li>
+<li>可靠消息服务：重试，消费者幂等化处理</li>
+</ul>
+</li>
+</ul>
+<h1 id="新api设计">新API设计</h1>
+<hr>
+<ul>
+<li>
+<p>API版本</p>
+</li>
+<li>
+<p>业务单一职责</p>
+</li>
+<li>
+<p>域名：是否需要专有子域</p>
+</li>
+<li>
+<p>URL路径设计</p>
+</li>
+<li>
+<p>查询参数</p>
+</li>
+<li>
+<p>请求方式：GET/POST/PUT/DELETE</p>
+</li>
+<li>
+<p>返回数据格式</p>
+</li>
+<li>
+<p>错误返回码</p>
+</li>
+<li>
+<p>安全性: 是否需要https</p>
+</li>
+<li>
+<p>权限</p>
+</li>
+<li>
+<p>跨域 @CrossOrigin</p>
+</li>
+<li>
+<p>限流</p>
+</li>
+<li>
+<p>重试幂等</p>
+</li>
+<li>
+<p>可扩展？</p>
+</li>
+<li>
+<p>高可用？</p>
+</li>
+</ul>
+<h1 id="100万的优惠码-怎样保证每个用户只能领取一个">100万的优惠码，怎样保证每个用户只能领取一个</h1>
+<h1 id="操作状态持久化">操作状态持久化</h1>
+<hr>
+<p>Git  Redis  Kafka类似场景</p>
+<ul>
+<li>内存，异步刷新磁盘，容忍小部分丢失</li>
+<li>定时检查点机制，合并重构日志，减少体积，减少恢复开销</li>
+<li>单独节点同步日志进行合并操作，避免影响主节点，结果回传</li>
+</ul>
+<h1 id="选电影选座次">选电影选座次</h1>
+<hr>
+<p>表结构</p>
+<ul>
+<li>电影表：id, 名称，国别，演员…</li>
+<li>影院表：id, 名称，位置，经度，纬度</li>
+<li>场次表：id, 电影id，影院id，时间，厅</li>
+<li>座次表：id, 场次id，座位号，用户id</li>
+</ul>
+<p>适当冗余，场次表内包含电影名称?<br>
+位图优化，座次表省略，换成位图?</p>
+<h1 id="字典表设计">字典表设计</h1>
+<hr>
+<p>表结构<br>
+字典值文字，字典值id, 字典类型，字典描述，状态，删除标记，展示顺序，创建人，创建时间</p>
 
         
     <div class="donate_module">
@@ -207,9 +416,9 @@
     <hr>
     <p><strong>版权声明</strong></p>
     <p><img src="/assets/copyright/cc.png" alt=""></p>
-    <p><a href="http://linest.github.io/tmp/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <p><a href="http://linest.github.io/tmp/system-design.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
     <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
-    <p>本文永久链接：<a href="http://linest.github.io/tmp/index.html">http://linest.github.io/tmp/index.html</a></p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/system-design.html">http://linest.github.io/tmp/system-design.html</a></p>
 </div>
       
     </div>

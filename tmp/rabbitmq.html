@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>RabbitMQ | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RabbitMQ">
+<meta property="og:url" content="http://linest.github.io/tmp/rabbitmq.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-15T16:19:36.160Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RabbitMQ">
+<meta name="twitter:description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/rabbitmq.html" class="article-date">
+  	<time datetime="2019-12-15T16:19:36.160Z" itemprop="datePublished">2019-12-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RabbitMQ
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>erlang实现</p>
+<p>AMQP协议  默认端口5672</p>
+<h1 id="性能">性能</h1>
+<hr>
+<p>4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000</p>
+<h1 id="概念">概念</h1>
+<hr>
+<ul>
+<li>Broker: 一台或者一组节点实例</li>
+<li>Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离</li>
+<li>Connection: 基于真实TCP的Socket连接</li>
+<li>Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Channel，轻量级避免TCP创建销毁开销，多路复用。一个channel具有唯一ID，虽然线程安全，但是推荐被唯一线程使用，绝大部分业务操作通过Channel完成。实际传输数据时，信道独占连接，其他等待。</li>
+<li>Exchange: 生产者不直接发给消费者，而是发给Exchange进行消息路由，实现上为关系查找表</li>
+<li>Binding: Exchange和Queue之间关联，知道每个Queue需要哪些数据</li>
+<li>Queue: 每个队列具有自己的erlang进程</li>
+</ul>
+<h1 id="基本使用">基本使用</h1>
+<hr>
+<p>生产者和消费者都可以声明创建队列，如果队列已存在，则直接返回成功</p>
+<p>声明队列</p>
+<ul>
+<li>Exclusive：排他，连接独占，只对声明它的Connection极其下属Channel可见，连接关闭或者客户端退出，队列自动删除</li>
+<li>Auto-delete：没有消费者，自动删除</li>
+<li>Durable：队列元数据持久化，并非消息</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Queue.<span class="function">DeclareOk <span class="title">queueDeclare</span><span class="params">(String queue, <span class="keyword">boolean</span> durable, <span class="keyword">boolean</span> exclusive, <span class="keyword">boolean</span> autoDelete,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<p>声明交换器</p>
+<ul>
+<li>Internal: 用于内部转发，外部生产者无法投递</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exchange.<span class="function">DeclareOk <span class="title">exchangeDeclare</span><span class="params">(String exchange, BuiltinExchangeType type, <span class="keyword">boolean</span> durable, <span class="keyword">boolean</span> autoDelete,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">boolean</span> internal, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<p>绑定<br>
+交换器之间，交换器和队列都可以绑定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exchange.<span class="function">BindOk <span class="title">exchangeBind</span><span class="params">(String destination, String source, String routingKey, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">Queue.<span class="function">BindOk <span class="title">queueBind</span><span class="params">(String queue, String exchange, String routingKey, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<p>消费者逻辑作为回调逻辑，每个消息会被调用处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> DefaultConsumer(channel)&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleDelivery</span><span class="params">(String consumerTag,Envelope envelope,AMQP.BasicProperties properties,<span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="comment">//logic</span></span><br><span class="line">        channel.basicAck(envelope.getDeliveryTag(), <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>消费响应</p>
+<ul>
+<li>Ack：应答，队列收到后会删除，可以应答多条，代表tag及之前的都应答</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicAck</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Reject：拒绝，如果设置requeue会重新分发可能相同消费者，否则就删除</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicReject</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> requeue)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Nack：Reject扩展，可以拒绝多个</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicNack</span><span class="params">(<span class="keyword">long</span> deliveryTag, <span class="keyword">boolean</span> multiple, <span class="keyword">boolean</span> requeue)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Recovery: 要求重发未应答的消息，如果设置requeue有可能会发给别的消费者，否则还是发给当前消费者</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Basic.<span class="function">RecoverOk <span class="title">basicRecover</span><span class="params">(<span class="keyword">boolean</span> requeue)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="黑洞">黑洞</h1>
+<hr>
+<p>生产者发出消息，无回应</p>
+<ul>
+<li>交换器上没队列</li>
+<li>交换器上有队列，但是没有队列消费相应key</li>
+</ul>
+<p>设置Basic.Publish时mandatory，会返回无法投递</p>
+<h1 id="清理">清理</h1>
+<hr>
+<p>删除不是立刻删，而是标记，后期GC收集</p>
+<h1 id="持久化">持久化</h1>
+<hr>
+<p>持久化写磁盘会造成性能下降10倍</p>
+<p>结构和消息持久化是分开控制的</p>
+<ul>
+<li>结构持久化，durable参数，表示宕机重启后队列和交换器能重建</li>
+<li>消息持久化，persistent属性，表示宕机重启后留存的消息依然存在</li>
+</ul>
+<p>注意点</p>
+<ul>
+<li>交换器和队列在持久化上要一致</li>
+<li>消息持久化但是结构没有，重启后结构消失，此时发过来的消息相当于丢失</li>
+</ul>
+<h1 id="长度限制">长度限制</h1>
+<hr>
+<p>key 255字节<br>
+队列长度可以从消息数量x-max-length和消息总大小x-max-length-bytes上控制<br>
+队列满了之后替换策略可以是丢弃老的drop-head或者拒绝新的reject-publish</p>
+<h1 id="路由规则">路由规则</h1>
+<hr>
+<p>消息到达Exchange后，要决定发给哪些队列<br>
+生产者发消息时以及队列创建时通常会指定routing key或者消息头Headers，两者信息作为路由依据</p>
+<p>交换器类型</p>
+<ul>
+<li>Fanout: 无视匹配，发给所有队列</li>
+<li>Direct: 消息上的key和队列key完全匹配</li>
+<li>Topic: key都使用<code>.</code>分隔多个单词形式，模糊匹配，<code>*</code>匹配一个单词，<code>#</code>匹配多个</li>
+<li>Headers: 忽略key, 根据Headers属性内键值对匹配, 适合多个属性参与。可以设置键值对全匹配或者任意匹配。</li>
+</ul>
+<p>模型</p>
+<ul>
+<li>队列模型： Exchange写入一个队列，多个消费者关注同一队列，消息轮流分配给消费者</li>
+<li>发布订阅模型： Exchange写入多个队列，多个消费者每个关注一个队列，同一消息每个消费者都能收到</li>
+</ul>
+<h1 id="集群">集群</h1>
+<hr>
+<p>HAProxy模式 keepAlived</p>
+<p>元数据在每个节点都有一份，元数据更新时，所有节点都成功后再返回</p>
+<h2 id="普通集群">普通集群</h2>
+<p>各节点元数据相同，消息只会在一个节点。如果消息在节点1，但是消费者连节点2，那么消息会从节点1传递给节点2</p>
+<p>节点分为内存节点和磁盘节点, Proxy只分发内存节点？？<br>
+内存节点把结构存储在内存中，磁盘存储磁盘节点的地址，这样内存节点重启后可以从磁盘节点获取结构。集群中应该至少有一个磁盘节点。</p>
+<h2 id="镜像队列">镜像队列</h2>
+<p>通常情况下，队列和交换器只在声明的一个节点上，镜像队列使得同一队列可以在多个节点上。主队列所在节点是主节点，每个队列都有自己的主节点。<br>
+开启镜像的队列采取主从架构，操作都会交给主队列处理，同步广播给从队列，从队列按照相同顺序执行，状态保持一致。</p>
+<p>queue-master-locator参数控制主队列选择节点的策略</p>
+<ul>
+<li>min-masters：选主队列最少的节点</li>
+<li>client-local：声明时的节点</li>
+<li>random: 随便选一个节点</li>
+</ul>
+<p>ha-mode参数控制镜像行为</p>
+<ul>
+<li>exactly: 指定镜像个数</li>
+<li>all: 所有节点都建镜像</li>
+<li>nodes: 指定节点列表</li>
+</ul>
+<p>消费者不管直接连接的是哪个节点，都可以操作。Publish操作是同时把消息发往主从节点，其他操作都是路由到主节点执行然后广播到从节点。<br>
+GM(Guarenteed Multicast)广播模块，原子广播，要么都收到要么都不。</p>
+<p>宕机处理</p>
+<ul>
+<li>镜像队列
+<ul>
+<li>主节点挂掉，上边客户端全部断开，如果开启x-cancel-on-ha-failover参数连接从节点客户端收到通知回调。自动主从选举，最年长的从队列可以接替，提高可用性。最老的认为同步率最好，如果所有从节点都没有完全同步，那么会有消息丢失。新的主节点无法确认没应答的消息状态，将重发这部分消息，消费者可能收到重复消息。</li>
+<li>从节点挂掉，无影响，上边的消费者连接断开</li>
+</ul>
+</li>
+<li>非镜像队列
+<ul>
+<li>持久化，那么挂掉后其他节点不能重建这个队列，必须等待这个节点重启恢复，期间所有操作都失败。</li>
+<li>非持久化，那么队列相当于被删除</li>
+</ul>
+</li>
+</ul>
+<p>镜像队列中对节点启动顺序有要求，启动时master节点先启动，停止时master节点后停止</p>
+<ul>
+<li>slave先停，master后停：正常情况。master先启动。或者slave先启动，并在30s内启动master，否则slave自动停止。</li>
+<li>slave和master同时停：掉电情况。正常启动即可。</li>
+<li>slave先停但无法重启，master后停：master先启动，执行命令忘掉slave，加入新的slave节点。</li>
+<li>slave先停，master后停但无法重启：slave执行命令离线忘掉master, 选出新master, 启动master,加入新slave</li>
+<li>slave先停，master后停，都无法恢复但是有磁盘文件：磁盘文件应用到新节点，成为master。</li>
+<li>slave先停，master后停，都无法恢复但是都没有磁盘文件：无法恢复</li>
+</ul>
+<h1 id="可靠投递">可靠投递</h1>
+<hr>
+<ul>
+<li>避免生产者丢数据：
+<ul>
+<li>同步事务，txSelect开启事务，发消息后txCommit提交。一个发完再发下一个。</li>
+<li>异步confirm,信道设置confirmSelect模式，每个消息带有唯一ID通过getNextPublishSeqNo可以获知，投递到队列写入磁盘后发应答否则出错发nack通知重发。可以同步waitForConfirms也可以异步等待addConfirmListener，生产者等待时可以继续发消息。生产者需要缓存未确认部分，以防重发。</li>
+</ul>
+</li>
+<li>避免队列丢数据：开启持久化，崩溃可恢复。如果还没来得及持久化，镜像队列，不能完全保证。deliveryMode=2消息持久化</li>
+<li>避免消费者丢数据：消费完成后发应答，队列删除消息。
+<ul>
+<li>自动确认：收到就应答，如果处理失败就会丢失消息</li>
+<li>手动确认：处理完成再应答，注意没有超时机制，只要和消费者连接不断开就认为正忙还在处理中，如果处理完忘记发应答，那么会导致消息一直积压，并且断开连接后消息会重复消费</li>
+</ul>
+</li>
+<li>避免重复投递: 消息带有唯一id</li>
+<li>避免重复消费：消息本身带有业务唯一属性，比如订单id，或者外部记录是否消费过</li>
+</ul>
+<p>基于消息持久化状态打标流程，高并发下频繁更新消息状态</p>
+<ol>
+<li>除了业务数据外，消息也存入数据库</li>
+<li>生产者发送消息</li>
+<li>服务端发回确认，回调生产者逻辑</li>
+<li>回调逻辑更新消息状态</li>
+<li>外部定时任务周期检查重试</li>
+</ol>
+<p>基于延迟检查流程</p>
+<ol>
+<li>只有业务数据存入数据库</li>
+<li>生产者发送消息，并延迟队列发送检查包</li>
+<li>服务端发回确认，回调逻辑</li>
+<li>回调逻辑将消息已成功计入数据库</li>
+<li>延迟的检查消息被发送</li>
+<li>服务端发回确认，回调逻辑</li>
+<li>回调逻辑检查是否成功，如果没有，发出重发请求</li>
+</ol>
+<h1 id="死信队列">死信队列</h1>
+<hr>
+<p>x-dead-letter-exchange参数，死信后发往特定交换器，并且路由键x-dead-letter-routing-key参数指定</p>
+<p>死信条件</p>
+<ul>
+<li>消息被拒：如果requeue参数为false，即不重复投递</li>
+<li>消息过期：队列x-message-ttl参数或者消息expiration参数</li>
+<li>队列已满：达到最大长度</li>
+</ul>
+<p>本意是排查死信原因，可以利用过期机制实现延时队列，即发送到队列但是没消费者，超时过期后转入死信队列，消费者消费死信队列<br>
+场景：订单一段时间不支付就执行取消操作，下单同时产生消息进入延迟队列，时间到之后尝试执行取消</p>
+<h1 id="同步rpc机制">同步RPC机制</h1>
+<hr>
+<p>生产者需要消费者结果<br>
+生产者创建匿名回复队列，这样不同生产者有自己的队列<br>
+生产者发送消息时，指定消息属性replyTo表示回复队列名称和correlationId表示消息标识，同时开一个消费者订阅回复队列<br>
+消费者进行处理后可以把结果加上correlationId属性，发往replyTo指定的回复队列</p>
+<h1 id="推拉">推拉</h1>
+<hr>
+<p>消费模型</p>
+<ul>
+<li>推模式：Basic.Consume持续订阅，消费完一条接受下一条</li>
+<li>拉模式：Basic.Get一次性获取，实际上是订阅获取消息后再取消订阅</li>
+</ul>
+<p>队列中囤积大量消息，如果信道无特殊设定，一旦消费者连接上，那么所有消息都会发给消费者<br>
+Qos机制，手动确认时，如果服务端发现没有一定量的确认，不继续推消息，即信道basicQos会设置prefetch控制消费端最多囤积的消息量<br>
+默认值1即消费者应答一条后再推下一条</p>
+<h1 id="优先级">优先级</h1>
+<hr>
+<p>队列上x-max-priority参数配置队列允许最大优先级值0~255<br>
+消息上设定优先级，越大则越先消费</p>
+<h1 id="监控">监控</h1>
+<hr>
+<ul>
+<li>自带Restful API</li>
+<li>rabbitmq_management插件：Web监控,本质是定期调用Restful API</li>
+<li>rabbitmq_tracing插件：日志记录消息完整处理链路</li>
+</ul>
+<p>？？？<br>
+问题二十四：RabbitMQ 中的 cluster、mirrored queue，以及 warrens 机制分别用于解决什么问题？存在哪些问题？</p>
+<p>答：cluster 是为了解决当 cluster 中的任意 node 失效后，producer 和 consumer 均可以</p>
+<p>通过其他 node 继续工作，即提高了可用性；另外可以通过增加 node 数量增加 cluster</p>
+<p>的消息吞吐量的目的。cluster 本身不负责 message 的可靠性问题（该问题由 producer 通</p>
+<p>过各种机制自行解决）；cluster 无法解决跨数据中心的问题（即脑裂问题）。另外，在</p>
+<p>cluster 前使用 HAProxy 可以解决 node 的选择问题，即业务无需知道 cluster 中多个</p>
+<p>node 的 ip 地址。可以利用 HAProxy 进行失效 node 的探测，可以作负载均衡。下图为</p>
+<p>HAProxy + cluster 的模型。</p>
+<p>Mirrored queue 是为了解决使用 cluster 时所创建的 queue 的完整信息仅存在于单一</p>
+<p>node 上的问题，从另一个角度增加可用性。若想正确使用该功能，需要保证：1.consumer</p>
+<p>需要支持 Consumer Cancellation Notification 机制；2.consumer 必须能够正确处理重复</p>
+<p>message 。</p>
+<p>Warrens 是为了解决 cluster 中 message 可能被 blackholed 的问题，即不能接受</p>
+<p>producer 不停 republish message 但 RabbitMQ server 无回应的情况。Warrens 有两种构</p>
+<p>成方式，一种模型是两台独立的 RabbitMQ server + HAProxy ，其中两个 server 的状态分</p>
+<p>别为 active 和 hot-standby 。该模型的特点为：两台 server 之间无任何数据共享和协议</p>
+<p>交互，两台 server 可以基于不同的 RabbitMQ 版本。如下图所示</p>
+<p>另一种模型为两台共享存储的 RabbitMQ server + keepalived ，其中两个 server 的状态分</p>
+<p>别为 active 和 cold-standby 。该模型的特点为：两台 server 基于共享存储可以做到完全</p>
+<p>恢复，要求必须基于完全相同的 RabbitMQ 版本。如下图所示</p>
+<p>Warrens 模型存在的问题：对于第一种模型，虽然理论上讲不会丢失消息，但若在该模型</p>
+<p>上使用持久化机制，就会出现这样一种情况，即若作为 active 的 server 异常后，持久化</p>
+<p>在该 server 上的消息将暂时无法被 consume ，因为此时该 queue 将无法在作为 hot-</p>
+<p>standby 的 server 上被重建，所以，只能等到异常的 active server 恢复后，才能从其上的</p>
+<p>queue 中获取相应的 message 进行处理。而对于业务来说，需要具有：a.感知 AMQP 连</p>
+<p>接断开后重建各种 fabric 的能力；b.感知 active server 恢复的能力；c.切换回 active</p>
+<p>server 的时机控制，以及切回后，针对 message 先后顺序产生的变化进行处理的能力。</p>
+<p>对于第二种模型，因为是基于共享存储的模式，所以导致 active server 异常的条件，可能</p>
+<p>同样会导致 cold-standby server 异常；另外，在该模型下，要求 active 和 cold-standby</p>
+<p>的 server 必须具有相同的 node 名和 UID ，否则将产生访问权限问题；最后，由于该模</p>
+<p>型是冷备方案，故无法保证 cold-standby server 能在你要求的时限内成功启动。</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/rabbitmq.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/rabbitmq.html">http://linest.github.io/tmp/rabbitmq.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>

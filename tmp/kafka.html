@@ -4,19 +4,19 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>TMP | Blog of Linest</title>
+  <title>kafka | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+  <meta name="description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TMP">
-<meta property="og:url" content="http://linest.github.io/tmp/index.html">
+<meta property="og:title" content="kafka">
+<meta property="og:url" content="http://linest.github.io/tmp/kafka.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+<meta property="og:description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:21:17.977Z">
+<meta property="og:updated_time" content="2019-12-15T16:20:02.942Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TMP">
-<meta name="twitter:description" content="MySQL Redis Zookeeper Design Kafka RabbitMQ Efficiency">
+<meta name="twitter:title" content="kafka">
+<meta name="twitter:description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -148,8 +148,8 @@
       <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/tmp/index.html" class="article-date">
-  	<time datetime="2019-12-15T16:21:17.977Z" itemprop="datePublished">2019-12-16</time>
+      <a href="/tmp/kafka.html" class="article-date">
+  	<time datetime="2019-12-15T16:20:02.942Z" itemprop="datePublished">2019-12-16</time>
 </a>
     </div>
   
@@ -160,7 +160,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      TMP
+      kafka
     </h1>
   
 
@@ -176,13 +176,97 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="mysql"><a href="db-mysql.html">MySQL</a></h1>
-<h1 id="redis"><a href="db-redis.html">Redis</a></h1>
-<h1 id="zookeeper"><a href="zookeeper.html">Zookeeper</a></h1>
-<h1 id="design"><a href="system-design.html">Design</a></h1>
-<h1 id="kafka"><a href="kafka.html">Kafka</a></h1>
-<h1 id="rabbitmq"><a href="rabbitmq.html">RabbitMQ</a></h1>
-<h1 id="efficiency"><a href="java-efficiency-inspect.html">Efficiency</a></h1>
+        <p><a href="https://www.javazhiyin.com/47664.html" target="_blank" rel="noopener">https://www.javazhiyin.com/47664.html</a></p>
+<p>Zookeeper维护</p>
+<p>KafkaProducer生产者客户端<br>
+ProducerRecord消息<br>
+Kafka服务端<br>
+KafkaConsumer消费者客户端</p>
+<p>每台机器称为Broker</p>
+<p>Topic拆分多个Partition,分布在不同Broker上<br>
+消费者关注Topic<br>
+多个消费者组成Consumer Group<br>
+同一Partition消息会交给Group内同一消费者处理，即组内消费者数量应小于等于Partition数量</p>
+<ul>
+<li>队列模型： 所有消费者成为一个组，一条消息只有一个消费者获得</li>
+<li>发布订阅模型： 每个消费者单独成组，一条消息每个消费者都获得</li>
+</ul>
+<h1 id="支持大量连接">支持大量连接</h1>
+<hr>
+<p>一个acceptor线程，多个processor线程<br>
+收到连接后，acceptor分配给processor线程，一个processor线程同时负责多个连接<br>
+连接发来数据processor线程将任务加入请求队列<br>
+工作线程池处理任务，结果加入响应队列<br>
+processor读取响应队列，返回结果给连接</p>
+<p>10个processor线程 + 40个工作线程，能支持上万连接</p>
+<p>内存缓冲，较少网络开销，提升发送吞吐量<br>
+缓冲内存池，batch从池中取一块，用完归还，避免了频繁的垃圾回收<br>
+<code>buffer.memory</code> 内存缓冲空间，默认32M, 内存缓冲过小来不及发送，会写满阻塞客户端写入消息<br>
+<code>batch.size</code> 一个batch大小，默认16K，过大batch会导致延迟增加<br>
+<code>linger.ms</code> 不满一个batch时，最长等待时间，过小会导致batch总是写不满<br>
+<code>max.request.size</code> 一条消息最大大小</p>
+<ul>
+<li>同一个topic同一个partition多条消息batch打包，默认batch大小为16kb</li>
+<li>同一个broker不同batch打包成request</li>
+</ul>
+<p>写入性能每秒几万到几十万</p>
+<ul>
+<li>写入操作系统页缓存，操作系统自己管理什么时候写磁盘</li>
+<li>顺序写磁盘</li>
+</ul>
+<p>输出性能，先查操作系统缓存，没有就读磁盘加载到操作系统缓存</p>
+<ul>
+<li>零拷贝<br>
+普通流程：操作系统缓存拷贝到应用程序缓存再拷贝到操作系统socket缓存，网卡发送<br>
+0拷贝流程：操作系统缓存只拷贝数据描述符到socket缓存，网卡直接通过操作系统缓存发数据</li>
+<li>读系统缓存<br>
+记录读写基于FileChannel块操作，index读写基于内存映射<br>
+好的配置下直接从系统缓存读</li>
+</ul>
+<p>JVM内存分配不是越大越好，要留空间给系统缓存</p>
+<p>CopyOnWriteMap<br>
+batches = new CopyOnWriteMap&lt;TopicPartition, Deque&gt;();<br>
+TopicPartition改动不频繁， 获取出队列操作频繁， 优化读性能</p>
+<p>控制丢失<br>
+Partition冗余副本，只有Leader对外提供读写，Follower不承担读操作，并不是读写分离，Follower周期性拉取更新<br>
+主写主读好处是避免掉从读同步延时造成的数据不一致，并且可以利用优先副本机制更好的控制负载均衡</p>
+<p>ISR机制<br>
+Leader维护ISR列表(In-Sync Replicas)，记录Leader以及和其保持一定程度同步的Follower，如果一个Follower落后太多或者超时未同步则将其剔除，后期赶上后再加入</p>
+<p><code>acks</code>参数</p>
+<ul>
+<li>0：发送后不管，吞吐量最大，但是有可能发送失败造成数据丢失</li>
+<li>1：需要Leader写入成功后应答，但是可能Leader挂掉，Follower来不及同步造成丢失</li>
+<li>all: 所有ISR内副本写入成功后应答<br>
+ISR保障了动态性，即不要求所有副本都写入，而是要求ISR内写入。好处是如果某个Follower很慢，就暂时排除，防止它拖慢整体进度</li>
+</ul>
+<p>重试，写入失败后间隔重试<br>
+重试可能导致消息顺序不一致，也可能重复执行<br>
+<code>retries</code> 最大重试次数<br>
+<code>retries.backoff.ms</code> 重试间隔</p>
+<p>分区分配</p>
+<ul>
+<li>生产出的消息去哪个分区<br>
+可以在ProducerRecord中指定partition， 如果不指定会经过分区器处理<br>
+默认分区器DefaultPartitioner尝试根据key进行MurmurHash2，如果key是null则选择可用分区中的一个</li>
+<li>分区给哪个消费者消费<br>
+Partition分给一个消费组中的一个消费者，即一个分区不会发给一个组内多个消费者<br>
+默认分配器RangeAssignor，组内每个消费者都可指定一个策略，最终策略由组内投票决定</li>
+<li>分区副本存在哪台Broker上<br>
+根据机架信息</li>
+</ul>
+<p>选举</p>
+<ul>
+<li>控制器选举<br>
+Zookeeper, 能成功创建临时目录的Broker, 负责管理集群分区和副本状态</li>
+<li>分区选举<br>
+新分区创建，Leader下线等情况<br>
+根据所有副本AR(Assigned Repllicas)顺序选，并且存在于ISR列表中</li>
+<li>消费组选举<br>
+消费组Leader, 取哈希表的第一个，相当于随机</li>
+</ul>
+<p>消费者使用Zookeeper记录消费位置，只能自行pull拉取，Kafka只管写文件？<br>
+消息消费后不删除，避免文件更新<br>
+没有确认机制？</p>
 
         
     <div class="donate_module">
@@ -207,9 +291,9 @@
     <hr>
     <p><strong>版权声明</strong></p>
     <p><img src="/assets/copyright/cc.png" alt=""></p>
-    <p><a href="http://linest.github.io/tmp/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <p><a href="http://linest.github.io/tmp/kafka.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
     <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
-    <p>本文永久链接：<a href="http://linest.github.io/tmp/index.html">http://linest.github.io/tmp/index.html</a></p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/kafka.html">http://linest.github.io/tmp/kafka.html</a></p>
 </div>
       
     </div>
