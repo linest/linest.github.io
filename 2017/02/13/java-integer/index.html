@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Java Integer | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Integer是底层int的包装类，给数字装备了各种操作方法">
+  <meta name="description" content="int的包装类">
 <meta name="keywords" content="源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Integer">
 <meta property="og:url" content="http://linest.github.io/2017/02/13/java-integer/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="Integer是底层int的包装类，给数字装备了各种操作方法">
+<meta property="og:description" content="int的包装类">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-24T01:12:10.463Z">
+<meta property="og:updated_time" content="2019-12-18T23:56:05.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Integer">
-<meta name="twitter:description" content="Integer是底层int的包装类，给数字装备了各种操作方法">
+<meta name="twitter:description" content="int的包装类">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -185,9 +185,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Integer是底层int的包装类，给数字装备了各种操作方法</p>
+        <p>int的包装类</p>
 <a id="more"></a>
-<p>代码版本<code>jdk1.8.0_101</code></p>
+<p>作为包装类，给数字装备了各种操作方法<br>
+代码版本<code>java8</code></p>
 <h1 id="取值范围">取值范围</h1>
 <hr>
 <p>Java int型占位4个byte 最小值-2<sup>31</sup>  最大值2<sup>31</sup>-1</p>
@@ -210,12 +211,12 @@
 JVM参数<code>-XX:AutoBoxCacheMax</code>可以改变缓存范围，只针对Integer类型生效</p>
 <figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>valueOf就是装箱的本质</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">100</span>, b = <span class="number">100</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true,缓存范围，都是同一对象</span></span><br><span class="line">System.out.println(a == <span class="keyword">new</span> Integer(<span class="number">100</span>)); <span class="comment">//false,new总是创建新对象</span></span><br><span class="line">Integer c = <span class="number">200</span>, d = <span class="number">200</span>;</span><br><span class="line">System.out.println(c == d); <span class="comment">//false，超出范围，创建不同对象</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">100</span>, b = <span class="number">100</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true,缓存范围，都是同一对象</span></span><br><span class="line">System.out.println(a == <span class="keyword">new</span> Integer(<span class="number">100</span>)); <span class="comment">//false,new总是创建新对象</span></span><br><span class="line">Integer c = <span class="number">200</span>, d = <span class="number">200</span>;</span><br><span class="line">System.out.println(c == d); <span class="comment">//false，超出范围，创建不同对象</span></span><br></pre></td></tr></table></figure>
 <h2 id="intvalue拆箱">intValue拆箱</h2>
 <p>intValue方法是拆箱的本质</p>
 <figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Integer和int比较时先拆箱再比较</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">200</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true, 拆箱后值相等</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">200</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true, 拆箱后值相等</span></span><br></pre></td></tr></table></figure>
 <p>同时Interger还提供其他类型的强转方法</p>
 <figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">short</span> <span class="title">shortValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">short</span>)value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">longValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">long</span>)value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         

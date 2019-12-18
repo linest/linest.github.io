@@ -144,11 +144,11 @@
       <div class="body-wrap">
   
 	
-		<article id="post-java-biginteger" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-java-encode" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/11/21/java-biginteger/" class="article-date">
-  	<time datetime="2018-11-21T14:20:42.267Z" itemprop="datePublished">2018-11-21</time>
+      <a href="/2019/12/19/java-encode/" class="article-date">
+  	<time datetime="2019-12-18T23:56:05.631Z" itemprop="datePublished">2019-12-19</time>
 </a>
     </div>
   
@@ -159,7 +159,185 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/21/java-biginteger/">BigInteger</a>
+      <a class="article-title" href="/2019/12/19/java-encode/">编码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="编码原因">编码原因</h1>
+<hr>
+<p>计算机不能直接表示各种文字，只能二进制，文字只能映射到数值<br>
+任何文字底层全是byte，编码决定了怎么切割，怎么翻译成文字</p>
+<h1 id="各地编码">各地编码</h1>
+<hr>
+<h3 id="ascii">ASCII</h3>
+<p>也称为ANSI, 7位编码，数字、字母、标点、控制符,美国编码标准</p>
+<h3 id="iso-8859-1">ISO-8859-1</h3>
+<p>也称为Latin-1，单字节编码，兼容ASCII,加入了带有注音字母等扩展字符，适用于欧洲的编码标准</p>
+<h3 id="gb2312">GB2312</h3>
+<p>变长，小于127为ASCII码单字节，大于127的两个字节构成一个汉字，国标编码标准,还新编了2字节版本的ASCII码作为全角字符，共涵盖6000+汉字</p>
+<h3 id="gbk">GBK</h3>
+<p>国标编码扩展，兼容GB2312，支持繁体，涵盖20000+汉字</p>
+<h3 id="gb18030">GB18030</h3>
+<p>GBK基础上新增了少数民族文字</p>
+<h1 id="国际统一编码">国际统一编码</h1>
+<hr>
+<p>Unicode(Universal Multiple-Octet Coded Character Set,UCS),两字节，国际编码标准<br>
+Unicode和各个编码都不兼容，只是前面值可视为单字节的编码点和ISO-8859-1一致<br>
+Unicode转GB系列需要查表，而转UTF系列使用算法映射</p>
+<p>Unicode制定了字符集，如果直接按照Unicode传输比较浪费，而UTF(UCS Transfer Format)定义了不同的表现形式</p>
+<h3 id="utf-16">UTF-16</h3>
+<p>UTF-16:定长，16位为码元，2个码元编码，字符集被划分成基本平面和辅助平面，位于基本平面的1个码元，位于辅助平面的2个码元</p>
+<h3 id="utf-8">UTF-8</h3>
+<p>UTF-8：变长，8位为码元，用1~4个码元编码，英文1字节，中文3字节</p>
+<h3 id="确定长度规则">确定长度规则</h3>
+<p>字节最高位是0，编码只有一个字节<br>
+字节开头是11，连续1的个数表示编码字节数<br>
+字节开头是10，非首字节，需要到前面查找首字节</p>
+<h3 id="比较">比较</h3>
+<p>在网络传输情况下，可能损坏单字节</p>
+<ul>
+<li>Utf-8变长节省流量，有规则，即使损坏也不会影响后文</li>
+<li>Utf-16定长，更适合内存和硬盘中使用</li>
+</ul>
+<h3 id="bom">BOM</h3>
+<p>BOM(Byte Order Mark)，值<code>FE FF</code>表示大端序，值<code>FF FE</code>表示小端序。<br>
+UTF-8单字节为单位，不存在字节序问题无需BOM。但是也允许携带作为标志<code>EF BB BF</code><br>
+Windows平台有时编辑器也会加BOM,因此务必选择UTF-8无BOM模式。</p>
+<h1 id="java中的编解码">Java中的编解码</h1>
+<hr>
+<ol>
+<li>Java源代码的编码可以自由指定，IDE可以设置，最终表现为javac的encoding参数，如果不指定就会操作系统编码，即要告知编译器源文件是什么编码</li>
+<li>编译时会进行编码转换，编译后的class文件采用Utf-8编码存储</li>
+<li>为了支持国际化，Java字符串采用Unicode编码。JVM运行时内部采用Utf-16编码,因而Java中的char是16位的。虽然比较耗空间，但是定长更易于处理。</li>
+<li>System.out输出时由Utf-16转为系统编码</li>
+</ol>
+<p>java.nio.charset.Charset提供编码字符集相关功能<br>
+JVM解析外部资源所使用的编码由defaultCharset方法获得，与JVM启动时的操作系统默认编码有关</p>
+<p>默认编码首先检查<code>System.getProperty(&quot;file.encoding&quot;)</code>是否指定，没设置就采用<code>UTF-8</code>作为默认编码<br>
+volatile + sync延迟加载模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Charset defaultCharset;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Charset <span class="title">defaultCharset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (defaultCharset == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (Charset.class) &#123;</span><br><span class="line">            String csn = AccessController.doPrivileged(<span class="keyword">new</span> GetPropertyAction(<span class="string">"file.encoding"</span>));</span><br><span class="line">            Charset cs = lookup(csn);</span><br><span class="line">            <span class="keyword">if</span> (cs != <span class="keyword">null</span>)</span><br><span class="line">                defaultCharset = cs;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                defaultCharset = forName(<span class="string">"UTF-8"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> defaultCharset;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Charset可以直接用于编解码,在ByteBuffer和CharBuffer之间转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ByteBuffer <span class="title">encode</span><span class="params">(CharBuffer cb)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> CharBuffer <span class="title">decode</span><span class="params">(ByteBuffer bb)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="内置字符集名称">内置字符集名称</h2>
+<hr>
+<p>直接以字符串形式手写编码类型是不太好的形式，至少也应该是常量定义<br>
+Java 1.7之后存在java.nio.charset.StandardCharsets，无需使用第三方库,直接引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">StandardCharsets</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">StandardCharsets</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(<span class="string">"No java.nio.charset.StandardCharsets instances for you!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset US_ASCII = Charset.forName(<span class="string">"US-ASCII"</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset ISO_8859_1 = Charset.forName(<span class="string">"ISO-8859-1"</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset UTF_8 = Charset.forName(<span class="string">"UTF-8"</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset UTF_16BE = Charset.forName(<span class="string">"UTF-16BE"</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset UTF_16LE = Charset.forName(<span class="string">"UTF-16LE"</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset UTF_16 = Charset.forName(<span class="string">"UTF-16"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="字符串的编解码">字符串的编解码</h1>
+<h2 id="文字转byte数组-编码过程">文字转byte数组，编码过程</h2>
+<p>String类提供的getBytes方法可以获得文字编码后的字节数组结果，可以指定编码或者使用默认编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DatatypeConverter.printHexBinary(<span class="string">"Java"</span>.getBytes(<span class="string">"UTF-8"</span>)) <span class="comment">//4A 61 76 61 每个英文只用1字节编码</span></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"编码"</span>.getBytes(<span class="string">"UTF-8"</span>)) <span class="comment">//E7BC96 E7A081 每个中文3字节，E开头1110</span></span><br><span class="line"></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"Java"</span>.getBytes(<span class="string">"UTF-16"</span>)) <span class="comment">//FEFF 004A 0061 0076 0061 BOM+每个英文2字节编码</span></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"编码"</span>.getBytes(<span class="string">"UTF-16"</span>)) <span class="comment">//FEFF 7F16 7801 BOM+每个中文2字节</span></span><br><span class="line"></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"Java"</span>.getBytes(<span class="string">"ISO-8859-1"</span>)) <span class="comment">//4A 61 76 61 单字节编码</span></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"编码"</span>.getBytes(<span class="string">"ISO-8859-1"</span>)) <span class="comment">//3F 3F 中文变成3F,也就是?,丢失信息,编码黑洞</span></span><br><span class="line"></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"Java"</span>.getBytes(<span class="string">"GB2312"</span>)) <span class="comment">//4A 61 76 61 每个英文只用1字节编码</span></span><br><span class="line">DatatypeConverter.printHexBinary(<span class="string">"编码"</span>.getBytes(<span class="string">"GB2312"</span>)) <span class="comment">//B1E0 C2EB 中文2字节</span></span><br></pre></td></tr></table></figure>
+<p>获取和指定Unicode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(DatatypeConverter.printHexBinary(<span class="string">"编码"</span>.getBytes(<span class="string">"Unicode"</span>))); <span class="comment">//FEFF 7F16 7801</span></span><br><span class="line">System.out.println(<span class="string">"\u7F16\u7801"</span>); <span class="comment">//编码</span></span><br></pre></td></tr></table></figure>
+<h2 id="byte数组转文字-解码过程">byte数组转文字，解码过程</h2>
+<p>编解码使用同一规则才能正确，否则会出现乱码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] src = <span class="string">"编码"</span>.getBytes(<span class="string">"Utf-8"</span>);</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"Utf-8"</span>));      <span class="comment">//编码</span></span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"GBK"</span>));        <span class="comment">//缂栫爜</span></span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"Iso-8859-1"</span>)); <span class="comment">//ç¼ç</span></span><br></pre></td></tr></table></figure>
+<p>对于ASCII,因为都兼容，因此不会出现问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] src = <span class="string">"Java"</span>.getBytes(<span class="string">"Utf-8"</span>);</span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"Utf-8"</span>));      <span class="comment">//Java</span></span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"GBK"</span>));        <span class="comment">//Java</span></span><br><span class="line">System.out.println(<span class="keyword">new</span> String(src, <span class="string">"Iso-8859-1"</span>)); <span class="comment">//Java</span></span><br></pre></td></tr></table></figure>
+<h1 id="io编解码">IO编解码</h1>
+<p>InputStream/OutputStream读字节流，Reader/Writer读字符流，InputStreamReader/OutputStreamWriter实现了字节到字符的转化</p>
+<p>字节流处理二进制数据，是不考虑编解码的，所以FileInputStream并无任何处理编解码功能</p>
+<p>InputStreamReader进行了字节字符转化，接受字符集参数，通过内部的StreamDecoder进行处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">InputStreamReader</span><span class="params">(InputStream in, String charsetName)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> UnsupportedEncodingException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(in);</span><br><span class="line">    <span class="keyword">if</span> (charsetName == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"charsetName"</span>);</span><br><span class="line">    sd = StreamDecoder.forInputStreamReader(in, <span class="keyword">this</span>, charsetName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>FileReader是InputStreamReader的简单继承，构造时没有传入字符集参数，只使用默认编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileReader</span> <span class="keyword">extends</span> <span class="title">InputStreamReader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileReader</span><span class="params">(String fileName)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> FileInputStream(fileName));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileReader</span><span class="params">(File file)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> FileInputStream(file));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileReader</span><span class="params">(FileDescriptor fd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> FileInputStream(fd));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/page/3/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2019/12/19/java-encode/">http://linest.github.io/2019/12/19/java-encode/</a></p>
+</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-java-classloader" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/12/19/java-classloader/" class="article-date">
+  	<time datetime="2019-12-18T23:56:05.595Z" itemprop="datePublished">2019-12-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/19/java-classloader/">Java 类加载</a>
     </h1>
   
 
@@ -169,7 +347,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <p>大数</p>
+          <p>从外部文件载入类信息</p>
 		</div>
       
     </div>
@@ -178,7 +356,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运算/">运算</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 	</div>
 
       
@@ -189,7 +367,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2018/11/21/java-biginteger/#more">阅读 >></a>
+          <a  href="/2019/12/19/java-classloader/#more">阅读 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -223,11 +401,11 @@
 	
   
 	
-		<article id="post-hearthstone" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-java-compare" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/05/01/hearthstone/" class="article-date">
-  	<time datetime="2018-05-01T14:44:08.000Z" itemprop="datePublished">2018-05-01</time>
+      <a href="/2019/12/13/java-compare/" class="article-date">
+  	<time datetime="2019-12-13T10:55:34.787Z" itemprop="datePublished">2019-12-13</time>
 </a>
     </div>
   
@@ -238,7 +416,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/01/hearthstone/">炉石传说</a>
+      <a class="article-title" href="/2019/12/13/java-compare/">Java 对象比较</a>
     </h1>
   
 
@@ -248,27 +426,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <img src="/2018/05/01/hearthstone/title.png">
+          <p>分出大小高低</p>
 		</div>
       
     </div>
     
     <div class="article-info article-info-index">
       
-        <div class="article-pop-out tagcloud">
-          <a class="">置顶</a>
-        </div>
-      
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/合集/">合集</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 	</div>
 
       
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
 
       
         <p class="article-more-link">
-          <a  href="/2018/05/01/hearthstone/#more">阅读 >></a>
+          <a  href="/2019/12/13/java-compare/#more">阅读 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -302,11 +480,11 @@
 	
   
 	
-		<article id="post-tabikaeru" class="article article-type-post" itemscope itemprop="blogPost">
+		<article id="post-java-arraylist" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/05/01/tabikaeru/" class="article-date">
-  	<time datetime="2018-05-01T14:16:52.000Z" itemprop="datePublished">2018-05-01</time>
+      <a href="/2019/12/13/java-arraylist/" class="article-date">
+  	<time datetime="2019-12-13T10:55:34.786Z" itemprop="datePublished">2019-12-13</time>
 </a>
     </div>
   
@@ -317,7 +495,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/01/tabikaeru/">旅行青蛙</a>
+      <a class="article-title" href="/2019/12/13/java-arraylist/">Java ArrayList</a>
     </h1>
   
 
@@ -327,28 +505,422 @@
     <div class="article-entry" itemprop="articleBody">
       
         <div class="article-excerpt">
-          <img src="/2018/05/01/tabikaeru/title.png">
-<p>佛系养蛙~</p>
+          <p>ArrayList实现</p>
 		</div>
       
     </div>
     
     <div class="article-info article-info-index">
       
-        <div class="article-pop-out tagcloud">
-          <a class="">置顶</a>
-        </div>
       
       
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/合集/">合集</a></li></ul>
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
 	</div>
 
-      
 
       
         <p class="article-more-link">
-          <a  href="/2018/05/01/tabikaeru/#more">阅读 >></a>
+          <a  href="/2019/12/13/java-arraylist/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-hearthstone-dragon" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/05/01/hearthstone-dragon/" class="article-date">
+  	<time datetime="2019-05-01T13:19:57.000Z" itemprop="datePublished">2019-05-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/01/hearthstone-dragon/">巨龙年</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <img src="/2019/05/01/hearthstone-dragon/dragon.jpg">
+<p>偶尔打打狂野和竞技</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/炉石/">炉石</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/游戏/">游戏</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/05/01/hearthstone-dragon/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-java-linkedlist" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/04/09/java-linkedlist/" class="article-date">
+  	<time datetime="2019-04-09T14:27:57.215Z" itemprop="datePublished">2019-04-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/09/java-linkedlist/">Java Linkedlist</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <p>链表</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/04/09/java-linkedlist/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-vscode-shortcut" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/15/vscode-shortcut/" class="article-date">
+  	<time datetime="2019-02-14T17:01:44.845Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/vscode-shortcut/">Visual Studio Code快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <img src="/2019/02/15/vscode-shortcut/logo.png">
+<p>弃用Atom转向Vs Code<br>
+Mark一下最常用的快捷键</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VsCode/">VsCode</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Tool/">Tool</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/02/15/vscode-shortcut/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-hearthstone-key" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/15/hearthstone-key/" class="article-date">
+  	<time datetime="2019-02-14T16:03:46.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/hearthstone-key/">竞技场之旅</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <img src="/2019/02/15/hearthstone-key/title.jpg">
+<p>尽量无伤的胜场记录，历史最高貌似<code>10</code>胜。。</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/炉石/">炉石</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/游戏/">游戏</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/02/15/hearthstone-key/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-java-spi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/03/java-spi/" class="article-date">
+  	<time datetime="2018-12-02T16:00:00.000Z" itemprop="datePublished">2018-12-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/03/java-spi/">Java SPI机制</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <p><code>S</code>ervice <code>P</code>rovider <code>I</code>nterface</p>
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPI/">SPI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/12/03/java-spi/#more">阅读 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -461,253 +1033,9 @@
 
 	
   
-	
-		<article id="post-java-immutable" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/16/java-immutable/" class="article-date">
-  	<time datetime="2018-09-16T03:35:55.500Z" itemprop="datePublished">2018-09-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/16/java-immutable/">Java 包装只读集合</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>不可变 vs 不可修改</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集合/">集合</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/09/16/java-immutable/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-		<article id="post-special-worldcup-champions" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/06/17/special-worldcup-champions/" class="article-date">
-  	<time datetime="2018-06-17T10:19:54.000Z" itemprop="datePublished">2018-06-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/17/special-worldcup-champions/">世界杯冠军分布</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <img src="/2018/06/17/special-worldcup-champions/Cup.png">
-<p>伪球迷补一下世界杯历史。。。</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/世界杯/">世界杯</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/专题/">专题</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/06/17/special-worldcup-champions/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
-	
-  
-	
-  
-	
-  
-	
-		<article id="post-java-jvm" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/06/02/java-jvm/" class="article-date">
-  	<time datetime="2018-06-01T16:00:00.000Z" itemprop="datePublished">2018-06-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/02/java-jvm/">JVM</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div class="article-excerpt">
-          <p>Write Once, Run Everywhere!</p>
-		</div>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/06/02/java-jvm/#more">阅读 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-	
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
     </nav>
   
 </div>

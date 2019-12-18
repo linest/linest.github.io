@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Java ThreadLocal | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每个线程维护单独的数据副本，形式上实现变量的无锁共享">
+  <meta name="description" content="一种无锁“共享”方案">
 <meta name="keywords" content="源码,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java ThreadLocal">
 <meta property="og:url" content="http://linest.github.io/2017/10/15/java-multithread-threadlocal/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="每个线程维护单独的数据副本，形式上实现变量的无锁共享">
+<meta property="og:description" content="一种无锁“共享”方案">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T11:56:04.730Z">
+<meta property="og:updated_time" content="2019-12-18T23:56:05.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java ThreadLocal">
-<meta name="twitter:description" content="每个线程维护单独的数据副本，形式上实现变量的无锁共享">
+<meta name="twitter:description" content="一种无锁“共享”方案">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -185,8 +185,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>每个线程维护单独的数据副本，形式上实现变量的<code>无锁</code>共享</p>
+        <p>一种无锁“共享”方案</p>
 <a id="more"></a>
+<p>既然多个线程同时访问共享数据会有竞争问题，那么每个线程维护单独的数据副本，表面上是访问同一数据，但是实际不共享</p>
 <figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal&lt;Integer&gt; counter = <span class="keyword">new</span> ThreadLocal&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    counter.set(counter.get() + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>功能上类似于用线程id为key的map,每个线程独立</p>
 <figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Long,Integer&gt; counterMap;</span><br></pre></td></tr></table></figure>

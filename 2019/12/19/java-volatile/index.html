@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java volatile关键字 | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="volatile: 易变的，不稳定的">
+<meta name="keywords" content="多线程,关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java volatile关键字">
+<meta property="og:url" content="http://linest.github.io/2019/12/19/java-volatile/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="volatile: 易变的，不稳定的">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-18T23:56:05.745Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java volatile关键字">
+<meta name="twitter:description" content="volatile: 易变的，不稳定的">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-java-volatile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/12/19/java-volatile/" class="article-date">
+  	<time datetime="2019-12-18T23:56:05.745Z" itemprop="datePublished">2019-12-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java volatile关键字
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关键字/">关键字</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>volatile: 易变的，不稳定的</p>
+<a id="more"></a>
+<p>因为声明了易变，告诉线程每次都拉取内存原始内容，保证了顺序和可见性</p>
+<ul>
+<li>可见性：变量的修改对其他线程立即可见</li>
+<li>有序性：操作系统和JVM可能对指令重排序，结果正确性不受重排序影响</li>
+</ul>
+<p>两个线程在无任何同步措施时，单一线程内操作可以重排序，不同线程间内存写回时机也不同，所以整体上是无序的，不可预测<br>
+处理器环境下可以通过总线机制保证多核对内存访问是以串行方式执行</p>
+<h1 id="volatile作用">Volatile作用</h1>
+<hr>
+<p>volatile写：把本地副本刷新到主内存<br>
+volatile读：把本地副本无效化，从主内存加载<br>
+同一volatile变量上多个操作不会重排序</p>
+<p>使用事项</p>
+<ul>
+<li>long double高低各32位，多线程下加volatile可以保证原子性读写</li>
+<li>static变量类共享，但是多线程访问下还是会有副本机制，也需要volatile修饰，常用于一写多读情况下控制状态标志，写线程改变了状态，其他读线程能够及时发现</li>
+<li>volatile修饰数组只能保护指向数组的引用，不能保护数组内容</li>
+<li>volatile不是锁，也不能保证操作的原子性(比如n++)，不能替代synchronized</li>
+</ul>
+<h1 id="优化产生问题">优化产生问题</h1>
+<hr>
+<p>可见性和有序性都是系统优化产生的问题，之所以维护副本和乱序都是为了提升性能</p>
+<ul>
+<li>可见性原因：处理器每个核使用自己的写缓冲，好处是可以批量合并，一起操作内存，所以内存并非实时保持最新</li>
+<li>重排序原因：编译器，处理器出于优化目的对没有数据依赖的指令进行重排序，比如两个不同变量赋值先后没关系，可以增加并行度</li>
+</ul>
+<p>执行效果(Within-Thread As-If-Serial)，即单线程观测效果符合顺序预期，但是多线程可能观测到不同结果<br>
+比如A线程内x=1和y=2</p>
+<ul>
+<li>可见性造成伪重排：没重排，确实x先赋值，但是xy位于不同缓存行，恰好y先LRU刷新回主存，造成B线程观察到只有y改变，似乎重排了</li>
+<li>真重排序：处理器执行时重排y先赋值，造成B线程观察到y先改变<br>
+重排在A线程看来不受影响，在A后续使用xy变量时值都正确，而B线程可能先观测到y赋值</li>
+</ul>
+<h1 id="可见性：内存同步">可见性：内存同步</h1>
+<hr>
+<p>Java内存模型JMM规定线程和内存间的交互规范<br>
+内存模型规范下，线程有主内存和工作内存之分。线程只和工作内存交互，工作内存线程独享<br>
+内存模型是概念模型，为了屏蔽硬件实现差异</p>
+<ul>
+<li>主内存，根据共享特性，可以近似理解为堆，物理上理解为内存</li>
+<li>工作内存，根据共享特性，可以近似理解为栈，物理上理解为各种高速缓存</li>
+</ul>
+<p>线程有独立的工作内存(PC计数器，栈)，存储了主内存共享变量副本<br>
+工作内存并非额外内存，只是栈，副本位于栈帧的局部变量表，只针对基本类型，引用指向的对象都是主存中的堆，是共享的<br>
+线程根据副本变量进行运算，并不能及时发觉主内存共享变量的变化</p>
+<p>内存模型八种原子操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">共享变量    主内存    工作内存    变量副本      执行引擎</span><br><span class="line">lock/unlock</span><br><span class="line">------------read--------&gt;----load---&gt;-----use-----&gt;</span><br><span class="line">&lt;-----write---&lt;---------store-------&lt;-----assign--</span><br></pre></td></tr></table></figure>
+<h1 id="内存屏障-memory-barriers">内存屏障（Memory Barriers）</h1>
+<hr>
+<p>happens-before先行发生规则，规则适用于同一线程/不同线程的两个操作，规定了偏序，即后一操作能感知到前一操作造成的改变</p>
+<p>内置的天然先行规则</p>
+<ul>
+<li>同一线程内，后面执行代码能感知前面的代码效果</li>
+<li>先解锁才能再加锁</li>
+<li>volatile前面写操作先于后续读操作，前面读操作先于后续读写操作</li>
+<li>线程start后才能执行逻辑，逻辑在终止之前</li>
+<li>线程中断先于后续中断检测</li>
+<li>对象初始化先于finalize</li>
+<li>先行传递性</li>
+</ul>
+<p>happens-before可看作是上层概念规则，语义上容易理解，实现上使用处理器的指令防止重排序造成的后果即内存屏障<br>
+内存屏障作用</p>
+<ul>
+<li>有序性：禁止跨越屏障重排序</li>
+<li>可见性：强制刷新内存，现有缓存失效</li>
+</ul>
+<p>内存屏障类型</p>
+<ul>
+<li>LoadLoad：<code>Load1;LoadLoad;Load2</code>屏障两个Load之间，确保前面先Load</li>
+<li>StoreStore: <code>Store1;StoreStore;Store2</code></li>
+<li>LoadStore: <code>Load1;LoadStore;Store2</code></li>
+<li>StoreLoad: <code>Store1;StoreLoad;Load2</code></li>
+</ul>
+<p>volatile保障机制</p>
+<ul>
+<li>写操作前插入StoreStore, 写操作后插入StoreLoad</li>
+<li>读操作前插入LoadLoad, 读操作后插入LoadStore<br>
+宗旨是自己操作前，先让前面操作完; 自己没操作完，阻止后面操作</li>
+</ul>
+<p>final和synchronized同样基于内存屏障</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2019/12/19/java-volatile/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2019/12/19/java-volatile/">http://linest.github.io/2019/12/19/java-volatile/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/19/java-url/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">URL、URN和URI</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>

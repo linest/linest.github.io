@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="一变二">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-28T15:15:14.931Z">
+<meta property="og:updated_time" content="2019-12-18T23:56:05.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Clone">
 <meta name="twitter:description" content="一变二">
@@ -200,7 +200,9 @@
 <p>clone是Object类的基本方法之一。<br>
 从java.lang.Object类中可以发现并非由Java代码实现，clone并没有调用类构造函数而是进行二进制流拷贝</p>
 <figure class="highlight java"><figcaption><span>Object.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
-<p>使用类必须实现java.lang.Cloneable接口，如Java原生的java.util.Calendar  Cloneable是一个不包含方法的标识性接口</p>
+<p>使用类必须实现java.lang.Cloneable接口，Cloneable是一个不包含方法的标识性接口</p>
+<figure class="highlight java"><figcaption><span>Cloneable.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java原生的java.util.Calendar就是很好的范例</p>
 <figure class="highlight java"><figcaption><span>Calendar.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Calendar</span> <span class="keyword">implements</span> <span class="title">Serializable</span>, <span class="title">Cloneable</span>, <span class="title">Comparable</span>&lt;<span class="title">Calendar</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ERA = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> fields[];</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">boolean</span> isSet[];</span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">private</span> <span class="keyword">int</span> stamp[];</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">long</span> time;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">private</span> TimeZone zone;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>clone方法的实现原则是调用父类clone方法，在继承链条上最终会调用到Object中的实现。Object提供的clone是<code>浅拷贝</code>机制，因此涉及可变成员的情况下，默认的clone结果是新旧对象持有相同的可变成员引用，新旧对象并没有完全独立。</p>
 <p>为了摆脱可变对象的共享，实现<code>深拷贝</code>，子类要重新实现clone方法。首先用super.clone获取基础，然后强制转换成子类，再把子类的可变属性进行重新赋值。<br>
@@ -212,12 +214,14 @@
 <p>替代方法：</p>
 <ul>
 <li>利用序列化: 如果实现了序列化接口，可利用commons-lang SerializationUtils类</li>
-<li>利用反射：如果没实现序列化接口，只能利用第三方类库反射</li>
+<li>利用反射：如果没实现序列化接口，只能利用第三方类库通过反射获取信息进行构建</li>
 </ul>
 <h1 id="库">库</h1>
 <hr>
-<p>Kryo<br>
-Spring BeanUtil</p>
+<ul>
+<li>Kryo</li>
+<li>Spring BeanUtil</li>
+</ul>
 
         
     <div class="donate_module">
