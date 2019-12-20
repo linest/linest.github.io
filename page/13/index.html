@@ -84,7 +84,10 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
 				</section>
 				
 			</div>
@@ -148,7 +151,7 @@
   
     <div class="article-meta">
       <a href="/2016/07/10/hexo-ext-plantuml/" class="article-date">
-  	<time datetime="2016-07-10T08:34:55.000Z" itemprop="datePublished">2016-07-10</time>
+  	<time datetime="2016-07-09T16:00:00.000Z" itemprop="datePublished">2016-07-10</time>
 </a>
     </div>
   
@@ -258,7 +261,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/修饰符/">修饰符</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关键字/">关键字</a></li></ul>
 	</div>
 
       
@@ -270,6 +273,249 @@
       
         <p class="article-more-link">
           <a  href="/2016/07/03/java-access-level/#more">阅读 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-db-normalization" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/db-normalization/" class="article-date">
+  	<time datetime="2016-06-07T16:00:00.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/08/db-normalization/">数据库范式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="键与属性">键与属性</h1>
+<hr>
+<ul>
+<li>超键(Super Key)：能唯一确定一条记录的属性集</li>
+<li>候选键(Candidate Key)：不含多余属性的超键，删除任一属性都不能唯一标识</li>
+<li>主键(Primary Key)：选择出的一组候选键</li>
+<li>主属性：参与到候选键中的属性</li>
+</ul>
+<h1 id="1nf">1NF</h1>
+<hr>
+<p>字段原子性，不可再分,应具有主键</p>
+<h2 id="反例">反例</h2>
+<p>人和喜爱的水果，水果分开存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------</span><br><span class="line">| Name   | Fruits             |</span><br><span class="line">-------------------------------</span><br><span class="line">| Alice  | Apple,Banana,Mango |</span><br><span class="line">-------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="2nf">2NF</h1>
+<hr>
+<p>非键数据对主键完全依赖,不能部分依赖候选键</p>
+<h2 id="反例-v2">反例</h2>
+<p>水果价格表，水果ID和商店ID都作为主键<br>
+价格跟水果和商店都有关，但是商店名跟水果无关<br>
+这种设计后果是同一店铺增加水果，也要带上商店名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---------------------------------------------</span><br><span class="line">| Fruit Id | Shop Id | Shop Name    | Price |</span><br><span class="line">---------------------------------------------</span><br><span class="line">| 1        | 1       | Super Market | 20    |</span><br><span class="line">---------------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="3nf">3NF</h1>
+<hr>
+<p>非键字段间没有依赖关系</p>
+<h2 id="反例-v3">反例</h2>
+<p>水果订单表，总价依赖单价和数量，可以计算出来，而单价和数量依赖订单Id，构成传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--------------------------------------------------------</span><br><span class="line">|Order Id| Fruit Id | Shop Id | Price | Amount | Total |</span><br><span class="line">--------------------------------------------------------</span><br><span class="line">| 1      | 1        | 1       | 20    | 2      | 40    |</span><br><span class="line">--------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="bcnf">BCNF</h1>
+<hr>
+<p>任何数据都不能传递依赖任一候选键，候选键之间有依赖也不行</p>
+<h2 id="反例-v4">反例</h2>
+<p>(订单号)和(日期，序号)都是候选键,订单号依赖于日期和序号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------------------------------------------------</span><br><span class="line">| Order Id    | Date        | Serial Number | Fruit Id | Price | Amount |</span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line">| 20170801001 | 20170801    | 001           | 1        | 20    | 2      |</span><br><span class="line">-------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="4nf">4NF</h1>
+<hr>
+<p>多值依赖</p>
+<h2 id="反例-v5">反例</h2>
+<p>水果配送表，三个属性共同作为主键<br>
+每家店供应多种水果，每家店配送多个地区，这些值是确定的<br>
+店铺决定了水果范围和地区范围，但是店铺能供应的水果和配送地区之间无关，这是多值依赖<br>
+这种设计后果是增加水果或者配送范围，都要插入多条记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--------------------------------------</span><br><span class="line">| Shop Id | Fruit Id | Delivery Area |</span><br><span class="line">--------------------------------------</span><br><span class="line">| 1       | 1        | A             |</span><br><span class="line">--------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="范式化">范式化</h1>
+<hr>
+<p>优点</p>
+<ul>
+<li>减少冗余，节省了存储空间</li>
+<li>减少不必要的更新，更新通常只需要更新一个地方，增进数据一致性，提升写性能</li>
+</ul>
+<p>代价</p>
+<ul>
+<li>增加了Join操作，读性能下降</li>
+</ul>
+<p>范式化结构可以DBMS视图来降低Join开销</p>
+<h1 id="反范式化">反范式化</h1>
+<hr>
+<p>磁盘空间成本低，允许一定冗余，减少Join，加速读取</p>
+<h1 id="原则">原则</h1>
+<hr>
+<ul>
+<li>不变的数据即使冗余也不会有更新一致性问题，不需要规范化</li>
+<li>反范式化应该在范式的基础上进行局部调整，而不是放弃范式化</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/page/13/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2016/06/08/db-normalization/">http://linest.github.io/2016/06/08/db-normalization/</a></p>
+</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/理论/">理论</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/数据库/">数据库</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+	
+  
+	
+		<article id="post-maven" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/06/maven/" class="article-date">
+  	<time datetime="2016-06-05T16:00:00.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/06/maven/">Maven</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div class="article-excerpt">
+          <img src="/2016/06/06/maven/maven-logo.png">
+		</div>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/工具/">工具</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/06/maven/#more">阅读 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -552,7 +798,7 @@ SQL相对比较简单，就都集中写在本文吧</p>
   
     <div class="article-meta">
       <a href="/2016/04/05/hexo-ext-markdown-it/" class="article-date">
-  	<time datetime="2016-04-05T08:00:05.000Z" itemprop="datePublished">2016-04-05</time>
+  	<time datetime="2016-04-04T16:00:00.000Z" itemprop="datePublished">2016-04-05</time>
 </a>
     </div>
   

@@ -7,14 +7,14 @@
   <title>Java Iterator | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="通用遍历模式">
-<meta name="keywords" content="Iterator">
+<meta name="keywords" content="源码,数据结构,迭代器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Iterator">
 <meta property="og:url" content="http://linest.github.io/2017/01/10/java-iterator/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="通用遍历模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-28T15:15:14.932Z">
+<meta property="og:updated_time" content="2019-12-20T23:57:36.251Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Iterator">
 <meta name="twitter:description" content="通用遍历模式">
@@ -89,7 +89,10 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
 				</section>
 				
 			</div>
@@ -150,7 +153,7 @@
   
     <div class="article-meta">
       <a href="/2017/01/10/java-iterator/" class="article-date">
-  	<time datetime="2017-01-10T12:57:14.000Z" itemprop="datePublished">2017-01-10</time>
+  	<time datetime="2017-01-09T16:00:00.000Z" itemprop="datePublished">2017-01-10</time>
 </a>
     </div>
   
@@ -170,12 +173,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Iterator/">Iterator</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/迭代器/">迭代器</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a><a class="article-category-link" href="/categories/Java/源码/">源码</a>
+	<a class="article-category-link" href="/categories/Java/">Java</a>
 	</div>
 
 
@@ -203,7 +206,7 @@
 自定义类只要实现这个接口也可以用foreach循环</p>
 <figure class="highlight java"><figcaption><span>Collection.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterable</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>遍历集合时,等价于在循环中使用迭代器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"foo"</span>,<span class="string">"bar"</span>);</span><br><span class="line"><span class="keyword">for</span>(String s : list)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;String&gt; i = list.iterator; i.hasNext())&#123;</span><br><span class="line">    String s = i.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"foo"</span>,<span class="string">"bar"</span>);</span><br><span class="line"><span class="keyword">for</span>(String s : list)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(Iterator&lt;String&gt; i = list.iterator; i.hasNext())&#123;</span><br><span class="line">    String s = i.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>Iterable</code>代表可以被遍历的能力，可返回具体的迭代器</p>
 <figure class="highlight java"><figcaption><span>Iterable.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Java8 可分割的迭代器，支持并行遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="iterator">Iterator</h1>
@@ -230,24 +233,24 @@
 <p>可以使用装饰器模式改变迭代器的行为,在外部看来还是普通的迭代器，感知不到变化</p>
 <h2 id="动态转换类型">动态转换类型</h2>
 <p><code>Guava</code> 扩展<code>next</code>,获取数据后进行转换</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.transform(iterator, o -&gt; o.toString().length());</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.transform(iterator, o -&gt; o.toString().length());</span><br></pre></td></tr></table></figure>
 <h2 id="循环">循环</h2>
 <p><code>Guava</code> 扩展<code>hasNext</code>逻辑，发现遍历结束就重新开始遍历</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.cycle(iterator);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.cycle(iterator);</span><br></pre></td></tr></table></figure>
 <h2 id="拼接">拼接</h2>
 <p><code>Guava</code> 将多个迭代器保存起来，扩展<code>hasNext</code>逻辑，发现上一个遍历完成就开始遍历下一个</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.concat(iterator1,iterator2);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.concat(iterator1,iterator2);</span><br></pre></td></tr></table></figure>
 <h2 id="过滤">过滤</h2>
 <p><code>Guava</code> 扩展<code>hasNext</code>,调用时内部会不断执行<code>next</code>取数据，进行判断，直到找到满足条件的数据保存起来</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.filter(iterator, o -&gt; o.toString().length() == <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.filter(iterator, o -&gt; o.toString().length() == <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="数量限制">数量限制</h2>
 <p><code>Guava</code> 扩展<code>hasNext</code>,达到数量限制后直接返回false</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.limit(iterator,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Object&gt; newIterator = Iterators.limit(iterator,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
 <h1 id="enumeration">Enumeration</h1>
 <hr>
 <p>早期Java的迭代接口，<code>Vector</code>和<code>HashTable</code>实现此接口<br>
 <code>Iterator</code>方法名更简洁，并且有额外的<code>remove</code>方法, 因此这个接口已被取代，只作为遗留代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Enumeration</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasMoreElements</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">E <span class="title">nextElement</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Enumeration.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Enumeration</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasMoreElements</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">E <span class="title">nextElement</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
     <div class="donate_module">
@@ -294,8 +297,8 @@
     </a>
   
   
-    <a href="/2016/12/15/hexo-cli/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hexo命令行入口</div>
+    <a href="/2016/12/06/hamcrest/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hamcrest断言</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

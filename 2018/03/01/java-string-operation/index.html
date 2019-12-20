@@ -7,13 +7,14 @@
   <title>Java 字符串操作 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="常见的字符串操作问题">
+<meta name="keywords" content="Tips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 字符串操作">
 <meta property="og:url" content="http://linest.github.io/2018/03/01/java-string-operation/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="常见的字符串操作问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T11:56:04.811Z">
+<meta property="og:updated_time" content="2019-12-20T23:57:36.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 字符串操作">
 <meta name="twitter:description" content="常见的字符串操作问题">
@@ -88,7 +89,10 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
 				</section>
 				
 			</div>
@@ -168,6 +172,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tips/">Tips</a></li></ul>
+	</div>
+
         
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Java/">Java</a>
@@ -200,12 +208,6 @@
 <p>上述方法都是针对字符变量而言，如果是常量，直接使用<code>+</code>反而最快，因为直接在编译期优化,运行时已经合为一体</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String helloWorld = <span class="string">"hello"</span>+<span class="string">"world"</span>;</span><br></pre></td></tr></table></figure>
 <p>如果在循环中使用<code>+</code>进行连续拼接,那么每次循环都会生成独立的<code>StringBuilder</code>，此时需要在循环外显式操作<code>StringBuilder</code>,并且如果能提前预知结果大小，提前分配容量可以提升性能</p>
-<h1 id="双端空白清除">双端空白清除</h1>
-<hr>
-<p>JDK trim</p>
-<p>commons-lang中trim</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>trimToNull/trimToEmpty</p>
 <h1 id="移除前后缀">移除前后缀</h1>
 <hr>
 <p>前后缀相同</p>
@@ -225,6 +227,7 @@
 <p>更多便利语义</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.left(<span class="string">"abc"</span>, <span class="number">2</span>)   = <span class="string">"ab"</span></span><br><span class="line">StringUtils.right(<span class="string">"abc"</span>, <span class="number">2</span>)   = <span class="string">"bc"</span></span><br><span class="line">StringUtils.mid(<span class="string">"abcd"</span>, <span class="number">1</span>, <span class="number">2</span>)   = <span class="string">"bc"</span></span><br></pre></td></tr></table></figure>
 <h1 id="中间提取">中间提取</h1>
+<hr>
 <p>相同,不同</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.substringBetween(<span class="string">"'abc'"</span>, <span class="string">"'"</span>) <span class="comment">//abc</span></span><br><span class="line">StringUtils.substringBetween(<span class="string">"&lt;abc&gt;"</span>, <span class="string">"&lt;"</span>,<span class="string">"&gt;"</span>) <span class="comment">//abc</span></span><br></pre></td></tr></table></figure>
 <p>全结果返回</p>
@@ -288,8 +291,8 @@ lastIndexOf</p>
     </a>
   
   
-    <a href="/2018/02/28/hexo-debug/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hexo调试</div>
+    <a href="/2018/02/27/java-immutable/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 包装只读集合</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

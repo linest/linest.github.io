@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-13T10:55:34.789Z">
+<meta property="og:updated_time" content="2019-12-20T23:57:36.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
@@ -88,7 +88,10 @@
 				
 				<section class="switch-part switch-part3">
 				
-					<div id="js-aboutme">勤奋的懒惰者，爱听故事的人~ Zjuer</div>
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
 				</section>
 				
 			</div>
@@ -149,7 +152,7 @@
   
     <div class="article-meta">
       <a href="/tmp/db-redis.html" class="article-date">
-  	<time datetime="2019-12-13T10:55:34.789Z" itemprop="datePublished">2019-12-13</time>
+  	<time datetime="2019-12-20T23:57:36.383Z" itemprop="datePublished">2019-12-21</time>
 </a>
     </div>
   
@@ -334,9 +337,9 @@ limit是每次扫描数组元素个数。由于每个数组元素挂载的数量
 </ul>
 <h1 id="慢查询">慢查询</h1>
 <hr>
-<p>记录命令执行时间，不算网络传输时间和命令排队时间,有助于排查性能瓶颈<br>
-内部列表维护，可以配置容量，以及超过多少秒算慢，建议配1000容量和1s并slow get定期持久化到硬盘<br>
-结构为(id,时间戳，执行时间，命令内容)，<code>slowlog</code>命令操作</p>
+<p><code>slowlog</code>命令获取最近的n条慢查询，结构为(id,时间戳，执行时间，命令内容)<br>
+记录命令执行时间，不算网络传输时间和命令排队时间,有助于排查性能瓶颈<br>
+内部列表维护，可以配置容量，以及超过多少秒算慢，默认<code>slowlog-max-len</code>128容量和<code>slowlog-log-slower-than</code>10ms,建议1ms对应QPS1000,扩大容量并slow get定期持久化到硬盘</p>
 <h1 id="pipeline">Pipeline</h1>
 <hr>
 <p>命令真正的执行时间通常在微秒级，但是网络延迟可能在毫秒级，影响很大<br>
@@ -423,15 +426,25 @@ Redis单线程，事务是串行的，一个事务执行后会从watch链表中�
 <ul>
 <li>RDB(Redis DataBase)：时间间隔快照<br>
 save命令启动会进行大IO，阻塞业务，一般使用bgsave会Fork子进程处理<br>
-子进程和父进程初始共享内存数据，父进程数据变化时COW(Copy On Write)分离，不会影响</li>
+子进程和父进程初始共享内存数据，父进程数据变化时COW(Copy On Write)分离，减少内存分配</li>
+</ul>
+<ul>
 <li>AOF(Append-Only File)：操作后记录日志，恢复时重放<br>
 随时间退役，日志可能会非常大<br>
-bgrewriteaof可以异步重写文件，进行优化，减少文件大小</li>
+bgrewriteaof可以异步重写文件，进行优化，减少文件大小<br>
+fsync异步每秒刷盘，如果磁盘很忙，异步fsync超过2秒还没完成，为了数据安全会阻塞等待</li>
 </ul>
-<p>aof日志sync属性？？同步磁盘</p>
 <p>取舍<br>
 如果可以容忍数分钟以内的数据丢失，只使用RDB即可满足，恢复速度快<br>
 两种可以同时开启，也可以都关闭即数据丢失也无所谓</p>
+<h1 id="响应时间长原因">响应时间长原因</h1>
+<hr>
+<ul>
+<li>网络原因，到达redis就慢</li>
+<li>队列阻塞，到达redis后排队，前面有重量操作</li>
+<li>持久化，fork进程，aof刷盘等待</li>
+<li>内存交换， 内存不够换到磁盘</li>
+</ul>
 <h1 id="应用">应用</h1>
 <hr>
 <h2 id="分布式锁">分布式锁</h2>

@@ -2286,6 +2286,9 @@ pre .css ~ * .id {
 #viewer-box .viewer-box-l .viewer-div .switch-friends-link {
   line-height: 20px;
 }
+#viewer-box .viewer-box-l .aboutme {
+  white-space: pre-wrap;
+}
 #viewer-box .viewer-box-r {
   background: rgba(0,0,0,0);
   width: 20%;
