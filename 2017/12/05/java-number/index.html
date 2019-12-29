@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java 数值与计算 | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有关数值的小细节">
+<meta name="keywords" content="二进制,运算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 数值与计算">
+<meta property="og:url" content="http://linest.github.io/2017/12/05/java-number/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="有关数值的小细节">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-29T15:27:23.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 数值与计算">
+<meta name="twitter:description" content="有关数值的小细节">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-java-number" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/05/java-number/" class="article-date">
+  	<time datetime="2017-12-04T16:00:00.000Z" itemprop="datePublished">2017-12-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 数值与计算
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制/">二进制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运算/">运算</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有关数值的小细节</p>
+<a id="more"></a>
+<p>数字运算看着简单，实际不留神会踩很多坑。。。</p>
+<h1 id="数值字面量与赋值">数值字面量与赋值</h1>
+<hr>
+<p>浮点默认是<code>double</code></p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">1.2</span>;  <span class="comment">//编译错误 可以改成1.2f</span></span><br><span class="line"><span class="keyword">double</span> b = <span class="number">1.2</span>d; <span class="comment">//double也可以显式加上后缀d</span></span><br></pre></td></tr></table></figure>
+<p>整数默认是<code>int</code>,只能装箱成<code>Integer</code></p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> l1 = <span class="number">1</span>; <span class="comment">//原生类型可不带标识</span></span><br><span class="line">Long l2 = <span class="number">1L</span>; <span class="comment">//对象型必须加后缀L,否则装箱成Integer,类型不匹配</span></span><br><span class="line"><span class="keyword">short</span> c1 = <span class="number">1</span>;</span><br><span class="line">Short c2 = <span class="number">1</span>; <span class="comment">//hmm...竟然不报错，这就是short没有规定后缀的原因？</span></span><br><span class="line"><span class="keyword">byte</span> b1 = <span class="number">1</span>;</span><br><span class="line">Byte b2 = <span class="number">1</span>; <span class="comment">//也没有后缀</span></span><br></pre></td></tr></table></figure>
+<p>作为参数传递时，long性质和声明行为一致<br>
+但是short作参数时，必须强转</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">primitiveLong(<span class="number">1</span>); <span class="comment">//primitiveLong(long num)</span></span><br><span class="line">objectLong(<span class="number">1L</span>); <span class="comment">//objectLong(Long num)</span></span><br><span class="line">primitiveShort((<span class="keyword">short</span>)<span class="number">1</span>); <span class="comment">//primitiveShort(short num)</span></span><br><span class="line">objectShort((<span class="keyword">short</span>)<span class="number">1</span>);  <span class="comment">//objectShort(Short num)</span></span><br></pre></td></tr></table></figure>
+<h1 id="数值常量">数值常量</h1>
+<hr>
+<p>各个数值类都有最大最小值常量</p>
+<figure class="highlight java"><figcaption><span>Integer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>   MIN_VALUE = <span class="number">0x80000000</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>   MAX_VALUE = <span class="number">0x7fffffff</span>;</span><br></pre></td></tr></table></figure>
+<p>有时操作常用数字，字面量容易造成magic number的感觉，有现成的常量更佳<br>
+<code>commons-lang3</code>包的<code>NumberUtils</code>提供-1,0,1的各类型常量</p>
+<figure class="highlight java"><figcaption><span>NumberUtils.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Long LONG_ZERO = Long.valueOf(<span class="number">0L</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Long LONG_ONE = Long.valueOf(<span class="number">1L</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Long LONG_MINUS_ONE = Long.valueOf(-<span class="number">1L</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="溢出">溢出</h1>
+<hr>
+<p>超过范围，直接截断<br>
+整型最大值<code>Integer.MAX_VALUE</code>为<code>2147483647</code></p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Integer.MAX_VALUE * Integer.MAX_VALUE); <span class="comment">//溢出，结果为（111...000...01），截断后刚好为1</span></span><br></pre></td></tr></table></figure>
+<p>Long最大值可以容纳Integer最大值的平方，通常可以使用Long来应对整型溢出</p>
+<h1 id="小范围转大范围">小范围转大范围</h1>
+<hr>
+<p><code>char</code>和<code>short</code>同为两字节，但<code>char</code>的内部机制是无符号的<br>
+用-1来验证，其二进制表示所有位全为1，赋值给整型后自动符号扩展</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = (<span class="keyword">char</span>) -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> i1 = c;</span><br><span class="line">System.out.println(i1); <span class="comment">//65535</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">short</span> s = -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> i2 = s;</span><br><span class="line">System.out.println(i2); <span class="comment">//-1</span></span><br></pre></td></tr></table></figure>
+<p>除了<code>char</code>以外，其他都默认执行有符号扩展，如果想实现无符号扩展，可以通过位运算截断</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> b = -<span class="number">1</span>; <span class="comment">//全</span></span><br><span class="line"><span class="keyword">int</span> i = b;</span><br><span class="line">System.out.println(i); <span class="comment">//-1</span></span><br><span class="line">i = b &amp; <span class="number">0xff</span>;</span><br><span class="line">System.out.println(i); <span class="comment">//255</span></span><br></pre></td></tr></table></figure>
+<h1 id="大范围转小范围">大范围转小范围</h1>
+<hr>
+<p>比如<code>long</code>转<code>int</code>，直接强制转有溢出风险<br>
+Java8</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> longNum = <span class="number">1L</span>;</span><br><span class="line"><span class="keyword">int</span> intNum = Math.toIntExact(longNum);</span><br></pre></td></tr></table></figure>
+<p>内部加入了溢出检测逻辑</p>
+<figure class="highlight java"><figcaption><span>Math.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toIntExact</span><span class="params">(<span class="keyword">long</span> value)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ((<span class="keyword">int</span>)value != value) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> ArithmeticException(<span class="string">"integer overflow"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (<span class="keyword">int</span>)value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数值计算范围提升">数值计算范围提升</h1>
+<hr>
+<p>小于int的整数相加都自动转成int</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">short</span> b = <span class="number">1</span>;</span><br><span class="line">b = a + b; <span class="comment">//编译错误，结果已变成int，不能再赋值给short类型</span></span><br><span class="line">b += a; <span class="comment">//+=比较特殊,隐含了强制转换，相当于b=(short)(b+a)</span></span><br></pre></td></tr></table></figure>
+<p>小于int的类型不应该使用复合赋值，因为它会强制截断，可能导致意外结果<br>
+下面程序永远不会终止，因为<code>short</code>先会提升成<code>int</code>,无符号右移移位后，低位仍然全是1，截断后无变化</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> i = -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>( i != <span class="number">0</span>) &#123;</span><br><span class="line">	i &gt;&gt;&gt;= <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个int运算，结果依然是int,先溢出再赋值</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = Integer.MAX_VALUE;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">long</span> c = a + b; <span class="comment">//看上去c完全可以容纳和值，但结果c是负数，因为和已经溢出</span></span><br></pre></td></tr></table></figure>
+<p>char类型计算后同样会变成int</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> lower = <span class="string">'e'</span>;</span><br><span class="line"><span class="keyword">char</span> upper = (<span class="keyword">char</span>)(lower - <span class="string">'a'</span> + <span class="string">'A'</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="浮点本身精度损失">浮点本身精度损失</h1>
+<hr>
+<p>浮点数不能精确计算，有精度损失，计算结果不能拿来比较<br>
+小数转2进制是乘2取整，0.99表示成2进制位数无限，而浮点数位有限，必定损失<br>
+也就是说字面上把0.99赋给变量，输出变量，呈现的也是0.99，但这只是表面<br>
+实际底层进行了有效数字截断，真实值只是最接近于0.99的浮点值<br>
+进行运算后，有可能把损失的精度暴露出来</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">double</span> b = <span class="number">0.99</span>;</span><br><span class="line"><span class="keyword">double</span> c = <span class="number">0.01</span>;</span><br><span class="line">System.out.println(a - b); <span class="comment">//0.010000000000000009</span></span><br><span class="line">System.out.println(c);  <span class="comment">//0.01</span></span><br><span class="line">System.out.println((a - b) == c);  <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<h1 id="整数转浮点精度损失">整数转浮点精度损失</h1>
+<hr>
+<p>即使浮点数double范围比long大，但是转换浮点后还是会有精度损失<br>
+因为double内部的有效数字位53位，而long是64位<br>
+类似float内部的有效数字位24位，int是32位同样会出现精度损失<br>
+可以想象<code>double</code>和<code>long</code>同为64位，但是存储方式截然不同，因此<code>double</code>为了追求更大的范围并不能无损覆盖<code>long</code></p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> x = Long.MAX_VALUE;</span><br><span class="line"><span class="keyword">double</span> y = Long.MAX_VALUE;</span><br><span class="line"><span class="keyword">long</span> z = Long.MAX_VALUE - <span class="number">1</span>;</span><br><span class="line">System.out.println(x);  <span class="comment">//9223372036854775807</span></span><br><span class="line">System.out.println(y);  <span class="comment">//9.223372036854776E18</span></span><br><span class="line">System.out.println(z);  <span class="comment">//9223372036854775806</span></span><br><span class="line"></span><br><span class="line">System.out.println(x == y);  <span class="comment">//true 都转换浮点，同时损失</span></span><br><span class="line">System.out.println(y == z);  <span class="comment">//true 都转换浮点，同时损失</span></span><br><span class="line">System.out.println(x == z);  <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>也就是浮点数足够大，造成精度损失后，变化1不足以让浮点改变<br>
+<code>ulp</code>函数可以检测浮点数间的差距</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">200000000f</span>;</span><br><span class="line">System.out.println(a == a + <span class="number">1</span>);  <span class="comment">//true</span></span><br><span class="line">System.out.println(Math.ulp(a)); <span class="comment">//16.0 至少16以上的变化才能让浮点改变</span></span><br></pre></td></tr></table></figure>
+<h1 id="除0">除0</h1>
+<hr>
+<p>普通的整数除以0，会报<code>java.lang.ArithmeticException: / by zero</code><br>
+然而浮点数是可以除0的，<code>Double</code>类就定义了特殊的变量</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> POSITIVE_INFINITY = <span class="number">1.0</span> / <span class="number">0.0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> NEGATIVE_INFINITY = -<span class="number">1.0</span> / <span class="number">0.0</span>;</span><br></pre></td></tr></table></figure>
+<p>因为无穷有正负之分，因此0和-0也有点小区别</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span> / <span class="number">0</span>d); <span class="comment">//Infinity</span></span><br><span class="line">System.out.println(<span class="number">1</span> / -<span class="number">0</span>d); <span class="comment">//-Infinity</span></span><br></pre></td></tr></table></figure>
+<p>0还可以除0</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> NaN = <span class="number">0.0</span>d / <span class="number">0.0</span>;</span><br></pre></td></tr></table></figure>
+<p>一切由<code>NAN</code>参与的运算结果都是<code>NAN</code>，涉及到<code>NAN</code>的判定都是false</p>
+<h1 id="数值比较">数值比较</h1>
+<hr>
+<p>如果类型不匹配，可能发生意外<br>
+如果采用<code>equals</code>方法，会走装箱策略，变成两个对象比较，由于类型不同，直接不相等<br>
+如果采用<code>==</code>方法，会走拆箱策略变成数值比较</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> num = <span class="number">1</span>;</span><br><span class="line">Integer integer = <span class="number">1</span>;</span><br><span class="line">System.out.println(integer.equals(num)); <span class="comment">//false</span></span><br><span class="line">System.out.println(integer == num); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>还要注意拆箱过程中null影响</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="keyword">null</span>;</span><br><span class="line">System.out.println(a == <span class="number">1</span>); <span class="comment">//NullPointerException</span></span><br></pre></td></tr></table></figure>
+<p>使用Java7提供的对象比较处理</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="keyword">null</span>;</span><br><span class="line">System.out.println(Objects.equals(a, <span class="number">1</span>)); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>典型的场景是Map, 它是通过equal判定命中<br>
+如果定义了Map&lt;Long,Object&gt;，那么取值时一定要注意类型</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Long, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="number">1L</span>, <span class="string">"str"</span>);</span><br><span class="line">System.out.println(map.get(<span class="number">1</span>)); <span class="comment">//null</span></span><br></pre></td></tr></table></figure>
+<p>如果确定是同种数字比较的话，可以借助字符串比较</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Number&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">compareMix</span><span class="params">(T num1, T num2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Objects.equals(num1, num2) || Objects.toString(num1).equals(Objects.toString(num2));</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(compareMix(<span class="keyword">new</span> Integer(<span class="number">1</span>), (<span class="keyword">short</span>)<span class="number">1</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h1 id="特殊的最小值">特殊的最小值</h1>
+<hr>
+<p>整数范围并不是对称的，最小值<code>Integer.MIN_VALUE</code>为<code>-2147483648</code>,而最大值<code>Integer.MAX_VALUE</code>为<code>2147483647</code>,也就是负数的范围比正数要大</p>
+<p><code>Integer.MIN_VALUE</code>是个比较特殊的值，二进制表示是<code>0x80000000</code>,对这个数取负数<code>0x7fffffff + 1</code>依然是本身，实际上是溢出了。而java本身不考虑溢出，会产生如下诡异的结果</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> res = Integer.MIN_VALUE == -Integer.MIN_VALUE; <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p><code>0x7fffffff + 1</code>可以看成最大再加1，即最大值增加后会回到最小值</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> res = Integer.MAX_VALUE + <span class="number">1</span> == Integer.MIN_VALUE; <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>因为正负范围不对等，因此<code>if(num &lt; 0) num = -num;</code>是不对的，没有考虑到极限情况<br>
+绝对值函数遇到<code>Integer.MIN_VALUE</code>会原样返回，因此可能是负值</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> abs = Math.abs(Integer.MIN_VALUE); <span class="comment">//-2147483648</span></span><br></pre></td></tr></table></figure>
+<p>最小值再减1也会变成最大值</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> res = Integer.MIN_VALUE - <span class="number">1</span> == Integer.MAX_VALUE; <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h1 id="运算优先级">运算优先级</h1>
+<hr>
+<p>取余<code>%</code>和乘<code>*</code>具有相同的优先级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ex1 = <span class="number">2</span> % <span class="number">10</span> * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> ex2 = <span class="number">2</span> % <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="移位运算">移位运算</h1>
+<hr>
+<p>移位是取余的，对于整数移位32位会被认为等同于移0位<br>
+因此Java中无法把一个数通过一次移位置0</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = -<span class="number">1</span>;</span><br><span class="line">i = i &gt;&gt;&gt; <span class="number">31</span>;</span><br><span class="line">i = i &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">System.out.println(i);  <span class="comment">//0</span></span><br><span class="line">i = -<span class="number">1</span>;</span><br><span class="line">i = i &gt;&gt;&gt; <span class="number">32</span>;</span><br><span class="line">System.out.println(i);  <span class="comment">//-1</span></span><br></pre></td></tr></table></figure>
+<h1 id="取余运算">取余运算</h1>
+<hr>
+<p>Java的取余运算支持负数。。结果符号和最左边操作数一致<br>
+绝大多数情况并不需要负数，应考虑排除</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">5</span> % <span class="number">2</span>);   <span class="comment">//1</span></span><br><span class="line">System.out.println(-<span class="number">5</span> % <span class="number">2</span>);  <span class="comment">//-1</span></span><br><span class="line">System.out.println(<span class="number">5</span> % -<span class="number">2</span>);  <span class="comment">//1</span></span><br><span class="line">System.out.println(-<span class="number">5</span> % -<span class="number">2</span>); <span class="comment">//-1</span></span><br></pre></td></tr></table></figure>
+<h1 id="三目运算">三目运算</h1>
+<hr>
+<p>三目运算不完全等同于if-else，还有隐式的类型转换<br>
+如果比较的两者类型不等，并且其中包含装箱类型，那么会先拆箱成基本类型,然后转成较大的类型</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Object a = <span class="keyword">true</span> ? Integer.valueOf(<span class="number">1</span>) : Double.valueOf(<span class="number">1.2</span>); <span class="comment">//1.0</span></span><br><span class="line"></span><br><span class="line">Integer nullInt = <span class="keyword">null</span>;</span><br><span class="line">Object b = <span class="keyword">true</span> ? nullInt : Integer.valueOf(<span class="number">1</span>); <span class="comment">//null</span></span><br><span class="line">Object c = <span class="keyword">true</span> ? nullInt : <span class="number">1</span>; <span class="comment">//NullPointerException</span></span><br><span class="line">Object d = <span class="keyword">true</span> ? nullInt : Double.valueOf(<span class="number">1.2</span>); <span class="comment">//NullPointerException</span></span><br></pre></td></tr></table></figure>
+<p>三目运算最好避免不同类型混合</p>
+<h1 id="总结">总结</h1>
+<hr>
+<ul>
+<li>字面数字默认是int和double</li>
+<li>考虑拆装箱影响</li>
+<li>数字比较大考虑溢出</li>
+<li>避免不同类型数值混合计算</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2017/12/05/java-number/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/12/05/java-number/">http://linest.github.io/2017/12/05/java-number/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/21/java-bytebuffer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java Buffer
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/04/java-encode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">编码</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>
