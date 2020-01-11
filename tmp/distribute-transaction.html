@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>distribute-transaction | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+<meta property="og:type" content="website">
+<meta property="og:title" content="distribute-transaction">
+<meta property="og:url" content="http://linest.github.io/tmp/distribute-transaction.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-11T09:02:52.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="distribute-transaction">
+<meta name="twitter:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/distribute-transaction.html" class="article-date">
+  	<time datetime="2020-01-11T09:02:52.610Z" itemprop="datePublished">2020-01-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      distribute-transaction
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>跨库，跨服务事务</p>
+<h1 id="2pc两阶段提交">2PC两阶段提交</h1>
+<hr>
+<p>分布式跨节点事务提交<br>
+2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色</p>
+<p>一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)</p>
+<ol>
+<li>客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务</li>
+<li>参与者锁定资源本地执行并写log,不提交，返回是否执行成功</li>
+<li>如果大家都返回成功，执行commit命令真正提交，如果有返回失败或者超时无响应，执行abort命令全部节点回滚</li>
+<li>参与者执行提交或者回滚，返回是否执行成功</li>
+<li>协调者收集结果，返回</li>
+</ol>
+<p>局限</p>
+<ul>
+<li>单点问题，协调者是单点，如果协调者挂了，各参与者无超时机制一直阻塞等待</li>
+<li>性能问题，协调者prepare需要等待所有返回，参与者可能锁定时间长，不适合执行时间很长的情况</li>
+<li>数据不一致，协调者发起提交，网络原因部分参与者没收到，此时只有部分节点有新数据</li>
+</ul>
+<p>2PC牺牲可用性，换取强一致性，适合参与者少，并且可用性高的场景</p>
+<h1 id="3pc三阶段提交">3PC三阶段提交</h1>
+<hr>
+<p>改进两阶段提交</p>
+<ul>
+<li>
+<p>将原来第一阶段划分成两阶段<br>
+CanCommit-PreCommit-DoCommit<br>
+CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCommit阶段真正执行</p>
+</li>
+<li>
+<p>允许参与者超时并自主行动<br>
+如果超时还没收到协调者指令，如果一阶段后将自动回滚，二阶段后将自动提交</p>
+</li>
+</ul>
+<p>改善问题</p>
+<ul>
+<li>单点问题，参与者引入超时机制，协调者挂了也可以退出</li>
+<li>性能问题，第一阶段先询问，至少节点正常时再做，比2PC直接锁定资源好，避免无谓的等待</li>
+</ul>
+<p>一致性问题没解决，并且超时机制可能更加不一致</p>
+<h1 id="tcc补偿">TCC补偿</h1>
+<hr>
+<p>场景：创建订单(try)，冻结资金(try)，成功就扣钱(confirm)，否则解除冻结(cancel)</p>
+<p>三种操作，每个都由业务完全控制<br>
+先尝试一下，如果都成功就执行，否则就取消<br>
+一般而言经过了尝试，按道理肯定可以执行成功，如果有意外失败就重复执行确保成功</p>
+<ul>
+<li>Try：检查及预留资源(如资金冻结,进入预备状态)，确保后续能执行成功</li>
+<li>Confirm: 执行(如转账)，只使用预留过资源，要求幂等</li>
+<li>Cancel: 回滚(如冻结返还)，要求幂等</li>
+</ul>
+<p>要求</p>
+<ul>
+<li>调用需要保留历史记录</li>
+<li>必须幂等操作</li>
+<li>必须提供逻辑反操作</li>
+</ul>
+<p>容错</p>
+<ul>
+<li>重发，保证幂等：每个请求都可能重发，保证重复执行没有副作用</li>
+<li>缺失，允许空回滚：可能网络故障没收到try，但是收到cancel</li>
+<li>逆序，防止过期请求：可能超时，执行cancel后又收到try，此时要拒绝</li>
+</ul>
+<p>局限</p>
+<ul>
+<li>业务侵入性强，实现复杂</li>
+</ul>
+<p>框架：ByteTCC tcc-transaction</p>
+<h1 id="saga">Saga</h1>
+<hr>
+<p>场景：在不同公司订联程机票，发起后不立刻出结果，等结果通知<br>
+部分参与者可能执行周期很长，甚至需要人工，那么周期短的也长期锁定资源不现实<br>
+可以先分开执行，如果遇到部分执行失败，反操作已经成功部分实现回滚</p>
+<p>过程中数据不一致，最终一致，牺牲强一致性换取可用性</p>
+<h1 id="消息队列异步确保">消息队列异步确保</h1>
+<hr>
+<p>队列带来额外好处是可以平整流量</p>
+<p>主从场景，主动方成功后加入消息队列</p>
+<p>正常情况下</p>
+<ol>
+<li>主动方发送消息</li>
+<li>被动方收到消息并处理成功，返回响应结束事务</li>
+</ol>
+<p>可靠消息服务</p>
+<ol>
+<li>额外维护一张消息表</li>
+<li>生产方在逻辑同事务内写入消息表并且状态为未发送，之所以不直接写入队列，队列写入确认异步也需要一定时间</li>
+<li>消息服务定期扫描，对未发送状态的进行发送/重新发送</li>
+<li>队列写入成功后应答，状态变为已发送</li>
+<li>消费者消费成功后应答，状态变为已完成</li>
+</ol>
+<h2 id="本地消息表">本地消息表</h2>
+<p>场景：转账，主动方账户减少，被动方账户增加</p>
+<p>已提交-&gt;转账中-&gt;已到账</p>
+<p>本地内建可靠消息，必要时可回滚</p>
+<p>异常情况下</p>
+<ol>
+<li>消费方订阅或者定时拉取队列，如果由于业务失败，不可通过重复执行修复，通知主动方回滚</li>
+</ol>
+<h2 id="最大努力通知">最大努力通知</h2>
+<p>场景：订单完成后获得积分</p>
+<p>主动方不受被动方影响，即成功后不会回滚，提供查询接口<br>
+可单独部署可靠消息服务</p>
+<p>异常情况下</p>
+<ol>
+<li>主动方尝试发送通知一定次数后就不再尝试</li>
+<li>被动方定期向主动方查询，尝试处理缺失的消息</li>
+</ol>
+<h1 id="方案比较">方案比较</h1>
+<hr>
+<ul>
+<li>TCC纯业务层控制，2PC资源层支持业务侵入小</li>
+<li>TCC可以try灵活控制锁定粒度</li>
+<li>2PC强调同步提交强一致，TCC可以后续补偿</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/distribute-transaction.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/distribute-transaction.html">http://linest.github.io/tmp/distribute-transaction.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>共识算法 | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="需要分布式容错环境下，客户端发来数据，多副本达成一致问题 Paxos  OceanBase使用 角色  逻辑层面，物理上可以同时担任  提案者Proposer，可以多个 批准者Acceptor，N个 学习者Learner  每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见 流程   提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即">
+<meta property="og:type" content="website">
+<meta property="og:title" content="共识算法">
+<meta property="og:url" content="http://linest.github.io/tmp/distribute-consensus.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="需要分布式容错环境下，客户端发来数据，多副本达成一致问题 Paxos  OceanBase使用 角色  逻辑层面，物理上可以同时担任  提案者Proposer，可以多个 批准者Acceptor，N个 学习者Learner  每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见 流程   提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-11T09:02:52.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="共识算法">
+<meta name="twitter:description" content="需要分布式容错环境下，客户端发来数据，多副本达成一致问题 Paxos  OceanBase使用 角色  逻辑层面，物理上可以同时担任  提案者Proposer，可以多个 批准者Acceptor，N个 学习者Learner  每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见 流程   提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/distribute-consensus.html" class="article-date">
+  	<time datetime="2020-01-11T09:02:52.625Z" itemprop="datePublished">2020-01-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      共识算法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>需要分布式容错环境下，客户端发来数据，多副本达成一致问题</p>
+<h1 id="paxos">Paxos</h1>
+<hr>
+<p>OceanBase使用</p>
+<h2 id="角色">角色</h2>
+<hr>
+<p>逻辑层面，物理上可以同时担任</p>
+<ul>
+<li>提案者Proposer，可以多个</li>
+<li>批准者Acceptor，N个</li>
+<li>学习者Learner</li>
+</ul>
+<p>每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见</p>
+<h2 id="流程">流程</h2>
+<hr>
+<ol>
+<li>提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即通知大家要进行编号n的提案</li>
+<li>批准者收到准备信息</li>
+</ol>
+<ul>
+<li>如果发现收到的编号n比自身已有编号小，直接丢弃</li>
+<li>如果发现收到的编号n比自身已有编号大，即收到新轮次，记录下来编号，发送承诺Promise(n)并携带最近一次收到的编号和值Last(n,v)，即回复准备好了并带上自身的意见</li>
+</ul>
+<ol start="3">
+<li>提案者接收回复</li>
+</ol>
+<ul>
+<li>如果提案者没能收到过半数回复，本轮次失败，重新开始新轮次</li>
+<li>如果所有回复都没有值，那么提案者用自己的v值发起Accept(n,v)，即大家都没值就自己发起一个值</li>
+<li>如果回复中有值，那么本轮值为最大的提案编号对应的v值发起Accept(n,v)，即从大家意见中选中一个作为统一值</li>
+</ul>
+<ol start="4">
+<li>批准者接收提案</li>
+</ol>
+<ul>
+<li>如果提案编号小于自身已有编号，直接丢弃</li>
+<li>如果提案编号大于自身已有编号，记录新编号和值，回复Accepted(n,v)</li>
+</ul>
+<ol start="5">
+<li>提案者统计结果</li>
+</ol>
+<ul>
+<li>如果收到超过半数回复，提案成功，可以广播所有提案者和学习者已提交成功</li>
+<li>如果提案者没能收到过半数回复，本轮次失败，重新开始新轮次</li>
+</ul>
+<h2 id="分析">分析</h2>
+<hr>
+<p>整体上提案者和批准者之间有两个交互来回Prepare-Promise, Accept-Accepted<br>
+存在多个提案者，存在竞争关系，第一个交互可以看做是抢占话语权，收集之前的值情况<br>
+每个提案者可以用不相交的数字集作为编号，比如有5个那么采用5*次数i+自身序号j,即第一个提案者依次采用0,5,10,第二个采用1,6,11互不影响，编号相当于一个人为的全局时钟<br>
+提案者随时失效，其他提案者可以掌握话语权，不会造成阻塞<br>
+提案者抢占话语权后必须尽快和批准者交互，否则可能会被其他更大编号的提案者抢走主动权<br>
+即便最终未能全部完成确认，中间结果也会被更大编号的提案者接受，有传承的作用<br>
+提案者每次发起可以先随机等待一会，避免总是互相抢占</p>
+<h1 id="raft">Raft</h1>
+<hr>
+<p>ETCD使用<br>
+强一致，读写都给主操作</p>
+<h2 id="角色-v2">角色</h2>
+<hr>
+<ul>
+<li>领导者Leader，同一时刻最多1个</li>
+<li>候选者Candidate</li>
+<li>跟随者Follower</li>
+</ul>
+<h2 id="流程-v2">流程</h2>
+<hr>
+<p>选举流程</p>
+<ol>
+<li>初始时，启动时角色都是Follower，RPC心跳交互，每个Follower的Term都是1并带有随机的超时时间(Election Timeout)，只要在计时时间内收到领导者或者候选者有效消息，就会保持跟随，重置计时</li>
+<li>Follower在超过计时没收到消息，认为没有领导者，就发起选举，Term增加，自身变成候选者</li>
+<li>候选者投票给自己，给其他服务器发送RequestVote投票请求</li>
+<li>收到投票请求的服务器，如果在本次Term内没投过，就投票并重置计时</li>
+<li>候选者收到过半回复，成为Leader，发送AppendEntries心跳通知其他节点，心跳会间隔(Heartbeat Timeout)持续发送</li>
+<li>可能多个候选者同时发起，谁也拿不到过半，选举时间超时，增加Term，重新发起</li>
+<li>所有节点如果发现自身Term小于收到的，会更新Term，如果Leader发现更大的Term则降级成Follower，如果Candidate发现Leader或新Term也降级成Follower</li>
+</ol>
+<p>复制流程</p>
+<ol>
+<li>领导者接收客户端请求，追加本地log</li>
+<li>领导者通过心跳向其他机器同步</li>
+<li>跟随者收到，追加本地log，发送应答</li>
+<li>领导者收到超过半数应答，认为成功提交，写入磁盘，应用到状态机</li>
+<li>领导者在下个心跳中通知其他机器写入磁盘<br>
+正常情况下Leader、Follower状态机按相同顺序执行指令，得出相同结果、状态一致</li>
+</ol>
+<h1 id="脑裂问题">脑裂问题</h1>
+<hr>
+<p>Split-brain</p>
+<ol>
+<li>集群通信出现问题，Leader和部分Follower成为一个分区，另一拨Follower成为一个分区</li>
+<li>Follower收不到Leader的心跳，其实Leader没有挂，但是被认为挂了，发起选举</li>
+<li>新Leader产生，同时存在两个Leader</li>
+<li>新Leader通知其他Follower和Client</li>
+<li>通知有一定延迟，因此部分Client连接新Leader,部分还连着老Leader,不一致</li>
+<li>老Leader收到客户端请求，发起更新，但是得不到过半响应，不能最终提交</li>
+<li>通信恢复后，老Leader所在分区收到更新的数据，于是回滚之前没提交的数据，都变成新Leader的Follower</li>
+</ol>
+<h1 id="总结">总结</h1>
+<hr>
+<p>方案基于多数可用即可，不关心少数，不会死等，提升可用性</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/distribute-consensus.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/distribute-consensus.html">http://linest.github.io/tmp/distribute-consensus.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+</html>
