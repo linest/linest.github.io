@@ -1,4 +1,3 @@
-var collection = {}
 collection[2004] = [
         {
             feature:'2004雅典奥运会',
