@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="堆溢出自动保存dump -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\temp FullGC时也可保存 -XX:+HeapDumpBeforeFullGC -XX:+HeapDumpAfterFullGC 打印GC日志 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:20:16.849Z">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存监控">
 <meta name="twitter:description" content="堆溢出自动保存dump -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\temp FullGC时也可保存 -XX:+HeapDumpBeforeFullGC -XX:+HeapDumpAfterFullGC 打印GC日志 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-efficiency-inspect.html" class="article-date">
-  	<time datetime="2019-12-15T16:20:16.849Z" itemprop="datePublished">2019-12-16</time>
+  	<time datetime="2020-01-22T03:04:06.543Z" itemprop="datePublished">2020-01-22</time>
 </a>
     </div>
   
@@ -261,12 +261,23 @@ Eclipse Memory Analyser Tool<br>
 <h1 id="cpu监控">CPU监控</h1>
 <hr>
 <p>JProfile<br>
-Yourkit<br>
-jstack采样，占用高的方法出现频率高</p>
-<p>服务器CPU达到95%，瓶颈</p>
+Yourkit</p>
 <h1 id="linux系统性能排查">Linux系统性能排查</h1>
 <hr>
-<p>负载</p>
+<p>进程统计，各进程资源占用情况，类似任务管理器<br>
+多核情况下会大于100%，可以按1查看单个<br>
+也包含负载信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+<h2 id="负载">负载</h2>
+<p>服务器CPU达到95%，瓶颈<br>
+服务器负载,特定时间间隔内CPU运行队列中的平均线程数<br>
+当前时间，系统运行时间，登陆用户数，1分钟、5分钟和15分钟内的平均负载</p>
+<ul>
+<li>负载持续超过0.7*核数，建议调查原因</li>
+<li>负载持续超过1.0*核数，建议想办法降低</li>
+<li>负载持续超过5*核数，问题很严重，几乎无法正常工作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uptime</span><br></pre></td></tr></table></figure>
 <ol>
 <li><code>uptime</code>查看负载</li>
 <li><code>top</code>找到占CPU高的进程ID</li>
@@ -274,30 +285,35 @@ jstack采样，占用高的方法出现频率高</p>
 <li><code>printf %x 线程ID</code>转成16进制</li>
 <li><code>jstack 进程ID | grep -A 200 线程ID</code>查找线程栈，显示200行<br>
 也可以先重定向到文件，然后文件查找<br>
-<a href="https://fastthread.io/" target="_blank" rel="noopener">https://fastthread.io/</a> 可以可视化</li>
+<a href="https://fastthread.io/" target="_blank" rel="noopener">https://fastthread.io/</a> 可以可视化<br>
+还可以jstack采样，占用高的方法出现频率高</li>
 </ol>
-<p>内存</p>
+<h2 id="内存">内存</h2>
 <ol>
 <li><code>free -m</code> 以MB为单位列出内存情况</li>
 </ol>
-<p>进程和线程</p>
+<h2 id="磁盘">磁盘</h2>
+<ol>
+<li><code>df</code></li>
+</ol>
+<h2 id="进程和线程">进程和线程</h2>
 <ol>
 <li><code>ps -mp 进程号 -o THREAD,tid,time</code></li>
 </ol>
-<p>数据库</p>
+<h2 id="数据库">数据库</h2>
 <ol>
 <li>show full processlist 查看执行语句</li>
 <li>explain 查看执行计划</li>
 <li>开启慢查询</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set global slow_query_log=on;</span><br><span class="line">set global long_query_time=30;</span><br><span class="line">set global log_output=&apos;TABLE&apos;;</span><br><span class="line">show variables like &apos;%slow%&apos;;</span><br><span class="line">select * from mysql.slow_log order by 1;</span><br></pre></td></tr></table></figure>
-<p>tomcat文件数</p>
+<h2 id="tomcat文件数">tomcat文件数</h2>
 <ol>
 <li><code>ps -ef | grep tomcat</code> 找到线程id</li>
 <li><code>lsof -p 线程号 | wc -l</code> 统计打开文件数量</li>
 <li><code>ulimit -a</code> 查看允许上限</li>
 </ol>
-<p>定时任务</p>
+<h2 id="定时任务">定时任务</h2>
 <ol>
 <li><code>crontab -l</code>查看定时任务</li>
 </ol>
@@ -413,7 +429,8 @@ jstack采样，占用高的方法出现频率高</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
@@ -430,6 +447,5 @@ jstack采样，占用高的方法出现频率高</p>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+<!-- hexo-inject:end --></body>
 </html>

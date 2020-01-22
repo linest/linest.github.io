@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring-cloud-hystrix | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="熔断，隔离，降级避免连锁故障 HystrixCommand  隔离一个调用的方式是继承HystrixCommand HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级 HystrixCommand提供同步和异步两种运行方法 HystrixCommand.java123456789101112131415161718192021public abstract clas">
+<meta property="og:type" content="website">
+<meta property="og:title" content="spring-cloud-hystrix">
+<meta property="og:url" content="http://linest.github.io/tmp/spring-cloud-hystrix.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="熔断，隔离，降级避免连锁故障 HystrixCommand  隔离一个调用的方式是继承HystrixCommand HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级 HystrixCommand提供同步和异步两种运行方法 HystrixCommand.java123456789101112131415161718192021public abstract clas">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:52:33.683Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-cloud-hystrix">
+<meta name="twitter:description" content="熔断，隔离，降级避免连锁故障 HystrixCommand  隔离一个调用的方式是继承HystrixCommand HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级 HystrixCommand提供同步和异步两种运行方法 HystrixCommand.java123456789101112131415161718192021public abstract clas">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/spring-cloud-hystrix.html" class="article-date">
+  	<time datetime="2020-01-22T03:52:33.683Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-cloud-hystrix
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>熔断，隔离，降级避免连锁故障</p>
+<h1 id="hystrixcommand">HystrixCommand</h1>
+<hr>
+<p>隔离一个调用的方式是继承HystrixCommand<br>
+HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级<br>
+HystrixCommand提供同步和异步两种运行方法</p>
+<figure class="highlight java"><figcaption><span>HystrixCommand.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixCommand</span>&lt;<span class="title">R</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCommand</span>&lt;<span class="title">R</span>&gt; <span class="keyword">implements</span> <span class="title">HystrixExecutable</span>&lt;<span class="title">R</span>&gt;, <span class="title">HystrixInvokableInfo</span>&lt;<span class="title">R</span>&gt;, <span class="title">HystrixObservable</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">//子类需要关注的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> R <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> R <span class="title">getFallback</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"No fallback available."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//同步执行，即等待异步返回</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> queue().get();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> Exceptions.sneakyThrow(decomposeException(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//异步执行</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Future&lt;R&gt; <span class="title">queue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数很多，并且可选，提供静态类Setter采取类似builder模式链式设定参数，构造HystrixCommand时可以传入<br>
+Setter为顶级配置，命令配置HystrixCommandProperties和线程池配置HystrixThreadPoolProperties采取同样的方式细分配置</p>
+<figure class="highlight java"><figcaption><span>HystrixCommand.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">HystrixCommand</span><span class="params">(Setter setter)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// use 'null' to specify use the default</span></span><br><span class="line">    <span class="keyword">this</span>(setter.groupKey, setter.commandKey, setter.threadPoolKey, <span class="keyword">null</span>, <span class="keyword">null</span>, setter.commandPropertiesDefaults, setter.threadPoolPropertiesDefaults, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Setter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> HystrixCommandGroupKey groupKey;</span><br><span class="line">    <span class="keyword">protected</span> HystrixCommandKey commandKey;</span><br><span class="line">    <span class="keyword">protected</span> HystrixThreadPoolKey threadPoolKey;</span><br><span class="line">    <span class="keyword">protected</span> HystrixCommandProperties.Setter commandPropertiesDefaults;</span><br><span class="line">    <span class="keyword">protected</span> HystrixThreadPoolProperties.Setter threadPoolPropertiesDefaults;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Setter</span><span class="params">(HystrixCommandGroupKey groupKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.groupKey = groupKey;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//GroupKey是必须的，链式设定的起点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Setter <span class="title">withGroupKey</span><span class="params">(HystrixCommandGroupKey groupKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Setter(groupKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Setter <span class="title">andCommandKey</span><span class="params">(HystrixCommandKey commandKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.commandKey = commandKey;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Setter <span class="title">andThreadPoolKey</span><span class="params">(HystrixThreadPoolKey threadPoolKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.threadPoolKey = threadPoolKey;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Setter <span class="title">andCommandPropertiesDefaults</span><span class="params">(HystrixCommandProperties.Setter commandPropertiesDefaults)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.commandPropertiesDefaults = commandPropertiesDefaults;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Setter <span class="title">andThreadPoolPropertiesDefaults</span><span class="params">(HystrixThreadPoolProperties.Setter threadPoolPropertiesDefaults)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.threadPoolPropertiesDefaults = threadPoolPropertiesDefaults;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="groupkey">GroupKey</h1>
+<hr>
+<h2 id="hystrixcommandproperties">HystrixCommandProperties</h2>
+<p>命令配置</p>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认线程池隔离</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ExecutionIsolationStrategy default_executionIsolationStrategy = ExecutionIsolationStrategy.THREAD;</span><br><span class="line"><span class="comment">//fallback方法和run方法在一个线程池执行，并且fallback没有超时限制，需要控制并发度避免fallback占用过多影响run</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_fallbackIsolationSemaphoreMaxConcurrentRequests = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="断路器">断路器</h1>
+<hr>
+<p>AbstractCommand包含断路器实例</p>
+<figure class="highlight java"><figcaption><span>HystrixCircuitBreaker.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HystrixCircuitBreaker</span> </span>&#123;</span><br><span class="line">    <span class="comment">//是否允许调用</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">allowRequest</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//断路器是否打开</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//标记一次成功调用，用于半开统计</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">markSuccess</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//标记一次失败调用，用于半开统计</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">markNonSuccess</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//尝试执行</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">attemptExecution</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="降级条件">降级条件</h1>
+<hr>
+<p>一般需要返回值的场景才需要降级返回一个替代品，无需返回值场景一般不用<br>
+两种异常HystrixRuntimeException和HystrixBadRequestException<br>
+降级由HystrixRuntimeException触发，HystrixBadRequestException除外，可以把不想fallback的异常封装进去，表示是命令本身有问题，不是执行遇到问题，不计入熔断统计</p>
+<ul>
+<li>抛异常：逻辑运行抛出异常，来源自用户逻辑异常</li>
+<li>超时：逻辑运行超时，来源自TimeoutException</li>
+<li>线程池或者信号量拒绝：默认SynchronousQueue，线程数不够无法新增
+<ul>
+<li>线程池异常来源自RejectedExecutionException</li>
+<li>信号量异常来源自RuntimeException</li>
+</ul>
+</li>
+<li>断路器开启，来源自RuntimeException</li>
+</ul>
+<p>注意：Fallback内的逻辑没有超时控制等，必要时可以把fallback逻辑再封装为HystrixCommand</p>
+<h1 id="隔离">隔离</h1>
+<hr>
+<ul>
+<li>默认线程池隔离</li>
+<li>信号量隔离</li>
+</ul>
+<p>使用线程池是有延迟的，如果逻辑时间敏感不进行网络调用或者调用目标能很快返回比如Redis，信号量更高效</p>
+<h1 id="执行方式">执行方式</h1>
+<hr>
+<p>命令模式包装逻辑继承HystrixCommand<br>
+执行方式</p>
+<ul>
+<li>queue返回Future，异步获取结果</li>
+<li>execute返回结果，同步执行，相当于queue.get()</li>
+<li>observe返回Observable，可注册监听器回调执行
+<ul>
+<li>observe()热执行，直接执行逻辑，订阅时使用结果</li>
+<li>toObservable()冷执行，有订阅时才开始执行</li>
+</ul>
+</li>
+</ul>
+<h1 id="配置">配置</h1>
+<hr>
+<ul>
+<li>CommandKey: 命令的名称</li>
+<li>CommandGroupKey: 命令的逻辑分组，可以分组管理，默认共用线程池除非单独指定</li>
+<li>ThreadPoolKey：命令使用的线程池</li>
+</ul>
+<p>HystrixCommand.Setter 顶层</p>
+<p>HystrixCommandProperties.Setter()<br>
+.withCircuitBreakerEnabled<br>
+.withCircuitBreakerSleepWindowInMilliseconds<br>
+.withCircuitBreakerRequestVolumeThreshold</p>
+<p>HystrixThreadPoolProperties.Setter()<br>
+.withMaxQueueSize<br>
+.withCoreSize<br>
+.withQueueSizeRejectionThreshold</p>
+<h2 id="降级">降级</h2>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认启用降级</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_fallbackEnabled = <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="超时">超时</h2>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认启用超时</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_executionTimeoutEnabled = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//超时时间1秒</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_executionTimeoutInMilliseconds = <span class="number">1000</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="隔离-v2">隔离</h2>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认线程池隔离</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ExecutionIsolationStrategy default_executionIsolationStrategy = ExecutionIsolationStrategy.THREAD;</span><br><span class="line"><span class="comment">//还支持SEMAPHORE信号量模式，在调用线程上执行，并发度受信号量控制默认是10</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_executionIsolationSemaphoreMaxConcurrentRequests = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>线程隔离运行时，是否进行中断</p>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_executionIsolationThreadInterruptOnTimeout = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_executionIsolationThreadInterruptOnFutureCancel = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<p>线程池配置</p>
+<figure class="highlight java"><figcaption><span>HystrixThreadPoolProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//核心线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_coreSize = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//最大线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maximumSize = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">boolean</span> default_allow_maximum_size_to_diverge_from_core_size = <span class="keyword">false</span>; </span><br><span class="line"><span class="comment">//空闲生存期1分钟</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_keepAliveTimeMinutes = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//默认-1表示使用SynchronousQueue，队列长度不能动态修改</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maxQueueSize = -<span class="number">1</span>;</span><br><span class="line"><span class="comment">//实际控制队列长度，默认值5</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_queueSizeRejectionThreshold = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="熔断">熔断</h2>
+<p>基于时间窗统计自反馈<br>
+熔断打开后请求会fallback，进入休眠期<br>
+休眠期过后进入半开状态，尝试执行一次请求，如果成功就退出熔断，否则继续熔断</p>
+<figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认启用熔断机制</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_circuitBreakerEnabled = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//熔断后5秒钟内请求不再发出，超过后进入半开状态</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_circuitBreakerSleepWindowInMilliseconds = <span class="number">5000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//统计窗口10秒，每秒一个桶</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_threadPoolRollingNumberStatisticalWindow = <span class="number">10000</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_threadPoolRollingNumberStatisticalWindowBuckets = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//窗口内至少20个统计量，过少不能作为判断依据</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_circuitBreakerRequestVolumeThreshold = <span class="number">20</span>;</span><br><span class="line"><span class="comment">//窗口内超过50%失败所有请求触发熔断</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer default_circuitBreakerErrorThresholdPercentage = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以强制保持打开或者关闭</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_circuitBreakerForceOpen = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Boolean default_circuitBreakerForceClosed = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="缓存">缓存</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认启用方法级结果缓存</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_requestCacheEnabled = <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="上下文">上下文</h1>
+<hr>
+<h2 id="缓存-v2">缓存</h2>
+<p>Command可以重写getCacheKey方法，这样在一个Context下面，如果命令cacheKey一样，可以直接返回</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HystrixRequestContext context = HystrixRequestContext.initializeContext();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//command execute</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    context.shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果需要缓存，但是后期又要更改，可以手动清理缓存HystrixRequestCache.clear()避免获取到旧值</p>
+<h2 id="命令合并">命令合并</h2>
+<p>HystrixCollapser<br>
+同一Context下多个命令合并成一个命令，可以作为整体batch统一调度<br>
+形成batch的判定条件可以是命令个数，也可以是时间段控制<br>
+比如线程池执行多个命令，不用每个都分配一个线程，可以作为整体在一个命令中运行</p>
+<h2 id="上下文建立方式">上下文建立方式</h2>
+<p>可以在Filter中建立，这样一个请求内使用的所有命令就处于同一上下文中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixRequestContextServletFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> </span></span><br><span class="line"><span class="function">     <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        HystrixRequestContext context = HystrixRequestContext.initializeContext();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            chain.doFilter(request, response);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            context.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="常用模式">常用模式</h1>
+<hr>
+<ul>
+<li>Fail Fast: 没有fallback，失败直接抛异常</li>
+<li>Fail Silent: 失败后fallback返回null或者空集合</li>
+<li>Fallback: Static：失败后fallback返回默认值</li>
+<li>Fallback: Stubbed: 失败后fallback利用其他信息作为参考</li>
+<li>Fallback: Cache via Network：失败后从cache获取旧数据</li>
+</ul>
+<h1 id="spring集成">Spring集成</h1>
+<hr>
+<p>启动类标注@EnableHystrix<br>
+方法标注@HystrixCommand</p>
+<h1 id="监控">监控</h1>
+<hr>
+<p>熔断基于实时监控统计，可以搭配Actuator暴露出监控数据API，也可以hystrix-dashboard网页化展示@EnableHystrixDashboard<br>
+Hystrix只负责单个实例，集群环境下可以使用netflix-turbine整合@EnableTurbine, 通过Eureka进行服务发现</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/spring-cloud-hystrix.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/spring-cloud-hystrix.html">http://linest.github.io/tmp/spring-cloud-hystrix.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

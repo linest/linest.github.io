@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Sharding Sphere | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="透明化底层分库分表框架">
+<meta name="keywords" content="源码,数据访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sharding Sphere">
+<meta property="og:url" content="http://linest.github.io/2019/07/12/sharding-sphere/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="透明化底层分库分表框架">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sharding Sphere">
+<meta name="twitter:description" content="透明化底层分库分表框架">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-sharding-sphere" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/07/12/sharding-sphere/" class="article-date">
+  	<time datetime="2019-07-11T16:00:00.000Z" itemprop="datePublished">2019-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sharding Sphere
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据访问/">数据访问</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/框架/">框架</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>透明化底层分库分表框架</p>
+<a id="more"></a>
+<p>子项目</p>
+<ul>
+<li>sharding-jdbc: 无中心，作为一个类库，客户端直连数据库，Java</li>
+<li>sharding-proxy：中心，作为一个服务，数据库代理，可支持多语言，提供静态操作入口方便DBA</li>
+<li>sharding-sidecar(规划中): 无中心，ServiceMesh云原生，每台节点运行一个单独服务</li>
+</ul>
+<h1 id="概念">概念</h1>
+<hr>
+<ul>
+<li>逻辑表：逻辑上没分片的表</li>
+<li>真实表：底层数据库内真实存在的表，一般表名带有后缀</li>
+<li>数据节点：库+表，数据分片最小单元</li>
+<li>绑定表: join的主表和子表分片规则相同，join时只在对应分片之间join，比如主表分片0和子表分片0关联，不会与子表分片1关联</li>
+<li>广播表：所有库中都包含的数据相同的表，即冗余在每个库中，一般数据量小便于关联，比如字典表</li>
+</ul>
+<h1 id="流程">流程</h1>
+<hr>
+<p>普通流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL解析 -&gt; 查询优化 -&gt; SQL执行</span><br></pre></td></tr></table></figure>
+<p>分库分表后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL解析 -&gt; 查询优化 -&gt; SQL路由 -&gt; SQL改写 -&gt; SQL执行 -&gt; 结果归并</span><br></pre></td></tr></table></figure>
+<p>代码对应模块<br>
+parse  -&gt; optimize -&gt; route -&gt; rewrite -&gt; execute -&gt; merge</p>
+<h2 id="路由">路由</h2>
+<p>携带分片键，进行分片路由</p>
+<ul>
+<li>直接路由：使用Hint,由外部传入值决定不由SQL决定，直接定位到某一分片</li>
+<li>标准路由：单一逻辑表使用SQL内解析值决定，或者绑定表多表查询</li>
+<li>笛卡尔路由：无法确定关联关系，多表组合</li>
+</ul>
+<p>不携带分片键，进行广播</p>
+<h1 id="spi">SPI</h1>
+<hr>
+<ul>
+<li>注册中心
+<ul>
+<li>接口：RegistryCenter</li>
+<li>实现：Zookeeper</li>
+</ul>
+</li>
+<li>分布式主键
+<ul>
+<li>接口：ShardingKeyGenerator</li>
+<li>实现：UUIDShardingKeyGenerator，SnowflakeShardingKeyGenerator</li>
+</ul>
+</li>
+<li>数据脱敏算法
+<ul>
+<li>接口：ShardingEncryptor</li>
+<li>实现：AESShardingEncryptor，MD5ShardingEncryptor</li>
+</ul>
+</li>
+<li>SQL解析
+<ul>
+<li>接口：SQLParserEntry</li>
+<li>实现：MySQLParserEntry, PostgreSQLParserEntry, SQLServerParserEntry，OracleParserEntry</li>
+</ul>
+</li>
+<li>数据库协议
+<ul>
+<li>接口：DatabaseProtocolFrontendEngine</li>
+<li>实现：MySQLProtocolFrontendEngine，PostgreSQLProtocolFrontendEngine</li>
+</ul>
+</li>
+<li>分布式事务
+<ul>
+<li>接口：ShardingTransactionManager</li>
+<li>实现：XAShardingTransactionManager，SeataATShardingTransactionManager</li>
+</ul>
+</li>
+<li>XA事务管理器
+<ul>
+<li>接口：XATransactionManager</li>
+<li>实现：AtomikosTransactionManager, NarayanaXATransactionManager，BitronixXATransactionManager</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据脱敏">数据脱敏</h1>
+<hr>
+<p>编程面向逻辑列，底层有明文列(可选)，密文列，辅助查询列(可选)</p>
+<ul>
+<li>任何对逻辑列操作都会改写为对明文列和密文列操作</li>
+<li>可以配置查询时使用明文还是密文</li>
+<li>相同的原文，为了保证安全性，可以采取策略生成不同密文，但是查询时无法知道两者相等。此时可以使用辅助查询列，即原文相同，辅助查询列也一定相同</li>
+</ul>
+<h2 id="配置">配置</h2>
+<p>加密模块顶层配置，包含两大部分，加密器配置和表配置</p>
+<figure class="highlight java"><figcaption><span>EncryptRuleConfiguration.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptRuleConfiguration</span> <span class="keyword">implements</span> <span class="title">RuleConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, EncryptorRuleConfiguration&gt; encryptors;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, EncryptTableRuleConfiguration&gt; tables;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EncryptRuleConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">new</span> LinkedHashMap&lt;String, EncryptorRuleConfiguration&gt;(), <span class="keyword">new</span> LinkedHashMap&lt;String, EncryptTableRuleConfiguration&gt;());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>表配置包含一组列配置</p>
+<figure class="highlight java"><figcaption><span>EncryptTableRuleConfiguration.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptTableRuleConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, EncryptColumnRuleConfiguration&gt; columns = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EncryptTableRuleConfiguration</span><span class="params">(<span class="keyword">final</span> Map&lt;String, EncryptColumnRuleConfiguration&gt; columns)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.columns.putAll(columns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>列配置包含原文列，密文列，辅助查询列，加密器名称</p>
+<figure class="highlight java"><figcaption><span>EncryptColumnRuleConfiguration.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptColumnRuleConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String plainColumn;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String cipherColumn;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String assistedQueryColumn;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String encryptor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加密器配置包含类型和属性</p>
+<figure class="highlight java"><figcaption><span>EncryptorRuleConfiguration.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptorRuleConfiguration</span> <span class="keyword">extends</span> <span class="title">TypeBasedSPIConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EncryptorRuleConfiguration</span><span class="params">(<span class="keyword">final</span> String type, <span class="keyword">final</span> Properties properties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(type, properties);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加密器spi">加密器SPI</h2>
+<p>加密器是可以通过SPI进行注册的，静态初始化块触发</p>
+<figure class="highlight java"><figcaption><span>ShardingEncryptorServiceLoader.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ShardingEncryptorServiceLoader</span> <span class="keyword">extends</span> <span class="title">TypeBasedSPIServiceLoader</span>&lt;<span class="title">ShardingEncryptor</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        NewInstanceServiceLoader.register(ShardingEncryptor.class);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ShardingEncryptorServiceLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(ShardingEncryptor.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注册机制就是原生的ServiceLoader</p>
+<figure class="highlight java"><figcaption><span>NewInstanceServiceLoader.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span>(access = AccessLevel.PRIVATE)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">NewInstanceServiceLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">//每个接口对应一组实现</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Class, Collection&lt;Class&lt;?&gt;&gt;&gt; SERVICE_MAP = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(<span class="keyword">final</span> Class&lt;T&gt; service)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (T each : ServiceLoader.load(service)) &#123;</span><br><span class="line">            registerServiceClass(service, each);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TypeBasedSPIServiceLoader引入类型机制<br>
+多个加密器可能是同一类型，对应同一类，只是配置不同，比如多个AES不同加密key</p>
+<figure class="highlight java"><figcaption><span>TypeBasedSPIServiceLoader.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeBasedSPIServiceLoader</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">TypeBasedSPI</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Class&lt;T&gt; classType;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> T <span class="title">newService</span><span class="params">(<span class="keyword">final</span> String type, <span class="keyword">final</span> Properties props)</span> </span>&#123;</span><br><span class="line">        Collection&lt;T&gt; typeBasedServices = loadTypeBasedServices(type);</span><br><span class="line">        <span class="keyword">if</span> (typeBasedServices.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ShardingConfigurationException(<span class="string">"Invalid `%s` SPI type `%s`."</span>, classType.getName(), type);</span><br><span class="line">        &#125;</span><br><span class="line">        T result = typeBasedServices.iterator().next();</span><br><span class="line">        result.setProperties(props);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//筛选流程是依次创建所有类实例，进行类型过滤</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Collection&lt;T&gt; <span class="title">loadTypeBasedServices</span><span class="params">(<span class="keyword">final</span> String type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Collections2.filter(NewInstanceServiceLoader.newServiceInstances(classType), <span class="keyword">new</span> Predicate&lt;T&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(<span class="keyword">final</span> T input)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> type.equalsIgnoreCase(input.getType());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>META-INF的services文件夹下存在<code>org.apache.shardingsphere.spi.encrypt.ShardingEncryptor</code><br>
+预制定义了AES加密器和MD5加密器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.apache.shardingsphere.core.strategy.encrypt.impl.MD5ShardingEncryptor</span><br><span class="line">org.apache.shardingsphere.core.strategy.encrypt.impl.AESShardingEncryptor</span><br></pre></td></tr></table></figure>
+<h2 id="加解密流程">加解密流程</h2>
+<p>EncryptDataSourceFactory静态获取支持脱敏功能的数据源</p>
+<figure class="highlight java"><figcaption><span>EncryptDataSourceFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span>(access = AccessLevel.PRIVATE)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptDataSourceFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">createDataSource</span><span class="params">(<span class="keyword">final</span> DataSource dataSource, <span class="keyword">final</span> EncryptRuleConfiguration encryptRuleConfiguration, <span class="keyword">final</span> Properties props)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EncryptDataSource(dataSource, <span class="keyword">new</span> EncryptRule(encryptRuleConfiguration), props);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据加密配置，生成上下文</p>
+<figure class="highlight java"><figcaption><span>EncryptDataSource.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptDataSource</span> <span class="keyword">extends</span> <span class="title">AbstractDataSourceAdapter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> EncryptRuntimeContext runtimeContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EncryptDataSource</span><span class="params">(<span class="keyword">final</span> DataSource dataSource, <span class="keyword">final</span> EncryptRule encryptRule, <span class="keyword">final</span> Properties props)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(dataSource);</span><br><span class="line">        runtimeContext = <span class="keyword">new</span> EncryptRuntimeContext(dataSource, encryptRule, props, getDatabaseType());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> EncryptConnection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EncryptConnection(getDataSource().getConnection(), runtimeContext);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">getDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDataSourceMap().values().iterator().next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加密的连接上，Statement相关方法都被包装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptConnection</span> <span class="keyword">extends</span> <span class="title">AbstractUnsupportedOperationConnection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Connection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> EncryptRuntimeContext runtimeContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Statement <span class="title">createStatement</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EncryptStatement(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PreparedStatement <span class="title">prepareStatement</span><span class="params">(<span class="keyword">final</span> String sql)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EncryptPreparedStatement(<span class="keyword">this</span>, sql);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行查询，sql会重写，结果集会包装</p>
+<figure class="highlight java"><figcaption><span>EncryptStatement.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptStatement</span> <span class="keyword">extends</span> <span class="title">AbstractUnsupportedOperationStatement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> EncryptConnection connection;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Statement statement;</span><br><span class="line">    <span class="keyword">private</span> OptimizedStatement optimizedStatement;</span><br><span class="line">    <span class="keyword">private</span> EncryptResultSet resultSet;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//更新时重写语句</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">executeUpdate</span><span class="params">(<span class="keyword">final</span> String sql)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> statement.executeUpdate(getRewriteSQL(sql));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询时重写语句外，结果集被包装</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResultSet <span class="title">executeQuery</span><span class="params">(<span class="keyword">final</span> String sql)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        ResultSet resultSet = statement.executeQuery(getRewriteSQL(sql));</span><br><span class="line">        <span class="keyword">this</span>.resultSet = <span class="keyword">new</span> EncryptResultSet(connection.getRuntimeContext(), optimizedStatement, <span class="keyword">this</span>, resultSet);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.resultSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getRewriteSQL</span><span class="params">(<span class="keyword">final</span> String sql)</span> </span>&#123;</span><br><span class="line">        SQLStatement sqlStatement = connection.getRuntimeContext().getParseEngine().parse(sql, <span class="keyword">false</span>);</span><br><span class="line">        optimizedStatement = EncryptOptimizeEngineFactory.newInstance(sqlStatement)</span><br><span class="line">            .optimize(connection.getRuntimeContext().getRule(), connection.getRuntimeContext().getMetaData(), sql, Collections.emptyList(), sqlStatement);</span><br><span class="line">        <span class="comment">//读取设置是否使用密文查询query.with.cipher.column</span></span><br><span class="line">        SQLRewriteEngine encryptSQLRewriteEngine = <span class="keyword">new</span> SQLRewriteEngine(connection.getRuntimeContext().getRule(), optimizedStatement, sql, Collections.emptyList(),</span><br><span class="line">                connection.getRuntimeContext().getProps().&lt;Boolean&gt;getValue(ShardingPropertiesConstant.QUERY_WITH_CIPHER_COLUMN));</span><br><span class="line">        String result = encryptSQLRewriteEngine.generateSQL().getSql();</span><br><span class="line">        showSQL(result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showSQL</span><span class="params">(<span class="keyword">final</span> String sql)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//读取设置是否显示查询sql.show</span></span><br><span class="line">        <span class="keyword">boolean</span> showSQL = connection.getRuntimeContext().getProps().&lt;Boolean&gt;getValue(ShardingPropertiesConstant.SQL_SHOW);</span><br><span class="line">        <span class="keyword">if</span> (showSQL) &#123;</span><br><span class="line">            SQLLogger.logSQL(sql);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果集进行逻辑列和真实列转换</p>
+<figure class="highlight java"><figcaption><span>EncryptResultSet.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptResultSet</span> <span class="keyword">extends</span> <span class="title">AbstractUnsupportedOperationResultSet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> EncryptRule encryptRule;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OptimizedStatement optimizedStatement;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Statement encryptStatement;</span><br><span class="line">    <span class="keyword">private</span> ResultSet originalResultSet;</span><br><span class="line">    <span class="keyword">private</span> IteratorStreamMergedResult resultSet;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, String&gt; logicAndActualColumns;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EncryptResultSet</span><span class="params">(<span class="keyword">final</span> EncryptRuntimeContext encryptRuntimeContext, <span class="keyword">final</span> OptimizedStatement optimizedStatement, <span class="keyword">final</span> Statement encryptStatement, <span class="keyword">final</span> ResultSet resultSet)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.encryptRule = encryptRuntimeContext.getRule();</span><br><span class="line">        <span class="keyword">this</span>.optimizedStatement = optimizedStatement;</span><br><span class="line">        <span class="keyword">this</span>.encryptStatement = encryptStatement;</span><br><span class="line">        originalResultSet = resultSet;</span><br><span class="line">        <span class="comment">//和加密设定一起包装成结果集</span></span><br><span class="line">        QueryResult queryResult = <span class="keyword">new</span> StreamQueryResult(resultSet, encryptRule);</span><br><span class="line">        <span class="keyword">this</span>.resultSet = <span class="keyword">new</span> IteratorStreamMergedResult(Collections.singletonList(queryResult));</span><br><span class="line">        logicAndActualColumns = createLogicAndActualColumns(encryptRuntimeContext.getProps().&lt;Boolean&gt;getValue(ShardingPropertiesConstant.QUERY_WITH_CIPHER_COLUMN));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getString</span><span class="params">(<span class="keyword">final</span> String columnLabel)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (String) ResultSetUtil.convertValue(resultSet.getValue(getActualColumnLabel(columnLabel), String.class), String.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">next</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> resultSet.next();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果集在获取结果时进行解码转换</p>
+<figure class="highlight java"><figcaption><span>StreamQueryResult.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">StreamQueryResult</span> <span class="keyword">implements</span> <span class="title">QueryResult</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> QueryResultMetaData queryResultMetaData;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ResultSet resultSet;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getValue</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> columnIndex, <span class="keyword">final</span> Class&lt;?&gt; type)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> decrypt(columnIndex, QueryResultUtil.getValue(resultSet, columnIndex));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">decrypt</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> columnIndex, <span class="keyword">final</span> Object value)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        Optional&lt;ShardingEncryptor&gt; shardingEncryptor = queryResultMetaData.getShardingEncryptor(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> shardingEncryptor.isPresent() ? shardingEncryptor.get().decrypt(getCiphertext(value)) : value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="流程总结">流程总结</h2>
+<p>整体上基于组合扩展，所有JDBC组件被包装<br>
+sql由JDBC层获取，与Hibernate等上层框架无关<br>
+加密流程基于Statement执行前重写sql，解密流程基于ResultSet取出后转换</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2019/07/12/sharding-sphere/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2019/07/12/sharding-sphere/">http://linest.github.io/2019/07/12/sharding-sphere/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/02/graphql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GraphQL</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

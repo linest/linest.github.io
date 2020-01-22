@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节 不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T16:05:55.228Z">
+<meta property="og:updated_time" content="2020-01-18T15:01:42.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO">
 <meta name="twitter:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节 不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-nio.html" class="article-date">
-  	<time datetime="2020-01-11T16:05:55.228Z" itemprop="datePublished">2020-01-12</time>
+  	<time datetime="2020-01-18T15:01:42.665Z" itemprop="datePublished">2020-01-18</time>
 </a>
     </div>
   
@@ -215,29 +215,34 @@ NIO是面向块(block-oriented)，利用数据块缓冲</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cleaner cleaner = ((sun.nio.ch.DirectBuffer) buffer).cleaner();</span><br><span class="line"><span class="keyword">if</span> (cleaner != <span class="keyword">null</span>) &#123;</span><br><span class="line">    cleaner.clean();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="文件拷贝">文件拷贝</h1>
 <hr>
+<p>涉及多个缓冲区操作<br>
+Read Buffer 内核读缓冲区<br>
+Socket Buffer 内核Socket缓冲<br>
+NIC Buffer 网卡缓冲<br>
+Application Buffer 用户缓冲</p>
 <p>java.nio.fle.Files.copy提供的文件拷贝依然是用户态拷贝<br>
 拷贝流程为先读再写<br>
 普通基于流</p>
 <ol>
 <li>用户态发起read系统调用</li>
-<li>内核空间请求硬件数据</li>
-<li>数据加载到内核缓存区（第一次拷贝 hardware -&gt; kernel）</li>
-<li>内核复制数据到用户缓冲区（第二次拷贝 kernel -&gt; user）</li>
+<li>内核空间请求硬件数据DMA（direct memory access）</li>
+<li>数据加载到内核缓存区Read Buffer（第一次拷贝 hardware -&gt; kernel）</li>
+<li>内核复制数据到用户缓冲区Application Buffer（第二次拷贝 kernel -&gt; user）</li>
 <li>用户态逻辑处理</li>
 <li>用户态发起write系统调用</li>
-<li>数据复制到内核socket缓冲区（第三次拷贝 user -&gt; socket）</li>
-<li>内核写入数据到设备（第四次拷贝 socket -&gt; hardware）</li>
+<li>数据复制到内核socket缓冲区Socket Buffer（第三次拷贝 user -&gt; socket）</li>
+<li>内核DMA写入数据到设备缓冲区NIC Buffer（第四次拷贝 socket -&gt; hardware）</li>
 <li>返回用户态<br>
 读写过程存在4次切换，4次数据拷贝</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> satic <span class="keyword">void</span> <span class="title">copyFileByStream</span><span class="params">(File source, File des)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (InputStream is = <span class="keyword">new</span> FileInputStream(source);</span><br><span class="line">        OutputStream os = <span class="keyword">new</span> FileOutputStream(des);)&#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bufer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> length;</span><br><span class="line">            <span class="keyword">while</span> ((length = is.read(bufer)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                os.write(bufer, <span class="number">0</span>, length);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFileByStream</span><span class="params">(File source, File des)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (InputStream is = <span class="keyword">new</span> FileInputStream(source);</span><br><span class="line">        OutputStream os = <span class="keyword">new</span> FileOutputStream(des);)&#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bufer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> length;</span><br><span class="line">            <span class="keyword">while</span> ((length = is.read(bufer)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                os.write(bufer, <span class="number">0</span>, length);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>NIO中的拷贝可以避免不必要的拷贝和切换，效率更高<br>
 零拷贝发送流程</p>
 <ol>
 <li>用户态发出sendfile系统调用</li>
-<li>磁盘加载数据到内核缓冲区（第一次复制 hardware -&gt; kernel）</li>
-<li>描述符拷贝到socket缓冲，包含内核内存地址和偏移量</li>
-<li>根据描述符直接使用内核缓冲区写入设备（第二次复制 kernel -&gt; hardware）</li>
+<li>磁盘加载数据到内核缓冲区Read Buffer（第一次复制 hardware -&gt; kernel）</li>
+<li>描述符拷贝到socket缓冲，包含内核内存地址和偏移量,没有拷贝数据</li>
+<li>根据描述符直接使用内核缓冲区写入设备缓冲区NIC Buffer（第二次复制 kernel -&gt; hardware）</li>
 <li>返回用户态<br>
 零拷贝只需要2次切换和2次数据复制，并且数据不经过用户空间</li>
 </ol>
@@ -248,8 +253,8 @@ NIO是面向块(block-oriented)，利用数据块缓冲</p>
 <li>磁盘拷贝数据到内核态 (hardware -&gt; kernel)</li>
 <li>内核用户态共享空间，返回用户态</li>
 <li>用户态发起write系统调用</li>
-<li>数据复制到内核socket缓冲区（第三次拷贝 kernel -&gt; socket）</li>
-<li>内核写入数据到设备（第四次拷贝 socket -&gt; hardware）</li>
+<li>数据复制到内核socket缓冲区（kernel -&gt; socket）</li>
+<li>内核写入数据到设备（socket -&gt; hardware）</li>
 <li>返回用户态<br>
 整个过程4次状态切换，3次拷贝，和上述sendfile相比，用户可以进行操作</li>
 </ol>
@@ -440,6 +445,6 @@ AIO: 异步非阻塞IO，调用方立刻返回，提供回调<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

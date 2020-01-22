@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring-ioc | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring-beans Bean  Spring容器管理生命周期的对象 容器  职责  生产bean 依赖注入  容器  BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能 123456789101112public interface BeanFactory &amp;#123;	String FACTORY_BEAN_PREFIX = &quot;&amp;amp;&quot;;    //最基础，通">
+<meta property="og:type" content="website">
+<meta property="og:title" content="spring-ioc">
+<meta property="og:url" content="http://linest.github.io/tmp/spring-context.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="spring-beans Bean  Spring容器管理生命周期的对象 容器  职责  生产bean 依赖注入  容器  BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能 123456789101112public interface BeanFactory &amp;#123;	String FACTORY_BEAN_PREFIX = &quot;&amp;amp;&quot;;    //最基础，通">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:52:48.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-ioc">
+<meta name="twitter:description" content="spring-beans Bean  Spring容器管理生命周期的对象 容器  职责  生产bean 依赖注入  容器  BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能 123456789101112public interface BeanFactory &amp;#123;	String FACTORY_BEAN_PREFIX = &quot;&amp;amp;&quot;;    //最基础，通">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/spring-context.html" class="article-date">
+  	<time datetime="2020-01-22T03:52:48.149Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-ioc
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>spring-beans</p>
+<h1 id="bean">Bean</h1>
+<hr>
+<p>Spring容器管理生命周期的对象</p>
+<h1 id="容器">容器</h1>
+<hr>
+<p>职责</p>
+<ul>
+<li>生产bean</li>
+<li>依赖注入</li>
+</ul>
+<h1 id="容器-v2">容器</h1>
+<hr>
+<p>BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line">	String FACTORY_BEAN_PREFIX = <span class="string">"&amp;"</span>;</span><br><span class="line">    <span class="comment">//最基础，通过名字获取实例</span></span><br><span class="line">	<span class="function">Object <span class="title">getBean</span><span class="params">(String name)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="comment">//增加强制转型功能</span></span><br><span class="line">    &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="comment">//可以传参进行构造</span></span><br><span class="line">    <span class="function">Object <span class="title">getBean</span><span class="params">(String name, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ListableBeanFactory提供了全局范围bean查询功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListableBeanFactory</span> <span class="keyword">extends</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line">	<span class="comment">//是否存在定义</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">containsBeanDefinition</span><span class="params">(String beanName)</span></span>;</span><br><span class="line">	<span class="comment">//容器中的定义数量</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getBeanDefinitionCount</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">//容器中所有定义名称</span></span><br><span class="line">	String[] getBeanDefinitionNames();</span><br><span class="line">	<span class="comment">//特定类型的bean名称</span></span><br><span class="line">	String[] getBeanNamesForType(ResolvableType type);</span><br><span class="line">	String[] getBeanNamesForType(<span class="meta">@Nullable</span> Class&lt;?&gt; type);</span><br><span class="line">	String[] getBeanNamesForType(<span class="meta">@Nullable</span> Class&lt;?&gt; type, <span class="keyword">boolean</span> includeNonSingletons, <span class="keyword">boolean</span> allowEagerInit);</span><br><span class="line">	&lt;T&gt; <span class="function">Map&lt;String, T&gt; <span class="title">getBeansOfType</span><span class="params">(@Nullable Class&lt;T&gt; type)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	&lt;T&gt; <span class="function">Map&lt;String, T&gt; <span class="title">getBeansOfType</span><span class="params">(@Nullable Class&lt;T&gt; type, <span class="keyword">boolean</span> includeNonSingletons, <span class="keyword">boolean</span> allowEagerInit)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="comment">//包含特定注解的bean名称</span></span><br><span class="line">	String[] getBeanNamesForAnnotation(Class&lt;? extends Annotation&gt; annotationType);</span><br><span class="line">	<span class="function">Map&lt;String, Object&gt; <span class="title">getBeansWithAnnotation</span><span class="params">(Class&lt;? extends Annotation&gt; annotationType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	&lt;A extends Annotation&gt; <span class="function">A <span class="title">findAnnotationOnBean</span><span class="params">(String beanName, Class&lt;A&gt; annotationType)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HierarchicalBeanFactory扩展出父子层级，子容器可以访问父容器内的bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HierarchicalBeanFactory</span> <span class="keyword">extends</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">BeanFactory <span class="title">getParentBeanFactory</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">//是否当前容器包含，忽略父容器</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">containsLocalBean</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApplicationContext吸收了BeanFactory相关扩展，提供了应用级功能，国际化支持，事件体系。。。<br>
+ApplicationContext接口本身方法比较简单，只提供了应用信息相关方法，但是实现了其他接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContext</span> <span class="keyword">extends</span> <span class="title">EnvironmentCapable</span>, <span class="title">ListableBeanFactory</span>, <span class="title">HierarchicalBeanFactory</span>,</span></span><br><span class="line"><span class="class">		<span class="title">MessageSource</span>, <span class="title">ApplicationEventPublisher</span>, <span class="title">ResourcePatternResolver</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">String <span class="title">getId</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">getApplicationName</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">getDisplayName</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">long</span> <span class="title">getStartupDate</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">ApplicationContext <span class="title">getParent</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//暴露出来仅作为便利方法</span></span><br><span class="line">	<span class="function">AutowireCapableBeanFactory <span class="title">getAutowireCapableBeanFactory</span><span class="params">()</span> <span class="keyword">throws</span> IllegalStateException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现类有DefaultListableBeanFactory作为最基础实现</p>
+<p>FactoryBean是容器里的Bean对象的接口，表示Bean本身可作为对象工厂，生产出对象实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FactoryBean</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">T <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">	Class&lt;?&gt; getObjectType();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从容器里获取Bean,如果是工厂Bean，那么获取的是工厂产生的实例，不是工厂本身。工厂本身需要名字加上前缀<code>&amp;</code></p>
+<p>DefaultListableBeanFactory容器基础实现类类</p>
+<p>AbstractApplicationContext中实现的refresh方法，可以观察到容器启动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">		<span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">		prepareRefresh();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">		ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">		prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">			postProcessBeanFactory(beanFactory);</span><br><span class="line">			<span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">			invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line">			<span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">			registerBeanPostProcessors(beanFactory);</span><br><span class="line">			<span class="comment">// Initialize message source for this context.</span></span><br><span class="line">			initMessageSource();</span><br><span class="line">			<span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">			initApplicationEventMulticaster();</span><br><span class="line">			<span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">			onRefresh();</span><br><span class="line">			<span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">			registerListeners();</span><br><span class="line">			<span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">			finishBeanFactoryInitialization(beanFactory);</span><br><span class="line">			<span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">			finishRefresh();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">			<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">				logger.warn(<span class="string">"Exception encountered during context initialization - "</span> +</span><br><span class="line">						<span class="string">"cancelling refresh attempt: "</span> + ex);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">			destroyBeans();</span><br><span class="line">			<span class="comment">// Reset 'active' flag.</span></span><br><span class="line">			cancelRefresh(ex);</span><br><span class="line">			<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">			<span class="keyword">throw</span> ex;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">// Reset common introspection caches in Spring's core, since we</span></span><br><span class="line">			<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">			resetCommonCaches();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="bean来源">Bean来源</h1>
+<hr>
+<ul>
+<li>
+<p>xml<br>
+配置和类分离，配置集中管理</p>
+</li>
+<li>
+<p>注解<br>
+组件扫描<br>
+@Component,@Controller,@Repository,@Service<br>
+后三种只是在名称上提现职责细分，本质上还是Component<br>
+@Repository还表明需要异常转换DataAccessException</p>
+</li>
+</ul>
+<p>@ComponentScan可以加载Config类上，默认是扫描当前包<br>
+@Configuration也是基于@Component<br>
+@Configuration中的@Bean对象被容器进行AOP增强植入周期管理<br>
+可以用@Import引入另一个配置，也可以@ImportResource引入xml配置</p>
+<ul>
+<li>动态定义<br>
+基于BeanFactoryPostProcessor</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XxxServiceFactoryBean</span> <span class="keyword">implements</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory bf)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) bf;</span><br><span class="line">		<span class="comment">//建立bean定义</span></span><br><span class="line">		BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(XxxService.class);</span><br><span class="line">		<span class="comment">//配置依赖</span></span><br><span class="line">		beanDefinitionBuilder.addPropertyReference(<span class="string">"xxxDao"</span>,<span class="string">"xxxDao"</span>);</span><br><span class="line">		<span class="comment">//注册定义到容器中</span></span><br><span class="line">		beanFactory.registerBeanDefinition(<span class="string">"xxxService1"</span>,beanDefinitionBuilder.getRawBeanDefinition());</span><br><span class="line">		<span class="comment">//注册实例</span></span><br><span class="line">		beanFactory.registerSingleton(<span class="string">"xxxService2"</span>,<span class="keyword">new</span> XxxService());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="bean定义">Bean定义</h1>
+<hr>
+<p>BeanDefinition描述</p>
+<h1 id="bean注册">Bean注册</h1>
+<hr>
+<p>Bean相关信息加入容器维护，每个Bean关联一个名字<br>
+BeanDefinitionRegistry提供基本的增删查功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanDefinitionRegistry</span> <span class="keyword">extends</span> <span class="title">AliasRegistry</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span> <span class="keyword">throws</span> BeanDefinitionStoreException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeBeanDefinition</span><span class="params">(String beanName)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line">	<span class="function">BeanDefinition <span class="title">getBeanDefinition</span><span class="params">(String beanName)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="bean初始化">Bean初始化</h1>
+<hr>
+<ul>
+<li>
+<p>InstantiationStrategy 负责产生<br>
+SimpleInstantiationStrategy 通过构造函数和工厂方法<br>
+CglibSubclassInstantiationStrategy 生成代理，用于注入</p>
+</li>
+<li>
+<p>BeanWrapper 负责属性填充<br>
+由字符串转成相应类型<br>
+PropertyEditor,内外部属性沟通</p>
+</li>
+</ul>
+<h1 id="常用容器构建方式">常用容器构建方式</h1>
+<hr>
+<p>DefaultListableBeanFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ResourcePatternResolver resolver = <span class="keyword">new</span> PathMatchingResourcePatternResolver();</span><br><span class="line">Resource res = resolver.getResource(<span class="string">"path"</span>);</span><br><span class="line">DefaultListableBeanFactory factory = <span class="keyword">new</span> DefaultListableBeanFactory();</span><br><span class="line">XmlBeanDefinitionReader reader = <span class="keyword">new</span> XmlBeanDefinitionReader(factory);</span><br><span class="line">reader.loadBeanDefinitions(res);</span><br></pre></td></tr></table></figure>
+<p>GenericApplicationContext，内部包含DefaultListableBeanFactory实例</p>
+<p>基于Java代码config，支持多个配置注册</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AnnotationConfigApplicationContext ctx = <span class="keyword">new</span> AnnotationConfigApplicationContext();</span><br><span class="line">ctx.register(aaaConfig.class);</span><br><span class="line">ctx.register(bbbConfig.class);</span><br><span class="line">ctx.refresh();</span><br><span class="line">ctx.registerShutdownHook();</span><br></pre></td></tr></table></figure>
+<p>基于路径下xml文件<br>
+ClassPathXmlApplicationContext</p>
+<p>基于文件系统路径<br>
+FileSystemXmlApplicationContext</p>
+<p>基于xml文件的web<br>
+WebXmlApplicationContext</p>
+<h1 id="获取context">获取Context</h1>
+<hr>
+<p>直接注入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> ApplicationContext ctx;</span><br></pre></td></tr></table></figure>
+<p>实现ApplicationContextAware接口<br>
+WebApplicationContextUtils</p>
+<h1 id="容器感知机制">容器感知机制</h1>
+<hr>
+<p>Aware接口是个标记接口<br>
+如果一个bean需要容器的一些信息，可以实现相关信息的Aware接口<br>
+Aware本身没特殊逻辑，只是提供set方法，在bean初始化时提醒容器把相关信息置入<br>
+时机是在正常bean属性设置后，afterPropertiesSet之前</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContextAware</span> <span class="keyword">extends</span> <span class="title">Aware</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Aware机制依托BeanPostProcessor实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextAwareProcessor</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//容器</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> ConfigurableApplicationContext applicationContext;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> StringValueResolver embeddedValueResolver;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//处理器通过容器构建</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ApplicationContextAwareProcessor</span><span class="params">(ConfigurableApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">		<span class="keyword">this</span>.embeddedValueResolver = <span class="keyword">new</span> EmbeddedValueResolver(applicationContext.getBeanFactory());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(<span class="keyword">final</span> Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		AccessControlContext acc = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">if</span> (System.getSecurityManager() != <span class="keyword">null</span> &amp;&amp; (bean <span class="keyword">instanceof</span> EnvironmentAware || bean <span class="keyword">instanceof</span> EmbeddedValueResolverAware ||</span><br><span class="line">						bean <span class="keyword">instanceof</span> ResourceLoaderAware || bean <span class="keyword">instanceof</span> ApplicationEventPublisherAware ||</span><br><span class="line">						bean <span class="keyword">instanceof</span> MessageSourceAware || bean <span class="keyword">instanceof</span> ApplicationContextAware)) &#123;</span><br><span class="line">			acc = <span class="keyword">this</span>.applicationContext.getBeanFactory().getAccessControlContext();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (acc != <span class="keyword">null</span>) &#123;</span><br><span class="line">			AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">                invokeAwareInterfaces(bean);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			&#125;, acc);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			invokeAwareInterfaces(bean);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Aware种类是固定的，强转调用接口</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">invokeAwareInterfaces</span><span class="params">(Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EnvironmentAware) &#123;</span><br><span class="line">				((EnvironmentAware) bean).setEnvironment(<span class="keyword">this</span>.applicationContext.getEnvironment());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EmbeddedValueResolverAware) &#123;</span><br><span class="line">				((EmbeddedValueResolverAware) bean).setEmbeddedValueResolver(<span class="keyword">this</span>.embeddedValueResolver);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ResourceLoaderAware) &#123;</span><br><span class="line">				((ResourceLoaderAware) bean).setResourceLoader(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationEventPublisherAware) &#123;</span><br><span class="line">				((ApplicationEventPublisherAware) bean).setApplicationEventPublisher(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> MessageSourceAware) &#123;</span><br><span class="line">				((MessageSourceAware) bean).setMessageSource(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationContextAware) &#123;</span><br><span class="line">				((ApplicationContextAware) bean).setApplicationContext(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="属性注入">属性注入</h1>
+<hr>
+<p>方式</p>
+<ul>
+<li>设值注入：逐步注入，适合依赖变化，可选依赖的情况</li>
+<li>构造注入：参数多时构造臃肿，但是依赖直观，适合依赖无需变化一次注入的情况</li>
+<li>直接@Autowired属性注入，实际内部实现基于反射，即Field#set，Method#invoke，Constructor#newInstance，即使私有成员并且没有提供访问方法也可以注入</li>
+</ul>
+<p>取舍</p>
+<ul>
+<li>不推荐直接属性注入，因为测试手动构建实例也需要使用反射，复杂度高</li>
+<li>setter方法注入可以接受，但是不如构造注入直观，因为构造注入能明确需要依赖的对象范围，一步完成构建</li>
+</ul>
+<h1 id="方法注入">方法注入</h1>
+<hr>
+<p>singleton的bean方法每次返回prototype的实例</p>
+<ul>
+<li>lookup-method注入: 效果相当于实现了ApplicationContextAware,每次从容器中获取实例<br>
+@Lookup注解的方法返回null即可，因为CGLIB动态代理会重写这个方法，因此也要求所在类和方法都不能final</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Lookup</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SamplePrototypeBean <span class="title">getPrototypeBean</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>replace-method注入：效果相当于用另一个类的方法替换掉当前方法<br>
+两种都使用了动态代理技术</li>
+</ul>
+<h1 id="自动装配">自动装配</h1>
+<hr>
+<p>显式装配为在XML中使用ref指定</p>
+<h2 id="xml">XML</h2>
+<p>容器掌握了所有bean信息，并且通过反射可以知道构造方法，属性等信息，因此可以根据一定策略进行自动装配，不用显式指定依赖关系。自动装配会降低依赖的清晰度，现实中比较少用。<br>
+bean标签的autowire属性可指定策略</p>
+<ul>
+<li>no：默认的方式是不进行自动装配，通过显式设置ref 属性来进行装配。</li>
+<li>byName：通过参数名自动装配，容器试图匹配、装配和该bean的属性具有相同名字的bean。</li>
+<li>byType：通过参数类型自动装配，试图匹配、装配和该bean的属性具有相同类型的bean。如果有多个bean符合条件，则抛出错误。</li>
+<li>constructor：这个方式类似于byType， 但是要提供给构造器参数，如果没有确定的带参数的构造器参数类型，将会抛出异常。</li>
+<li>autodetect：首先尝试使用constructor来自动装配，如果无法工作，则使用byType方式。</li>
+</ul>
+<h2 id="注解">注解</h2>
+<p>用注解装配时，默认是依据类型进行装配<br>
+@Autowired，可以设置required是否必须。 默认是必须注入，如果没有可用的bean,抛异常NoSuchBeanDefinitionException</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Autowired &#123;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">required</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为是按类型注入，可能出现同类型不唯一的情况，此时用@Qualifier或者@Primary进行区别<br>
+@Autowire可以直接标在属性上，也可以标在方法上，标在方法上表示参数为自动注入。推荐标在方法上，有助于单元测试<br>
+@Value可以注入基础值</p>
+<h2 id="集合注入">集合注入</h2>
+<p>在集合属性上标注@Autowired,表示收集某一类型，可以配合@Order调整在集合中的位置</p>
+<h2 id="延迟注入">延迟注入</h2>
+<p>标注@Lazy,调用时才注入，实际上注入了一个代理</p>
+<h2 id="标准注解">标准注解</h2>
+<p>@Resource根据名称注入</p>
+<p>AutowiredAnnotationBeanPostProcessor</p>
+<h1 id="循环依赖">循环依赖</h1>
+<hr>
+<p>getBean方法是获取实例的入口</p>
+<figure class="highlight java"><figcaption><span>AbstractBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> doGetBean(name, requiredType, <span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DefaultSingletonBeanRegistry内部维护缓存</p>
+<figure class="highlight java"><figcaption><span>DefaultSingletonBeanRegistry.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//已经完成创建的单例bean实例</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">256</span>);</span><br><span class="line"><span class="comment">//创建中，但允许提前使用的单例bean实例</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; earlySingletonObjects = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line"><span class="comment">//创建中的单例bean名称</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Set&lt;String&gt; singletonsCurrentlyInCreation = Collections.newSetFromMap(<span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">16</span>));</span><br><span class="line"><span class="comment">//单例工厂</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br></pre></td></tr></table></figure>
+<p>创建中标记来源于创建bean之前</p>
+<figure class="highlight java"><figcaption><span>DefaultSingletonBeanRegistry.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">beforeSingletonCreation</span><span class="params">(String beanName)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!<span class="keyword">this</span>.inCreationCheckExclusions.contains(beanName) &amp;&amp; !<span class="keyword">this</span>.singletonsCurrentlyInCreation.add(beanName)) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> BeanCurrentlyInCreationException(beanName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>工厂来源于创建过程中，如果发现是正在创建中的单例且允许循环依赖，那么创建工厂</p>
+<figure class="highlight java"><figcaption><span>AbstractAutowireCapableBeanFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">doCreateBean</span><span class="params">(<span class="keyword">final</span> String beanName, <span class="keyword">final</span> RootBeanDefinition mbd, <span class="keyword">final</span> @Nullable Object[] args)</span> <span class="keyword">throws</span> BeanCreationException </span>&#123;</span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">		<span class="keyword">boolean</span> earlySingletonExposure = (mbd.isSingleton() &amp;&amp; <span class="keyword">this</span>.allowCircularReferences &amp;&amp; isSingletonCurrentlyInCreation(beanName));</span><br><span class="line">		<span class="keyword">if</span> (earlySingletonExposure) &#123;</span><br><span class="line">			addSingletonFactory(beanName, () -&gt; getEarlyBeanReference(beanName, mbd, bean));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实例来源于三级查找，首先查是否有已经创建的实例，然后查是否有正在创建中的实例，最后还没有可以用工厂创建出一个<br>
+允许访问当前正在创建的bean,可以解决循环依赖问题</p>
+<figure class="highlight java"><figcaption><span>DefaultSingletonBeanRegistry.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getSingleton</span><span class="params">(String beanName)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//默认允许early引用</span></span><br><span class="line">	<span class="keyword">return</span> getSingleton(beanName, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getSingleton</span><span class="params">(String beanName, <span class="keyword">boolean</span> allowEarlyReference)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//第一级查找, 先检查是否有已经创建的单例</span></span><br><span class="line">	Object singletonObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">	<span class="comment">//第二级查找，检查是否有创建中的实例</span></span><br><span class="line">	<span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">		<span class="keyword">synchronized</span> (<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">			singletonObject = <span class="keyword">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">			<span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">				<span class="comment">//没有early实例并且允许创建的情况下，找到单例工厂</span></span><br><span class="line">				ObjectFactory&lt;?&gt; singletonFactory = <span class="keyword">this</span>.singletonFactories.get(beanName);</span><br><span class="line">				<span class="keyword">if</span> (singletonFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">					<span class="comment">//创建实例</span></span><br><span class="line">					singletonObject = singletonFactory.getObject();</span><br><span class="line">					<span class="comment">//放入early的map维护</span></span><br><span class="line">					<span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">					<span class="comment">//删除工厂，即已经有实例，以后不用再创建</span></span><br><span class="line">					<span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> singletonObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果A内部有B，B内部有A</p>
+<ul>
+<li>如果是setter注入，构造和依赖两个过程分开，可以正常处理
+<ul>
+<li>创建A，创建中(A),解析依赖发现需要B</li>
+<li>创建B，创建中(A,B)，解析依赖发现需要A</li>
+<li>创建中已经有A，设置到B中</li>
+<li>B创建完成，设置到A中，完成创建</li>
+</ul>
+</li>
+<li>如果是构造注入，无法处理，可以使用@Lazy标签延迟
+<ul>
+<li>创建A，发现构造需要B，创建中(A)，尝试先去创建B</li>
+<li>创建B, 发现构造需要A，创建中(A,B)，尝试先去创建A</li>
+<li>创建A，发现已经在创建中，抛异常</li>
+</ul>
+</li>
+</ul>
+<p>循环依赖开关可以关闭</p>
+<figure class="highlight java"><figcaption><span>GenericApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAllowCircularReferences</span><span class="params">(<span class="keyword">boolean</span> allowCircularReferences)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.beanFactory.setAllowCircularReferences(allowCircularReferences);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="事件体系">事件体系</h1>
+<hr>
+<p>ApplicationContext实现了事件发布接口</p>
+<figure class="highlight java"><figcaption><span>ApplicationEventPublisher.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationEventPublisher</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">publishEvent</span><span class="params">(ApplicationEvent event)</span> </span>&#123;</span><br><span class="line">		publishEvent((Object) event);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">publishEvent</span><span class="params">(Object event)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApplicationContext可配置化接口，提供监听器注册</p>
+<figure class="highlight java"><figcaption><span>ConfigurableApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ConfigurableApplicationContext</span> <span class="keyword">extends</span> <span class="title">ApplicationContext</span>, <span class="title">Lifecycle</span>, <span class="title">Closeable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addApplicationListener</span><span class="params">(ApplicationListener&lt;?&gt; listener)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>事件监听器接口</p>
+<figure class="highlight java"><figcaption><span>ApplicationListener.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationListener</span>&lt;<span class="title">E</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span>&gt; <span class="keyword">extends</span> <span class="title">EventListener</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(E event)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@EventListener可以直接标注在方法上作为一个监听器，还可以指定监听哪些事件类型<br>
+EventListenerMethodProcessor是处理类，同时实现了BeanFactoryPostProcessor和SmartInitializingSingleton<br>
+流程是所在类实例化后，用EventListenerFactory去构建出一个ApplicationListener，实质上是一个适配器ApplicationListenerMethodAdapter，即把方法包装成一个监听器</p>
+<p>内置事件</p>
+<ul>
+<li>ContextRefreshedEvent：容器就绪</li>
+<li>ContextClosedEvent：容器关闭</li>
+<li>RequestHandledEvent：web应用处理请求后</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/spring-context.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/spring-context.html">http://linest.github.io/tmp/spring-context.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

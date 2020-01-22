@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-20T23:57:36.383Z">
+<meta property="og:updated_time" content="2020-01-14T14:42:01.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/db-redis.html" class="article-date">
-  	<time datetime="2019-12-20T23:57:36.383Z" itemprop="datePublished">2019-12-21</time>
+  	<time datetime="2020-01-14T14:42:01.318Z" itemprop="datePublished">2020-01-14</time>
 </a>
     </div>
   
@@ -464,7 +464,7 @@ fsync异步每秒刷盘，如果磁盘很忙，异步fsync超过2秒还没完成
 <p>Redisson实现</p>
 <ul>
 <li>watchdog机制，默认锁30s过期,加锁后开启后端线程，每10s延期一次</li>
-<li>hash结构，考虑到重入情况，增加计数逻辑</li>
+<li>hash结构，考虑到重入情况，除了标识外还增加计数逻辑</li>
 </ul>
 <h2 id="分布式令牌桶">分布式令牌桶</h2>
 <p><a href="https://blog.csdn.net/sunlihuo/article/details/79700225" target="_blank" rel="noopener">https://blog.csdn.net/sunlihuo/article/details/79700225</a><br>
@@ -823,6 +823,6 @@ redis本身很轻量，占用空间1M，因此即使数据量不大，一开始�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:19:53.944Z">
+<meta property="og:updated_time" content="2020-01-13T16:38:42.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper">
 <meta name="twitter:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/zookeeper.html" class="article-date">
-  	<time datetime="2019-12-15T16:19:53.944Z" itemprop="datePublished">2019-12-16</time>
+  	<time datetime="2020-01-13T16:38:42.067Z" itemprop="datePublished">2020-01-14</time>
 </a>
     </div>
   
@@ -238,7 +238,7 @@ Watcher存储在本地WatcherManager，发生通知后，客户端从WatcherMana
 <hr>
 <p>角色</p>
 <ul>
-<li>Leader 提供写服务</li>
+<li>Leader 提供读写服务</li>
 <li>Follower 提供读服务</li>
 <li>Observer 也能提供读服务，但是不参与选举过程</li>
 </ul>
@@ -379,10 +379,15 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 </ol>
 <ul>
 <li>分布式锁<br>
+方案1<br>
+基于同时创建同名节点，只有一个能成功，并注册监听<br>
+羊群效应，一个放锁后，其他立刻通知，导致所有等待者同时尝试</li>
+</ul>
+<p>方案2 Curator实现原理<br>
 并发在同一目录下创建临时顺序节点，临时节点分配序号有序<br>
 排在后面的临时节点监听前面的，构成监听链<br>
-如果发现成为最小序号，视为持有锁，临时节点删除后自动通知下一个</li>
-</ul>
+如果发现成为最小序号，视为持有锁，临时节点删除后自动通知下一个</p>
+<p>如果网络问题使得zookeep认为断开，删掉临时节点，此时可能多个客户端能加到锁</p>
 <h1 id="部署">部署</h1>
 <hr>
 <ul>
@@ -506,6 +511,6 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

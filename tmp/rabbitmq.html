@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>RabbitMQ | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+  <meta name="description" content="erlang实现 AMQP协议  默认端口5672,管理端口15672 管理UI: http://localhost:15672 HTTP API: http://localhost:15672/api/index.html. 代码 amqp-client factory还可以设置端口号，用户名，密码 123456789101112131415161718public class Publishe">
 <meta property="og:type" content="website">
 <meta property="og:title" content="RabbitMQ">
 <meta property="og:url" content="http://linest.github.io/tmp/rabbitmq.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+<meta property="og:description" content="erlang实现 AMQP协议  默认端口5672,管理端口15672 管理UI: http://localhost:15672 HTTP API: http://localhost:15672/api/index.html. 代码 amqp-client factory还可以设置端口号，用户名，密码 123456789101112131415161718public class Publishe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:19:36.160Z">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ">
-<meta name="twitter:description" content="erlang实现 AMQP协议  默认端口5672 性能  4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000 概念   Broker: 一台或者一组节点实例 Vhost: 虚拟主机，每台虚拟主机可以包含自己的交换器和队列，用于权限分离 Connection: 基于真实TCP的Socket连接 Channel: 基于Connection上的虚拟连接，一个TCP上可以有多个Ch">
+<meta name="twitter:description" content="erlang实现 AMQP协议  默认端口5672,管理端口15672 管理UI: http://localhost:15672 HTTP API: http://localhost:15672/api/index.html. 代码 amqp-client factory还可以设置端口号，用户名，密码 123456789101112131415161718public class Publishe">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/rabbitmq.html" class="article-date">
-  	<time datetime="2019-12-15T16:19:36.160Z" itemprop="datePublished">2019-12-16</time>
+  	<time datetime="2020-01-22T03:04:06.546Z" itemprop="datePublished">2020-01-22</time>
 </a>
     </div>
   
@@ -180,10 +180,19 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <p>erlang实现</p>
-<p>AMQP协议  默认端口5672</p>
+<p>AMQP协议  默认端口5672,管理端口15672</p>
+<p>管理UI: <a href="http://localhost:15672" target="_blank" rel="noopener">http://localhost:15672</a><br>
+HTTP API: <a href="http://localhost:15672/api/index.html" target="_blank" rel="noopener">http://localhost:15672/api/index.html</a>.</p>
+<h1 id="代码">代码</h1>
+<p>amqp-client</p>
+<p>factory还可以设置端口号，用户名，密码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Publisher</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String QUEUE_NAME = <span class="string">"products_queue"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span> <span class="keyword">throws</span> IOException, TimeoutException </span>&#123;</span><br><span class="line">        ConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line">        factory.setHost(<span class="string">"localhost"</span>);</span><br><span class="line">        Connection connection = factory.newConnection();</span><br><span class="line">        Channel channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">        String message = <span class="string">"product details"</span>;</span><br><span class="line">        channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        channel.basicPublish(<span class="string">""</span>, QUEUE_NAME, <span class="keyword">null</span>, message.getBytes());</span><br><span class="line">        System.out.println(<span class="string">" [x] Sent '"</span> + message + <span class="string">"'"</span>);</span><br><span class="line"></span><br><span class="line">        channel.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">"products_queue"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException </span>&#123;</span><br><span class="line">        ConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory();</span><br><span class="line">        factory.setHost(<span class="string">"localhost"</span>);</span><br><span class="line">        Connection connection = factory.newConnection();</span><br><span class="line">        Channel channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">        channel.queueDeclare(QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        Consumer consumer = <span class="keyword">new</span> DefaultConsumer(channel) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleDelivery</span><span class="params">(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, <span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                String message = <span class="keyword">new</span> String(body, <span class="string">"UTF-8"</span>);</span><br><span class="line">                System.out.println(<span class="string">" [x] Received '"</span> + message + <span class="string">"'"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        channel.basicConsume(QUEUE_NAME, <span class="keyword">true</span>, consumer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="性能">性能</h1>
 <hr>
 <p>4核8G  1K消息开启ACK，无持久化每秒6000，持久化每秒3000</p>
+<p>队列和交换器没有上限，只要内存够<br>
+内存中的内容会动态转移到硬盘，而且队列空闲超过10秒会休眠和GC，降低内存使用</p>
 <h1 id="概念">概念</h1>
 <hr>
 <ul>
@@ -204,7 +213,7 @@ Zjuer
 <li>Auto-delete：没有消费者，自动删除</li>
 <li>Durable：队列元数据持久化，并非消息</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Queue.<span class="function">DeclareOk <span class="title">queueDeclare</span><span class="params">(String queue, <span class="keyword">boolean</span> durable, <span class="keyword">boolean</span> exclusive, <span class="keyword">boolean</span> autoDelete,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Queue.<span class="function">DeclareOk <span class="title">queueDeclare</span><span class="params">(String queue, <span class="keyword">boolean</span> durable, <span class="keyword">boolean</span> exclusive, <span class="keyword">boolean</span> autoDelete, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
 <p>声明交换器</p>
 <ul>
 <li>Internal: 用于内部转发，外部生产者无法投递</li>
@@ -213,6 +222,9 @@ Zjuer
 <p>绑定<br>
 交换器之间，交换器和队列都可以绑定</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exchange.<span class="function">BindOk <span class="title">exchangeBind</span><span class="params">(String destination, String source, String routingKey, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">Queue.<span class="function">BindOk <span class="title">queueBind</span><span class="params">(String queue, String exchange, String routingKey, Map&lt;String, Object&gt; arguments)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<p>发送消息<br>
+提供交换器名，路由key, 必须投递标记，属性，消息内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">basicPublish</span><span class="params">(String exchange, String routingKey, <span class="keyword">boolean</span> mandatory, BasicProperties props, <span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
 <p>消费者逻辑作为回调逻辑，每个消息会被调用处理</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> DefaultConsumer(channel)&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleDelivery</span><span class="params">(String consumerTag,Envelope envelope,AMQP.BasicProperties properties,<span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="comment">//logic</span></span><br><span class="line">        channel.basicAck(envelope.getDeliveryTag(), <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>消费响应</p>
@@ -267,9 +279,9 @@ Zjuer
 生产者发消息时以及队列创建时通常会指定routing key或者消息头Headers，两者信息作为路由依据</p>
 <p>交换器类型</p>
 <ul>
-<li>Fanout: 无视匹配，发给所有队列</li>
+<li>Fanout: 交换器无视匹配，发给所有订阅队列</li>
 <li>Direct: 消息上的key和队列key完全匹配</li>
-<li>Topic: key都使用<code>.</code>分隔多个单词形式，模糊匹配，<code>*</code>匹配一个单词，<code>#</code>匹配多个</li>
+<li>Topic: 交换器根据key模式匹配决定发送目标，key都使用<code>.</code>分隔多个单词形式，模糊匹配，<code>*</code>匹配一个单词，<code>#</code>匹配多个</li>
 <li>Headers: 忽略key, 根据Headers属性内键值对匹配, 适合多个属性参与。可以设置键值对全匹配或者任意匹配。</li>
 </ul>
 <p>模型</p>
@@ -365,7 +377,7 @@ GM(Guarenteed Multicast)广播模块，原子广播，要么都收到要么都�
 </ol>
 <h1 id="死信队列">死信队列</h1>
 <hr>
-<p>x-dead-letter-exchange参数，死信后发往特定交换器，并且路由键x-dead-letter-routing-key参数指定</p>
+<p>x-dead-letter-exchange参数指定死信后发往的交换器，并且x-dead-letter-routing-key参数指定路由键</p>
 <p>死信条件</p>
 <ul>
 <li>消息被拒：如果requeue参数为false，即不重复投递</li>
@@ -376,7 +388,7 @@ GM(Guarenteed Multicast)广播模块，原子广播，要么都收到要么都�
 场景：订单一段时间不支付就执行取消操作，下单同时产生消息进入延迟队列，时间到之后尝试执行取消</p>
 <h1 id="同步rpc机制">同步RPC机制</h1>
 <hr>
-<p>生产者需要消费者结果<br>
+<p>生产者需要消费者结果的场景<br>
 生产者创建匿名回复队列，这样不同生产者有自己的队列<br>
 生产者发送消息时，指定消息属性replyTo表示回复队列名称和correlationId表示消息标识，同时开一个消费者订阅回复队列<br>
 消费者进行处理后可以把结果加上correlationId属性，发往replyTo指定的回复队列</p>
@@ -545,6 +557,6 @@ Qos机制，手动确认时，如果服务端发现没有一定量的确认，�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

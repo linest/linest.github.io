@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.610Z">
+<meta property="og:updated_time" content="2020-01-15T02:55:09.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-transaction">
 <meta name="twitter:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-transaction.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.610Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-01-15T02:55:09.352Z" itemprop="datePublished">2020-01-15</time>
 </a>
     </div>
   
@@ -246,7 +246,7 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 <ul>
 <li>业务侵入性强，实现复杂</li>
 </ul>
-<p>框架：ByteTCC tcc-transaction</p>
+<p>框架：ByteTCC 阿里seata</p>
 <h1 id="saga">Saga</h1>
 <hr>
 <p>场景：在不同公司订联程机票，发起后不立刻出结果，等结果通知<br>
@@ -406,6 +406,6 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>CIM | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CIM">
+<meta property="og:url" content="http://linest.github.io/tmp/cim.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:44:09.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CIM">
+<meta name="twitter:description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/cim.html" class="article-date">
+  	<time datetime="2020-01-22T03:44:09.438Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CIM
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RuBAC: Rule-Based Access Control 基于规则<br>
+RoBAC: Role-Based Access Control 基于角色</p>
+<h1 id="业务场景与功能">业务场景与功能</h1>
+<hr>
+<p>场景：入职发放多个系统账号，调动调整账号，离职回收账号<br>
+目标：只操作一个系统，降低操作成本</p>
+<ul>
+<li>多系统连接
+<ul>
+<li>通用：文件，JDBC，Restful</li>
+<li>定制：SDK，脚本</li>
+</ul>
+</li>
+<li>权限控制
+<ul>
+<li>基于规则</li>
+<li>基于申请审批</li>
+</ul>
+</li>
+<li>报表审计</li>
+<li>元数据维护
+<ul>
+<li>自身作为元数据中心</li>
+<li>外部导入元数据Data link</li>
+</ul>
+</li>
+</ul>
+<h1 id="架构">架构</h1>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Front end]</span><br><span class="line">[Connector(Install/Apply)] [Audit]</span><br><span class="line">[Event]</span><br><span class="line">[Rule] [Application]                =&gt;  [RabbitMQ]  =&gt;  [Apply Executor]  =&gt; [Traget Systems]</span><br><span class="line">[Meta Data] [System Setting]</span><br><span class="line">[Oracle/Mysql] [Redis]  [Solr]</span><br></pre></td></tr></table></figure>
+<h1 id="设计细节">设计细节</h1>
+<hr>
+<p>请求执行器无状态设计，无设施依赖</p>
+<ul>
+<li>增加了执行器之间协调的难度</li>
+<li>减少了维护成本</li>
+</ul>
+<p>系统连接信息本地缓存，CIM提供API</p>
+<ul>
+<li>不用随每次发送，减少发送量</li>
+<li>执行器按需请求</li>
+</ul>
+<p>同一事件由多个系统执行，不是分布式事务关系，其中一个失败不会导致其他回滚，尽最大努力重试模型</p>
+<h2 id="未来改进">未来改进</h2>
+<ul>
+<li>数据表分离，当前数据和历史数据，每次修改时，利用当前旧数据插入历史数据，同时修改当前</li>
+</ul>
+<h1 id="两级执行机制">两级执行机制</h1>
+<hr>
+<p>如果改动元数据直接修改目标，过于分散无法管理</p>
+<ul>
+<li>事件层能集中管理变动，可以撤回</li>
+<li>事件层能进行合并，比如同一天多次mod和并，有效化和新增合并</li>
+</ul>
+<p>两级执行</p>
+<ol>
+<li>改变元数据</li>
+<li>产生事件</li>
+<li>执行事件，本地账户变化</li>
+<li>产生各系统请求</li>
+<li>执行请求，远程目标系统账户变化</li>
+</ol>
+<h1 id="设计模式">设计模式</h1>
+<hr>
+<ul>
+<li>单例模式，通过Spring实现</li>
+<li>迭代器模式，分页结果返回，一页消费完处理下一页，微软Graph API</li>
+<li>模板方法模式，导入逻辑包含数据导入，数据匹配，数据检查，公共导入逻辑实现框架，具体连接器</li>
+<li>责任链模式，通过Filter实现，某些请求地址上需要添加新建窗口请求参数，后端调整</li>
+<li>命令模式，构造好后交给线程池处理</li>
+</ul>
+<h1 id="分表">分表</h1>
+<hr>
+<p>履历信息庞大，3w用户每人每年修改10次，30w记录<br>
+定期检查信息，每个用户一条信息，每个权限一条信息，每一轮都产生<br>
+按年分割，预建表，最常用的是最新履历</p>
+<h1 id="属性体系">属性体系</h1>
+<hr>
+<h2 id="属性绑定">属性绑定</h2>
+<p>描述账户属性<br>
+CIM自身数据库维护一套<br>
+目标系统维护一套</p>
+<h2 id="属性填充">属性填充</h2>
+<p>加入人需要产生账户属性</p>
+<ul>
+<li>来源于人属性</li>
+<li>固定值</li>
+<li>生成器(能力最强，包括上述两种)
+<ul>
+<li>随机文字</li>
+<li>自增</li>
+<li>时间</li>
+<li>所属部门属性</li>
+</ul>
+</li>
+</ul>
+<h1 id="自维护">自维护</h1>
+<hr>
+<p>本身也作为一个导入系统，区分用户权限</p>
+<h1 id="普通用户功能">普通用户功能</h1>
+<hr>
+<ul>
+<li>申请账户/权限</li>
+<li>修改密码</li>
+<li>人员检索</li>
+<li>组织架构图</li>
+</ul>
+<h1 id="服务端提供api">服务端提供API</h1>
+<hr>
+<ul>
+<li>获取连接信息</li>
+<li>获取token</li>
+<li>提交执行结果</li>
+<li>提交导入结果集</li>
+<li>获取账户系统列表</li>
+</ul>
+<h1 id="定期清点">定期清点</h1>
+<hr>
+<p>审计，在某一时刻，所有账户的状态</p>
+<p>规则：</p>
+<ul>
+<li>相符，应该存在账户</li>
+<li>不符，不应该存在</li>
+<li>无人，没找到匹配</li>
+</ul>
+<p>账户</p>
+<ul>
+<li>存在，账户存在</li>
+<li>缺失，物理不存在</li>
+</ul>
+<p>状态</p>
+<ul>
+<li>有效</li>
+<li>无效，可以认为逻辑不存在</li>
+</ul>
+<p>流程</p>
+<ol>
+<li>读取目标账户</li>
+<li>尝试匹配CIM账户</li>
+<li>匹配到CIM账户，通过账户获取人</li>
+<li>没匹配到CIM账户，尝试直接匹配人</li>
+<li>剩余CIM没匹配的账户，可以获取人</li>
+</ol>
+<p>约束<br>
+无人时CIM侧账户只能缺失</p>
+<p>人符合规则  CIM侧账户信息  状态   目标侧账户信息    状态    账户属性一致       结果<br>
+符合        存在                存在                    一致            COMPLETE_TYPE 正常状态<br>
+符合        存在                存在                    差别            RULE_WIN_MOD_TYPE_NOP 属性不一致<br>
+符合        存在                缺失                                    RULE_WIN_ADD_TYPE_NOP 目标缺失<br>
+符合        缺失                 /                                      UNMATCHED_TYPE_CIM_GAP 违反CIM规则  应该有账户，但是CIM没有<br>
+不符        存在      有效        /                                     UNMATCHED_TYPE_CIM_GAP 违反CIM规则  不应该有账户，但是CIM有<br>
+不符        存在      无效      存在           有效                      UNMATCHED_TYPE_DIFFERENT_RESOURCE  不应该有账户 目标有账户<br>
+不符        存在      无效      存在           无效                      BOTH_INVALID_TYPE_NOP 可以认为正常，有所区别<br>
+不符        缺失                存在                                    DEL_TYPE_NOP 目标不应该出现的账户<br>
+不符        缺失                缺失                                    COMPLETE_TYPE 正常状态<br>
+没人        缺失                存在                                    NONE_OWNER_TYPE_NOP 目标无人认领不受控账户</p>
+<h1 id="连接器">连接器</h1>
+<hr>
+<p>基本API功能</p>
+<ul>
+<li>获取全用户列表 GetAllAccount</li>
+<li>增删改用户</li>
+<li>有/无效化用户</li>
+<li>获取全权限列表 GetAllRole</li>
+<li>获取权限可选项 GetRoleMember</li>
+<li>增删权限项</li>
+</ul>
+<h1 id="restful连接器">Restful连接器</h1>
+<hr>
+<ul>
+<li>自定义请求状态检查
+<ul>
+<li>验证不成功应该401，返回200并且页面包含错误信息</li>
+</ul>
+</li>
+<li>请求体构造
+<ul>
+<li>Json可视构造，解析路径表达式JsonPath(aaa.bbb[1].ccc)</li>
+<li>form表单</li>
+<li>text纯文本</li>
+</ul>
+</li>
+<li>分页功能(指定页数/偏移量/下一页链接)</li>
+<li>写回功能
+<ul>
+<li>UserId写回，新增用户，id由目标系统生成</li>
+<li>RolememberId写回，部分系统把成员当成资源，删除需提供id</li>
+</ul>
+</li>
+<li>合并请求，需要多API
+<ul>
+<li>级联请求(有先后顺序，第一个请求返回信息值，作为第二个请求参数)</li>
+<li>并行请求(无先后顺序，单一请求信息不够，需要从多个端点汇聚)</li>
+</ul>
+</li>
+<li>批量特殊处理
+<ul>
+<li>Json Batch打包成一个</li>
+</ul>
+</li>
+<li>限流处理
+<ul>
+<li>Redis维护每种请求类型下一次尝试时间</li>
+<li>Redis令牌桶发送端主动控制请求频率</li>
+</ul>
+</li>
+<li>模板化
+<ul>
+<li>SCIM</li>
+<li>GitLab</li>
+</ul>
+</li>
+</ul>
+<h1 id="消息队列">消息队列</h1>
+<hr>
+<p>消费者无状态，无其他设施</p>
+<p>Executor可以配置同时消费哪些系统，甚至只消费单一系统，灵活扩展<br>
+=&gt; 回复队列和回调接口</p>
+<h2 id="拓扑结构">拓扑结构</h2>
+<p>执行数据<br>
+key: data.[customer].[system].[systemId]</p>
+<p>TopicExchange<br>
+按照客户分流data.[customer].<em>.</em></p>
+<p>TopicExchange<br>
+系统分流，消费者可以精确订阅某个系统，某类系统<br>
+方便有些消费者只能访问特定系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                                                data.aaa.rest.*     Queue</span><br><span class="line">                            data.aaa.*.*    (Topic)Exchange     data.bbb.ad.*       Queue</span><br><span class="line">Data    (Topic)Exchange     data.bbb.*.*    (Topic)Exchange</span><br><span class="line">                            data.ccc.*.*    (Topic)Exchange</span><br></pre></td></tr></table></figure>
+<p>广播数据<br>
+key: note.[customer]</p>
+<p>TopicExchange 按照客户分流<br>
+FanoutExhange 发给所有订阅者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                                                /       Queue</span><br><span class="line">                            note.aaa.*.*    (Fanout)Exchange    /       Queue</span><br><span class="line">Data    (Topic)Exchange     note.bbb.*.*</span><br><span class="line">                            note.ccc.*.*</span><br></pre></td></tr></table></figure>
+<p>同一个消费者订阅两个队列，一个数据队列，一个广播队列</p>
+<h2 id="批处理时顺序保障">批处理时顺序保障</h2>
+<p>同一user的同一天多操作合并，不同天建立map+list结构<br>
+key是头信息id，value是操作序列<br>
+头信息应答后，删除头，发下一条</p>
+<h2 id="token过期处理">token过期处理</h2>
+<p>消费者内存维护当前token，生产者Redis维护旧新token映射表以及最新token</p>
+<ul>
+<li>同步token流程<br>
+消费者自身创建队列，订阅fan-out广播交换器</li>
+</ul>
+<ol>
+<li>消费者启动时自身没有token</li>
+<li>调用API获取token</li>
+</ol>
+<ul>
+<li>申请新token流程</li>
+</ul>
+<ol>
+<li>很多消费者发现token过期</li>
+<li>调用API发起申请</li>
+<li>生产者分布式锁，只有一个通过其他忽略，通过的消费者申请新token，其他消费者等待</li>
+<li>申请到新token后，调用API</li>
+<li>服务端存储新token</li>
+<li>服务端下发广播消息，所有相关消费者收到</li>
+</ol>
+<h2 id="消息重复处理">消息重复处理</h2>
+<p>RabbitMQ消息重复</p>
+<ul>
+<li>增加账户时，利用目标系统唯一约束，多次操作直接失败</li>
+<li>同一用户期间内多次修改预先合并，短期内只有一个修改，重复执行无影响<br>
+偶发，5min后异步postcheck机制，检查</li>
+</ul>
+<h1 id="熔断降级">熔断降级</h1>
+<hr>
+<p>Hystrix线程池隔离 请求多目标系统 防止单系统崩溃造成资源全部占用导致整体停滞</p>
+<h1 id="redis">Redis</h1>
+<hr>
+<ul>
+<li>Session</li>
+<li>令牌桶算法</li>
+<li>系统导入/批处理进度</li>
+<li>新token分布式锁协调</li>
+<li>缓存目录树</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/cim.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/cim.html">http://linest.github.io/tmp/cim.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

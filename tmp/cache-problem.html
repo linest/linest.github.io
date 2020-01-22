@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Cache | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缓存，重用减少请求代价 缓存场景  开销大的复杂计算 加速查询  缓存代价  数据不一致 维护成本，额外缓存逻辑 运维成本，额外存储设施   集中式缓存：所有服务器访问同一缓存  失配时，缓存负责从数据库查找，然后返回给请求方 失配时，请求方负责从数据库查找，然后加入缓存   分布式缓存：每台实例缓存部分数据，一致性哈希定位  应用缓存 读多写少，保护后端数据资源 访问模式  Cache-asid">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cache">
+<meta property="og:url" content="http://linest.github.io/tmp/cache-problem.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="缓存，重用减少请求代价 缓存场景  开销大的复杂计算 加速查询  缓存代价  数据不一致 维护成本，额外缓存逻辑 运维成本，额外存储设施   集中式缓存：所有服务器访问同一缓存  失配时，缓存负责从数据库查找，然后返回给请求方 失配时，请求方负责从数据库查找，然后加入缓存   分布式缓存：每台实例缓存部分数据，一致性哈希定位  应用缓存 读多写少，保护后端数据资源 访问模式  Cache-asid">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:44:05.085Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cache">
+<meta name="twitter:description" content="缓存，重用减少请求代价 缓存场景  开销大的复杂计算 加速查询  缓存代价  数据不一致 维护成本，额外缓存逻辑 运维成本，额外存储设施   集中式缓存：所有服务器访问同一缓存  失配时，缓存负责从数据库查找，然后返回给请求方 失配时，请求方负责从数据库查找，然后加入缓存   分布式缓存：每台实例缓存部分数据，一致性哈希定位  应用缓存 读多写少，保护后端数据资源 访问模式  Cache-asid">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/cache-problem.html" class="article-date">
+  	<time datetime="2020-01-22T03:44:05.085Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cache
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>缓存，重用减少请求代价</p>
+<p>缓存场景</p>
+<ul>
+<li>开销大的复杂计算</li>
+<li>加速查询</li>
+</ul>
+<p>缓存代价</p>
+<ul>
+<li>数据不一致</li>
+<li>维护成本，额外缓存逻辑</li>
+<li>运维成本，额外存储设施</li>
+</ul>
+<ul>
+<li>集中式缓存：所有服务器访问同一缓存
+<ul>
+<li>失配时，缓存负责从数据库查找，然后返回给请求方</li>
+<li>失配时，请求方负责从数据库查找，然后加入缓存</li>
+</ul>
+</li>
+<li>分布式缓存：每台实例缓存部分数据，一致性哈希定位</li>
+</ul>
+<h1 id="应用缓存">应用缓存</h1>
+<p>读多写少，保护后端数据资源</p>
+<p>访问模式</p>
+<ul>
+<li>Cache-aside: 缓存不与数据库交互，读操作，应用先请求缓存，发现没命中后应用去加载，然后放入缓存，可能得到过期数据</li>
+<li>Read-through: 应用只和缓存交互，读操作，发现没命中由缓存去加载</li>
+<li>Write-through：应用只和缓存交互，写操作，应用先更新缓存，缓存同步更新数据库，延迟高，一致性高，缓存有可能浪费</li>
+<li>Write-around: 只更新数据库，可能不会再读避免无谓的更新缓存</li>
+<li>Write-back: 只更新缓存，加入队列后期再更新数据库，延迟低，有数据丢失风险</li>
+</ul>
+<p>高并发缓存访问模式</p>
+<ul>
+<li>读场景： 先读缓存，缓存没有读数据库，结果放入缓存</li>
+<li>写场景： 先写缓存，数据库可以异步写入</li>
+<li>更新场景： 更新数据库，删除缓存，下次访问可以使缓存加载最新值。
+<ul>
+<li>先删缓存：高并发下还没来的及更新数据库，又加载了旧值。 可以使用队列将读写串行化</li>
+<li>先更新数据库(Cache-Aside pattern)： 缓存删除可能宕机没执行或者失败，保留旧值不一致。可以设置缓存过期一定程度容忍</li>
+</ul>
+</li>
+</ul>
+<p>之所以删除而不更新缓存</p>
+<ul>
+<li>延迟思路，写多场景下，更新后来不及读就再次更新，或者需要复杂计算才能算出缓存</li>
+<li>更新有并发问题造成数据不一致，数据1-&gt;数据2-&gt;缓存2-&gt;缓存1</li>
+</ul>
+<p>除了同步外，还可以异步删除缓存</p>
+<ul>
+<li>删除操作发往消息队列</li>
+<li>单独程序订阅binlog，进行删除</li>
+</ul>
+<h1 id="缓存内容">缓存内容</h1>
+<ul>
+<li>缓存数据行</li>
+<li>缓存查询</li>
+<li>缓存构建好的序列化对象</li>
+<li>缓存渲染好的页面</li>
+</ul>
+<h1 id="替换策略">替换策略</h1>
+<ul>
+<li>FIFO(First In First Out)</li>
+<li>LIFO(Last In First Out)</li>
+<li>LRU(Least Recently Used)</li>
+<li>LFU(Least Frequently Used)</li>
+<li>RR(Random Replacement)</li>
+</ul>
+<h1 id="缓存预热">缓存预热</h1>
+<p>初始缓存为空，所有查询都会查数据库<br>
+提前预热，把热门数据放入缓存</p>
+<h1 id="缓存穿透">缓存穿透</h1>
+<p>查询一定不存在的数据，必然缓存不命中，去查数据库，丧失了缓存保护后端的功能。比如爬虫请求不存在的资源。</p>
+<ul>
+<li>空结果也缓存，空结果业务无关，过期时间短，避免站空间太久，防范短期，适用于不频繁访问的数据</li>
+<li>布隆过滤器拦截，适合实时性低，变动不频繁的数据</li>
+</ul>
+<h1 id="缓存失效">缓存失效</h1>
+<p>缓存过期时间接近，同时失效，进而高并发查数据库</p>
+<ul>
+<li>失效时间加随机值</li>
+<li>缓存请求使用队列，避免并发</li>
+</ul>
+<h1 id="缓存雪崩">缓存雪崩</h1>
+<p>缓存崩溃不可用，大量缓存丢失，请求数据库</p>
+<ul>
+<li>做好缓存高可用，崩溃恢复，并且限流降级保护数据库</li>
+</ul>
+<h1 id="缓存击穿">缓存击穿</h1>
+<p>某个热点数据过期,重建需要一定时间，时间点高并发访问，进而高并发查询数据库</p>
+<ul>
+<li>过期发起更新时加互斥锁，避免同一key多次请求数据库，Redis SETNX/Memcached ADD，其他线程等待一段再次访问</li>
+<li>不过期，异步线程加锁发起更新，同时立刻返回旧值，不等待更新</li>
+<li>不过期，异步线程扫描，快过期时旧更新</li>
+</ul>
+<h1 id="热点key缓存">热点key缓存</h1>
+<ul>
+<li>客户端也缓存，带有失效时间</li>
+<li>分散成多个子key缓存在不同节点，请求时hash分流</li>
+<li>多级LRU, LRU-K, 防止热点被偶发替换</li>
+</ul>
+<h1 id="热点key流量过大">热点key流量过大</h1>
+<p>数据倾斜严重，过大流量缓存机器无法承受，不走缓存转而寻求后端支持<br>
+流式计算系统统计发现热点，发现后写入zookeeper，后端集群监听到目录变化在载内容到内存，大流量分散在后端由内存承担</p>
+<h1 id="缓存抖动">缓存抖动</h1>
+<p>缓存节点故障造成短期数据库查询上升</p>
+<ul>
+<li>一致性哈希</li>
+</ul>
+<h1 id="缓存无底洞">缓存无底洞</h1>
+<p>节点多，跨多台机器，分布式多次网络操作，查询反而变慢</p>
+<h1 id="缓存粒度">缓存粒度</h1>
+<hr>
+<p>全属性：通用，存储占空间，传输开销大<br>
+部分属性：逻辑维护</p>
+<h1 id="替换策略-v2">替换策略</h1>
+<hr>
+<p>一致性：缓存数据和数据库中一致</p>
+<ul>
+<li>一致性要求高：主动更新+超时</li>
+<li>一致性要求低：算法替换</li>
+</ul>
+<h2 id="主动更新">主动更新</h2>
+<hr>
+<p>底层数据变化后要进行缓存变化<br>
+一致性最高，维护成本也最高</p>
+<h2 id="超时">超时</h2>
+<hr>
+<p>缓存经过一段时间自动过期</p>
+<h2 id="算法替换">算法替换</h2>
+<hr>
+<p>不能直接操控缓存<br>
+一致性差，维护成本低</p>
+<h3 id="lfu">LFU</h3>
+<hr>
+<p>使用频率最低</p>
+<h3 id="lru">LRU</h3>
+<hr>
+<p>最近最少使用<br>
+实现策略，数据访问后调整到链表头部，末尾淘汰</p>
+<p>LRU-K<br>
+LRU-1缺点是一个非热点的偶发访问，会提升到头部，排挤热点数据<br>
+可以构建二级LRU，作为安全网，一级正常操作，只有访问次数达到K次的进入二级缓存</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/cache-problem.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/cache-problem.html">http://linest.github.io/tmp/cache-problem.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

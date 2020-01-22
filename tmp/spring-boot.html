@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring-boot | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+<meta property="og:type" content="website">
+<meta property="og:title" content="spring-boot">
+<meta property="og:url" content="http://linest.github.io/tmp/spring-boot.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:52:18.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-boot">
+<meta name="twitter:description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/spring-boot.html" class="article-date">
+  	<time datetime="2020-01-22T03:52:18.386Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-boot
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>配置：无xml, 自动装配<br>
+集成：starter<br>
+部署：jar包，内嵌tomcat</p>
+<p>简化开发流程，自动化配置<br>
+xml -&gt; 2.5 注解扫描 -&gt; 3.0 config类配置 -&gt; boot打包配置</p>
+<p>简化</p>
+<ul>
+<li>独立Maven依赖 ——&gt; starter套装
+<ul>
+<li>经验总结，包含常见功能</li>
+<li>经过测试，确保版本适配</li>
+</ul>
+</li>
+<li>Spring配置文件 ——&gt; 注解扫描 + Configuration配置</li>
+<li>组件手动装配 ——&gt; 自动感知装配
+<ul>
+<li>依赖间整合</li>
+</ul>
+</li>
+<li>web.xml配置war包外部Tomcat ——&gt; 内建Tomcat，jar包main运行, 由spring‐boot‐maven‐plugin</li>
+</ul>
+<p>Spring Boot CLI<br>
+自动检测引入依赖，像脚本一样运行</p>
+<p>Actuator<br>
+运行情况检测工具</p>
+<h1 id="建立">建立</h1>
+<hr>
+<p>Spring Initializr<br>
+<a href="https://start.spring.io" target="_blank" rel="noopener">https://start.spring.io</a></p>
+<p>通过CLI命令初始化<br>
+spring init -dweb,data-jpa,h2,thymeleaf --build gradle example</p>
+<h1 id="启动类">启动类</h1>
+<hr>
+<p>@SpringBootApplication<br>
+开启组件扫描和自动配置<br>
+集合下设功能<br>
+@SpringBootConfiguration<br>
+@EnableAutoConfiguration<br>
+@ComponentScan</p>
+<p>main方法，支持jar方式运行，内嵌数据库，内嵌服务器，直接可运行<br>
+自动配置maven构建插件，mvn spring-boot:run目标</p>
+<p>main方法中SpringApplication.run方法启动应用，启动之前可以进行参数配置，比如寻找可用端口</p>
+<p>spring-boot-autoconfigure包含各类配置，4.0条件化配置@Conditional<br>
+应用启动时，根据classpath内容自动生效相关配置</p>
+<p>spring-boot提供常用基础，允许用户自定义调整</p>
+<ul>
+<li>自定义config类</li>
+<li>application.yml或者application.properties
+<ul>
+<li>包外config目录</li>
+<li>包外根目录</li>
+<li>包内config目录</li>
+<li>包内根目录</li>
+</ul>
+</li>
+<li>命令行参数</li>
+<li>环境变量</li>
+</ul>
+<p>调整依赖<br>
+Spring Boot默认使用Logback日志，如果需要使用Log4j，先排除再引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-log4j&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>ErrorViewResolver</p>
+<h1 id="actuator">Actuator</h1>
+<hr>
+<p>引入依赖，开启监控端点<br>
+REST方式，引入<code>spring-boot-starter-actuator</code></p>
+<ul>
+<li>配置生效情况
+<ul>
+<li><code>/bean</code>Bean装配情况，类型、依赖等</li>
+<li><code>/autoconfig</code>自动配置情况，各条件是否成立</li>
+<li><code>/configprops</code>配置属性注入情况，包含默认值</li>
+<li><code>/env</code>各种配置</li>
+<li><code>/mappings</code>端点映射情况</li>
+</ul>
+</li>
+<li>服务运行状况
+<ul>
+<li><code>/metrics</code>各种运行信息，内存，堆，线程池等等</li>
+<li><code>/trace</code>内存维护请求信息，包含请求类型，请求响应头等</li>
+<li><code>/dump</code>线程快照</li>
+<li><code>/health</code>健康状况，磁盘空间，数据库等</li>
+</ul>
+</li>
+<li>操作
+<ul>
+<li><code>/shutdown</code>关闭服务</li>
+</ul>
+</li>
+<li>其他
+<ul>
+<li><code>/info</code>应用信息，邮箱联系方式等</li>
+</ul>
+</li>
+</ul>
+<p>远程shell方式，引入<code>spring-boot-starter-remote-shell</code><br>
+JMX方式，使用JConsole访问MBean</p>
+<p>配置开启所有端点</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">  endpoints:</span></span><br><span class="line"><span class="attr">    web:</span></span><br><span class="line"><span class="attr">      exposure:</span></span><br><span class="line"><span class="attr">        include:</span> <span class="string">"*"</span></span><br><span class="line"><span class="attr">  server:</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">11111</span></span><br><span class="line"><span class="attr">    servlet:</span></span><br><span class="line"><span class="attr">      context-path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">    ssl:</span></span><br><span class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  endpoint:</span></span><br><span class="line"><span class="attr">    health:</span></span><br><span class="line"><span class="attr">      show-details:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://localhost:11111/actuator/beans" target="_blank" rel="noopener">http://localhost:11111/actuator/beans</a></p>
+<h1 id="部署">部署</h1>
+<hr>
+<h2 id="脱离内置服务器-比如使用war部署服务器">脱离内置服务器，比如使用War部署服务器</h2>
+<ol>
+<li>修改POM打包<code>&lt;packaging&gt;war&lt;/packaging&gt;</code></li>
+<li>创建<code>SpringBootServletInitializer</code>子类，用于不走main方法入口后，对Servlet进行相关配置</li>
+<li>如果main方法还在，即使war包也可以直接运行</li>
+<li>如果需要彻底去掉内置tomcat,把依赖改成provided</li>
+</ol>
+<h2 id="脱离内置数据库">脱离内置数据库</h2>
+<ul>
+<li>使用<code>Profile</code>显示定义DataSource的bean，但代码中写死</li>
+<li>使用<code>spring.datasource</code>前缀的配置项，代码外配置数据源<br>
+激活生产环境配置<code>export SPRING_PROFILES_ACTIVE=production</code></li>
+</ul>
+<h2 id="数据迁移">数据迁移</h2>
+<p>内置支持</p>
+<ul>
+<li>Flyway</li>
+<li>Liquibase<br>
+启动时扫描执行，单独维护表记录schema版本，进而增量执行</li>
+</ul>
+<h1 id="开发者工具">开发者工具</h1>
+<hr>
+<p>添加依赖spring-boot-devtools</p>
+<h2 id="热部署">热部署</h2>
+<ul>
+<li>自动重启更新配置和类：
+<ul>
+<li><code>spring.devtools.restart.exclude</code>可以自定义不重启的目录，默认下排除/META-INF/resources、/resources、/static、/public和 /templates</li>
+<li><code>spring.devtools.restart.enabled</code>可以关闭重启功能</li>
+<li><code>spring.devtools.restart.trigger-file</code>可以控制重启时机，修改某个文件后才触发重启</li>
+</ul>
+</li>
+<li>不重启更新静态资源：Run-&gt;Edit Configurations-&gt;On frame deactivation: Update resources
+<ul>
+<li>浏览器安装LiveReload插件可以自动刷新</li>
+</ul>
+</li>
+</ul>
+<h2 id="远程开发">远程开发</h2>
+<p>服务设置远程安全码<code>spring.devtools.remote.secret</code><br>
+运行org.springframework.boot.devtools.RemoteSpringApplication，参数是远程部署地址</p>
+<ul>
+<li>本地修改自动推送</li>
+<li>远程调试，服务添加JVM参数JAVA_OPTS: “-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n”</li>
+</ul>
+<h2 id="关闭缓存">关闭缓存</h2>
+<p>开发模式下自动关闭模板缓存<code>spring.thymeleaf.cache</code></p>
+<h1 id="测试">测试</h1>
+<hr>
+<p>集成测试，多个组件配合<br>
+<code>@RunWith(SpringJUnit4ClassRunner.class)</code>在单元测试中引入Spring上下文逻辑，高版本可使用简化别名<code>@RunWith(SpringRunner.class)</code><br>
+<code>@ContextConfiguration</code>只引入配置类本身，不会引入额外spring boot相关配置，可以使用<code>@SpringBootTest</code>指定application类</p>
+<p>测试Controller端点方法，单纯测不能测出页面行为</p>
+<ul>
+<li>Mock MVC模拟Servlet容器，SpringBootTest默认模式
+<ul>
+<li>MockMvcBuilders.standaloneSetup 手动指定Controller,单一测试</li>
+<li>MockMvcBuilders.webAppContextSetup 根据上下文载入全部，整体测试</li>
+</ul>
+</li>
+<li>嵌入式Servlet容器，真实执行
+<ul>
+<li>SpringBootTest设置RANDOM_PORT模式，表示要求启动随机端口嵌入环境测试</li>
+</ul>
+</li>
+</ul>
+<h1 id="自定义starter">自定义starter</h1>
+<hr>
+<p>流程</p>
+<ol>
+<li>原理启动时扫描，寻找包含spring.factories文件的JAR包</li>
+<li>文件指定了自动配置类</li>
+<li>根据配置类条件判断是否注入bean</li>
+</ol>
+<p>自定义步骤</p>
+<ol>
+<li>定义pom，引入相关依赖，需要spring-boot-autoconfigure和spring-boot-configuration-processor，或者直接引入总依赖spring-boot-starter</li>
+<li>定义配置类</li>
+<li>定义相关业务类</li>
+<li>定义自动配置类，配置类本身以及内部bean都可以条件控制</li>
+<li>src/main/resources/META-INF/spring.factories<br>
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</li>
+</ol>
+<h2 id="条件">条件</h2>
+<p>类控制<br>
+@ConditionalOnClass<br>
+@ConditionalOnMissingClass</p>
+<p>实例控制<br>
+@ConditionalOnBean<br>
+@ConditionalOnMissingBean</p>
+<p>配置项控制<br>
+@ConditionalOnProperty</p>
+<p>资源控制<br>
+@ConditionalOnResource</p>
+<p>Web项目控制<br>
+@ConditionalOnWebApplication<br>
+@ConditionalOnNotWebApplication</p>
+<p>Java版本控制<br>
+@ConditionalOnJava</p>
+<h2 id="配置文件注入">配置文件注入</h2>
+<p>@ConfigurationProperties(prefix=“local”) 本身不会容器，可以定义配置文件和配置类的对应关系<br>
+@EnableConfigurationProperties(XxxProperties.class) 注入配置类到容器</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/spring-boot.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/spring-boot.html">http://linest.github.io/tmp/spring-boot.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java String | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最常见的字符串">
+<meta name="keywords" content="源码,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java String">
+<meta property="og:url" content="http://linest.github.io/2017/10/12/java-string/index.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="最常见的字符串">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java String">
+<meta name="twitter:description" content="最常见的字符串">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-java-string" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/12/java-string/" class="article-date">
+  	<time datetime="2017-10-11T16:00:00.000Z" itemprop="datePublished">2017-10-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java String
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最常见的字符串</p>
+<a id="more"></a>
+<p>代码版本<code>jdk1.8.0_101</code></p>
+<p>String应该是Java里最常用的类了。看似普通，但其实包含了很多设计上的独特考虑。</p>
+<p>String的底层实现是字符数组</p>
+<figure class="highlight java"><figcaption><span>String.java@114</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br></pre></td></tr></table></figure>
+<h1 id="不可变性-immutable">不可变性(Immutable)</h1>
+<hr>
+<ul>
+<li>String类是final的，不可子类化</li>
+<li>底层数组是final的，一旦赋值后不可更改引用</li>
+<li>底层数组是private的，没有提供get方法<br>
+一些看似是get的方法都是数组拷贝</li>
+</ul>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getChars</span><span class="params">(<span class="keyword">char</span> dst[], <span class="keyword">int</span> dstBegin)</span> </span>&#123;</span><br><span class="line">    System.arraycopy(value, <span class="number">0</span>, dst, dstBegin, value.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>encode方法最终还是拷贝</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">byte</span>[] getBytes() &#123;</span><br><span class="line">    <span class="keyword">return</span> StringCoding.encode(value, <span class="number">0</span>, value.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">char</span>[] toCharArray() &#123;</span><br><span class="line">    <span class="comment">// Cannot use Arrays.copyOf because of class initialization order issues</span></span><br><span class="line">    <span class="keyword">char</span> result[] = <span class="keyword">new</span> <span class="keyword">char</span>[value.length];</span><br><span class="line">    System.arraycopy(value, <span class="number">0</span>, result, <span class="number">0</span>, value.length);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>构造函数特殊处理<br>
+对于字符串参数，因为不可变，直接赋值即可</li>
+</ul>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(String original)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = original.value;</span><br><span class="line">    <span class="keyword">this</span>.hash = original.hash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于数组参数，采用拷贝方式,自赋值和外界断绝关系</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOf(value, value.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以取部分数组进行构造，同样是拷贝</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOfRange(value, offset, offset+count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>操作函数不会修改底层数组，返回的是新字符串<br>
+最后调用构造函数构建新字符串。为了避免无谓的拷贝，特意判定全长直接返回。</li>
+</ul>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (beginIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (endIndex &gt; value.length) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(endIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> subLen = endIndex - beginIndex;</span><br><span class="line">    <span class="keyword">if</span> (subLen &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(subLen);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ((beginIndex == <span class="number">0</span>) &amp;&amp; (endIndex == value.length)) ? <span class="keyword">this</span></span><br><span class="line">            : <span class="keyword">new</span> String(value, beginIndex, subLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="hashcode">HashCode</h1>
+<hr>
+<p>底层数组值决定了字符串的hash值<br>
+算法是<code>s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</code><br>
+因为字符串是不可变的，所以hash值也是确定不变的，因此计算后会保存到成员变量中<br>
+计算还采用了延迟计算策略，第一次发现没有hash值时才会计算</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = hash;</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="number">0</span> &amp;&amp; value.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">char</span> val[] = value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">            h = <span class="number">31</span> * h + val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        hash = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>都选择31的原因一方面是因为它是质数，另一方面<code>num*31 = num*32-num = num &lt;&lt; 5 - num</code>,可以将乘操作优化成移位和减操作,计算方便</p>
+<h1 id="intern">Intern</h1>
+<hr>
+<p>不可变特性使得没必要同时存在两个相同的字符串。缓存对于不可变的对象是一种很好的策略，可以节约内存，因而String类维护了常量池。字面量和字面表达式会直接加入常量池，而变量可以通过intern方法加入常量池。intern方法的含义是查询常量池，如果在则返回池内引用，如果不在则加入池中。</p>
+<p>intern是一个native的方法</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>对象a和b分别是常量和常量表达式，会加入常量池，因此引用相同。<br>
+对象c创建了新对象，因而和a并不相同。对c调用intern后返回池中引用，因此和a相同。</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"123"</span>;</span><br><span class="line">String b = <span class="string">"12"</span>+<span class="string">"3"</span>;</span><br><span class="line">System.out.println(a==b); <span class="comment">//true 常量和常量</span></span><br><span class="line">String c = <span class="keyword">new</span> String(<span class="string">"123"</span>); <span class="comment">//强制堆上新建分配</span></span><br><span class="line">System.out.println(a==c); <span class="comment">//false  常量和堆</span></span><br><span class="line">System.out.println(a==c.intern()); <span class="comment">//true  常量和常量</span></span><br></pre></td></tr></table></figure>
+<p>String类由于不可变特性，无需同步，多线程可直接使用。而常量池也并非线程隔离，因此也可以在多线程间共享。</p>
+<p>然而常量池并非百利无害，使用还需慎重，适合缓存频繁使用的字符串。</p>
+<p>Java6以前常量池维护在PermGen，加多了会造成空间不足，Java7之后改由Heap维护<br>
+Java7之后常量池和堆在一个空间里，因此intern可以直接把堆中对象直接加入常量池，而之前intern只是建立副本放入常量池，堆中对象和常量池对象是两个</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"a"</span>;</span><br><span class="line">String aa = <span class="keyword">new</span> String(a + a);</span><br><span class="line">System.out.println(aa == aa.intern()); <span class="comment">//java 6 false java7 true  堆和新常量</span></span><br></pre></td></tr></table></figure>
+<p>Java7之后可以用<code>-XX:StringTableSize</code>设定大小，Java7默认大小1009,Java8提高默认值到万级</p>
+<h2 id="常量的长度限制">常量的长度限制</h2>
+<p>String的length方法返回int类型，理论上最大长度能达到整型最大，但是java spec定义所有字面量长度采取short类型，所以字面量最大只能65536长度。由于String还可以取null，占用2个字节，即单一字面量最大只能65534长度。</p>
+<h1 id="indexof">indexOf</h1>
+<hr>
+<p>采用简单直观的方法，找到首字符后开启一轮匹配，复杂度O(m*n)<br>
+之所以没采用KMP等O(m+n)算法可能是因为KMP需要申请额外空间并预处理，作为库方法不一定有利</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> indexOf(str, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str, <span class="keyword">int</span> fromIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> indexOf(value, <span class="number">0</span>, value.length, str.value, <span class="number">0</span>, str.value.length, fromIndex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">char</span>[] source, <span class="keyword">int</span> sourceOffset, <span class="keyword">int</span> sourceCount, <span class="keyword">char</span>[] target, <span class="keyword">int</span> targetOffset, <span class="keyword">int</span> targetCount, <span class="keyword">int</span> fromIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (fromIndex &gt;= sourceCount) &#123;</span><br><span class="line">        <span class="keyword">return</span> (targetCount == <span class="number">0</span> ? sourceCount : -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (fromIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        fromIndex = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (targetCount == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> fromIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//目标字符串的首字符</span></span><br><span class="line">    <span class="keyword">char</span> first = target[targetOffset];</span><br><span class="line">    <span class="comment">//能满足目标长度的最大位置</span></span><br><span class="line">    <span class="keyword">int</span> max = sourceOffset + (sourceCount - targetCount);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = sourceOffset + fromIndex; i &lt;= max; i++) &#123;</span><br><span class="line">        <span class="comment">//查找首字符</span></span><br><span class="line">        <span class="keyword">if</span> (source[i] != first) &#123;</span><br><span class="line">            <span class="keyword">while</span> (++i &lt;= max &amp;&amp; source[i] != first);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首字符匹配，循环检测后续匹配</span></span><br><span class="line">        <span class="keyword">if</span> (i &lt;= max) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> end = j + targetCount - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = targetOffset + <span class="number">1</span>; j &lt; end &amp;&amp; source[j] == target[k]; j++, k++);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (j == end) &#123;</span><br><span class="line">                <span class="comment">/* Found whole string. */</span></span><br><span class="line">                <span class="keyword">return</span> i - sourceOffset;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="replace">replace</h1>
+<hr>
+<p>replace表面上是字符串替换字符串，实际上是基于正则，把字符串当成固定的模式<br>
+效率不是很高，可以采用apache的StringUtils替换</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replace</span><span class="params">(CharSequence target, CharSequence replacement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(target.toString(), Pattern.LITERAL).matcher(</span><br><span class="line">            <span class="keyword">this</span>).replaceAll(Matcher.quoteReplacement(replacement.toString()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>replaceAll直接接收正则表达式</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceAll</span><span class="params">(String regex, String replacement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(regex).matcher(<span class="keyword">this</span>).replaceAll(replacement);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>replace并非只替换一次，而是和replaceAll一样全部替换，区别是replace传入的是纯文本，而replaceAll传入正则表达式</p>
+<h1 id="substring变化">substring变化</h1>
+<hr>
+<p>substring采用<code>[begin, end)</code>方式<br>
+Java6版本，subString为了速度，子串依然使用原始字符串的数组值，只不过设置了不同的起点和长度<br>
+表面上看子串没有新数组生成，提升了效率，但是如果字符串很长，那么长字符串将不能被垃圾回收</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Package private constructor which shares value array for speed.</span></span><br><span class="line">String(<span class="keyword">int</span> offset, <span class="keyword">int</span> count, <span class="keyword">char</span> value[]) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = value;</span><br><span class="line">    <span class="keyword">this</span>.offset = offset;</span><br><span class="line">    <span class="keyword">this</span>.count = count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span> ((beginIndex == <span class="number">0</span>) &amp;&amp; (endIndex == count)) ? <span class="keyword">this</span> :</span><br><span class="line">        <span class="keyword">new</span> String(offset + beginIndex, endIndex - beginIndex, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java7以后，真正复制了子串，因此也不再需要offset和count成员变量</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOfRange(value, offset, offset+count);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">int</span> subLen = endIndex - beginIndex;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span> ((beginIndex == <span class="number">0</span>) &amp;&amp; (endIndex == value.length)) ? <span class="keyword">this</span></span><br><span class="line">            : <span class="keyword">new</span> String(value, beginIndex, subLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="split变化">split变化</h1>
+<hr>
+<p>Java6版本，split直接应用了正则表达式，性能比较慢</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String[] split(String regex, <span class="keyword">int</span> limit) &#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(regex).split(<span class="keyword">this</span>, limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java7以后，针对单一分割符做了优化，如果是单一字符或者单个转义的字符，采用<code>indexOf</code>+<code>subString</code>的方式</p>
+<figure class="highlight java"><figcaption><span>String.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String[] split(String regex, <span class="keyword">int</span> limit) &#123;</span><br><span class="line">    <span class="comment">/* fastpath if the regex is a</span></span><br><span class="line"><span class="comment">     (1)one-char String and this character is not one of the</span></span><br><span class="line"><span class="comment">        RegEx's meta characters ".$|()[&#123;^?*+\\", or</span></span><br><span class="line"><span class="comment">     (2)two-char String and the first char is the backslash and</span></span><br><span class="line"><span class="comment">        the second is not the ascii digit or ascii letter.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">char</span> ch = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (((regex.value.length == <span class="number">1</span> &amp;&amp; <span class="string">".$|()[&#123;^?*+\\"</span>.indexOf(ch = regex.charAt(<span class="number">0</span>)) == -<span class="number">1</span>) ||</span><br><span class="line">         (regex.length() == <span class="number">2</span> &amp;&amp; regex.charAt(<span class="number">0</span>) == <span class="string">'\\'</span> &amp;&amp; (((ch = regex.charAt(<span class="number">1</span>))-<span class="string">'0'</span>)|(<span class="string">'9'</span>-ch)) &lt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">          ((ch-<span class="string">'a'</span>)|(<span class="string">'z'</span>-ch)) &lt; <span class="number">0</span> &amp;&amp; ((ch-<span class="string">'A'</span>)|(<span class="string">'Z'</span>-ch)) &lt; <span class="number">0</span>)) &amp;&amp; (ch &lt; Character.MIN_HIGH_SURROGATE || ch &gt; Character.MAX_LOW_SURROGATE))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        String[] result = <span class="keyword">new</span> String[resultSize];</span><br><span class="line">        <span class="keyword">return</span> list.subList(<span class="number">0</span>, resultSize).toArray(result);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(regex).split(<span class="keyword">this</span>, limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="附注">附注</h1>
+<hr>
+<ul>
+<li>String不可变，非常适合作为HashMap的key</li>
+<li>String不可变，垃圾回收之前会在内存驻留，涉及私密信息用char[]存储更好，使用后直接赋新值清除</li>
+<li>String对于byte[]没有valueOf方法，但是可以通过构造函数创建，还可以指定编码</li>
+</ul>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/2017/10/12/java-string/index.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/2017/10/12/java-string/">http://linest.github.io/2017/10/12/java-string/</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/13/java-integer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java Integer
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/03/java-compare/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 对象比较</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --></body>
+</html>

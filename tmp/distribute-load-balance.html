@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>distribute-load-balance | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器 软件  LVS(Linux Virtual Server)集成到内核,网络层分发不同IP Nginx反向代理 HAP">
+  <meta name="description" content="https://www.cnblogs.com/zhaiyf/p/9051694.html 目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器  F5   软件  LV">
 <meta property="og:type" content="website">
 <meta property="og:title" content="distribute-load-balance">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-load-balance.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器 软件  LVS(Linux Virtual Server)集成到内核,网络层分发不同IP Nginx反向代理 HAP">
+<meta property="og:description" content="https://www.cnblogs.com/zhaiyf/p/9051694.html 目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器  F5   软件  LV">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:23:03.421Z">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-load-balance">
-<meta name="twitter:description" content="目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器 软件  LVS(Linux Virtual Server)集成到内核,网络层分发不同IP Nginx反向代理 HAP">
+<meta name="twitter:description" content="https://www.cnblogs.com/zhaiyf/p/9051694.html 目标：任务平均分配给多实例 场景  用户和Web服务器间 Web服务器和应用服务器间 应用服务器和数据库间  类型  操作系统负载均衡 利用操作系统中断，比如多队列网卡 链路负载均衡 同一域名DNS解析出不同地址 简单，但是不清楚目标服务器的工作状况 集群负载均衡  硬件负载均衡器  F5   软件  LV">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-load-balance.html" class="article-date">
-  	<time datetime="2020-01-11T09:23:03.421Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-01-22T03:04:06.540Z" itemprop="datePublished">2020-01-22</time>
 </a>
     </div>
   
@@ -179,7 +179,8 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>目标：任务平均分配给多实例</p>
+        <p><a href="https://www.cnblogs.com/zhaiyf/p/9051694.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaiyf/p/9051694.html</a></p>
+<p>目标：任务平均分配给多实例</p>
 <p>场景</p>
 <ul>
 <li>用户和Web服务器间</li>
@@ -195,7 +196,11 @@ Zjuer
 简单，但是不清楚目标服务器的工作状况</li>
 <li>集群负载均衡
 <ul>
-<li>硬件负载均衡器</li>
+<li>硬件负载均衡器
+<ul>
+<li>F5</li>
+</ul>
+</li>
 <li>软件
 <ul>
 <li>LVS(Linux Virtual Server)集成到内核,网络层分发不同IP</li>
@@ -342,6 +347,6 @@ Smart Client作为库被客户端使用，知道所有实例信息，进行负�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

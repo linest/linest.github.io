@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>系统设计 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取  可订座位情况 锁定,候补队列    表结构  电影表：电影id, 名称，国别，演员… 影院表：影院id,">
+  <meta name="description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
 <meta property="og:type" content="website">
 <meta property="og:title" content="系统设计">
 <meta property="og:url" content="http://linest.github.io/tmp/system-design.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取  可订座位情况 锁定,候补队列    表结构  电影表：电影id, 名称，国别，演员… 影院表：影院id,">
+<meta property="og:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T13:45:27.571Z">
+<meta property="og:updated_time" content="2020-01-14T14:30:20.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计">
-<meta name="twitter:description" content="明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取  可订座位情况 锁定,候补队列    表结构  电影表：电影id, 名称，国别，演员… 影院表：影院id,">
+<meta name="twitter:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/system-design.html" class="article-date">
-  	<time datetime="2020-01-11T13:45:27.571Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-01-14T14:30:20.745Z" itemprop="datePublished">2020-01-14</time>
 </a>
     </div>
   
@@ -179,7 +179,8 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>明确业务功能，设计API<br>
+        <p><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">https://github.com/donnemartin/system-design-primer</a></p>
+<p>明确业务功能，设计API<br>
 明确数据特点，设计表结构，决定存储设施<br>
 明确量级，估算QPS，设计分布式</p>
 <p>高可用，避免单点</p>
@@ -482,14 +483,15 @@ feed表：文字内容，图片url，可见范围<br>
 </ul>
 <h1 id="rpc设计">RPC设计</h1>
 <hr>
+<p>全流程分析</p>
 <ul>
+<li>动态代理，调用者和提供者实现接口，接口动态代理，底层通信</li>
+<li>注册中心的选型与交互</li>
+<li>超时、重试、负载均衡</li>
 <li>通讯协议</li>
 <li>序列化方式</li>
 <li>SPI扩展</li>
-<li>底层代理</li>
-<li>超时、重试、负载均衡</li>
 <li>拦截器、插件等自定义支持</li>
-<li>注册中心的选型与交互</li>
 </ul>
 <h1 id="积分系统">积分系统</h1>
 <hr>
@@ -731,6 +733,6 @@ feed表：文字内容，图片url，可见范围<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

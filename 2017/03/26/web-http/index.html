@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="日常最常用的协议">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.199Z">
+<meta property="og:updated_time" content="2020-01-15T15:07:44.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP">
 <meta name="twitter:description" content="日常最常用的协议">
@@ -200,6 +200,7 @@ Zjuer
 <li>管线化(Pipeline)<br>
 同一TCP连接上发起多个请求，不必等待上一个响应，但是响应顺序必须和请求顺序一致,相当于减轻了请求间等待，适合高延迟环境下<br>
 由于实现复杂，中间代理也必须配合，并且其中前面的阻塞了会影响后续整体，一般浏览器默认不开启</li>
+<li>增加host字段</li>
 </ul>
 <h2 id="http-2-0">HTTP 2.0</h2>
 <ul>
@@ -430,11 +431,11 @@ POST时负载长度限制来源于服务器，比如Tomcat默认长度2M，可�
     
 <nav id="article-nav">
   
-    <a href="/2017/04/01/java-clone/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/01/git-command/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Java Clone
+          常用Git命令
         
       </div>
     </a>
@@ -525,6 +526,6 @@ POST时负载长度限制来源于服务器，比如Tomcat默认长度2M，可�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

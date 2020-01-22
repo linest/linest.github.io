@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>跨站请求伪造攻击 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Cross Site Request Forgery，跨站请求伪造 原理  黑客构造了一个目标网站的请求，但是自己提交不了，因为没法通过网站验证 用户恰好登录了该目标网站，本地存有通过验证的cookie 黑客把网页请求伪装在钓鱼网站上，发给用户，诱使用户发起请求  伪造GET: 构造URL, 诱导点击 伪造POST: 构造页面，诱导打开，点击提交表单或者直接js发起ajax 效果是用户在不知情的情">
+  <meta name="description" content="跨站请求伪造 Cross Site Request Forgery">
 <meta name="keywords" content="安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨站请求伪造攻击">
 <meta property="og:url" content="http://linest.github.io/2017/03/23/security-attack-csrf/index.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="Cross Site Request Forgery，跨站请求伪造 原理  黑客构造了一个目标网站的请求，但是自己提交不了，因为没法通过网站验证 用户恰好登录了该目标网站，本地存有通过验证的cookie 黑客把网页请求伪装在钓鱼网站上，发给用户，诱使用户发起请求  伪造GET: 构造URL, 诱导点击 伪造POST: 构造页面，诱导打开，点击提交表单或者直接js发起ajax 效果是用户在不知情的情">
+<meta property="og:description" content="跨站请求伪造 Cross Site Request Forgery">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.630Z">
+<meta property="og:updated_time" content="2020-01-22T03:04:06.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨站请求伪造攻击">
-<meta name="twitter:description" content="Cross Site Request Forgery，跨站请求伪造 原理  黑客构造了一个目标网站的请求，但是自己提交不了，因为没法通过网站验证 用户恰好登录了该目标网站，本地存有通过验证的cookie 黑客把网页请求伪装在钓鱼网站上，发给用户，诱使用户发起请求  伪造GET: 构造URL, 诱导点击 伪造POST: 构造页面，诱导打开，点击提交表单或者直接js发起ajax 效果是用户在不知情的情">
+<meta name="twitter:description" content="跨站请求伪造 Cross Site Request Forgery">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -188,7 +188,8 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Cross Site Request Forgery，跨站请求伪造</p>
+        <p>跨站请求伪造 <code>C</code>ross <code>S</code>ite <code>R</code>equest <code>F</code>orgery</p>
+<a id="more"></a>
 <h1 id="原理">原理</h1>
 <hr>
 <p>黑客构造了一个目标网站的请求，但是自己提交不了，因为没法通过网站验证<br>
@@ -266,8 +267,8 @@ Zjuer
     </a>
   
   
-    <a href="/2017/03/22/web-oauth/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OAUTH</div>
+    <a href="/2017/03/21/web-amqp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AMQP</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -351,6 +352,6 @@ Zjuer
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

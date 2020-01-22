@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="分布式系统多数据副本，可以考量如下特性  一致性(Consistency)：所有节点数据是一样的，实时保持同步，同一数据从任意节点写入都能够从任意节点立即读取新数据 可用性(Availability)：  一些节点失效，系统仍能继续工作 规定时间返回，性能保障   分区容忍性(Partition Tolerance)：能够允许系统所有节点分成不能通信的群组，系统继续工作而不是崩溃，通信恢复后有相应">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.202Z">
+<meta property="og:updated_time" content="2020-01-14T14:30:20.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CAP">
 <meta name="twitter:description" content="分布式系统多数据副本，可以考量如下特性  一致性(Consistency)：所有节点数据是一样的，实时保持同步，同一数据从任意节点写入都能够从任意节点立即读取新数据 可用性(Availability)：  一些节点失效，系统仍能继续工作 规定时间返回，性能保障   分区容忍性(Partition Tolerance)：能够允许系统所有节点分成不能通信的群组，系统继续工作而不是崩溃，通信恢复后有相应">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-cap.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.202Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-01-14T14:30:20.654Z" itemprop="datePublished">2020-01-14</time>
 </a>
     </div>
   
@@ -194,7 +194,7 @@ Zjuer
 <ul>
 <li>CA放弃分布式，不存在这样的分布式系统，分布式系统无法避免分区，放弃分布式意味着退化为单机数据库,比如通过小型机提高负载</li>
 <li>CP放弃可用性，出现分区时，因为无法保障一致性而选择数据不可用停止服务，比如ZooKeeper,HBase,MongoDB</li>
-<li>AP放弃一致性，出现分区时，能容忍数据不一致而可以继续提供服务，比如Cassandra, Redis集群(异步主从)
+<li>AP放弃一致性，出现分区时，可以继续提供服务能容忍数据不是最新，比如Cassandra, Redis集群(异步主从)
 <ul>
 <li>BASE(Base Available, Soft State, Eventually Consistence) 基本可用，暂时不一致，最终一致</li>
 </ul>
@@ -320,6 +320,6 @@ Zjuer
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

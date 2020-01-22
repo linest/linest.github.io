@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>TCP&amp;UDP | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快，低延时 流媒体协议，直播 实时游戏 物联网">
+  <meta name="description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
 <meta property="og:type" content="website">
 <meta property="og:title" content="TCP&amp;UDP">
 <meta property="og:url" content="http://linest.github.io/tmp/web-tcp-udp.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快，低延时 流媒体协议，直播 实时游戏 物联网">
+<meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.597Z">
+<meta property="og:updated_time" content="2020-01-14T14:30:20.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&amp;UDP">
-<meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快，低延时 流媒体协议，直播 实时游戏 物联网">
+<meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-tcp-udp.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.597Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-01-14T14:30:20.749Z" itemprop="datePublished">2020-01-14</time>
 </a>
     </div>
   
@@ -183,7 +183,8 @@ Zjuer
 IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号</p>
 <h1 id="udp">UDP</h1>
 <hr>
-<p>简单不可靠传送，没有TCP的复杂机制<br>
+<p>User datagram protocol<br>
+简单不可靠传送，没有TCP的复杂机制<br>
 基于数据报文，非流式传输，保留应用层数据边界</p>
 <p>UDP报文格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">来源端口号(16)目标端口号(16)</span><br><span class="line">UDP长度(16)校验和(16)</span><br><span class="line">数据</span><br></pre></td></tr></table></figure>
@@ -210,7 +211,8 @@ IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定�
 </ul>
 <h1 id="tcp">TCP</h1>
 <hr>
-<p>面向连接的传输层协议，可靠传输<br>
+<p>Transmission control protocol<br>
+面向连接的传输层协议，可靠传输<br>
 四元组唯一确定：源IP地址，源端口，目的IP地址，目的端口</p>
 <p>因为建立了连接，可以基于字节流交互，有状态服务</p>
 <p>TCP报文格式</p>
@@ -524,6 +526,6 @@ tcpdump抓包</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

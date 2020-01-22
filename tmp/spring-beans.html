@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring-bean | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring-beans BeanPostProcessor  Bean功能扩展的核心接口，Bean初始化过程中嵌入自定义逻辑 ApplicationContext能自动感知并注册已有的BeanPostProcessor,比较原始的BeanFactory需要addBeanPostProcessor手动注册 BeanPostProcessor注册顺序并不代表执行顺序，需要实现Ordered接口或者@">
+<meta property="og:type" content="website">
+<meta property="og:title" content="spring-bean">
+<meta property="og:url" content="http://linest.github.io/tmp/spring-beans.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="spring-beans BeanPostProcessor  Bean功能扩展的核心接口，Bean初始化过程中嵌入自定义逻辑 ApplicationContext能自动感知并注册已有的BeanPostProcessor,比较原始的BeanFactory需要addBeanPostProcessor手动注册 BeanPostProcessor注册顺序并不代表执行顺序，需要实现Ordered接口或者@">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:52:13.869Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-bean">
+<meta name="twitter:description" content="spring-beans BeanPostProcessor  Bean功能扩展的核心接口，Bean初始化过程中嵌入自定义逻辑 ApplicationContext能自动感知并注册已有的BeanPostProcessor,比较原始的BeanFactory需要addBeanPostProcessor手动注册 BeanPostProcessor注册顺序并不代表执行顺序，需要实现Ordered接口或者@">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/spring-beans.html" class="article-date">
+  	<time datetime="2020-01-22T03:52:13.869Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-bean
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>spring-beans</p>
+<h1 id="beanpostprocessor">BeanPostProcessor</h1>
+<hr>
+<p>Bean功能扩展的核心接口，Bean初始化过程中嵌入自定义逻辑<br>
+ApplicationContext能自动感知并注册已有的BeanPostProcessor,比较原始的BeanFactory需要addBeanPostProcessor手动注册<br>
+BeanPostProcessor注册顺序并不代表执行顺序，需要实现Ordered接口或者@Order注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//调用任何初始化回调之前</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//初始化回调完毕之后</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>InstantiationAwareBeanPostProcessor环绕创建实例(构造函数，工厂构造)过程<br>
+自定义实现时通常使用InstantiationAwareBeanPostProcessorAdapter适配器类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InstantiationAwareBeanPostProcessor</span> <span class="keyword">extends</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//构造之前执行</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> Object <span class="title">postProcessBeforeInstantiation</span><span class="params">(Class&lt;?&gt; beanClass, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造或工厂方法调用后执行，属性赋值之前</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">postProcessAfterInstantiation</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//属性值在赋给bean之前，对属性值处理</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> PropertyValues <span class="title">postProcessProperties</span><span class="params">(PropertyValues pvs, Object bean, String beanName)</span><span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Deprecated</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> PropertyValues <span class="title">postProcessPropertyValues</span><span class="params">(PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> pvs;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>InitDestroyAnnotationBeanPostProcessor,对应@PostConstruct和@PreDestroy<br>
+实现PriorityOrdered接口，相比普通的BeanPostProcessor更加优先</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitDestroyAnnotationBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title">DestructionAwareBeanPostProcessor</span>, <span class="title">MergedBeanDefinitionPostProcessor</span>, <span class="title">PriorityOrdered</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> Class&lt;? extends Annotation&gt; initAnnotationType;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> Class&lt;? extends Annotation&gt; destroyAnnotationType;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="beanfactorypostprocessor">BeanFactoryPostProcessor</h1>
+<hr>
+<p>容器也有后处理器，只在容器初始化时执行一次<br>
+BeanFactoryPostProcessor目标是修改BeanDefinition，调用时BeanDefinition加载完成，但是尚未实例化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="bean的声明周期">Bean的声明周期</h1>
+<hr>
+<h2 id="创建过程">创建过程</h2>
+<ol>
+<li>先执行InstantiationAwareBeanPostProcessor的postProcessBeforeInstantiation方法</li>
+<li>执行构造</li>
+<li>执行InstantiationAwareBeanPostProcessor的postProcessAfterInstantiation方法</li>
+<li>执行InstantiationAwareBeanPostProcessor的postProcessProperties方法</li>
+<li>注入属性</li>
+<li>调用BeanNameAware的setBeanName</li>
+<li>调用BeanFactoryAware的setBeanFactory</li>
+<li>执行BeanPostProcessor的postProcessBeforeInitailization</li>
+<li>调用InitializingBean的afterPropertiesSet</li>
+<li>调用initMethod</li>
+<li>执行BeanPostProcessor的postProcessAfterInitailization</li>
+<li>如果实现SmartInitializingSingleton执行afterSingletonsInstantiated</li>
+</ol>
+<p>至此创建完成，如果是单例，放入容器缓存继续管理生命周期，如果是原型交给调用者管理</p>
+<h2 id="销毁过程">销毁过程</h2>
+<ol>
+<li>执行DestructionAwareBeanPostProcessor</li>
+<li>调用DisposibleBean的destroy方法</li>
+<li>调用destroy-method</li>
+</ol>
+<h2 id="个体初始化嵌入逻辑">个体初始化嵌入逻辑</h2>
+<p>针对个体，有三套方案在构造和销毁时插入逻辑，三套方案BeanPostProcessor先于接口先于方法</p>
+<ul>
+<li>@PostConstruct和@PreDestroy来自于javax.annotation,可以标注多个方法</li>
+<li>InitializingBean和DisposableBean接口来自spring-beans,有一定侵入性</li>
+<li>initMethod和destroyMethod来自spring-context的@Bean</li>
+</ul>
+<ol>
+<li>构造函数</li>
+<li>@Autowire注入</li>
+<li>@PostConstruct</li>
+<li>InitializingBean接口afterPropertiesSet方法</li>
+<li>@Bean(initMethod=“init”)</li>
+<li>@PreDestroy</li>
+<li>DisposableBean接口destroy方法</li>
+<li>@Bean(destroyMethod=“destroy”)</li>
+</ol>
+<p>所有这些机制只有Spring托管下才会维护，自己new出来的无效</p>
+<p>代码实现在AbstractAutowireCapableBeanFactory中的initializeBean方法</p>
+<p>setup  teardown??</p>
+<h1 id="scope">Scope</h1>
+<hr>
+<p>默认单例<br>
+好处是像XxxService一般是无状态的，没必要创建多个，并且Spring创建对象涉及代理比较费时，共享后减少了创建同时减少回收<br>
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)<br>
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)</p>
+<p>Web相关，启动后并没有请求，先创建代理来注入，使用时再新建<br>
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)<br>
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)<br>
+@Scope(value = WebApplicationContext.SCOPE_APPLICATION, proxyMode = ScopedProxyMode.TARGET_CLASS)<br>
+@Scope(scopeName = “websocket”, proxyMode = ScopedProxyMode.TARGET_CLASS)</p>
+<h1 id="resource标签">Resource标签</h1>
+<hr>
+<p>javax.annotation<br>
+指定依赖ref<br>
+？？</p>
+<h1 id="内部bean">内部bean</h1>
+<hr>
+<p>在 <property>或 <constructor-arg> 元素内使用<bean>元素<br>
+内部bean匿名且prototype</bean></constructor-arg></property></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"outer"</span> <span class="attr">class</span>=<span class="string">"me.sample.Outer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"20"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"inner"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"me.sample.Inner"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"18"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="父子bean">父子bean</h1>
+<hr>
+<p>本来无关的两个类可以指定继承关系，父类需要抽象或者lazy-init=true避免被容器实例化</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"father"</span> <span class="attr">class</span>=<span class="string">"me.sample.Father"</span> <span class="attr">abstract</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"son"</span> <span class="attr">class</span>=<span class="string">"me.sample.Son"</span> <span class="attr">parent</span>=<span class="string">"father"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"18"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="beanwrapper">BeanWrapper</h1>
+<hr>
+<p>统一方式管理不同的bean, 类似于将bean看成一个map<br>
+直接通过属性名操作，支持嵌套方式访问</p>
+<p>实现PropertyAccessor接口，全方位操纵属性，支持嵌套操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PropertyAccessor</span> </span>&#123;</span><br><span class="line">	<span class="comment">//对象嵌套用.来表示</span></span><br><span class="line">	String NESTED_PROPERTY_SEPARATOR = <span class="string">"."</span>;</span><br><span class="line">	<span class="comment">//集合用[]表示下标或者key</span></span><br><span class="line">	String PROPERTY_KEY_PREFIX = <span class="string">"["</span>;</span><br><span class="line">	String PROPERTY_KEY_SUFFIX = <span class="string">"]"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//检测是否属性</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isReadableProperty</span><span class="params">(String propertyName)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isWritableProperty</span><span class="params">(String propertyName)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取属性类型，属性值</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	Class&lt;?&gt; getPropertyType(String propertyName) <span class="keyword">throws</span> BeansException;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">TypeDescriptor <span class="title">getPropertyTypeDescriptor</span><span class="params">(String propertyName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">Object <span class="title">getPropertyValue</span><span class="params">(String propertyName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//单一设置属性</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValue</span><span class="params">(String propertyName, @Nullable Object value)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValue</span><span class="params">(PropertyValue pv)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="comment">//批量设置属性</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValues</span><span class="params">(Map&lt;?, ?&gt; map)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValues</span><span class="params">(PropertyValues pvs)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValues</span><span class="params">(PropertyValues pvs, <span class="keyword">boolean</span> ignoreUnknown)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setPropertyValues</span><span class="params">(PropertyValues pvs, <span class="keyword">boolean</span> ignoreUnknown, <span class="keyword">boolean</span> ignoreInvalid)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>底层通过PropertyHandler操作，基于反射</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/spring-beans.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/spring-beans.html">http://linest.github.io/tmp/spring-beans.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

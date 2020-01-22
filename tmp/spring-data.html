@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring-data | Blog of Linest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Hibernate Template和 Callback AnnotationSessionFactoryBean Hibernate集成  spring-tx中定义的Dao的抽象基类DaoSupport实现了InitializingBean接口，扩展出两个子行为：检查和初始化 DaoSupport.java123456789101112131415161718public abstract cl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="spring-data">
+<meta property="og:url" content="http://linest.github.io/tmp/spring-data.html">
+<meta property="og:site_name" content="Blog of Linest">
+<meta property="og:description" content="Hibernate Template和 Callback AnnotationSessionFactoryBean Hibernate集成  spring-tx中定义的Dao的抽象基类DaoSupport实现了InitializingBean接口，扩展出两个子行为：检查和初始化 DaoSupport.java123456789101112131415161718public abstract cl">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-22T03:52:57.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring-data">
+<meta name="twitter:description" content="Hibernate Template和 Callback AnnotationSessionFactoryBean Hibernate集成  spring-tx中定义的Dao的抽象基类DaoSupport实现了InitializingBean接口，扩展出两个子行为：检查和初始化 DaoSupport.java123456789101112131415161718public abstract cl">
+  
+    <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/fonts/octicons/octicons.css">
+  <link rel="stylesheet" href="/css/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Linest</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/doodle">涂鸦</a></li>
+				        
+							<li><a href="/live2d">云撸猫</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tagcloud">标签&amp;分类</a></li>
+				        
+						</ul>
+					</nav>	
+				</section>
+				
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">勤奋的懒惰者
+爱听故事的人~
+Zjuer
+</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Linest</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/avatar/pika.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Linest</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">试验田|小黑屋|百宝箱|里程碑</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/doodle">涂鸦</a></li>
+		        
+					<li><a href="/live2d">云撸猫</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tagcloud">标签&amp;分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/linest" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:xlinest@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/tmp/spring-data.html" class="article-date">
+  	<time datetime="2020-01-22T03:52:57.320Z" itemprop="datePublished">2020-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring-data
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hibernate Template和 Callback</p>
+<p>AnnotationSessionFactoryBean</p>
+<h1 id="hibernate集成">Hibernate集成</h1>
+<hr>
+<p>spring-tx中定义的Dao的抽象基类DaoSupport实现了InitializingBean接口，扩展出两个子行为：检查和初始化</p>
+<figure class="highlight java"><figcaption><span>DaoSupport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">DaoSupport</span> <span class="keyword">implements</span> <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(getClass());</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> IllegalArgumentException, BeanInitializationException </span>&#123;</span><br><span class="line">		checkDaoConfig();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			initDao();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> BeanInitializationException(<span class="string">"Initialization of DAO failed"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">checkDaoConfig</span><span class="params">()</span> <span class="keyword">throws</span> IllegalArgumentException</span>;</span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initDao</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HibernateDaoSupport内部持有HibernateTemplate实例，和SessionFactory紧密相关</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateDaoSupport</span> <span class="keyword">extends</span> <span class="title">DaoSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> HibernateTemplate hibernateTemplate;</span><br><span class="line">    <span class="comment">//可以通过设置SessionFactory来产生HibernateTemplate</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setSessionFactory</span><span class="params">(SessionFactory sessionFactory)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.hibernateTemplate == <span class="keyword">null</span> || sessionFactory != <span class="keyword">this</span>.hibernateTemplate.getSessionFactory()) &#123;</span><br><span class="line">			<span class="keyword">this</span>.hibernateTemplate = createHibernateTemplate(sessionFactory);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//默认行为是根据SessionFactory新建HibernateTemplate,子类可以改变这一行为</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> HibernateTemplate <span class="title">createHibernateTemplate</span><span class="params">(SessionFactory sessionFactory)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> HibernateTemplate(sessionFactory);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> SessionFactory <span class="title">getSessionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="keyword">this</span>.hibernateTemplate != <span class="keyword">null</span> ? <span class="keyword">this</span>.hibernateTemplate.getSessionFactory() : <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//可以通过直接设置HibernateTemplate</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setHibernateTemplate</span><span class="params">(@Nullable HibernateTemplate hibernateTemplate)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.hibernateTemplate = hibernateTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> HibernateTemplate <span class="title">getHibernateTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.hibernateTemplate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//检查template存在</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">checkDaoConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.hibernateTemplate == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"'sessionFactory' or 'hibernateTemplate' is required"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> Session <span class="title">currentSession</span><span class="params">()</span> <span class="keyword">throws</span> DataAccessResourceFailureException </span>&#123;</span><br><span class="line">		SessionFactory sessionFactory = getSessionFactory();</span><br><span class="line">		Assert.state(sessionFactory != <span class="keyword">null</span>, <span class="string">"No SessionFactory set"</span>);</span><br><span class="line">		<span class="keyword">return</span> sessionFactory.getCurrentSession();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HibernateTemplate</p>
+<h1 id="异常转换">异常转换</h1>
+<hr>
+<p>所有平台异常转为Spring的非检查异常<br>
+HibernateTemplate自带转换<br>
+PersistenceExceptionTranslationPostProcessor可以@Repository, 增强转换逻辑</p>
+<h1 id="spring-jpa">Spring JPA</h1>
+<hr>
+<p>@EnableJpaRepositories启用JPA</p>
+<figure class="highlight java"><figcaption><span>EnableJpaRepositories.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import</span>(JpaRepositoriesRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableJpaRepositories &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义对象实体扫描范围</p>
+<figure class="highlight java"><figcaption><span>EnableJpaRepositories.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//配置扫描路径</span></span><br><span class="line">String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">String[] basePackages() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">Class&lt;?&gt;[] basePackageClasses() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//细化扫描范围</span></span><br><span class="line">Filter[] includeFilters() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">Filter[] excludeFilters() <span class="keyword">default</span> &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>通常只定义接口，实现类在应用启动时生成</p>
+<figure class="highlight java"><figcaption><span>EnableJpaRepositories.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BootstrapMode <span class="title">bootstrapMode</span><span class="params">()</span> <span class="keyword">default</span> BootstrapMode.DEFAULT</span>;</span><br></pre></td></tr></table></figure>
+<p>生成模式可选</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> BootstrapMode &#123;</span><br><span class="line">	<span class="comment">//启动时正常生成，除非显式@Lazy</span></span><br><span class="line">	DEFAULT,</span><br><span class="line">	<span class="comment">//推迟生成，整个应用上下文构建完再生成</span></span><br><span class="line">	DEFERRED,</span><br><span class="line">	<span class="comment">//延迟生成，第一次使用时再生成</span></span><br><span class="line">	LAZY;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接口继承JpaRepository，涵盖常用方法<br>
+Repository是顶层接口，泛型提供实体类型和ID类型</p>
+<figure class="highlight java"><figcaption><span>Repository.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Indexed</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Repository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CrudRepository提供基础的CRUD操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line">	&lt;S extends T&gt; <span class="function">S <span class="title">save</span><span class="params">(S entity)</span></span>;</span><br><span class="line">	&lt;S extends T&gt; <span class="function">Iterable&lt;S&gt; <span class="title">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span></span>;</span><br><span class="line">	<span class="function">Optional&lt;T&gt; <span class="title">findById</span><span class="params">(ID id)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">existsById</span><span class="params">(ID id)</span></span>;</span><br><span class="line">	<span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">Iterable&lt;T&gt; <span class="title">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">long</span> <span class="title">count</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(ID id)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(T entity)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">(Iterable&lt;? extends T&gt; entities)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PagingAndSortingRepository增加了分页和排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">(Sort sort)</span></span>;</span><br><span class="line">	<span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(Pageable pageable)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JpaRepository提供其他方法，用户的DAO接口需要继承JpaRepository</p>
+<h2 id="接口默认实现">接口默认实现</h2>
+<p>SimpleJpaRepository提供实现，本质还是通过EntityManager执行</p>
+<figure class="highlight java"><figcaption><span>SimpleJpaRepository.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> &lt;S extends T&gt; <span class="function">S <span class="title">save</span><span class="params">(S entity)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//没有单独的update操作，也包含在save中</span></span><br><span class="line">	<span class="comment">//根据id判断是否持久化过进而区别执行，存储后id会填充</span></span><br><span class="line">	<span class="keyword">if</span> (entityInformation.isNew(entity)) &#123;</span><br><span class="line">		<span class="comment">//存储</span></span><br><span class="line">		em.persist(entity);</span><br><span class="line">		<span class="keyword">return</span> entity;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//更新</span></span><br><span class="line">		<span class="keyword">return</span> em.merge(entity);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> &lt;S extends T&gt; <span class="function">List&lt;S&gt; <span class="title">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span> </span>&#123;</span><br><span class="line">	List&lt;S&gt; result = <span class="keyword">new</span> ArrayList&lt;S&gt;();</span><br><span class="line">	<span class="comment">//循环Save</span></span><br><span class="line">	<span class="keyword">for</span> (S entity : entities) &#123;</span><br><span class="line">		result.add(save(entity));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(ID id)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//先查询，没有就异常</span></span><br><span class="line">	delete(findById(id).orElseThrow(() -&gt; <span class="keyword">new</span> EmptyResultDataAccessException(</span><br><span class="line">			String.format(<span class="string">"No %s entity with id %s exists!"</span>, entityInformation.getJavaType(), id), <span class="number">1</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//逐条循环删除</span></span><br><span class="line">	<span class="keyword">for</span> (T element : findAll()) &#123;</span><br><span class="line">		delete(element);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!entities.iterator().hasNext()) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//不查询，执行delete from</span></span><br><span class="line">	applyAndBind(getQueryString(DELETE_ALL_QUERY_STRING, entityInformation.getEntityName()), entities, em)</span><br><span class="line">			.executeUpdate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代理生成">代理生成</h2>
+<hr>
+<p>工厂和基础实现</p>
+<figure class="highlight java"><figcaption><span>EnableJpaRepositories.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建工厂默认JpaRepositoryFactoryBean</span></span><br><span class="line">Class&lt;?&gt; repositoryFactoryBeanClass() <span class="keyword">default</span> JpaRepositoryFactoryBean.class;</span><br><span class="line"><span class="comment">//基础实现类，默认DefaultRepositoryBaseClass只是一个空壳</span></span><br><span class="line">Class&lt;?&gt; repositoryBaseClass() <span class="keyword">default</span> DefaultRepositoryBaseClass.class;</span><br></pre></td></tr></table></figure>
+<p>JpaRepositoryFactory重写了基础实现类，就是SimpleJpaRepository</p>
+<figure class="highlight java"><figcaption><span>JpaRepositoryFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JpaRepositoryFactory</span> <span class="keyword">extends</span> <span class="title">RepositoryFactorySupport</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> Class&lt;?&gt; getRepositoryBaseClass(RepositoryMetadata metadata) &#123;</span><br><span class="line">		<span class="keyword">return</span> SimpleJpaRepository.class;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据接口及可选的自定义实现，生成Repository</p>
+<figure class="highlight java"><figcaption><span>RepositoryFactorySupport.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getRepository</span><span class="params">(Class&lt;T&gt; repositoryInterface, RepositoryFragments fragments)</span> </span>&#123;</span><br><span class="line">	RepositoryMetadata metadata = getRepositoryMetadata(repositoryInterface);</span><br><span class="line">	<span class="comment">//组合自定义实现</span></span><br><span class="line">	RepositoryComposition composition = getRepositoryComposition(metadata, fragments);</span><br><span class="line">	RepositoryInformation information = getRepositoryInformation(metadata, composition);</span><br><span class="line"></span><br><span class="line">	validate(information, composition);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//反射实例化一个目标类，JPA环境下即SimpleJpaRepository</span></span><br><span class="line">	Object target = getTargetRepository(information);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//配置代理工厂</span></span><br><span class="line">	ProxyFactory result = <span class="keyword">new</span> ProxyFactory();</span><br><span class="line">	result.setTarget(target);</span><br><span class="line">	<span class="comment">//配置接口，除了声明的接口以外，还增加Repository和TransactionalProxy接口表示身份，这两个接口都是无方法的标记</span></span><br><span class="line">	result.setInterfaces(repositoryInterface, Repository.class, TransactionalProxy.class);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (MethodInvocationValidator.supports(repositoryInterface)) &#123;</span><br><span class="line">		result.addAdvice(<span class="keyword">new</span> MethodInvocationValidator());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result.addAdvice(SurroundingTransactionDetectorMethodInterceptor.INSTANCE);</span><br><span class="line">	result.addAdvisor(ExposeInvocationInterceptor.ADVISOR);</span><br><span class="line"></span><br><span class="line">	postProcessors.forEach(processor -&gt; processor.postProcess(result, information));</span><br><span class="line">	<span class="comment">//调用默认方法的增强</span></span><br><span class="line">	result.addAdvice(<span class="keyword">new</span> DefaultMethodInvokingMethodInterceptor());</span><br><span class="line">	<span class="comment">//调用自定义查询的增强</span></span><br><span class="line">	ProjectionFactory projectionFactory = getProjectionFactory(classLoader, beanFactory);</span><br><span class="line">	result.addAdvice(<span class="keyword">new</span> QueryExecutorMethodInterceptor(information, projectionFactory));</span><br><span class="line">	<span class="comment">//调用自定义实现的增强</span></span><br><span class="line">	composition = composition.append(RepositoryFragment.implemented(target));</span><br><span class="line">	result.addAdvice(<span class="keyword">new</span> ImplementationMethodExecutionInterceptor(composition));</span><br><span class="line">	<span class="comment">//生成代理</span></span><br><span class="line">	T repository = (T) result.getProxy(classLoader);</span><br><span class="line">	<span class="keyword">return</span> repository;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>支持默认方法，findAll，save，delete</li>
+<li>支持自定义方法，根据方法名推断，比如get/read/find + By + 属性，count，如果方法名无法推断的场景，可以使用@Query注解提供sql，增加@Modifying表示非查询</li>
+<li>支持自定义实现，复杂查询时，根据接口自动生成的方法无法满足，可以定义接口同名Impl结尾的类，无需实现接口，JPA会和接口方法融合</li>
+</ul>
+<figure class="highlight java"><figcaption><span>EnableJpaRepositories.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关联实现类后缀默认是Impl</span></span><br><span class="line"><span class="function">String <span class="title">repositoryImplementationPostfix</span><span class="params">()</span> <span class="keyword">default</span> "Impl"</span>;</span><br></pre></td></tr></table></figure>
+<p>实现类中使用@PersistenceContext注入EntityManager, 这样方法可以进行自定义操作</p>
+<p>查询示例<br>
+<a href="https://www.jianshu.com/p/de122a0c3fd2" target="_blank" rel="noopener">https://www.jianshu.com/p/de122a0c3fd2</a></p>
+<p>注解</p>
+
+        
+    <div class="donate_module">
+        <div id="donate_board" class="donate_bar">
+            <br>
+            <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        </div>
+        <div id="donate_guide" class="donate_bar hidden">
+            <br>
+            <a href="/assets/reward/wechat_code.jpg"  class="fancybox">
+                <img src="/assets/reward/wechat_code.jpg" title="微信打赏" height="190px" width="auto"/>
+            </a>
+            <span class="donate_space"></span>
+            <a href="/assets/reward/alipay_code.jpg"  class="fancybox">
+                <img src="/assets/reward/alipay_code.jpg" title="支付宝打赏" height="190px" width="auto"/>
+            </a>
+        </div>
+        <span class="donate_txt">一分也是爱~</span> 
+    </div>
+
+        <div class="breakword">
+    <hr>
+    <p><strong>版权声明</strong></p>
+    <p><img src="/assets/copyright/cc.png" alt=""></p>
+    <p><a href="http://linest.github.io/tmp/spring-data.html">This site</a> by <a href="mailto:xlinest@gmail.com">Linest</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">Creative Commons BY-NC-ND 4.0 International License</a>.
+    <br>由<a href="mailto:xlinest@gmail.com">Linest</a>创作并维护的博客采用<a href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="external">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。</p>
+    <p>本文永久链接：<a href="http://linest.github.io/tmp/spring-data.html">http://linest.github.io/tmp/spring-data.html</a></p>
+</div>
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 Linest
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> customized by <a href="#">Linest</a> with <span class="octicon octicon-heart" style="color:red"></span>
+				</div>
+				<div class="hide">
+						<a href="https://clustrmaps.com/site/x7rd" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=trdgmMc8YDC9aFR4WIBOzfE8f6bNwx_Pq7HA9YiG3sA" /></a>
+				</div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true
+	}
+</script>
+
+<!-- Baidu auto push -->
+<script>
+(function(){
+	var bp = document.createElement('script');
+	var curProtocol = window.location.protocol.split(':')[0];
+	if (curProtocol === 'https') {
+		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	}
+	else {
+		bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	}
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
