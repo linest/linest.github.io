@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="智能的环卫工人~">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.604Z">
+<meta property="og:updated_time" content="2020-02-21T13:03:59.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存与垃圾回收">
 <meta name="twitter:description" content="智能的环卫工人~">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-gc.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.604Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-21T13:03:59.748Z" itemprop="datePublished">2020-02-21</time>
 </a>
     </div>
   
@@ -213,9 +213,9 @@ JVM数据内存</p>
 <li>引用计数，被引用加1，解除引用减1，难以解决循环引用问题</li>
 <li>引用追踪，由根对象GCRoots出发，根据引用链判断是否可达
 <ul>
-<li>方法区静态引用的对象</li>
-<li>虚拟机栈/本地栈中引用的对象</li>
 <li>bootstrap加载的对象</li>
+<li>虚拟机栈/本地栈中引用的对象</li>
+<li>方法区静态引用的对象</li>
 </ul>
 </li>
 </ul>
@@ -230,24 +230,28 @@ JVM数据内存</p>
 </ol>
 <h1 id="新生代">新生代</h1>
 <hr>
-<p>minor GC/young GC  Eden区空间不足时触发<br>
-大多数对象首先分配在新生代上。</p>
+<p>minor GC/young GC<br>
+Eden区空间不足时触发<br>
+大多数对象首先分配在新生代上</p>
 <p>新生代分为Eden区域和两个Survivor区域(from和to)<br>
 Eden区域意为伊甸园，是对象诞生的地方<br>
 GC每次把Eden中存活和一个Survivor中存活一并复制移动到另一Survivor中，一个Survivor始终保持为空</p>
 <p>-XX:NewSize 新生代空间初始大小<br>
 -XX:MaxNewSize 最大大小<br>
 -Xmn 同时设新生代初始和最大值为相同<br>
--XX:SurvivorRatio 伊甸空间和幸存者空间占比<br>
--XX:NewRatio 新生代与老年代的占比</p>
-<p>一般Eden和Survivor按照8:1:1的比例分配，之所以比例悬殊因为绝大部分对象生存期短<br>
-Survivor区存在的意义在于避免直接进入老年代导致频繁full GC<br>
-两个Survivor区是为了解决碎片化，保持连续性</p>
+-XX:SurvivorRatio 伊甸空间和幸存者空间占比，默认8即8:2每个存活区占1/10<br>
+-XX:NewRatio 新生代与老年代的占比，默认2即1:2新生代占1/3</p>
+<p>一般Eden和Survivor按照8:1:1的比例分配</p>
+<ul>
+<li>Eden区明显大于Survivor因为绝大部分对象生存期短，活下来的很少</li>
+<li>Survivor区存在的意义在于避免直接进入老年代导致频繁full GC</li>
+<li>两个Survivor区是为了解决碎片化，Eden和Survivor都有存活复制到另一块，保持连续性</li>
+</ul>
 <h1 id="老年代">老年代</h1>
 <hr>
 <p>major GC/full GC<br>
 老年代空间不足，晋升空间不足，或者空间使用率已达到设定百分比<br>
-在JVM中如果98%的时间是用于GC且可用的Heap size 不足2%的时候将抛出此异常信息<br>
+在JVM中如果98%的时间是用于GC且可用的Heap size不足2%的时候将抛出此异常信息<br>
 java.lang.OutOfMemoryError: Java heap space</p>
 <p>来源</p>
 <ul>
@@ -257,17 +261,18 @@ java.lang.OutOfMemoryError: Java heap space</p>
 -XX:MaxTenuringThreshold 存活最大值，默认16，即到达16后一定会晋升<br>
 -XX:+PrintTenuringDistribution 打出晋升阈值</li>
 <li>Survivor区域放满，将直接放入老年代</li>
-<li>大对象直接放入老年代(-XX:PretenureSizeThreshold)</li>
+<li>大对象可以不分配在新生代直接老年代，避免在新生代GC及反复复制<br>
+-XX:PretenureSizeThreshold，默认0即所有都新生代分配</li>
 </ul>
-<p>老年代对象也可以引用新生代对象，引用关系存储在老年代内一块称为card table的空间。这样扫描新生代只需访问card table，不用扫描整个老年代。</p>
+<p>老年代对象也可以引用新生代对象，引用关系存储在老年代内一块称为card table的空间。这样扫描新生代只需访问card table，不用扫描整个老年代</p>
 <p>一般占全堆的5/8</p>
 <h1 id="持久代-permanent-generation">持久代(Permanent Generation)</h1>
 <hr>
 <p>同样参与GC，满了会触发full GC<br>
 java.lang.OutOfMemoryError: PermGen Space 比如框架动态生成大量类，类信息很多<br>
-物理上属于堆内，但是逻辑上独立的一块。<br>
+物理上属于堆内，但是逻辑上独立的一块<br>
 保存加载的类信息，常量池，静态变量和方法描述等的方法区保存在这里。方法区是逻辑区，非Hotspot虚拟机可能存储在其他地方。</p>
-<p>java7已经将常量池，静态变量等转移到普通堆中可进行回收减少持久代OOM风险，符号引用转到本地内存。</p>
+<p>java7已经将常量池，静态变量等转移到普通堆中可进行回收减少持久代OOM风险，符号引用转到本地内存</p>
 <p>-XX:PermSize<br>
 -XX:MaxPermSize</p>
 <h1 id="元空间">元空间</h1>
@@ -288,8 +293,8 @@ java8中持久代被删除，由元空间取代。元空间并不在虚拟机堆
 <h1 id="gc效果标准">GC效果标准</h1>
 <hr>
 <ul>
-<li>吞吐量throughput：程序执行时间占总时间比率，垃圾收集时间占比越少越好</li>
 <li>暂停时间latency：应用线程停顿时间，停顿时间越少越好</li>
+<li>吞吐量throughput：程序执行时间占总时间比率，垃圾收集时间占比越少越好</li>
 <li>碎片处理效果</li>
 </ul>
 <p>GC少量多次，每次停顿时间少，但是线程切换开销大，吞吐量降低<br>
@@ -326,10 +331,10 @@ GC少次多量，垃圾积累多，每次停顿时间长</p>
 <p>新生代可配置(-XX:+UseParNewGC)并行或者(-XX:UseSerialGC)串行</p>
 <p>问题</p>
 <ul>
-<li>并发标记时可能有标记存活的，后来用户线程不用了，产生新垃圾，称为浮动垃圾(Floating Garbage)，只能下次GC清理</li>
+<li>浮动垃圾问题，并发标记时可能有标记存活的，后来用户线程不用了，产生新垃圾，称为浮动垃圾(Floating Garbage)，只能下次GC清理</li>
 <li>碎片问题，提供(-XX：UseCompactAtFullCollection)启用整理和CMSFullGCsBeforeCompaction参数指定间隔，可以配置间隔几次做压缩不是每次都压缩</li>
-<li>担保机制，在CMS执行过程中还没完成释放空间，此时如果老年代满了或者晋升不了会出现Concurrent ModeFailure， 此时CMS会撤销，转而采用serial old进行停顿的full gc。 考虑调整(-XX:CMSInitiatingOccupancyFraction，默认68），让CMS尽早执行，防止老年代不够用</li>
-<li>悲观机制，CMS还会自行根据情况判断是否发起full gc，(-XX:UseCMSInitiatingOccupancyOnly)选项可以关闭</li>
+<li>担保机制，在CMS执行过程中还没完成释放空间，此时如果老年代满了或者晋升不了会出现Concurrent ModeFailure，此时CMS会撤销，转而采用serial old进行停顿的full gc。考虑调整(-XX:CMSInitiatingOccupancyFraction，默认92），让CMS尽早执行，防止老年代不够用</li>
+<li>悲观机制，CMS还会自行根据情况判断是否发起full gc，(-XX:UseCMSInitiatingOccupancyOnly)选项可以关闭此行为，只根据参数配置决定</li>
 </ul>
 <h2 id="garbage-first-xx-useg1gc-也叫g1">Garbage-First(-XX:+UseG1GC): 也叫G1</h2>
 <p>尤其适合多核大内存场景垃圾收集</p>
@@ -509,6 +514,6 @@ jdk 1.7开始已经默认开启逃逸分析</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

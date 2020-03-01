@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>spring-boot | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+  <meta name="description" content="简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configuration配置 组件手动装配 ——&amp;gt; 自动感知装配  依赖间整合   web.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="spring-boot">
 <meta property="og:url" content="http://linest.github.io/tmp/spring-boot.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+<meta property="og:description" content="简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configuration配置 组件手动装配 ——&amp;gt; 自动感知装配  依赖间整合   web.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:52:18.386Z">
+<meta property="og:updated_time" content="2020-03-01T09:31:43.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-boot">
-<meta name="twitter:description" content="配置：无xml, 自动装配 集成：starter 部署：jar包，内嵌tomcat 简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configur">
+<meta name="twitter:description" content="简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configuration配置 组件手动装配 ——&amp;gt; 自动感知装配  依赖间整合   web.">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-boot.html" class="article-date">
-  	<time datetime="2020-01-22T03:52:18.386Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-03-01T09:31:43.888Z" itemprop="datePublished">2020-03-01</time>
 </a>
     </div>
   
@@ -179,10 +179,7 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>配置：无xml, 自动装配<br>
-集成：starter<br>
-部署：jar包，内嵌tomcat</p>
-<p>简化开发流程，自动化配置<br>
+        <p>简化开发流程，自动化配置<br>
 xml -&gt; 2.5 注解扫描 -&gt; 3.0 config类配置 -&gt; boot打包配置</p>
 <p>简化</p>
 <ul>
@@ -198,7 +195,7 @@ xml -&gt; 2.5 注解扫描 -&gt; 3.0 config类配置 -&gt; boot打包配置</p>
 <li>依赖间整合</li>
 </ul>
 </li>
-<li>web.xml配置war包外部Tomcat ——&gt; 内建Tomcat，jar包main运行, 由spring‐boot‐maven‐plugin</li>
+<li>web.xml配置war包外部Tomcat ——&gt; 内建Tomcat，由spring‐boot‐maven‐plugin打成jar包可以直接main运行</li>
 </ul>
 <p>Spring Boot CLI<br>
 自动检测引入依赖，像脚本一样运行</p>
@@ -237,10 +234,9 @@ spring init -dweb,data-jpa,h2,thymeleaf --build gradle example</p>
 <li>命令行参数</li>
 <li>环境变量</li>
 </ul>
-<p>调整依赖<br>
-Spring Boot默认使用Logback日志，如果需要使用Log4j，先排除再引入</p>
+<h2 id="starter包调整依赖">starter包调整依赖</h2>
+<p>Spring Boot默认使用Logback日志，如果需要使用Log4j，先排除再引入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-log4j&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p>ErrorViewResolver</p>
 <h1 id="actuator">Actuator</h1>
 <hr>
 <p>引入依赖，开启监控端点<br>
@@ -332,7 +328,7 @@ JMX方式，使用JConsole访问MBean</p>
 <hr>
 <p>集成测试，多个组件配合<br>
 <code>@RunWith(SpringJUnit4ClassRunner.class)</code>在单元测试中引入Spring上下文逻辑，高版本可使用简化别名<code>@RunWith(SpringRunner.class)</code><br>
-<code>@ContextConfiguration</code>只引入配置类本身，不会引入额外spring boot相关配置，可以使用<code>@SpringBootTest</code>指定application类</p>
+<code>@ContextConfiguration</code>只引入配置类本身，不会引入额外spring boot相关配置</p>
 <p>测试Controller端点方法，单纯测不能测出页面行为</p>
 <ul>
 <li>Mock MVC模拟Servlet容器，SpringBootTest默认模式
@@ -343,7 +339,8 @@ JMX方式，使用JConsole访问MBean</p>
 </li>
 <li>嵌入式Servlet容器，真实执行
 <ul>
-<li>SpringBootTest设置RANDOM_PORT模式，表示要求启动随机端口嵌入环境测试</li>
+<li><code>@SpringBootTest</code>可以执行application类</li>
+<li>设置SpringBootTest.WebEnvironment.RANDOM_PORT模式，表示要求启动随机端口嵌入环境测试</li>
 </ul>
 </li>
 </ul>
@@ -353,14 +350,14 @@ JMX方式，使用JConsole访问MBean</p>
 <ol>
 <li>原理启动时扫描，寻找包含spring.factories文件的JAR包</li>
 <li>文件指定了自动配置类</li>
-<li>根据配置类条件判断是否注入bean</li>
+<li>根据自动配置类内部注解条件判断是否注入bean</li>
 </ol>
 <p>自定义步骤</p>
 <ol>
 <li>定义pom，引入相关依赖，需要spring-boot-autoconfigure和spring-boot-configuration-processor，或者直接引入总依赖spring-boot-starter</li>
 <li>定义配置类</li>
 <li>定义相关业务类</li>
-<li>定义自动配置类，配置类本身以及内部bean都可以条件控制</li>
+<li>定义自动配置类，自动配置类也是@Configuration类，只不过配置类本身以及内部bean都可以条件控制</li>
 <li>src/main/resources/META-INF/spring.factories<br>
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</li>
 </ol>
@@ -381,7 +378,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</
 <p>Java版本控制<br>
 @ConditionalOnJava</p>
 <h2 id="配置文件注入">配置文件注入</h2>
-<p>@ConfigurationProperties(prefix=“local”) 本身不会容器，可以定义配置文件和配置类的对应关系<br>
+<p>@ConfigurationProperties(prefix=“local”) 本身不会导致加入容器，可以定义配置文件和配置类的对应关系<br>
 @EnableConfigurationProperties(XxxProperties.class) 注入配置类到容器</p>
 
         
@@ -495,6 +492,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

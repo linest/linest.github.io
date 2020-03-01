@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>distribute-storage | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，RedisCluster  顺序分配">
+  <meta name="description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 BigTable/HBase 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，Red">
 <meta property="og:type" content="website">
 <meta property="og:title" content="distribute-storage">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-storage.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，RedisCluster  顺序分配">
+<meta property="og:description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 BigTable/HBase 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，Red">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.612Z">
+<meta property="og:updated_time" content="2020-02-24T05:18:58.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-storage">
-<meta name="twitter:description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，RedisCluster  顺序分配">
+<meta name="twitter:description" content="分布式存储 单一节点无法承载全部数据，承担部分数据 分片规则  哈希分配 优点是分散度好  取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 BigTable/HBase 一致性哈希，适合随时动态调整节点，Cassandra/Dynamo 虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，Red">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-storage.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.612Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-24T05:18:58.695Z" itemprop="datePublished">2020-02-24</time>
 </a>
     </div>
   
@@ -186,7 +186,7 @@ Zjuer
 <h2 id="哈希分配">哈希分配</h2>
 <p>优点是分散度好</p>
 <ul>
-<li>取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量</li>
+<li>取余哈希，硬编码固定节点数，提前规划数量支撑一定时间，扩容幂次翻倍扩容，避免全量重新哈希(类似hashmap扩容)，数据库分库分表提前规划数量 BigTable/HBase</li>
 <li>一致性哈希，适合随时动态调整节点，Cassandra/Dynamo</li>
 <li>虚拟槽哈希，哈希函数映射到固定连续范围,槽数量远大于节点数，RedisCluster</li>
 </ul>
@@ -311,6 +311,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

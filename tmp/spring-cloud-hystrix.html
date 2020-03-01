@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="熔断，隔离，降级避免连锁故障 HystrixCommand  隔离一个调用的方式是继承HystrixCommand HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级 HystrixCommand提供同步和异步两种运行方法 HystrixCommand.java123456789101112131415161718192021public abstract clas">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:52:33.683Z">
+<meta property="og:updated_time" content="2020-02-28T16:10:50.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-cloud-hystrix">
 <meta name="twitter:description" content="熔断，隔离，降级避免连锁故障 HystrixCommand  隔离一个调用的方式是继承HystrixCommand HystrixCommand是抽象类，子类主要是实现正常时如何运行，异常时如何降级 HystrixCommand提供同步和异步两种运行方法 HystrixCommand.java123456789101112131415161718192021public abstract clas">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-cloud-hystrix.html" class="article-date">
-  	<time datetime="2020-01-22T03:52:33.683Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-28T16:10:50.123Z" itemprop="datePublished">2020-02-29</time>
 </a>
     </div>
   
@@ -261,7 +261,7 @@ Setter为顶级配置，命令配置HystrixCommandProperties和线程池配置Hy
 <p>线程隔离运行时，是否进行中断</p>
 <figure class="highlight java"><figcaption><span>HystrixCommandProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_executionIsolationThreadInterruptOnTimeout = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Boolean default_executionIsolationThreadInterruptOnFutureCancel = <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
 <p>线程池配置</p>
-<figure class="highlight java"><figcaption><span>HystrixThreadPoolProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//核心线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_coreSize = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//最大线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maximumSize = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">boolean</span> default_allow_maximum_size_to_diverge_from_core_size = <span class="keyword">false</span>; </span><br><span class="line"><span class="comment">//空闲生存期1分钟</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_keepAliveTimeMinutes = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//默认-1表示使用SynchronousQueue，队列长度不能动态修改</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maxQueueSize = -<span class="number">1</span>;</span><br><span class="line"><span class="comment">//实际控制队列长度，默认值5</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_queueSizeRejectionThreshold = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>HystrixThreadPoolProperties.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//核心线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_coreSize = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//最大线程数10</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maximumSize = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">boolean</span> default_allow_maximum_size_to_diverge_from_core_size = <span class="keyword">false</span>;</span><br><span class="line"><span class="comment">//空闲生存期1分钟</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_keepAliveTimeMinutes = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//默认-1表示使用SynchronousQueue，队列长度不能动态修改</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_maxQueueSize = -<span class="number">1</span>;</span><br><span class="line"><span class="comment">//实际控制队列长度，默认值5</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> default_queueSizeRejectionThreshold = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="熔断">熔断</h2>
 <p>基于时间窗统计自反馈<br>
 熔断打开后请求会fallback，进入休眠期<br>
@@ -412,6 +412,6 @@ Hystrix只负责单个实例，集群环境下可以使用netflix-turbine整合@
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

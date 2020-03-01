@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Java NIO | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节 不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
+  <meta name="description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节，不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Java NIO">
 <meta property="og:url" content="http://linest.github.io/tmp/java-nio.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节 不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
+<meta property="og:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节，不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-18T15:01:42.665Z">
+<meta property="og:updated_time" content="2020-02-25T16:55:43.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java NIO">
-<meta name="twitter:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节 不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
+<meta name="twitter:description" content="Java1.4引入NIO(New I/O) Java7引入NIO.2(AIO) 传统IO是面向流(stream-oriented)，字节传输 NIO是面向块(block-oriented)，利用数据块缓冲 Channel与Buffer  低级I/O管道，面向字节，不同于Stream区分读写,Channel是双向的 发送端缓冲-&amp;gt;发送端channel-&amp;gt;传输-&amp;gt;接收端channel">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-nio.html" class="article-date">
-  	<time datetime="2020-01-18T15:01:42.665Z" itemprop="datePublished">2020-01-18</time>
+  	<time datetime="2020-02-25T16:55:43.729Z" itemprop="datePublished">2020-02-26</time>
 </a>
     </div>
   
@@ -184,8 +184,7 @@ Zjuer
 NIO是面向块(block-oriented)，利用数据块缓冲</p>
 <h1 id="channel与buffer">Channel与Buffer</h1>
 <hr>
-<p>低级I/O管道，面向字节<br>
-不同于<code>Stream</code>区分读写,<code>Channel</code>是双向的<br>
+<p>低级I/O管道，面向字节，不同于<code>Stream</code>区分读写,<code>Channel</code>是双向的<br>
 发送端缓冲-&gt;发送端channel-&gt;传输-&gt;接收端channel-&gt;接收端缓冲</p>
 <p>缓冲区是通道发送和接收的容器，在字节基础上包装提供操作视图，每种原生类型都有，比如<code>CharBuffer</code>,<code>DoubleBuffer</code>等</p>
 <p>使用FileChannel读写文件</p>
@@ -235,6 +234,7 @@ Application Buffer 用户缓冲</p>
 <li>返回用户态<br>
 读写过程存在4次切换，4次数据拷贝</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设备-&gt;内核缓冲-&gt;应用缓冲-&gt;内核缓冲-&gt;设备</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFileByStream</span><span class="params">(File source, File des)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (InputStream is = <span class="keyword">new</span> FileInputStream(source);</span><br><span class="line">        OutputStream os = <span class="keyword">new</span> FileOutputStream(des);)&#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bufer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> length;</span><br><span class="line">            <span class="keyword">while</span> ((length = is.read(bufer)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                os.write(bufer, <span class="number">0</span>, length);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>NIO中的拷贝可以避免不必要的拷贝和切换，效率更高<br>
 零拷贝发送流程</p>
@@ -246,6 +246,7 @@ Application Buffer 用户缓冲</p>
 <li>返回用户态<br>
 零拷贝只需要2次切换和2次数据复制，并且数据不经过用户空间</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设备-&gt;内核缓冲-&gt;设备</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> satic <span class="keyword">void</span> <span class="title">copyFileByChannel</span><span class="params">(File source, File des)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (FileChannel sourceChannel = <span class="keyword">new</span> FileInputStream(source).getChannel();</span><br><span class="line">        FileChannel targetChannel = <span class="keyword">new</span> FileOutputStream(des).getChannel();) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> count = sourceChannel.size(); count&gt;<span class="number">0</span> ;) &#123;</span><br><span class="line">            <span class="keyword">long</span> transferred = sourceChannel.transferTo(sourceChannel.position(), count, targetChannel);</span><br><span class="line">            sourceChannel.position(sourceChannel.position() + transferred);</span><br><span class="line">            count -= transferred;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>内存映射也可以实现零拷贝</p>
 <ol>
@@ -258,6 +259,7 @@ Application Buffer 用户缓冲</p>
 <li>返回用户态<br>
 整个过程4次状态切换，3次拷贝，和上述sendfile相比，用户可以进行操作</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设备-&gt;共享内存-&gt;内核缓冲-&gt;设备</span><br></pre></td></tr></table></figure>
 <p>零拷贝不一定优于FileChannel,取决于数据大小。<br>
 数据量大FileChannel性能更好，读超过4kb,写超过64b。</p>
 <h1 id="编码转换">编码转换</h1>
@@ -282,8 +284,8 @@ Application Buffer 用户缓冲</p>
 <li>不同于多个线程的阻塞IO，多路复用同时多个输入时，顺次遍历，处理完一个才处理下一个，而多个线程彼此独立</li>
 <li>不同于手动轮询多通道非阻塞IO，多路复用的轮询由内核负责，更加高效</li>
 </ul>
-<p>节省资源</p>
-<p>Selector 根据事件标识进行多路复用<br>
+<p>多路复用节省资源<br>
+Selector根据事件标识进行多路复用<br>
 基于操作系统机制，Linux基于epoll，Windows基于iocp</p>
 <p>服务端</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NIOServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="comment">//开启一个selector和作为服务端的channel</span></span><br><span class="line">        <span class="keyword">try</span> (Selector selector = Selector.open();</span><br><span class="line">            ServerSocketChannel serverSocket = ServerSocketChannel.open();) &#123;</span><br><span class="line">            serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(InetAddress.getLocalHost(), <span class="number">8888</span>));</span><br><span class="line">            <span class="comment">//关闭阻塞，允许注册</span></span><br><span class="line">            serverSocket.confgureBlocking(<span class="keyword">false</span>);</span><br><span class="line">            <span class="comment">//channel注册上selector，并说明关注点，这里是关心这个通道上的连接请求</span></span><br><span class="line">            serverSocket.regiser(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//开始监听</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="comment">//阻塞等待，直到有客户端接入请求</span></span><br><span class="line">                selector.select();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//遍历调用逻辑</span></span><br><span class="line">                Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();</span><br><span class="line">                Iterator&lt;SelectionKey&gt; iter = selectedKeys.iterator();</span><br><span class="line">                <span class="keyword">while</span> (iter.hasNext()) &#123;</span><br><span class="line">                    SelectionKey key = iter.next();</span><br><span class="line">                    sayHelloWorld((ServerSocketChannel) key.channel());</span><br><span class="line">                    <span class="keyword">if</span>(key.isAcceptable()) &#123;</span><br><span class="line">                        <span class="comment">//当前是连接请求，接受连接</span></span><br><span class="line">                        SocketChannel channel = serverSocket.accept();</span><br><span class="line">                        channel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                        <span class="comment">//之后关注这个通道的读事件</span></span><br><span class="line">                        channel.register(selector, SelectionKey.OP_READ);</span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key.isReadable()) &#123;</span><br><span class="line">                        <span class="comment">//当前有数据就绪</span></span><br><span class="line">                        SocketChannel channel = (SocketChannel)key.channel();</span><br><span class="line">                        ByteBuffer bf = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">                        <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">                        <span class="keyword">while</span>((len = socketChannel.read(bf))&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                            bf.flip();</span><br><span class="line">                            System.out.println(<span class="keyword">new</span> String(bf.array(),<span class="number">0</span>,len));</span><br><span class="line">                            bf.clear();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    iter.remove();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -298,20 +300,20 @@ Application Buffer 用户缓冲</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AsynchronousServerSocketChannel serverSock = AsynchronousServerSocketChannel.open().bind(<span class="keyword">new</span> InetSocketAddress(InetAddress.getLocalHost(), <span class="number">8888</span>));</span><br><span class="line">serverSock.accept(serverSock, <span class="keyword">new</span> CompletionHandler&lt;&gt;() &#123;</span><br><span class="line">    <span class="comment">//异步操作回调函数</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completed</span><span class="params">(AsynchronousSocketChannel sockChannel, AsynchronousServerSocketChannel serverSock)</span> </span>&#123;</span><br><span class="line">        serverSock.accept(serverSock, <span class="keyword">this</span>);</span><br><span class="line">        sayHelloWorld(sockChannel, Charset.defaultCharset().encode(<span class="string">"Hello World!"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h1 id="io模型">IO模型</h1>
 <hr>
-<p>IO大体上两个过程，查看数据就绪和进行数据拷贝<br>
-同步：应用负责处理IO请求</p>
+<p>IO大体上两个过程，检查数据就绪(设备-&gt;内核缓冲区)和进行数据拷贝(内核缓冲区-&gt;用户进程缓冲区)</p>
+<p>同步和异步描述用户方法调用行为，IO需要一个长时间执行过程</p>
 <ul>
-<li>阻塞模型：内核检查数据没就绪，用户线程阻塞等待，就绪后内核把数据拷贝到用户线程，线程阻塞状态解除</li>
-<li>非阻塞模型：内核检查数据没就绪，用户线程立刻返回。用户线程可以稍后再次发请求，如果就绪就会把数据拷贝到用户线程</li>
-<li>多路复用模型：使用单个线程管理多个通道，阻塞直到有通道上发生读写事件</li>
+<li>同步: 用户调用方法，执行IO完毕后，才能继续向下执行</li>
+<li>异步：用户调用方法，不等待结束立刻返回，IO继续进行，完成后回调用户方法</li>
+</ul>
+<p>同步：应用负责处理IO请求</p>
+<ul>
+<li>阻塞模型：内核检查数据没就绪，用户线程阻塞等待，就绪后内核把数据拷贝到用户线程，线程阻塞状态解除，即用户从发起方法调用开始到最终数据到应用缓冲为止一直在阻塞等待</li>
+<li>非阻塞模型：内核检查数据没就绪，用户线程立刻返回。用户线程可以稍后再次发请求，如果就绪就会把数据拷贝到用户线程。即两个过程分开，数据没就绪就返回用户线程非阻塞，数据就绪就拷贝用户线程阻塞等待完成</li>
+<li>多路复用模型：使用单个线程管理多个通道，用户调用select阻塞，直到有通道上发生读写事件。每个通道是个非阻塞模型，即内核轮询每个通道数据是否就绪。在用户看来依然是阻塞的，但是内部多个通道是非阻塞的</li>
 <li>信号驱动模型：发请求会注册一个方法，用户线程继续执行，内核数据就绪会发送信号，用户线程收到信号后调用IO方法进处理<br>
 异步：操作系统处理IO请求, 应用逻辑直接用</li>
-<li>异步模型：用户线程发送请求后继续执行，IO完成后收到信号，用户线程无需继续调用IO方法直接使用数据。不同于以上几种，内核向用户线程拷贝数据时不会阻塞用户线程执行</li>
-</ul>
-<p>同步和异步描述方法调用行为</p>
-<ul>
-<li>同步: 调用方法执行完毕返回后才能继续向下执行</li>
-<li>异步：调用方法不等待结束立刻返回，可以立刻向下执行</li>
+<li>异步模型：用户线程发送请求后继续执行，IO完成后收到回调，数据已完成拷贝到用户空间，用户线程无需继续调用IO方法直接使用数据。不同于以上几种，内核向用户线程拷贝数据时不会阻塞用户线程执行</li>
 </ul>
 <p>服务端通信模型<br>
 BIO：同步阻塞IO, 调用方等待方法执行返回，底层IO在数据未就绪时阻塞<br>
@@ -322,8 +324,10 @@ AIO: 异步非阻塞IO，调用方立刻返回，提供回调<br>
 操作系统处理IO，处理完通知，无需轮询是否完成，适合连接数多并且连接长场景</p>
 <p>模式</p>
 <ul>
-<li>Reactor模式，多路复用，轮询检查依次处理</li>
-<li>Proactor模式，异步，轮询检查开启异步处理</li>
+<li>Reactor模式，多路复用，轮询检查依次处理<br>
+响应器收到事件后，同线程内调用Handler同步处理</li>
+<li>Proactor模式，异步，轮询检查开启异步处理<br>
+响应器收到事件后，交给线程池异步处理</li>
 </ul>
 <p>改进？？</p>
 <ul>
@@ -445,6 +449,6 @@ AIO: 异步非阻塞IO，调用方立刻返回，提供回调<br>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

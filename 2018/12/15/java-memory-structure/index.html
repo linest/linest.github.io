@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="内存原理">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-20T23:57:36.257Z">
+<meta property="og:updated_time" content="2020-03-01T13:01:26.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存机制">
 <meta name="twitter:description" content="内存原理">
@@ -193,11 +193,11 @@ Zjuer
 <h1 id="参数拷贝传值">参数拷贝传值</h1>
 <hr>
 <p>基本类型是拷贝传值，内部拷贝间交换不会影响外部值</p>
-<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapNoChange</span><span class="params">(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp = v1;</span><br><span class="line">	v1 = v2;</span><br><span class="line">	v2 = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapNoChange</span><span class="params">(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = v1;</span><br><span class="line">    v1 = v2;</span><br><span class="line">    v2 = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>引用也是传值，传的是引用的地址的拷贝，内部拷贝间交换同样不会影响外部值</p>
-<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapNoChange</span><span class="params">(Person p1,Person p2)</span></span>&#123;</span><br><span class="line">	Person tmp = p1;</span><br><span class="line">	p1 = p2;</span><br><span class="line">	p2 = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapNoChange</span><span class="params">(Person p1,Person p2)</span></span>&#123;</span><br><span class="line">    Person tmp = p1;</span><br><span class="line">    p1 = p2;</span><br><span class="line">    p2 = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>修改对象内部时，外部对象真的改变了，因为指向的内存是同一位置，在函数内修改了内存，影响了外部</p>
-<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(Person p)</span></span>&#123;</span><br><span class="line">	p.setName(<span class="string">"foo"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(Person p)</span></span>&#123;</span><br><span class="line">    p.setName(<span class="string">"foo"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="对象底层结构">对象底层结构</h1>
 <hr>
 <p>JVM底层C++实现oop-klass模型，即对象实例和元数据分离存储的二分模型</p>
@@ -208,7 +208,7 @@ Zjuer
 <p>JVM运行时加载一个类时，会在JVM内部创建一个instanceKlass对象，表示这个类的运行时元数据<br>
 创建一个这个Class的实例时，会在JVM内部创建一个instanceOop来表示这个Java对象<br>
 instanceKlass对象放在了方法区/元空间，instanceOop放在了堆，instanceOop的引用放在了JVM栈</p>
-<p>新对象创建</p>
+<p>新对象创建过程</p>
 <ol>
 <li>检查加载</li>
 <li>分配内存</li>
@@ -226,8 +226,7 @@ instanceKlass对象放在了方法区/元空间，instanceOop放在了堆，inst
 <li>2字节 short/char</li>
 <li>1字节 byte</li>
 </ul>
-<p>除了布尔类型，在每种类型下都有一个<code>SIZE</code>常量表示占用比特位数<br>
-布尔类型在规范中没明确定义，取决于虚拟机实现，可能1字节也可能采取整型4字节</p>
+<p>除了<code>布尔</code>类型，在每种类型下都有一个<code>SIZE</code>常量表示占用比特位数。布尔类型在规范中没明确定义，取决于虚拟机实现，可能1字节也可能采取整型4字节</p>
 <figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Double.SIZE); <span class="comment">// 64</span></span><br><span class="line">System.out.println(Long.SIZE); <span class="comment">// 64</span></span><br><span class="line">System.out.println(Float.SIZE); <span class="comment">// 32</span></span><br><span class="line">System.out.println(Integer.SIZE); <span class="comment">// 32</span></span><br><span class="line">System.out.println(Short.SIZE); <span class="comment">// 16</span></span><br><span class="line">System.out.println(Character.SIZE); <span class="comment">// 16</span></span><br><span class="line">System.out.println(Byte.SIZE); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
 <h2 id="引用大小">引用大小</h2>
 <p>引用可以看成地址，跟寻址空间有关<br>
@@ -266,7 +265,7 @@ instanceKlass对象放在了方法区/元空间，instanceOop放在了堆，inst
 <h2 id="usecompressedoops">UseCompressedOops</h2>
 <p>在64位环境下，如果仍需要32位结构，可以开启压缩指针选项<br>
 纯32位环境下，寻址空间只有4G<br>
-开启压缩指针后，由于8字节对齐，隐含相当于末尾3个0，即全部地址物理上只32位，但是效果上可以35位，寻址空间扩大到32G<br>
+开启压缩指针后，由于8字节对齐，隐含相当于末尾3个0，即全部地址物理上只32位，但是效果上可以35位，多出的3位使得寻址空间扩大8倍到32G<br>
 超过32G只能采用纯64位指针</p>
 <h2 id="实例">实例</h2>
 <p>32位环境下的Integer对象，共16字节</p>
@@ -420,6 +419,6 @@ instanceKlass对象放在了方法区/元空间，instanceOop放在了堆，inst
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

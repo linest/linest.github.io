@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Session 和 Cookie | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Cookie和Session的作用 http无状态，每次访问都独立对待，但是现实中同一用户通常会进行一系列交互操作，称为会话。为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端。接下来的每次请求都携带这个sessionId。这种每次携带的需求刚好符合Cookie的机制。Cookie存储在浏览器端，每次访问同域名下的网页会自动携带相应的cookie。如果浏">
+  <meta name="description" content="作用   Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据 Session: 服务端保存数据  解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联 为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户 Session和Cookie是配合关">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Session 和 Cookie">
 <meta property="og:url" content="http://linest.github.io/tmp/web-session-cookie.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="Cookie和Session的作用 http无状态，每次访问都独立对待，但是现实中同一用户通常会进行一系列交互操作，称为会话。为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端。接下来的每次请求都携带这个sessionId。这种每次携带的需求刚好符合Cookie的机制。Cookie存储在浏览器端，每次访问同域名下的网页会自动携带相应的cookie。如果浏">
+<meta property="og:description" content="作用   Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据 Session: 服务端保存数据  解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联 为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户 Session和Cookie是配合关">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T16:06:12.928Z">
+<meta property="og:updated_time" content="2020-02-20T08:11:34.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Session 和 Cookie">
-<meta name="twitter:description" content="Cookie和Session的作用 http无状态，每次访问都独立对待，但是现实中同一用户通常会进行一系列交互操作，称为会话。为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端。接下来的每次请求都携带这个sessionId。这种每次携带的需求刚好符合Cookie的机制。Cookie存储在浏览器端，每次访问同域名下的网页会自动携带相应的cookie。如果浏">
+<meta name="twitter:description" content="作用   Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据 Session: 服务端保存数据  解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联 为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户 Session和Cookie是配合关">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-session-cookie.html" class="article-date">
-  	<time datetime="2020-01-11T16:06:12.928Z" itemprop="datePublished">2020-01-12</time>
+  	<time datetime="2020-02-20T08:11:34.638Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -179,73 +179,97 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="cookie和session的作用">Cookie和Session的作用</h1>
-<p>http无状态，每次访问都独立对待，但是现实中同一用户通常会进行一系列交互操作，称为会话。为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端。接下来的每次请求都携带这个sessionId。这种每次携带的需求刚好符合Cookie的机制。Cookie存储在浏览器端，每次访问同域名下的网页会自动携带相应的cookie。如果浏览器关闭Cookie功能，sessionId可以附加在URL上回传。</p>
-<h1 id="cookie和session优劣">Cookie和Session优劣</h1>
-<p>不同浏览器对同域名Cookie个数有限制，超过后可能部分被剔除，对Cookie总大小有限，另外携带过大的Cookie严重影响性能<br>
-Session在服务端大小基本没有限制，传输只需要sessionId，传输数据少性能高<br>
-Cookie和Session都是用于存储用户数据，相互配合。Cookie减轻了服务端的存储压力，但是每次回传增加了传输量。通常Cookie中只存简单ID信息，相关具体信息存在Session中。</p>
-<h1 id="cookie和session的创建">Cookie和Session的创建</h1>
-<p>Session不会自动创建，要服务器端调用HttpServletRequest.getSession(true)，参数true表示不存在时会创建新的<br>
-Cookie通过响应头中SetCookie字段返回，这是个可重复字段，每个KV对应一个SetCookie。浏览器向所有KV存储下来。</p>
-<h1 id="cookie和session的删除">Cookie和Session的删除</h1>
-<p>Cookie中的sessionid的过期时间是session,这样在session结束的时候(一般是浏览器关闭)自动清除<br>
-服务器端的Session跟浏览器的关闭无关，还会存在，直到超时失效或者服务端程序调用HttpSession.invalidate()才会清除</p>
-<h1 id="session存储转移">Session存储转移</h1>
+        <h1 id="作用">作用</h1>
+<hr>
 <ul>
-<li>钝化与激活<br>
-Session闲置时，Tomcat为了减轻压力，会把Session内容保存到硬盘中，使用时再加载内存</li>
-<li>序列化<br>
-Tomcat通过正常stop关闭Servlet容器时，尚未失效的session会保存到名为&quot;SESSIONS.ser&quot;的文件中，启动时会重新加载。</li>
+<li>Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据</li>
+<li>Session: 服务端保存数据</li>
 </ul>
-<h1 id="分布式下的cookie和session">分布式下的Cookie和Session</h1>
+<p>解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联<br>
+为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户</p>
+<p>Session和Cookie是配合关系，但不是必须</p>
+<ul>
+<li>如果可以使用Cookie, 每次回传发送刚好符合特性</li>
+<li>如果浏览器关闭Cookie功能，sessionId可以附加在URL上回传</li>
+</ul>
+<h1 id="存储优劣">存储优劣</h1>
+<hr>
+<p>Cookie和Session都可以用于存储用户数据<br>
+不同浏览器对同域名Cookie个数有限制，超过后可能部分被剔除，对Cookie总大小有限，另外携带过大的Cookie严重影响性能<br>
+Session在服务端大小基本没有限制，传输只需要sessionId，传输数据少性能高<br>
+Cookie减轻了服务端的存储压力，但是每次回传增加了传输量。通常Cookie中只存简单ID信息，相关具体信息存在Session中</p>
+<h1 id="创建和删除">创建和删除</h1>
+<hr>
+<p>Cookie通过响应头中SetCookie字段返回，这是个可重复字段，每个KV对应一个SetCookie。浏览器把所有KV存储下来<br>
+Cookie中的sessionid的过期时间是session,这样在session结束的时候(一般是浏览器关闭)自动清除</p>
+<p>Session不会自动创建，要服务器端逻辑调用HttpServletRequest.getSession(true)，参数true表示不存在时会创建新的<br>
+Session跟浏览器的关闭无关，还会存在，直到超时失效或者服务端程序调用HttpSession.invalidate()才会清除</p>
+<h1 id="session存储转移">Session存储转移</h1>
+<hr>
+<ul>
+<li>钝化与激活：Session闲置时，Tomcat为了减轻压力，会把Session内容保存到硬盘中，使用时再加载内存</li>
+<li>序列化：Tomcat通过正常stop关闭Servlet容器时，尚未失效的session会保存到名为&quot;SESSIONS.ser&quot;的文件中，启动时会重新加载</li>
+</ul>
+<h1 id="分布式方案">分布式方案</h1>
+<hr>
 <p>大型应用都是分布式的，多个服务配合，每个服务也部署在集群中</p>
 <p>Cookie存在客户端，具有天然的分布性，但是Cookie存在诸多限制</p>
 <ul>
-<li>同域名Cookie在浏览器中有数量限制</li>
+<li>同域名Cookie在浏览器中有数量限制和大小限制</li>
 <li>Cookie安全性低，敏感数据要存在服务器Session中</li>
 </ul>
-<p>Session存储在服务器端，比如Tomcat保存在内存，只局限于单台服务器，如果请求被负载均衡到不同服务器，找不到Session</p>
+<p>Session存储在服务器端，比如Tomcat保存在内存，只局限于单台服务器，如果请求被负载均衡到不同服务器，找不到Session<br>
+解决方案</p>
 <ul>
-<li>Session可以存储到数据库或者缓存服务器，不同服务器都可以查询
-<ul>
-<li>依赖数据库或缓存</li>
+<li>外部集中存储，Session可以存储到数据库或者缓存服务器，不同服务器都可以查询</li>
+<li>服务器同步，通过脚本或者守护进程在服务器间同步Session，有同步延迟</li>
+<li>服务器不存，加密后设为Cookie让客户端村，传输内容增加</li>
+<li>服务各自存储，根据ip哈希分发，同一用户的请求分发给同一服务器处理</li>
 </ul>
-</li>
-<li>通过脚本或者守护进程在服务器间同步Session
-<ul>
-<li>同步延迟</li>
-</ul>
-</li>
-<li>通过Cookie让客户端加密存储Session信息
-<ul>
-<li>安全性不高，传输内容增加</li>
-</ul>
-</li>
-<li>哈希机制，根据ip分发，同一用户的请求分发给同一服务器处理</li>
-</ul>
-<h1 id="session与登陆">Session与登陆</h1>
-<ul>
-<li>多服务登陆<br>
-Session管理(发放，存储，验证)单独成为一个服务，集中管理Session,其他服务都来请求</li>
-</ul>
-<ul>
-<li>跨域名登陆，Cookie转移<br>
-额外跳转服务，同时接受A,B域名访问<br>
+<h1 id="登陆问题">登陆问题</h1>
+<hr>
+<h2 id="单独登陆中心">单独登陆中心</h2>
+<p>Session管理(发放，存储，验证)单独成为一个服务，集中管理Session,其他服务都来请求</p>
+<h2 id="跨域名登陆-cookie转移">跨域名登陆，Cookie转移</h2>
+<p>额外跳转服务，同时接受A,B域名访问<br>
 客户端已经在A域名登陆<br>
 客户端访问B域名业务服务，发现没登陆，回应302，地址为跳转服务A域名<br>
 客户端用A域名访问跳转服务，携带A的Cookie，回应302，新地址为跳转服务B域名并将A的Cookie作为URL参数<br>
 客户端用B域名再次访问跳转服务，回应302,写Cookie到客户端，新地址为B域名业务服务<br>
 客户端此时有B域名下的Cookie,经验证后成功登陆<br>
-整体流程通过跳转服务3次302跳转，使Cookie转移域名</li>
-</ul>
-<ul>
-<li>扫码登陆<br>
-首先手机端要登陆，服务端存在session<br>
+整体流程通过跳转服务3次302跳转，使Cookie转移域名</p>
+<h2 id="扫码登陆">扫码登陆</h2>
+<p>首先手机端要登陆，服务端存在session<br>
 服务端生成随机出一个码, 并生成对应二维码图片<br>
-手机端扫码触发发起请求，请求携带用户token, 服务端设置该二维码已经手机登陆标记<br>
-电脑端以码为标识轮询，如果有手机登陆标记就下发session</li>
+手机端扫码触发发起请求，请求携带用户token, 服务端设置该码已经手机登陆标记<br>
+电脑端以码为标识轮询，服务端发现手机登陆标记就通过登陆，下发用户信息</p>
+<h2 id="单点登陆">单点登陆</h2>
+<ul>
+<li>同域，利用Cookie域名共享机制<br>
+<a href="http://xn--SSOsso-df4j37gqxmis3b.xxx.com" target="_blank" rel="noopener">SSO服务域名sso.xxx.com</a>，<a href="http://xn--app-4w2e28dwxjmsn1pqs33a.xxx.com" target="_blank" rel="noopener">应用服务域名app.xxx.com</a></li>
 </ul>
+<ol>
+<li>访问应用，没登录，重定向至SSO服务</li>
+<li>登陆SSO服务后，设置.xxx.com顶域名cookie，把session放入可共享存储，比如redis，重定向应用</li>
+<li>访问应用会携带cookie，获取session</li>
+</ol>
+<ul>
+<li>不同域，利用CAS中心，应用验证中心发放的票据<br>
+利用中心认证服务CAS(Central Authentication Service)机制<br>
+<a href="http://xn--SSOsso-df4j37gqxmis3b.xxx.com" target="_blank" rel="noopener">SSO服务域名sso.xxx.com</a>, <a href="http://xn--app-4w2e28dwxjmsn1pqs33a.yyy.com" target="_blank" rel="noopener">应用服务域名app.yyy.com</a>, <a href="http://app.zzz.com" target="_blank" rel="noopener">app.zzz.com</a></li>
+</ul>
+<ol>
+<li><a href="http://xn--app-qw2fq01hll2ao5o.yyy.com" target="_blank" rel="noopener">访问应用app.yyy.com</a>，发现没登录，重定向至SSO服务，<a href="http://%E9%99%84%E4%B8%8A%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80service=app.yyy.com" target="_blank" rel="noopener">附上请求地址service=app.yyy.com</a></li>
+<li>SSO发现用户未登录，转到登录页面</li>
+<li>SSO登录后，设置SSO的cookie即TGC(Ticket Granting Cookie)，重定向至yyy应用并附上临时票据(Service Ticket)</li>
+<li>访问yyy应用，应用和SSO服务交互，验证票据，通过后放行</li>
+<li><a href="http://xn--app-qw2fq01hll2ao5o.zzz.com" target="_blank" rel="noopener">访问应用app.zzz.com</a>, 发现没登录，重定向至SSO服务</li>
+<li>此时已有SSO的cookie,已登录，重定向至zzz应用并附上临时票据</li>
+<li>访问zzz应用，应用和SSO服务交互，验证票据，通过后放行</li>
+</ol>
+<p>登录单个网站，网站自己下发cookie, 只针对自己有效<br>
+为了共用，通过sso作为桥梁，相当于公共cookie</p>
+<p>登出时要清除SSO服务端会话，并且通知各个系统清除会话</p>
 
         
     <div class="donate_module">
@@ -358,6 +382,6 @@ Session管理(发放，存储，验证)单独成为一个服务，集中管理Se
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

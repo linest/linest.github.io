@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="基础理论">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.636Z">
+<meta property="og:updated_time" content="2020-03-01T14:03:05.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务与锁">
 <meta name="twitter:description" content="基础理论">
@@ -262,11 +262,12 @@ SERIALIZABLE严格遵从互不干涉原则，一个事务使用数据时其他�
 <li>第一类丢失：事务回滚，把其他事务提交的数据抹掉<br>
 SQL92所有级别都不允许这种</li>
 <li>第二类丢失：事务提交，把其他事务提交的数据覆盖<br>
-REPEATABLE_READ级别及以上可以避免，但是代价太高，一般采用局部手动加锁或者乐观锁的方式维护版本号</li>
+比如操作同一行，初始读到金额都是1000，两个事务同时在原基础上增加100，最终先后提交后金额变为1100<br>
+一般采用局部手动悲观加锁或者乐观锁的方式维护版本号</li>
 </ul>
 <h1 id="默认级别">默认级别</h1>
 <hr>
-<p>Oracle支持READ COMMITED， SERIALIZABLE，默认隔离级别READ_COMMITTED<br>
+<p>Oracle支持READ_COMMITED， SERIALIZABLE，默认隔离级别READ_COMMITTED<br>
 Mysql支持四种，默认级别REPEATABLE_READ</p>
 
         
@@ -399,6 +400,6 @@ Mysql支持四种，默认级别REPEATABLE_READ</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

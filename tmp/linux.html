@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>linux | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源 户态到内核态切换方式  系统调用：主动请求">
+  <meta name="description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="linux">
 <meta property="og:url" content="http://linest.github.io/tmp/linux.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源 户态到内核态切换方式  系统调用：主动请求">
+<meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:51:48.154Z">
+<meta property="og:updated_time" content="2020-02-28T08:08:39.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux">
-<meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源 户态到内核态切换方式  系统调用：主动请求">
+<meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/linux.html" class="article-date">
-  	<time datetime="2020-01-22T03:51:48.154Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-28T08:08:39.164Z" itemprop="datePublished">2020-02-28</time>
 </a>
     </div>
   
@@ -180,13 +180,17 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">                   -------</span><br><span class="line">                /          \</span><br><span class="line">内核 -- 系统调用 -- 库函数 -- 应用程序</span><br><span class="line">                \          /</span><br><span class="line">                   Shell</span><br></pre></td></tr></table></figure>
-<p>内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源</p>
-<p>户态到内核态切换方式</p>
+<p>内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用</p>
+<p>用户态到内核态切换方式</p>
 <ul>
 <li>系统调用：主动请求</li>
 <li>异常：比如缺页</li>
-<li>外围设备中断：完成用户请求的操作后比如硬盘读写，向CPU发中断，CPU会暂停执行下一条指令转而去执行与中断信号对应的处理程序</li>
+<li>外围设备中断：设备完成用户请求的操作后比如硬盘读写，向CPU发中断，CPU会暂停执行下一条指令转而去执行与中断信号对应的处理程序</li>
 </ul>
+<h1 id="文件句柄-描述符">文件句柄/描述符</h1>
+<hr>
+<p>文件描述符是一个非负整数，内核为了高效管理已经打开的文件，创建索引</p>
+<p>默认1024，即单个进程最多只能接受1024个socket连接</p>
 <h1 id="进程线程">进程线程</h1>
 <hr>
 <p>内核不区分进程线程，普通进程和轻量级进程<br>
@@ -236,11 +240,16 @@ Zjuer
 <li>用户代码和数据</li>
 </ul>
 <p>内存管理单元MMU完成映射</p>
+<h1 id="磁盘文件读取">磁盘文件读取</h1>
+<hr>
+<p>ext文件系统中，对一个文件的读需要先从磁盘中读取到文件对应的Inode，然后根据inode获取到对应的block的位置信息，进行第二次磁盘读取目标文件的内容，这样就需要两次磁盘IO。在系统中会有inode缓存，这样可保证一些文件读取只需要一次磁盘IO</p>
+<p>小文件存储系统通过小文件合并，减少文件数量，尽可能多的INode保存在缓存，提升效率</p>
 <h1 id="多路复用">多路复用</h1>
 <hr>
 <p>监视多个描述符fd，就绪就通知进行操作<br>
 select，poll,epoll都是同步IO, 就绪后自行读写，而异步IO是拷贝到用户空间，直接使用</p>
 <h2 id="select-和-poll">select 和 poll</h2>
+<p>遍历描述符列表，检查是否有就绪</p>
 <p>POSIX标准<br>
 知道有事件发生，不明确哪一路，轮询遍历复杂度O(n)</p>
 <p>将描述符从用户空间拷贝到内核空间中，遍历描述符，调用poll方法检查，遍历完没发现有就绪则挂起，直到设备就绪或者超时候，被唤醒再次遍历</p>
@@ -255,6 +264,7 @@ select，poll,epoll都是同步IO, 就绪后自行读写，而异步IO是拷贝�
 <li>数量大时遍历时间变长</li>
 </ul>
 <h2 id="epoll">epoll</h2>
+<p>描述符就绪后通过回调函数加入就绪列表，只遍历就绪列表</p>
 <p>Linux特有<br>
 事件驱动，事件和描述符关联，复杂度O(1)<br>
 一次性拷被描述符<br>
@@ -373,6 +383,6 @@ select，poll,epoll都是同步IO, 就绪后自行读写，而异步IO是拷贝�
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>CIM | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+  <meta name="description" content="100w行级别 RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CIM">
 <meta property="og:url" content="http://linest.github.io/tmp/cim.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+<meta property="og:description" content="100w行级别 RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:44:09.438Z">
+<meta property="og:updated_time" content="2020-03-01T16:01:05.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CIM">
-<meta name="twitter:description" content="RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表审计 元数据维护">
+<meta name="twitter:description" content="100w行级别 RuBAC: Rule-Based Access Control 基于规则 RoBAC: Role-Based Access Control 基于角色 业务场景与功能  场景：入职发放多个系统账号，调动调整账号，离职回收账号 目标：只操作一个系统，降低操作成本  多系统连接  通用：文件，JDBC，Restful 定制：SDK，脚本   权限控制  基于规则 基于申请审批   报表">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/cim.html" class="article-date">
-  	<time datetime="2020-01-22T03:44:09.438Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-03-01T16:01:05.487Z" itemprop="datePublished">2020-03-02</time>
 </a>
     </div>
   
@@ -179,7 +179,8 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>RuBAC: Rule-Based Access Control 基于规则<br>
+        <p>100w行级别</p>
+<p>RuBAC: Rule-Based Access Control 基于规则<br>
 RoBAC: Role-Based Access Control 基于角色</p>
 <h1 id="业务场景与功能">业务场景与功能</h1>
 <hr>
@@ -208,7 +209,7 @@ RoBAC: Role-Based Access Control 基于角色</p>
 </ul>
 <h1 id="架构">架构</h1>
 <hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Front end]</span><br><span class="line">[Connector(Install/Apply)] [Audit]</span><br><span class="line">[Event]</span><br><span class="line">[Rule] [Application]                =&gt;  [RabbitMQ]  =&gt;  [Apply Executor]  =&gt; [Traget Systems]</span><br><span class="line">[Meta Data] [System Setting]</span><br><span class="line">[Oracle/Mysql] [Redis]  [Solr]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Front end]</span><br><span class="line">[Connector(Install/Apply)] [Audit]</span><br><span class="line">[Event：[Rule] [Application]]        =&gt;  [RabbitMQ]  =&gt;  [Apply Executor]  =&gt; [Traget Systems]</span><br><span class="line">[Meta Data] [System Setting]</span><br><span class="line">[Oracle/Mysql] [Redis]  [Solr]</span><br></pre></td></tr></table></figure>
 <h1 id="设计细节">设计细节</h1>
 <hr>
 <p>请求执行器无状态设计，无设施依赖</p>
@@ -222,10 +223,14 @@ RoBAC: Role-Based Access Control 基于角色</p>
 <li>执行器按需请求</li>
 </ul>
 <p>同一事件由多个系统执行，不是分布式事务关系，其中一个失败不会导致其他回滚，尽最大努力重试模型</p>
-<h2 id="未来改进">未来改进</h2>
-<ul>
-<li>数据表分离，当前数据和历史数据，每次修改时，利用当前旧数据插入历史数据，同时修改当前</li>
-</ul>
+<h1 id="导入流程">导入流程</h1>
+<hr>
+<ol>
+<li>导入人员元数据Person</li>
+<li>目标系统导入，元数据账户数据匹配关联,建立UserData</li>
+<li>修改元数据，根据设定生成新版本UserData</li>
+<li>执行Apply发送给目标系统</li>
+</ol>
 <h1 id="两级执行机制">两级执行机制</h1>
 <hr>
 <p>如果改动元数据直接修改目标，过于分散无法管理</p>
@@ -250,11 +255,14 @@ RoBAC: Role-Based Access Control 基于角色</p>
 <li>责任链模式，通过Filter实现，某些请求地址上需要添加新建窗口请求参数，后端调整</li>
 <li>命令模式，构造好后交给线程池处理</li>
 </ul>
-<h1 id="分表">分表</h1>
+<h1 id="分库">分库</h1>
 <hr>
-<p>履历信息庞大，3w用户每人每年修改10次，30w记录<br>
-定期检查信息，每个用户一条信息，每个权限一条信息，每一轮都产生<br>
-按年分割，预建表，最常用的是最新履历</p>
+<p>每个用户一个库</p>
+<h2 id="未来改进">未来改进</h2>
+<ul>
+<li>数据表分离，当前数据和历史数据，每次修改时，利用当前旧数据插入历史数据，同时修改当前</li>
+<li>库融合，多租户方案</li>
+</ul>
 <h1 id="属性体系">属性体系</h1>
 <hr>
 <h2 id="属性绑定">属性绑定</h2>
@@ -291,8 +299,8 @@ CIM自身数据库维护一套<br>
 <ul>
 <li>获取连接信息</li>
 <li>获取token</li>
-<li>提交执行结果</li>
-<li>提交导入结果集</li>
+<li>提交执行结果 apply</li>
+<li>提交导入结果集 inventory</li>
 <li>获取账户系统列表</li>
 </ul>
 <h1 id="定期清点">定期清点</h1>
@@ -342,8 +350,8 @@ CIM自身数据库维护一套<br>
 <li>获取全用户列表 GetAllAccount</li>
 <li>增删改用户</li>
 <li>有/无效化用户</li>
-<li>获取全权限列表 GetAllRole</li>
-<li>获取权限可选项 GetRoleMember</li>
+<li>获取权限类别所有可选项 GetAllRole</li>
+<li>获取特定权限下成员 GetRoleMember</li>
 <li>增删权限项</li>
 </ul>
 <h1 id="restful连接器">Restful连接器</h1>
@@ -382,7 +390,7 @@ CIM自身数据库维护一套<br>
 <li>限流处理
 <ul>
 <li>Redis维护每种请求类型下一次尝试时间</li>
-<li>Redis令牌桶发送端主动控制请求频率</li>
+<li>Redis类似令牌桶发送端主动控制请求频率，不精确但是比滑动窗口省空间。比如控制每分钟100次，极限可能200次，比如很久之间更新一直没用，突然全访问完并且由于间隔时间久又补了100，瞬时可能200</li>
 </ul>
 </li>
 <li>模板化
@@ -405,17 +413,13 @@ key: data.[customer].[system].[systemId]</p>
 <p>TopicExchange<br>
 系统分流，消费者可以精确订阅某个系统，某类系统<br>
 方便有些消费者只能访问特定系统</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                                                data.aaa.rest.*     Queue</span><br><span class="line">                            data.aaa.*.*    (Topic)Exchange     data.bbb.ad.*       Queue</span><br><span class="line">Data    (Topic)Exchange     data.bbb.*.*    (Topic)Exchange</span><br><span class="line">                            data.ccc.*.*    (Topic)Exchange</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                                                data.aaa.rest.*     Queue</span><br><span class="line">                            data.aaa.*.*    (Topic)Exchange     data.aaa.ad.*       Queue</span><br><span class="line">Data    (Topic)Exchange     data.bbb.*.*    (Topic)Exchange</span><br><span class="line">                            data.ccc.*.*    (Topic)Exchange</span><br></pre></td></tr></table></figure>
 <p>广播数据<br>
 key: note.[customer]</p>
 <p>TopicExchange 按照客户分流<br>
 FanoutExhange 发给所有订阅者</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                                                /       Queue</span><br><span class="line">                            note.aaa.*.*    (Fanout)Exchange    /       Queue</span><br><span class="line">Data    (Topic)Exchange     note.bbb.*.*</span><br><span class="line">                            note.ccc.*.*</span><br></pre></td></tr></table></figure>
 <p>同一个消费者订阅两个队列，一个数据队列，一个广播队列</p>
-<h2 id="批处理时顺序保障">批处理时顺序保障</h2>
-<p>同一user的同一天多操作合并，不同天建立map+list结构<br>
-key是头信息id，value是操作序列<br>
-头信息应答后，删除头，发下一条</p>
 <h2 id="token过期处理">token过期处理</h2>
 <p>消费者内存维护当前token，生产者Redis维护旧新token映射表以及最新token</p>
 <ul>
@@ -432,30 +436,44 @@ key是头信息id，value是操作序列<br>
 <ol>
 <li>很多消费者发现token过期</li>
 <li>调用API发起申请</li>
-<li>生产者分布式锁，只有一个通过其他忽略，通过的消费者申请新token，其他消费者等待</li>
-<li>申请到新token后，调用API</li>
+<li>服务端分布式锁，只有一个通过其他拒绝，通过的消费者申请新token，其他消费者等待</li>
+<li>申请到新token后，调用API发给服务端</li>
 <li>服务端存储新token</li>
 <li>服务端下发广播消息，所有相关消费者收到</li>
 </ol>
+<h2 id="批处理时顺序保障">批处理时顺序保障</h2>
+<p>有依赖的专门打包成大消息执行</p>
 <h2 id="消息重复处理">消息重复处理</h2>
 <p>RabbitMQ消息重复</p>
 <ul>
 <li>增加账户时，利用目标系统唯一约束，多次操作直接失败</li>
 <li>同一用户期间内多次修改预先合并，短期内只有一个修改，重复执行无影响<br>
-偶发，5min后异步postcheck机制，检查</li>
+如果重复执行服务端会受到重复应答，如果发现已经成功又有应答，启动检查机制，比对目标系统当期值是否符合预期</li>
 </ul>
 <h1 id="熔断降级">熔断降级</h1>
 <hr>
-<p>Hystrix线程池隔离 请求多目标系统 防止单系统崩溃造成资源全部占用导致整体停滞</p>
+<p>Hystrix线程池隔离 请求多目标系统 防止单系统崩溃造成资源全部占用导致整体停滞<br>
+降级Semaphore请求Redis，不行走内存Session</p>
 <h1 id="redis">Redis</h1>
 <hr>
 <ul>
 <li>Session</li>
+<li>缓存目录树，复杂信息</li>
+<li>系统导入/批处理进度，临时信息</li>
 <li>令牌桶算法</li>
-<li>系统导入/批处理进度</li>
 <li>新token分布式锁协调</li>
-<li>缓存目录树</li>
 </ul>
+<h1 id="部署">部署</h1>
+<hr>
+<p>SolrCloud集群 2实例<br>
+Redis集群 3主3从<br>
+RabbitMQ镜像 2实例<br>
+Zookeeper 3实例</p>
+<h1 id="访问量">访问量</h1>
+<hr>
+<p>用户总量10w，日活2w<br>
+每个用户50个请求，100w访问量，平均QPS10<br>
+估算峰值QPS100</p>
 
         
     <div class="donate_module">
@@ -568,6 +586,6 @@ key是头信息id，value是操作序列<br>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

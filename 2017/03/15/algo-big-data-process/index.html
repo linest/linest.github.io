@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="一次放不下，拆分处理">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-01T02:31:21.281Z">
+<meta property="og:updated_time" content="2020-02-27T15:57:25.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单机有限内存处理海量数据">
 <meta name="twitter:description" content="一次放不下，拆分处理">
@@ -196,6 +196,8 @@ Zjuer
 <li>GB在数量上是2的30次方，是billion级别，即10亿个字节</li>
 <li>MB在数量上是2的20次方，是million级别，即100万个字节</li>
 <li>32位整型理论是40亿，但是考虑到正负数，最大值大约20亿</li>
+<li>整型全部数字有<code>2^32</code>个，<code>2^32bit=0.5*2^30byte=0.5GB=512MB</code>，即容纳全部数字的位图只需要512M</li>
+<li>IP地址4字节，共<code>2^32</code>组合，即全部存储需要16G</li>
 </ul>
 <h1 id="目标特性">目标特性</h1>
 <hr>
@@ -214,7 +216,7 @@ Zjuer
 <li>位图</li>
 <li>哈希划分</li>
 <li>范围划分</li>
-<li>归并</li>
+<li>小文件归并</li>
 </ul>
 <h1 id="大数据查重">大数据查重</h1>
 <hr>
@@ -243,15 +245,14 @@ Zjuer
 <p>有限512MB内存下对10GB数据排序</p>
 </blockquote>
 <ul>
-<li>
-<p>位图<br>
-条件：如果数据是int类型，并且没有重复的话，可以考虑位图，用一个bit表示一个数字<br>
-整型全部数字有2<sup>32个，2</sup>32bit=0.5*2^30byte=0.5GB=512MB</p>
-</li>
+<li>位图<br>
+条件：如果数据是int类型，并且没有重复的话，可以考虑位图，用一个bit表示一个数字</li>
+</ul>
+<ul>
 <li>
 <p>桶排序，范围划分<br>
 条件：如果范围有限，分布比较均匀的话<br>
-将数据按照所属范围分成若干小文件，每个文件内排序，因为范围也是有序的，顺序合并即可<br>
+将数据按照所属范围分成若干小文件，即一定范围数字写入某一文件，每个文件内排序，因为范围也是有序的，顺序合并即可<br>
 场景：按时间排序</p>
 </li>
 <li>
@@ -272,7 +273,7 @@ Zjuer
 <p>直接划分，计数，结果归并</p>
 <ol>
 <li>20亿个整数，即使都是同一个数，也在int范围内，即计数采用4字节整型就够</li>
-<li>一条计数key和value各4个字节，一共8字节，2亿条记录占用1.6G，即内存能同时维护2亿个不同的数值</li>
+<li>计算能容纳多少哈希记录，一条计数key和value各4个字节，一共8字节，2亿条记录占用1.6G，即内存能同时维护2亿个不同的数值</li>
 <li>20亿个整数最多有20亿个不同，所以划分成10个文件，这样每个文件内不同数字不超过2亿个，可以内存处理，计数结果输出成文件</li>
 <li>每个文件都可以统计出次数最多的数，不同文件结果进行归并，过程中找到最多</li>
 </ol>
@@ -293,7 +294,7 @@ Zjuer
 <p>哈希划分，计数</p>
 <ol>
 <li>过滤出访问某一网站的IP,写入文件</li>
-<li>IP每段有2<sup>8个取值，4段有2</sup>32 = 4G种取值，全加载内存有难度，哈希分治到1024个小文件，每个4M个地址</li>
+<li>IP每段有<code>2^8</code>个取值，4段有<code>2^32 = 4G</code>种取值，全加载内存有难度，哈希分治到1024个小文件，每个4M个地址</li>
 <li>每个小文件内部统计次数，找到最多的IP</li>
 <li>汇总，找到全局最多</li>
 </ol>
@@ -467,6 +468,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="面向资源操作的URL风格 Restful充分利用了HTTP基础设施提供的功能  响应缓存  Cache-Control   内容协商 安全性和幂等性    查询：GET  成功 200 OK 不存在 404 Not Found 资源过期，已不再存在 410 Gone    添加：POST，id未知在添加后生成  成功 201 Created，并在响应头Location中标明新资源地址，新资源名可以">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:44:17.168Z">
+<meta property="og:updated_time" content="2020-02-21T04:02:05.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="design-rest">
 <meta name="twitter:description" content="面向资源操作的URL风格 Restful充分利用了HTTP基础设施提供的功能  响应缓存  Cache-Control   内容协商 安全性和幂等性    查询：GET  成功 200 OK 不存在 404 Not Found 资源过期，已不再存在 410 Gone    添加：POST，id未知在添加后生成  成功 201 Created，并在响应头Location中标明新资源地址，新资源名可以">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/design-rest.html" class="article-date">
-  	<time datetime="2020-01-22T03:44:17.168Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-21T04:02:05.554Z" itemprop="datePublished">2020-02-21</time>
 </a>
     </div>
   
@@ -226,10 +226,11 @@ Zjuer
 <li>
 <p>错误处理</p>
 <ul>
-<li>没通过安全验证或者没权限 403 Forbidden</li>
+<li>缺失内容格式或者其他内容要求，参数不对 400 Bad Request</li>
+<li>没通过认证 401 Unauthorized</li>
+<li>没权限访问 403 Forbidden</li>
 <li>资源存在，但是请求方法不对 405 Method Not Allowed</li>
 <li>要求返回内容的格式(Accept)不对 406 Not Acceptable</li>
-<li>缺失内容格式或者其他内容要求，服务器不明确 400 Bad Request</li>
 <li>发送内容的格式(Content-Type)不对 415 Unsupported Media Type</li>
 <li>请求过于频繁，速率限制 429: Too Many Requests</li>
 </ul>
@@ -241,6 +242,22 @@ Zjuer
 <li>PATCH可以配合If-Match进行条件操作实现幂等</li>
 </ul>
 <p>POST可以用作隧道，负载其他协议，比如SOAP</p>
+<h1 id="版本兼容性">版本兼容性</h1>
+<hr>
+<p>无需新增版本</p>
+<ul>
+<li>新增API(旧应用不使用)</li>
+<li>新增返回字段(旧应用会忽略)</li>
+<li>新增可选参数(默认值和旧应用行为一致)</li>
+</ul>
+<h1 id="分类">分类</h1>
+<hr>
+<ul>
+<li>Public API: 供外部用户和服务使用</li>
+<li>Limited API: 供前端js调用</li>
+<li>Private API: 内部服务间调用<br>
+Private和其他分开部署，不能外部调用</li>
+</ul>
 <h1 id="集合型设计">集合型设计</h1>
 <hr>
 <p>考虑分页，返回内容最好包含总数，当前请求url,前一页url,后一页url</p>
@@ -387,6 +404,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

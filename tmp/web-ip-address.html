@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>IP地址 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10.0.0.0~10.255.255.255 172.16.0.0~172.31.255.255 192.168.0.0~192.168.255.255  CIDR  无类">
+  <meta name="description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
 <meta property="og:type" content="website">
 <meta property="og:title" content="IP地址">
 <meta property="og:url" content="http://linest.github.io/tmp/web-ip-address.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10.0.0.0~10.255.255.255 172.16.0.0~172.31.255.255 192.168.0.0~192.168.255.255  CIDR  无类">
+<meta property="og:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T16:06:07.619Z">
+<meta property="og:updated_time" content="2020-02-20T07:40:31.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IP地址">
-<meta name="twitter:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10.0.0.0~10.255.255.255 172.16.0.0~172.31.255.255 192.168.0.0~192.168.255.255  CIDR  无类">
+<meta name="twitter:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-ip-address.html" class="article-date">
-  	<time datetime="2020-01-11T16:06:07.619Z" itemprop="datePublished">2020-01-12</time>
+  	<time datetime="2020-02-20T07:40:31.543Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -186,17 +186,25 @@ Zjuer
 <p>32位，一般划分为两部分：网络号和主机号</p>
 <p>私有ip地址段</p>
 <ul>
-<li>10.0.0.0~10.255.255.255</li>
-<li>172.16.0.0~172.31.255.255</li>
-<li>192.168.0.0~192.168.255.255</li>
+<li>10段：10.0.0.0~10.255.255.255</li>
+<li>172.16-172.31段：172.16.0.0~172.31.255.255</li>
+<li>192.168段：192.168.0.0~192.168.255.255</li>
+</ul>
+<p>分类</p>
+<ul>
+<li>A类: 前一段网络号，后三段主机号，二进制0开头，每个网络可容纳16777214</li>
+<li>B类：前两段网络号，后两段主机号，二进制10开头，每个网络可容纳主机数65534</li>
+<li>C类：前三段网络号，后一段主机号，二进制110开头，每个网络可容纳主机数254</li>
+<li>D类：多播地址，二进制1110开头</li>
+<li>E类：预备保留，二进制1111开头</li>
 </ul>
 <h1 id="cidr">CIDR</h1>
 <hr>
 <p>无类型域间路由(Classless Inter-Domain Routing)<br>
 解决原来固定划分ABC类网址，大小不合适，自定义划分位数</p>
 <ul>
-<li>主机号全1为广播地址，即该子网络下所有主机都能收到</li>
-<li>主机号全0为子网掩码<br>
+<li>主机号全0为子网掩码</li>
+<li>主机号全1为广播地址，即该子网络下所有主机都能收到<br>
 IP地址和子网掩码与操作，可以获取网络号</li>
 </ul>
 <h1 id="特殊地址">特殊地址</h1>
@@ -214,7 +222,7 @@ IP地址和子网掩码与操作，可以获取网络号</li>
 <h1 id="dhcp">DHCP</h1>
 <hr>
 <p>动态主机配置协议(Dynamic Host Configuration Protocol)<br>
-IP不固定，动态租用获取</p>
+机器IP不固定，动态租用获取</p>
 <ol>
 <li>新机器使用<code>0.0.0.0</code>未知身份，发送<code>255.255.255.255</code>广播，包含自身MAC信息</li>
 <li>DHCP服务器收到了，根据MAC分配一个IP，依然广播发送，包含子网掩码，网关，IP和租用期限等信息</li>
@@ -222,29 +230,34 @@ IP不固定，动态租用获取</p>
 <li>DHCP服务器广播应答<br>
 租期过半时可以发起续租</li>
 </ol>
+<p>整个过程中新机器和DHCP服务器互不知情，采取广播方式</p>
 <h1 id="arp">ARP</h1>
 <hr>
-<p>MAC作用是网卡收到数据，发现MAC是自己，就进行处理<br>
+<p>网络层协议<br>
 向目标通信，必须知道目标的MAC<br>
-已知IP,求MAC<br>
-广播询问，目标应答<br>
+MAC作用是网卡收到数据，发现MAC是自己，就进行处理<br>
+已知目标IP,需要知道MAC，广播询问，目标应答<br>
 收到目标回复，缓存这个MAC一段时间构建ARP映射表，避免短时间内每次都询问</p>
 <h1 id="网关">网关</h1>
 <hr>
 <p>网关和当前机器IP地址要在一个网段，作用是向其他网段转发<br>
 路由器，交换机或者是PC都可以作为网关</p>
+<p>发送时，已知自身MAC，自身和目标IP</p>
+<ul>
+<li>同网段：ARP获取目标MAC，直接发给目标，不通过网关</li>
+<li>不同网段：ARP获取网关MAC，发给网关，靠网关转发，网关知道通向其他网段下一跳地址</li>
+</ul>
+<h1 id="传输过程数据变化">传输过程数据变化</h1>
+<hr>
 <p>MAC层数据先目标MAC，然后是来源MAC，因为网卡首先要判断是不是发给自己的<br>
 IP层数据先来源IP，然后是目标IP，因为要判断是否一个网段</p>
-<p>发送时，自身和目标IP已知，自身MAC已知<br>
-同网段：ARP获取目标MAC，直接发给目标，不通过网关<br>
-不同网段：ARP获取网关MAC，发给网关，靠网关转发，网关知道通向其他网段下一跳地址</p>
 <p>MAC改变：<br>
-每经过一个路由节点，MAC会改变，因为发往不同设备</p>
+每经过一个路由节点，目标MAC会改变，因为发往不同设备</p>
 <p>IP改变：<br>
 NAT(Network Address Translation)<br>
 公网ip很宝贵，不可能每台机器都有公网ip，内部采用内网ip<br>
 一般整个内网有部分ip可以访问公网，构成NAT地址池<br>
-内网ip请求时都通过NAT路由器，从地址池中挑一个能访问外网的ip，结果在反向映射返回给内网ip</p>
+内网ip请求时都通过NAT路由器，从地址池中挑一个能访问外网的ip，响应结果在反向映射返回给内网ip</p>
 <p>端口改变：<br>
 由于共享外网地址，如果使用同一端口将建立多对一关系，返回时无法区分来源，因此要使用NAPT技术，ip改变同时端口也要改变，内网ip:port–&gt;外网ip:空闲port</p>
 <h1 id="集线器与交换机">集线器与交换机</h1>
@@ -252,7 +265,7 @@ NAT(Network Address Translation)<br>
 <p>两者都可以多机互联</p>
 <ul>
 <li>集线器(Hub)<br>
-纯物理层工作，一层设备，收到数据就转发给每个接口，由机器自己判断需不需要，小范围可以，多了比较浪费带宽</li>
+纯物理层工作，一层设备，收到数据就无脑转发给每个接口，由机器自己判断需不需要，小范围可以，多了比较浪费带宽</li>
 <li>交换机(Switch)<br>
 数据链路层工作，二层设备，解析MAC，策略转发<br>
 交换机一开始也不知道目标MAC是哪个接口，但是每次知道来源MAC是哪个接口，慢慢学习出MAC和接口的对应关系，形成转发表</li>
@@ -379,6 +392,6 @@ NAT(Network Address Translation)<br>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

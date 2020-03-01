@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>系统设计 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
+  <meta name="description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
 <meta property="og:type" content="website">
 <meta property="og:title" content="系统设计">
 <meta property="og:url" content="http://linest.github.io/tmp/system-design.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
+<meta property="og:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-14T14:30:20.745Z">
+<meta property="og:updated_time" content="2020-02-29T15:31:40.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计">
-<meta name="twitter:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能 可扩展性 开放API 电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取 座位选取">
+<meta name="twitter:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/system-design.html" class="article-date">
-  	<time datetime="2020-01-14T14:30:20.745Z" itemprop="datePublished">2020-01-14</time>
+  	<time datetime="2020-02-29T15:31:40.494Z" itemprop="datePublished">2020-02-29</time>
 </a>
     </div>
   
@@ -190,8 +190,13 @@ Zjuer
 <li>监控</li>
 </ul>
 <p>高性能</p>
-<p>可扩展性<br>
-开放API</p>
+<ul>
+<li>缓存</li>
+</ul>
+<p>可扩展性</p>
+<ul>
+<li>开放API</li>
+</ul>
 <h1 id="电影售票服务">电影售票服务</h1>
 <hr>
 <p>业务功能</p>
@@ -215,14 +220,13 @@ Zjuer
 <li>电影表：电影id, 名称，国别，演员…</li>
 <li>影院表：影院id, 名称，位置，经度，纬度</li>
 <li>场次表：场次id, 影院id，电影id，放映厅，时间</li>
-<li>座位预定表：场次id，座位id, 状态，用户id</li>
+<li>座位预定表：场次id，座位id, 状态，预定用户id</li>
 </ul>
 <p>静态缓存：上映影片变化但是数量少，影院比较固定数量少，缓存<br>
 数据分片：根据场次分，同场次在一起<br>
 历史数据归档：历史数据很少访问，分库/partition</p>
 <p>严格事务<br>
 秒杀场景<br>
-适当冗余，场次表内包含电影名称?<br>
 位图优化，座次表省略，换成位图?</p>
 <h1 id="朋友圈">朋友圈</h1>
 <hr>
@@ -327,6 +331,16 @@ feed表：文字内容，图片url，可见范围<br>
 </ul>
 </li>
 </ul>
+<p>读扩散：写只写入自身发布列表即可，读需要获取关注人的发布列表，排序汇总</p>
+<ul>
+<li>写入简单，关注取关简单</li>
+<li>feed只存一次</li>
+<li>读操作复杂<br>
+写扩散：写一条微博，同时写入所有分析的feed列表，读直接读即可</li>
+<li>读操作简单，每人读取自己的</li>
+<li>每个人额外维护feed列表，同一份冗余存储，消耗空间</li>
+<li>关注取关操作复杂</li>
+</ul>
 <p>微博独有特性</p>
 <ul>
 <li>转发：只存原博id</li>
@@ -384,8 +398,8 @@ feed表：文字内容，图片url，可见范围<br>
 </li>
 <li>数量约束
 <ul>
-<li>注册短链量</li>
-<li>短链请求量</li>
+<li>短链注册量</li>
+<li>短链访问量</li>
 </ul>
 </li>
 </ul>
@@ -440,9 +454,6 @@ feed表：文字内容，图片url，可见范围<br>
 <p>可扩展性</p>
 <p>如何判定新页面<br>
 如何处理死循环</p>
-<h1 id="双十一设计">双十一设计</h1>
-<hr>
-<p>双11大促的时候如何设计系统的动态扩容/缩容的机制</p>
 <h1 id="消息中间件设计">消息中间件设计</h1>
 <hr>
 <p>业务功能</p>
@@ -573,6 +584,8 @@ feed表：文字内容，图片url，可见范围<br>
 </li>
 </ul>
 <h1 id="100万的优惠码-怎样保证每个用户只能领取一个">100万的优惠码，怎样保证每个用户只能领取一个</h1>
+<h1 id="双十一设计">双十一设计</h1>
+<p>双11大促的时候如何设计系统的动态扩容/缩容的机制</p>
 <h1 id="操作状态持久化">操作状态持久化</h1>
 <hr>
 <p>Git  Redis  Kafka类似场景</p>
@@ -585,16 +598,6 @@ feed表：文字内容，图片url，可见范围<br>
 <hr>
 <p>表结构<br>
 字典值文字，字典值id, 字典类型，字典描述，状态，删除标记，展示顺序，创建人，创建时间</p>
-<h1 id="大数据量视频播放top-n">大数据量视频播放top N</h1>
-<hr>
-<p>保障绝对精确和实时开销很大</p>
-<ul>
-<li>数据采样，数据量下降</li>
-<li>延迟更新，比如最近1小时数据，每分钟更新一次</li>
-<li>分片计算，以分钟统计结果为整体</li>
-<li>结果缓存，所有访问只是查询缓存，没有计算</li>
-<li>分布式计算，中心汇总，比如100台机器，每秒发给中心，中心QPS100</li>
-</ul>
 <h1 id="叫车派单">叫车派单</h1>
 <hr>
 <p>经纬度位置找附近的车</p>
@@ -621,6 +624,37 @@ feed表：文字内容，图片url，可见范围<br>
 <p>如何上传/查看/搜索/分享文件<br>
 如何管理文件权限<br>
 如何协同编辑</p>
+<h1 id="抢红包">抢红包</h1>
+<hr>
+<ul>
+<li>流量控制：缓存维护红包信息(金额，类型，个数)并带有计数器字段，抢红包请求发现没有红包后立刻返回，只有等于红包个数的请求会进行拆红包</li>
+<li>随机算法：保证用户0.01，其他随机</li>
+<li>实时随机：内存实时计算拆得红包金额，避免预先分好占用存储资源</li>
+<li>入库入账：数据库实时插入拆红包记录，异步写入用户账户</li>
+<li>水平扩展：分片，一致性哈希，同一红包的请求由同一台机器对应</li>
+</ul>
+<h1 id="大数据量视频播放top-n">大数据量视频播放top N</h1>
+<hr>
+<p>保障绝对精确和实时开销很大</p>
+<ul>
+<li>分布式计算，中心汇总，比如100台机器，每秒发给中心，中心QPS100</li>
+<li>结果缓存，所有查询访问只是查询中心缓存，没有计算</li>
+<li>延迟更新，比如最近1小时数据，每分钟更新一次</li>
+<li>分片计算，以分钟统计结果为整体，进行滑动窗口</li>
+<li>数据采样，数据量下降</li>
+</ul>
+<h1 id="总结">总结</h1>
+<hr>
+<p>读多写少 =&gt; 读写分离，缓存<br>
+流量大 =&gt; 过滤拦截<br>
+访问量大 =&gt; 多实例服务负载均衡<br>
+图片大量访问 =&gt; CDN<br>
+复杂稳定 =&gt; 离线计算<br>
+容忍不实时，缩短响应时间 =&gt; 队列异步计算<br>
+数据量大 =&gt; 分片<br>
+数据无关联 =&gt; Nosql<br>
+高可用 =&gt; 主备<br>
+图片/视频存储 =&gt; 数据库只存地址，文件存文件系统</p>
 
         
     <div class="donate_module">
@@ -733,6 +767,6 @@ feed表：文字内容，图片url，可见范围<br>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

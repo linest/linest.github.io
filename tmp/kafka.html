@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>kafka | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
+  <meta name="description" content="追求吞吐量，初始设计用于日志收集，实时处理数据流 消息可能重复、丢失、错误 Zookeeper维护 Kafka服务端 ProducerRecord消息 KafkaProducer生产者客户端 KafkaConsumer消费者客户端 基础概念  Broker：集群中每台服务器 Topic： 一类信息 Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写">
 <meta property="og:type" content="website">
 <meta property="og:title" content="kafka">
 <meta property="og:url" content="http://linest.github.io/tmp/kafka.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
+<meta property="og:description" content="追求吞吐量，初始设计用于日志收集，实时处理数据流 消息可能重复、丢失、错误 Zookeeper维护 Kafka服务端 ProducerRecord消息 KafkaProducer生产者客户端 KafkaConsumer消费者客户端 基础概念  Broker：集群中每台服务器 Topic： 一类信息 Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T16:20:02.942Z">
+<meta property="og:updated_time" content="2020-02-24T10:07:41.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka">
-<meta name="twitter:description" content="https://www.javazhiyin.com/47664.html Zookeeper维护 KafkaProducer生产者客户端 ProducerRecord消息 Kafka服务端 KafkaConsumer消费者客户端 每台机器称为Broker Topic拆分多个Partition,分布在不同Broker上 消费者关注Topic 多个消费者组成Consumer Group 同一Part">
+<meta name="twitter:description" content="追求吞吐量，初始设计用于日志收集，实时处理数据流 消息可能重复、丢失、错误 Zookeeper维护 Kafka服务端 ProducerRecord消息 KafkaProducer生产者客户端 KafkaConsumer消费者客户端 基础概念  Broker：集群中每台服务器 Topic： 一类信息 Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/kafka.html" class="article-date">
-  	<time datetime="2019-12-15T16:20:02.942Z" itemprop="datePublished">2019-12-16</time>
+  	<time datetime="2020-02-24T10:07:41.086Z" itemprop="datePublished">2020-02-24</time>
 </a>
     </div>
   
@@ -179,29 +179,146 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://www.javazhiyin.com/47664.html" target="_blank" rel="noopener">https://www.javazhiyin.com/47664.html</a></p>
+        <p>追求吞吐量，初始设计用于日志收集，实时处理数据流<br>
+消息可能重复、丢失、错误</p>
 <p>Zookeeper维护</p>
-<p>KafkaProducer生产者客户端<br>
+<p>Kafka服务端<br>
 ProducerRecord消息<br>
-Kafka服务端<br>
+KafkaProducer生产者客户端<br>
 KafkaConsumer消费者客户端</p>
-<p>每台机器称为Broker</p>
-<p>Topic拆分多个Partition,分布在不同Broker上<br>
-消费者关注Topic<br>
-多个消费者组成Consumer Group<br>
-同一Partition消息会交给Group内同一消费者处理，即组内消费者数量应小于等于Partition数量</p>
+<p>基础概念</p>
+<ul>
+<li>Broker：集群中每台服务器</li>
+<li>Topic： 一类信息</li>
+<li>Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写</li>
+<li>Worker: 消费者，订阅Topic</li>
+<li>Consumer Group: 多个消费者构成</li>
+</ul>
+<p>关系</p>
+<ul>
+<li>Topic消息会广播给Group，即消息复制给所有组</li>
+<li>消息只给组内唯一一个消费者并且来自相同分区给同一消费者，消费者Worker数量应小于等于Partition数量并且最好整数倍关系</li>
+</ul>
+<p>模型</p>
 <ul>
 <li>队列模型： 所有消费者成为一个组，一条消息只有一个消费者获得</li>
 <li>发布订阅模型： 每个消费者单独成组，一条消息每个消费者都获得</li>
 </ul>
-<h1 id="支持大量连接">支持大量连接</h1>
+<h1 id="存储">存储</h1>
 <hr>
+<p>每个partition对应topic-partition文件夹<br>
+文件夹下多个Segment File(.index文件和.log数据文件)<br>
+log文件以偏移量命名，给定一个offset可以查对应消息</p>
+<ol>
+<li>通过offset定位到.log和.index文件</li>
+<li>通过.index文件找到offset对应的物理偏移</li>
+<li>通过物理偏移从.log文件中找到消息</li>
+</ol>
+<h1 id="选举">选举</h1>
+<hr>
+<ul>
+<li>
+<p>控制器选举<br>
+Broker中选出一个，负责管理Partition及Leader选举<br>
+Zookeeper, 能成功创建临时目录的Broker成为Controller, 同时注册Watcher</p>
+</li>
+<li>
+<p>分区选举<br>
+新分区创建，Leader下线等情况<br>
+控制器根据所有副本AR顺序选，并且存在于ISR列表中<br>
+如果ISR为空，那么<code>unclean.leader.election</code>决定是否允许不同步的副本成为Leader, 默认开启可能出现丢数据可靠性降低，如果不开启无法选出Leader可用性降低</p>
+</li>
+</ul>
+<p>流程</p>
+<ol>
+<li>Controller决定宕机Broker上有哪些分区，形成set_p</li>
+<li>针对每个分区，从<code>/brokers/topics/[topic]/partitions/[partition]/state</code>找到ISR</li>
+<li>选举Leader，写入结果</li>
+<li>向Partition相关的Broker发送RPC请求LeaderAndISRRequest</li>
+</ol>
+<ul>
+<li>消费组选举<br>
+消费组Leader, 取哈希表的第一个，相当于随机</li>
+</ul>
+<h1 id="主从">主从</h1>
+<hr>
+<p>Partition冗余副本，只有Leader对外提供读写，Follower不承担读操作，并不是读写分离，Follower周期性拉取更新<br>
+主写主读好处是避免掉从读同步延时造成的数据不一致，并且可以利用优先副本机制更好的控制负载均衡？<br>
+生产者首先查询Partition的Leader,再发消息</p>
+<h1 id="副本">副本</h1>
+<hr>
+<p>ISR机制</p>
+<ul>
+<li>AR: Assigned Replicas 所有副本</li>
+<li>ISR: In-Sync Replicas 保持同步的副本，包括Leader以及和其保持一定程度同步的Follower</li>
+<li>OSR: Outof-Sync Replicas 未保持同步的副本</li>
+</ul>
+<p>初始时副本加入OSR, 如果一个Follower落后太多或者超时未同步则将其剔除ISR，后期赶上后再加入<br>
+Leader维护ISR列表, 每个Partition都有对应</p>
+<h1 id="controller">Controller</h1>
+<hr>
+<p>管理Partition管理Replica<br>
+注册watcher在<code>/brokers/topics</code>，检测topic变化比如增删topic<br>
+注册watcher在<code>/brokers/ids</code>，监听broker变化比如增删或节点宕机<br>
+可以通过<code>/brokers/topics/[topic]/partitions/[partition]/state</code>获得ISR及Leader信息等</p>
+<h1 id="group-coordinator">Group Coordinator</h1>
+<hr>
+<p>Group Coordinator是Broker内一个进程，负责Consumer Group管理，offset管理，Consumer Rebalance<br>
+消费组根据groupId哈希对<code>__consumer_offsets</code>分区数默认50取模定位一个分区，该分区Leader所在Broker上的Group Coordinator就是负责这个消费组</p>
+<h2 id="offset管理">Offset管理</h2>
+<p>Offset是消息在partition中的唯一标识, 依据Offset定位<br>
+Offset表示消费者想要的下一条数据偏移<br>
+Committed Offset表示消费者已确认的想要的下一条消息，如果消费者中途挂掉，Rebalance后可以继续消费<br>
+旧版本offset保存在Zookeeper内，由于ZK不适合大批量读写，新版本保存在名为<code>__consumer_offsets</code>的Topic中<br>
+Offset根据每个groupid-topic-partition组合来记录，每次消费者更新，服务端更新维护Offset Cache提供查询</p>
+<h2 id="consumer-rebalance">Consumer Rebalance</h2>
+<p>组内多个消费者，如果消费者数量变化或者Topic分区数量变化，那么要重新分配分区对应关系</p>
+<ul>
+<li>Range策略：</li>
+<li>RoundRobin策略：</li>
+</ul>
+<p>组内选一个Leader, 变化时向协调器获得组成员列表，根据算法决定分配，报告给协调器，协调器通知所有成员。过程中所有消费者停止消费</p>
+<h1 id="发送">发送</h1>
+<hr>
+<p>发送时可以指定partition，没指定时计算决定</p>
+<ul>
+<li>如果消息指定了key, 哈希计算</li>
+<li>如果没指定key, 轮流分发</li>
+<li>还可以自定义Partitioner实现</li>
+</ul>
+<p>消息生产者<code>acks</code>参数</p>
+<ul>
+<li>0：发送后不管无需等待任何返回，吞吐量最大，但是有可能发送失败或者缓冲区满拒绝造成数据丢失</li>
+<li>1：默认，只要Leader写入成功后应答，但是可能Leader挂掉，Follower来不及同步造成丢失</li>
+<li>-1：all 所有ISR内副本写入成功后应答，即Leader先写log但是不提交，Follower拉取后应答，所有ISR应答后Leader再提交<br>
+ISR保障了动态性，即不要求所有副本都写入，而是要求ISR内写入。好处是如果某个Follower很慢，就暂时排除，防止它拖慢整体进度</li>
+</ul>
+<p>重试，写入失败后间隔重试<br>
+重试可能导致消息顺序不一致，也可能重复执行<br>
+<code>retries</code> 最大重试次数<br>
+<code>retries.backoff.ms</code> 重试间隔</p>
+<h1 id="消费">消费</h1>
+<hr>
+<p>消费者Poll模型拉取消息<br>
+消费者消费后更新为下一条消息偏移即offset+1<br>
+<code>enable.auto.commit</code>默认开启，并且<code>auto.commit.interval.ms</code>默认5秒，即每5秒自动提交offset，如果消费者处理失败，那么相当于丢失<br>
+可以关闭进行手动提交</p>
+<h1 id="消息顺序性">消息顺序性</h1>
+<hr>
+<p>Partition写入有序，对应Group中同一消费者消费有序<br>
+Topic不保证顺序</p>
+<h1 id="高性能">高性能</h1>
+<hr>
+<h2 id="大量连接">大量连接</h2>
 <p>一个acceptor线程，多个processor线程<br>
-收到连接后，acceptor分配给processor线程，一个processor线程同时负责多个连接<br>
-连接发来数据processor线程将任务加入请求队列<br>
-工作线程池处理任务，结果加入响应队列<br>
-processor读取响应队列，返回结果给连接</p>
+收到连接后，acceptor分配给processor线程，一个processor线程同时负责多个连接</p>
+<ol>
+<li>processor收到请求数据将任务加入请求队列</li>
+<li>工作线程池处理任务，结果加入响应队列</li>
+<li>processor读取响应队列，返回结果给连接</li>
+</ol>
 <p>10个processor线程 + 40个工作线程，能支持上万连接</p>
+<h2 id="内存批量操作">内存批量操作</h2>
 <p>内存缓冲，较少网络开销，提升发送吞吐量<br>
 缓冲内存池，batch从池中取一块，用完归还，避免了频繁的垃圾回收<br>
 <code>buffer.memory</code> 内存缓冲空间，默认32M, 内存缓冲过小来不及发送，会写满阻塞客户端写入消息<br>
@@ -212,11 +329,13 @@ processor读取响应队列，返回结果给连接</p>
 <li>同一个topic同一个partition多条消息batch打包，默认batch大小为16kb</li>
 <li>同一个broker不同batch打包成request</li>
 </ul>
+<h2 id="写入">写入</h2>
 <p>写入性能每秒几万到几十万</p>
 <ul>
 <li>写入操作系统页缓存，操作系统自己管理什么时候写磁盘</li>
 <li>顺序写磁盘</li>
 </ul>
+<h2 id="输出">输出</h2>
 <p>输出性能，先查操作系统缓存，没有就读磁盘加载到操作系统缓存</p>
 <ul>
 <li>零拷贝<br>
@@ -227,49 +346,6 @@ processor读取响应队列，返回结果给连接</p>
 好的配置下直接从系统缓存读</li>
 </ul>
 <p>JVM内存分配不是越大越好，要留空间给系统缓存</p>
-<p>CopyOnWriteMap<br>
-batches = new CopyOnWriteMap&lt;TopicPartition, Deque&gt;();<br>
-TopicPartition改动不频繁， 获取出队列操作频繁， 优化读性能</p>
-<p>控制丢失<br>
-Partition冗余副本，只有Leader对外提供读写，Follower不承担读操作，并不是读写分离，Follower周期性拉取更新<br>
-主写主读好处是避免掉从读同步延时造成的数据不一致，并且可以利用优先副本机制更好的控制负载均衡</p>
-<p>ISR机制<br>
-Leader维护ISR列表(In-Sync Replicas)，记录Leader以及和其保持一定程度同步的Follower，如果一个Follower落后太多或者超时未同步则将其剔除，后期赶上后再加入</p>
-<p><code>acks</code>参数</p>
-<ul>
-<li>0：发送后不管，吞吐量最大，但是有可能发送失败造成数据丢失</li>
-<li>1：需要Leader写入成功后应答，但是可能Leader挂掉，Follower来不及同步造成丢失</li>
-<li>all: 所有ISR内副本写入成功后应答<br>
-ISR保障了动态性，即不要求所有副本都写入，而是要求ISR内写入。好处是如果某个Follower很慢，就暂时排除，防止它拖慢整体进度</li>
-</ul>
-<p>重试，写入失败后间隔重试<br>
-重试可能导致消息顺序不一致，也可能重复执行<br>
-<code>retries</code> 最大重试次数<br>
-<code>retries.backoff.ms</code> 重试间隔</p>
-<p>分区分配</p>
-<ul>
-<li>生产出的消息去哪个分区<br>
-可以在ProducerRecord中指定partition， 如果不指定会经过分区器处理<br>
-默认分区器DefaultPartitioner尝试根据key进行MurmurHash2，如果key是null则选择可用分区中的一个</li>
-<li>分区给哪个消费者消费<br>
-Partition分给一个消费组中的一个消费者，即一个分区不会发给一个组内多个消费者<br>
-默认分配器RangeAssignor，组内每个消费者都可指定一个策略，最终策略由组内投票决定</li>
-<li>分区副本存在哪台Broker上<br>
-根据机架信息</li>
-</ul>
-<p>选举</p>
-<ul>
-<li>控制器选举<br>
-Zookeeper, 能成功创建临时目录的Broker, 负责管理集群分区和副本状态</li>
-<li>分区选举<br>
-新分区创建，Leader下线等情况<br>
-根据所有副本AR(Assigned Repllicas)顺序选，并且存在于ISR列表中</li>
-<li>消费组选举<br>
-消费组Leader, 取哈希表的第一个，相当于随机</li>
-</ul>
-<p>消费者使用Zookeeper记录消费位置，只能自行pull拉取，Kafka只管写文件？<br>
-消息消费后不删除，避免文件更新<br>
-没有确认机制？</p>
 
         
     <div class="donate_module">
@@ -382,6 +458,6 @@ Zookeeper, 能成功创建临时目录的Broker, 负责管理集群分区和副�
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

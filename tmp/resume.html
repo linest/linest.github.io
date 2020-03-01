@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>resume | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="李旭 高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                                  2008.09 - 2012.06 浙江大学">
+  <meta name="description" content="高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                             2008.09 - 2012.06 浙江大学">
 <meta property="og:type" content="website">
 <meta property="og:title" content="resume">
 <meta property="og:url" content="http://linest.github.io/tmp/resume.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="李旭 高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                                  2008.09 - 2012.06 浙江大学">
+<meta property="og:description" content="高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                             2008.09 - 2012.06 浙江大学">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:47:14.547Z">
+<meta property="og:updated_time" content="2020-02-28T16:18:12.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="resume">
-<meta name="twitter:description" content="李旭 高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                                  2008.09 - 2012.06 浙江大学">
+<meta name="twitter:description" content="高级软件开发工程师 教育背景 浙江大学                                                                 杭州 本科   计算机科学与技术                                             2008.09 - 2012.06 浙江大学">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/resume.html" class="article-date">
-  	<time datetime="2020-01-22T03:47:14.547Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-28T16:18:12.387Z" itemprop="datePublished">2020-02-29</time>
 </a>
     </div>
   
@@ -179,13 +179,12 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>李旭<br>
-高级软件开发工程师<br>
+        <p>高级软件开发工程师<br>
 教育背景<br>
 浙江大学                                                                 杭州<br>
-本科   计算机科学与技术                                                  2008.09 - 2012.06</p>
+本科   计算机科学与技术                                             2008.09 - 2012.06</p>
 <p>浙江大学                                                                 杭州<br>
-硕士   计算机应用                                                        2012.09 - 2015.03</p>
+硕士   计算机应用                                                   2012.09 - 2015.03</p>
 <p>专业技能<br>
 编程语言：精通Java，熟悉JavaScript<br>
 编程框架：熟悉Spring、Spring MVC，了解Spring Boot<br>
@@ -198,11 +197,11 @@ Zjuer
 编程思想：熟悉OOP、设计模式、分布式<br>
 英语水平：CET-6</p>
 <p>工作经历<br>
-Works Applications                                          2015.04 - 至今</p>
+Works Applications                                       2015.04 - 至今</p>
 <ul>
 <li>上海万革始应用软件有限公司 （中国区研发中心）                   上海<br>
 2015.04 - 2016.05， 2017.10 - 至今</li>
-<li>Works Applications Co., Ltd （日本总部）                         东京<br>
+<li>Works Applications Co., Ltd （日本总部）                     东京<br>
 2016.05 - 2017.10</li>
 </ul>
 <p>组织角色<br>
@@ -246,11 +245,25 @@ Works Applications                                          2015.04 - 至今</p>
 </ul>
 <p>个人博客<br>
 以日常笔记总结为主 <a href="http://linest.github.io">http://linest.github.io</a></p>
-<p>集成JPA</p>
+<p>为什么要用Spring</p>
+<ul>
+<li>MVC框架</li>
+<li>依赖注入，解耦</li>
+<li>便于集成组件</li>
+</ul>
+<p>为什么要用Hibernate</p>
+<ul>
+<li>ORM对象管理</li>
+<li>缓存机制</li>
+<li>Lazy Load</li>
+<li>非高并发互联网应用少写SQL</li>
+</ul>
+<p>集成JPA,兼容旧接口<br>
+原有类已经实现DAO接口，与JPA方法不兼容，sql定义不兼容，目标是不改变原有代码条件下兼容</p>
 <ol>
 <li>@EnableJpaRepositories指向自定义repositoryFactoryBeanClass</li>
 <li>自定义工厂继承默认的JpaRepositoryFactoryBean</li>
-<li>自定义核心基类继承SimpleJpaRepository，配置在工厂中</li>
+<li>自定义核心基类继承默认的SimpleJpaRepository，配置在工厂中</li>
 <li>核心基类扩展方法，可以进行方法映射比如loadAll映射findAll</li>
 <li>原接口DAO继承JpaRepository</li>
 <li>重写RepositoryFactorySupport的getRepository方法，加入新的Interceptor处理变量sql</li>
@@ -265,27 +278,30 @@ Works Applications                                          2015.04 - 至今</p>
 </ol>
 <p>消息队列架构</p>
 <ul>
-<li>异步：同步场景少，批处理异步即可</li>
+<li>异步：同步场景少(Ping,可以利用RPC消息机制)，批处理异步即可</li>
 <li>解构：云场景生产者无需知道消费者在哪，消费端可以灵活扩展</li>
 </ul>
 <p>理念：消费者之间无交流，无任何其他设施<br>
-流程：任务通过队列发给消费者，消费者调用API响应，不通过回复队列</p>
+流程：任务通过队列发给消费者，消费者调用服务方API响应，不通过回复队列</p>
 <p>考虑</p>
 <ul>
 <li>消息优先级：避免很多批处理消息排在前面</li>
-<li>消息顺序性考虑：事先分组，分为有依赖(比如先创建组长才能创建下属，前一天创建后一天删除)和无依赖，收到上一步应答后再发下一步</li>
-<li>消息幂等性考虑：应对重发，增依靠唯一约束比如用户id，改提前合并，增改合并，改改合并，同时延迟队列检查</li>
+<li>消息幂等性考虑：应对重发，增依靠唯一约束比如用户id，改提前合并，增改合并，改改合并</li>
+<li>消息顺序性考虑：事先分组，分为有依赖(前一天创建后一天删除)和无依赖，有依赖的打包作为整体发送</li>
 </ul>
+<p>Feign<br>
+消费者调用服务器API时，发出Rest请求</p>
 <p>Hystrix<br>
-降级场景：熔断后减少消费者消费量<br>
-隔离场景：执行器隔离不同目标系统<br>
-本身API配错了构建失败造成的exception不应该熔断，包装为HystrixBadRequestException通过getCause获取原始异常</p>
-<p>核心线程数为0，即长期不用可以无线程<br>
+降级场景：熔断后回调通知执行失败<br>
+隔离场景：每个目标系统命令是不同的HystrixCommand, 执行器隔离不同目标系统<br>
+本身目标系统API配错了构建失败造成的exception不应该熔断，包装为HystrixBadRequestException通过getCause获取原始异常</p>
+<p>配置核心线程数为0，即长期不用可以无线程<br>
+配置队列长度100<br>
 根据目标系统的用户量，配置最大线程数和生存时间<br>
 4核8G总线程量50左右？？</p>
 <p>应用</p>
 <ol>
-<li>级联请求 CountDownLatch</li>
+<li>级联请求 CountDownLatch，多个级联并行，都执行完组装返回值</li>
 <li>ThreadLocal DateFormat</li>
 </ol>
 <p>性能优化</p>
@@ -317,6 +333,64 @@ Works Applications                                          2015.04 - 至今</p>
 <li>年假</li>
 <li>晋升制度</li>
 </ol>
+<p>网站</p>
+<ul>
+<li>stackoverflow</li>
+<li>infoQ</li>
+<li>v2ex(way to explore)</li>
+<li>知乎</li>
+<li>github</li>
+</ul>
+<p>书籍</p>
+<ul>
+<li>Effective Java</li>
+<li>Java concurrent</li>
+<li>高性能mysql</li>
+<li>Clean code</li>
+<li>重构改善既有代码设计</li>
+</ul>
+<p>开发<br>
+整体瀑布模型(需求分析-设计-编码-测试-发布) 过程里程碑检查点 穿插修改功能迭代<br>
+敏捷例会</p>
+<p>Tips</p>
+<ul>
+<li>想清楚再回答，时间长可以说整理下思路</li>
+</ul>
+<p>自我介绍<br>
+我叫xx<br>
+家乡内蒙古自治区，蒙古族<br>
+2012年浙江大学计算机专业本科毕业<br>
+2015年浙江大学计算机专业研究生毕业<br>
+毕业后一直在Works Applications工作，担任高级软件开发工程师<br>
+WorksAp是日本最大的ERP供应商，面向ERP业务<br>
+16~17年曾经转到东京总部工作，担任技术咨询，实际上3年多开发经验<br>
+工作期间主要从事ID管理产品，组内角色是核心开发，工作内容上管理和开发37开<br>
+全栈开发，能力上后端高于前端，主要语言Java<br>
+考虑到传统行业局限，跳出舒适圈，为了成长性选择看看机会</p>
+<p>为什么离职</p>
+<ul>
+<li>传统行业缺乏互联网场景, 技术更新慢, 成长慢</li>
+</ul>
+<p>为什么要期望薪资</p>
+<ul>
+<li>目标公司招聘行情范围</li>
+<li>本公司奖金制度，工作时长</li>
+<li>理想薪资激励自己</li>
+</ul>
+<p>如何看待加班</p>
+<ul>
+<li>付出收获</li>
+</ul>
+<p>优缺点</p>
+<ul>
+<li>优点长期稳定，好奇心</li>
+<li>缺点长期稳定</li>
+</ul>
+<p>成就感</p>
+<ul>
+<li>不支持-&gt;支持，纪念币列表</li>
+<li>逆境</li>
+</ul>
 
         
     <div class="donate_module">
@@ -429,6 +503,6 @@ Works Applications                                          2015.04 - 至今</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

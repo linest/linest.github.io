@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-13T16:38:42.067Z">
+<meta property="og:updated_time" content="2020-02-26T13:03:30.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper">
 <meta name="twitter:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/zookeeper.html" class="article-date">
-  	<time datetime="2020-01-13T16:38:42.067Z" itemprop="datePublished">2020-01-14</time>
+  	<time datetime="2020-02-26T13:03:30.976Z" itemprop="datePublished">2020-02-26</time>
 </a>
     </div>
   
@@ -185,22 +185,23 @@ Google Chubby的开源实现，使用zab协议，paxos变种<br>
 <h1 id="连接">连接</h1>
 <hr>
 <p>客户端长连接会话Session，心跳保持<br>
-各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效<br>
-KeeperState连接状态</p>
+各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效</p>
+<p>KeeperState连接状态</p>
 <ul>
 <li>Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立</li>
 <li>Disconnected: 断开</li>
 <li>SyncConnected: 正常连接状态，同步version,zxid</li>
 <li>AuthFailed: 认证失败</li>
 </ul>
+<p>会话在服务端按照过期时间分桶管理</p>
 <h1 id="节点类型">节点类型</h1>
 <hr>
-<p>znode数据以树的形式组织</p>
+<p>ZNode以树的形式组织</p>
 <ul>
 <li>持久节点：主动删除才可移除</li>
-<li>临时节点：客户端会话失效，所创建节点自动移除</li>
-<li>时序节点：持久节点，节点名带有顺序数字编号后缀</li>
-<li>临时时序节点：临时节点，节点名带有顺序数字编号后缀</li>
+<li>临时节点：客户端会话失效(不是断开，断开可重连)，所创建节点自动移除</li>
+<li>持久顺序节点：持久节点，节点名带有顺序数字编号后缀</li>
+<li>临时顺序节点：临时节点，节点名带有顺序数字编号后缀</li>
 </ul>
 <p>临时节点不能有子节点<br>
 每个节点数据不能超过1M, 最好小于1K</p>
@@ -215,10 +216,6 @@ KeeperState连接状态</p>
 <li>ls</li>
 </ul>
 <p>操作模式是指定路径和数据</p>
-<h1 id="事务操作">事务操作</h1>
-<hr>
-<p>能改变集群状态的操作，比如节点增删，数据更新，会话创建断开等<br>
-每个操作关联一个全局唯一ZXID</p>
 <h1 id="事件监听">事件监听</h1>
 <hr>
 <p>节点可以注册Watcher，事件触发后给客户端发送通知<br>
@@ -229,20 +226,20 @@ KeeperState连接状态</p>
 <li>NodeDeleted: 节点删除</li>
 <li>NodeDataChanged: 节点数据变化</li>
 <li>NodeChildrenChanged: 子节点变动</li>
-<li>None: 客户端连接状态变化</li>
+<li>None: 客户端连接状态变化(建立连接，断开，过期，认证)</li>
 </ul>
-<p>Watcher是一次性的，持续监控需要重复注册<br>
+<p>Watcher是一次性的，持续监控需要重复注册，通常用于变化不频繁的数据<br>
 Watcher不保证每次变化都通知到，因为一次性，重复注册有时间差，数据可能已经变化过<br>
-Watcher存储在本地WatcherManager，发生通知后，客户端从WatcherManager取出相应对象进行回调</p>
+Watcher对象存储在本地WatcherManager，发生通知后，客户端从WatcherManager取出相应对象进行回调</p>
 <h1 id="集群">集群</h1>
 <hr>
 <p>角色</p>
 <ul>
 <li>Leader 提供读写服务</li>
 <li>Follower 提供读服务</li>
-<li>Observer 也能提供读服务，但是不参与选举过程</li>
+<li>Observer 也能提供读服务，但是不参与选举，事务过程</li>
 </ul>
-<p>工作状态</p>
+<p>节点角色状态</p>
 <ul>
 <li>LOOKING：正在选举，角色不明</li>
 <li>LEADING: 当前server角色为leader</li>
@@ -252,6 +249,7 @@ Watcher存储在本地WatcherManager，发生通知后，客户端从WatcherMana
 <p>Client可以在任意节点进行读操作，写操作会转发给Leader节点执行</p>
 <h2 id="zxid">Zxid</h2>
 <hr>
+<p>能改变集群状态的操作，比如节点增删，数据更新，每个操作关联一个全局唯一ZXID</p>
 <p>每次操作zxid由32位epoch和32位count组成，zxid全局唯一<br>
 epoch视为任期，由Leader本地最大zxid解析后增加1<br>
 count视为任期内操作序号</p>
@@ -262,11 +260,11 @@ count视为任期内操作序号</p>
 <li>广播模式，类似两阶段提交</li>
 </ul>
 <ol>
-<li>收到客户请求，如果不是leader就转给leader</li>
-<li>Leader接收客户端更新, 封装成事务Proposal生成唯一Zxid，Leader先进先出队列，全局有序</li>
+<li>收到客户写请求，如果节点不是Leader就转给Leader</li>
+<li>Leader接收请求, 封装成事务Proposal并生成唯一Zxid，Leader先进先出队列，全局有序</li>
 <li>Leader把事务发给Followers</li>
-<li>Follower接收后加入历史队列</li>
-<li>Leader收到过半应答发起commit，对所有follower发出请求后自身本地提交</li>
+<li>Follower接收后加入自身历史队列并应答</li>
+<li>Leader收到过半应答发起Commit，对所有Follower发出请求后自身本地提交</li>
 <li>Follower收到提交后，如果是所有历史队列中编号最小的那么就提交，否则说明前面还有尚未提交的需要等待</li>
 <li>客户端连接的节点提交后返回</li>
 </ol>
@@ -274,22 +272,21 @@ count视为任期内操作序号</p>
 <li>恢复模式：Leader不可用时</li>
 </ul>
 <ol>
-<li>选举已提交zxid最大的作为新Leader，同zxid选server_id最大的。最大zxid保障是最新的。</li>
-<li>数据同步，Follower根据Leader的zxid修正自身</li>
-<li>进入广播模式，接受新请求</li>
+<li>选举已提交zxid最大的作为新Leader，同zxid选server_id最大的。最大zxid保障是最新的</li>
+<li>数据同步，Leader下发数据，Follower根据Leader的zxid修正自身</li>
+<li>过半同步完成后，进入广播模式，接受新请求</li>
 </ol>
 <p>选举流程</p>
 <ol>
-<li>Follower发现Leader不可用，进入Looking状态，初始推荐自身作为候选，广播其他节点</li>
-<li>节点收到请求后，进行本地记录，发现更合适的节点随时广播推荐</li>
+<li>Follower发现Leader不可用，进入Looking状态，初始推荐自身作为候选，广播其他节点，投票内容为服务器id和zxid</li>
+<li>节点收到投票请求后，进行本地记录，发现更合适的节点随时广播推荐</li>
 <li>收到过半承认的节点宣布成为新Leader</li>
 </ol>
 <p>情况分析</p>
 <ul>
 <li>
 <p>Leader发出commit之前挂掉<br>
-重启后要丢弃<br>
-即如果从未提交，保证会被丢弃</p>
+重启后要丢弃，即如果从未进行提交，保证会被丢弃</p>
 </li>
 <li>
 <p>Leader在发commit之后挂掉<br>
@@ -297,19 +294,19 @@ count视为任期内操作序号</p>
 即只要有一个提交，那么保证都会提交</p>
 </li>
 </ul>
-<h2 id="一致性保障原理">一致性保障原理</h2>
+<h1 id="一致性保障原理">一致性保障原理</h1>
+<hr>
 <ul>
 <li>可靠提交：被一台机器提交，最终一定会被所有机器提交，由ZAB的事务一致性协议保证</li>
-<li>全局有序：同一客户端发起先A后B写操作，两个操作按照先后顺序在leader队列中，按顺序执行，由TCP协议保证</li>
-<li>因果有序：leader先A后B提交，那么全部是先A后B，历史队列(history queue)保证</li>
+<li>全局有序：同一客户端发起先A后B写操作，两个操作按照先后顺序在Leader队列中，按顺序执行，由TCP协议保证</li>
+<li>因果有序：Leader先A后B提交，那么全部是先A后B，历史队列(history queue)保证</li>
 </ul>
 <h2 id="2pc问题解决">2PC问题解决</h2>
 <ul>
-<li>2PC在等待响应时无法处理其他，ZAB通过队列机制解决同步阻塞</li>
+<li>2PC参与者在等待响应时无法处理其他，ZAB通过队列机制解决同步阻塞</li>
 <li>2PC协调者单点故障将导致参与者阻塞，ZAB通过崩溃恢复机制解决单点问题</li>
 </ul>
 <h2 id="脑裂问题解决">脑裂问题解决</h2>
-<hr>
 <p>Quorum思想</p>
 <ol>
 <li>总节点数为奇数，并且过半节点存活才提供服务，避免出现得票相等的情况，即集群总数最少3台</li>
@@ -327,13 +324,16 @@ count视为任期内操作序号</p>
 <p>事务流程和选举流程比较相似</p>
 <ul>
 <li>id区别，(epoch,count)与term(term,index)</li>
-<li>zk一轮肯定要选出一个leader, 而raft存在选票瓜分，可能需要重新发起</li>
-<li>zk可以多次投票，而raft同一轮只能投一次</li>
-<li>zk投票有倾向性，而raft先到先得</li>
 <li>zk读请求可从节点处理，raft读也转发主节点处理</li>
-<li>zk提交满足条件就发起，而raft要在下次心跳发</li>
+<li>zk提交Commit满足条件就发起，而raft要在下次心跳才发</li>
+<li>zk一轮肯定要选出一个leader, 而raft存在选票瓜分，可能需要重新发起
+<ul>
+<li>zk单个节点一轮可以多次投票，zk投票有倾向性</li>
+<li>raft同一轮只能投一次，先到先得</li>
 </ul>
-<h2 id="cp系统">CP系统</h2>
+</li>
+</ul>
+<h2 id="cp特性">CP特性</h2>
 <p>只要大多数节点存活即可提供服务，因此满足P<br>
 Leader无法选举或者选举过程中不能提供服务，因此不符合A<br>
 Zookeeper因为更新后只要过半完成即可，如果客户端连接了尚未同步的节点将返回旧数据<br>
@@ -341,7 +341,7 @@ Zookeeper因为更新后只要过半完成即可，如果客户端连接了尚�
 Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因此也算是CP系统</p>
 <h1 id="持久化">持久化</h1>
 <hr>
-<p>平常内存数据提供服务，有持久化机制<br>
+<p>日常操作由内存数据提供服务，有持久化机制<br>
 持久化同时包含快照和事务日志</p>
 <ul>
 <li>事务日志是精确的</li>
@@ -374,31 +374,40 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 </ul>
 <ol>
 <li>每个服务类型创建持久节点</li>
-<li>每个服务实例启动时注册临时节点</li>
+<li>每个服务实例启动时在持久节点下注册临时节点</li>
 <li>服务挂掉或者关闭会导致临时节点自动消失</li>
 </ol>
 <ul>
 <li>分布式锁<br>
-方案1<br>
+方案1，中心监听<br>
 基于同时创建同名节点，只有一个能成功，并注册监听<br>
 羊群效应，一个放锁后，其他立刻通知，导致所有等待者同时尝试</li>
 </ul>
-<p>方案2 Curator实现原理<br>
+<p>方案2 Curator实现原理，链式监听<br>
 并发在同一目录下创建临时顺序节点，临时节点分配序号有序<br>
 排在后面的临时节点监听前面的，构成监听链<br>
 如果发现成为最小序号，视为持有锁，临时节点删除后自动通知下一个</p>
-<p>如果网络问题使得zookeep认为断开，删掉临时节点，此时可能多个客户端能加到锁</p>
+<p>问题</p>
+<ul>
+<li>如果网络问题使得Zookeeper认为会话失效，删掉临时节点视为放锁，此时可能多个客户端能加到锁</li>
+<li>性能问题，锁只能Leader创建，并且需要同步到Follower</li>
+</ul>
 <h1 id="部署">部署</h1>
 <hr>
+<p>部署形式</p>
 <ul>
 <li>单机：单点</li>
 <li>伪集群：同一主机启动多个</li>
 <li>集群</li>
 </ul>
+<p>节点id范围1~255，集群最多255节点<br>
+每个节点配置数据目录，日志目录，客户端服务端口<br>
+每个节点配置需要包含自身在内的集群全部信息<br>
+配置形式<code>server.id = host:port:port</code>前一个端口用于节点间通信，后一个端口用于选举</p>
 <h1 id="框架">框架</h1>
 <hr>
 <p>Apache Curator<br>
-连接重连、反复注册Watcher</p>
+会话超时重连、反复注册Watcher、数据对象序列化</p>
 
         
     <div class="donate_module">
@@ -511,6 +520,6 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

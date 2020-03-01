@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="需要分布式容错环境下，客户端发来数据，多副本达成一致问题 Paxos  OceanBase使用 角色  逻辑层面，物理上可以同时担任  提案者Proposer，可以多个 批准者Acceptor，N个 学习者Learner  每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见 流程   提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.625Z">
+<meta property="og:updated_time" content="2020-02-26T13:03:30.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="共识算法">
 <meta name="twitter:description" content="需要分布式容错环境下，客户端发来数据，多副本达成一致问题 Paxos  OceanBase使用 角色  逻辑层面，物理上可以同时担任  提案者Proposer，可以多个 批准者Acceptor，N个 学习者Learner  每个提案value需要获得超过半数的批准者通过，学习者至少读取超过半数的批准者意见 流程   提案者选择一个全局唯一的轮次编号n, 向所有批准者广播Prepare(n)请求，即">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-consensus.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.625Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-26T13:03:30.971Z" itemprop="datePublished">2020-02-26</time>
 </a>
     </div>
   
@@ -235,7 +235,7 @@ Zjuer
 提案者每次发起可以先随机等待一会，避免总是互相抢占</p>
 <h1 id="raft">Raft</h1>
 <hr>
-<p>ETCD使用<br>
+<p>ETCD使用, 基于Go实现<br>
 强一致，读写都给主操作</p>
 <h2 id="角色-v2">角色</h2>
 <hr>
@@ -249,7 +249,7 @@ Zjuer
 <p>选举流程</p>
 <ol>
 <li>初始时，启动时角色都是Follower，RPC心跳交互，每个Follower的Term都是1并带有随机的超时时间(Election Timeout)，只要在计时时间内收到领导者或者候选者有效消息，就会保持跟随，重置计时</li>
-<li>Follower在超过计时没收到消息，认为没有领导者，就发起选举，Term增加，自身变成候选者</li>
+<li>Follower在超过计时没收到消息，认为没有领导者，就发起选举，Term增加，自身变成候选者Candidate</li>
 <li>候选者投票给自己，给其他服务器发送RequestVote投票请求</li>
 <li>收到投票请求的服务器，如果在本次Term内没投过，就投票并重置计时</li>
 <li>候选者收到过半回复，成为Leader，发送AppendEntries心跳通知其他节点，心跳会间隔(Heartbeat Timeout)持续发送</li>
@@ -392,6 +392,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

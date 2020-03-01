@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="解决动态扩展后减少哈希影响范围 普通取模哈希，机器数量变化  如果数据迁移，那么全局重新哈希，代价很高， 如果数据不迁移，大量缓存不命中，还可能引发缓存雪崩  一致性哈希，数字假想成环状编号，请求计算哈希值后顺时针找到最近机器  增加机器， 新机器接管一部分请求，这部分缓存从下游机器迁移过来 删除机器， 机器缓存转移到下游  节点少时，增删节点变动会导致  较多数据受影响 影响负载均衡  如果机器">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.622Z">
+<meta property="og:updated_time" content="2020-02-24T05:13:36.300Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-consistant-hash">
 <meta name="twitter:description" content="解决动态扩展后减少哈希影响范围 普通取模哈希，机器数量变化  如果数据迁移，那么全局重新哈希，代价很高， 如果数据不迁移，大量缓存不命中，还可能引发缓存雪崩  一致性哈希，数字假想成环状编号，请求计算哈希值后顺时针找到最近机器  增加机器， 新机器接管一部分请求，这部分缓存从下游机器迁移过来 删除机器， 机器缓存转移到下游  节点少时，增删节点变动会导致  较多数据受影响 影响负载均衡  如果机器">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-consistant-hash.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.622Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-24T05:13:36.300Z" itemprop="datePublished">2020-02-24</time>
 </a>
     </div>
   
@@ -310,6 +310,6 @@ Chord算法，KAD算法</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

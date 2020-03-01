@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>TCP&amp;UDP | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
+  <meta name="description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况好的内网，丢包不">
 <meta property="og:type" content="website">
 <meta property="og:title" content="TCP&amp;UDP">
 <meta property="og:url" content="http://linest.github.io/tmp/web-tcp-udp.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
+<meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况好的内网，丢包不">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-14T14:30:20.749Z">
+<meta property="og:updated_time" content="2020-02-20T14:56:26.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&amp;UDP">
-<meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合场景  网络情况好的内网，丢包不敏感 广播 处理速度快">
+<meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况好的内网，丢包不">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-tcp-udp.html" class="article-date">
-  	<time datetime="2020-01-14T14:30:20.749Z" itemprop="datePublished">2020-01-14</time>
+  	<time datetime="2020-02-20T14:56:26.323Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -183,19 +183,22 @@ Zjuer
 IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号</p>
 <h1 id="udp">UDP</h1>
 <hr>
-<p>User datagram protocol<br>
+<p>数据报协议User datagram protocol<br>
 简单不可靠传送，没有TCP的复杂机制<br>
-基于数据报文，非流式传输，保留应用层数据边界</p>
+基于数据报文，非流式传输，有长度字段，保留应用层数据边界</p>
 <p>UDP报文格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">来源端口号(16)目标端口号(16)</span><br><span class="line">UDP长度(16)校验和(16)</span><br><span class="line">数据</span><br></pre></td></tr></table></figure>
-<p>适合场景</p>
+<p>适合环境</p>
 <ul>
 <li>网络情况好的内网，丢包不敏感</li>
 <li>广播</li>
-<li>处理速度快，低延时<br>
-流媒体协议，直播<br>
-实时游戏<br>
-物联网</li>
+<li>处理速度快，低延时</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>流媒体协议，直播</li>
+<li>实时游戏</li>
+<li>物联网</li>
 </ul>
 <p>应用协议</p>
 <ul>
@@ -211,12 +214,12 @@ IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定�
 </ul>
 <h1 id="tcp">TCP</h1>
 <hr>
-<p>Transmission control protocol<br>
+<p>传输控制协议Transmission control protocol<br>
 面向连接的传输层协议，可靠传输<br>
-四元组唯一确定：源IP地址，源端口，目的IP地址，目的端口</p>
-<p>因为建立了连接，可以基于字节流交互，有状态服务</p>
+四元组唯一确定：源IP地址，源端口，目的IP地址，目的端口<br>
+因为建立了连接，可以基于字节流交互，有状态服务</p>
 <p>TCP报文格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">来源端口号(16)目标端口号(16)</span><br><span class="line">序列号(32)</span><br><span class="line">确认序号(32)</span><br><span class="line">头部长度(4)保留(6)SYN(1)ACK(1)FIN(1)PSH(1)RST(1)URG(1)滑动窗口大小(16)</span><br><span class="line">校验和(16)紧急指针(16)</span><br><span class="line">选项</span><br><span class="line">数据</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">来源端口号(16)目标端口号(16)</span><br><span class="line">序号(32)</span><br><span class="line">确认序号(32)</span><br><span class="line">头部长度(4)保留(6)SYN(1)ACK(1)FIN(1)PSH(1)RST(1)URG(1)滑动窗口大小(16)</span><br><span class="line">校验和(16)紧急指针(16)</span><br><span class="line">选项</span><br><span class="line">数据</span><br></pre></td></tr></table></figure>
 <p>应用协议</p>
 <ul>
 <li>HTTP</li>
@@ -234,22 +237,23 @@ IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定�
 </ul>
 <h1 id="应答与重发机制">应答与重发机制</h1>
 <hr>
-<p>既然是可靠传输，就要保证对方真的收到<br>
-对方已经收到的证据是对方发送了应答</p>
+<p>既然是可靠传输，就要保证对方真的收到，对方已经收到的证据是对方发送了应答</p>
 <h2 id="应答">应答</h2>
-<p>并不是确认一个包收到后再发下一个，而是一次发很多，发送方和接收方都维护缓存<br>
-为了区分同时发出的数据包，每个包关联一个序号<br>
-发送方：发送已确认，发送未确认，等待发送，暂时不发送，中间两部分是发送窗口，大小由接收方提前指定<br>
+<p>发送方并不是确认一个包收到后再发下一个，而是一次发很多，发送方和接收方都维护缓存<br>
+为了区分同时发出的数据包，每个包关联一个序号</p>
+<h3 id="缓存布局">缓存布局</h3>
+<p>发送方：发送已确认，发送未确认，等待发送，暂时不发送，中间两部分是发送窗口，大小由接收方提前指定<br>
 接收方：已接收，待接收，待接收部分构成接收窗口</p>
-<p>延迟应答<br>
-收到后不会立即应答，而是固定周期发起</p>
-<p>累计确认<br>
-应答是所需要的下一个序号，即当应答一个序号时，表示前面的都已经收到</p>
-<p>延迟和累计好处是合并了多个响应包减少开销，甚至可以在接收方发送数据时捎带确认</p>
+<h3 id="应答行为">应答行为</h3>
+<ul>
+<li>延迟应答：收到后不会立即应答，而是固定周期发起</li>
+<li>累计确认：应答是所需要的下一个序号，即当应答一个序号时，表示前面的都已经收到<br>
+延迟和累计好处是合并了多个响应包减少开销，甚至可以在接收方发送数据时捎带确认</li>
+</ul>
 <h2 id="重发">重发</h2>
 <p>如果发送方迟迟没有收到应答，就认为没收到，重发</p>
-<p>动态超时时间<br>
-网络的环境是不同的，有快有慢，时好时坏</p>
+<h3 id="动态自适应超时时间">动态自适应超时时间</h3>
+<p>网络的环境是不同的，有快有慢，时好时坏</p>
 <ul>
 <li>如果网很快，重发超时时间太长，丢包就不能及时感知</li>
 <li>如果网很慢，重发超时时间太短，可能有多余的重发，浪费网络资源</li>
@@ -259,16 +263,16 @@ RTT(Round-Trip Time)往返时间</p>
 <p>所以超时值RTO不能固定，需要动态测量,自适应超时算法，采样RTT</p>
 <ul>
 <li>每次都会记录RTT时间，并计算方差，超时时间根据这些数据确定</li>
-<li>被重发的数据再次超时，那么超时时间以2倍的方式指数增加</li>
 <li>超时一般是0.5秒的倍数，初始时没有统计数据，默认6s</li>
+<li>被重发的数据再次超时，那么超时时间以2倍的方式指数增加</li>
 </ul>
-<p>快速重传<br>
-超时机制属于被动机制，发送方要等<br>
+<h3 id="快速重传">快速重传</h3>
+<p>超时机制属于被动机制，发送方要等<br>
 还有主动机制，发送方收到三个冗余应答，表示丢包概率很高，立刻重发<br>
 接收方收到乱序包，立即发送冗余应答，比如1,2号包收到，3没收到，收到4，那么就应答3，表示想要3号包<br>
 这一机制下，不丢包的乱序会导致40%概率收到3次应答，而丢包会100%收到，因此确定三次</p>
-<p>重传歧义<br>
-对于数据而言，序号是固定的，重发也是一样的序号<br>
+<h3 id="重传歧义">重传歧义</h3>
+<p>重传时序号和原来一样，即对于数据而言，序号是确定的<br>
 如果超时重发后，收到响应，无法确定是原来数据响应还是重传数据响应，影响RTO计算</p>
 <h1 id="流量拥塞控制">流量拥塞控制</h1>
 <hr>
@@ -302,46 +306,33 @@ RTT(Round-Trip Time)往返时间</p>
 <p>LISTENING：服务端监听状态，可接受连接<br>
 SYN_SENT： 客户端发起SYN后<br>
 SYN_RCVD： 服务端收到SYN后<br>
-ESTABLISHED： 连接建立<br>
--&gt; SYN=1, seq=x<br>
-&lt;- SYN=1, ACK=1, seq=y, ack=x+1<br>
--&gt; ACK=1, seq=x+1, ack=y+1</p>
+ESTABLISHED： 连接建立</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-&gt; SYN=1, seq=x</span><br><span class="line">&lt;- SYN=1, ACK=1, seq=y, ack=x+1</span><br><span class="line">-&gt; ACK=1, seq=x+1, ack=y+1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">客户端状态：----- -&gt; SYN_SENT-&gt; ESTABLISHED</span><br><span class="line">服务端状态：LISTENING -&gt;  SYN_RCVD -&gt; ESTABLISHED</span><br></pre></td></tr></table></figure>
 <p>因为涉及到重传，序号的作用是区分具体是哪一次的数据<br>
-发起时序号由计数器产生，每4微妙增加1，这样序号循环要4个多小时，序号主要可以区分同一端口上的请求，避免序号冲突混乱</p>
+发起时序号由计数器产生，每4微秒增加1，这样序号循环要4个多小时，序号主要可以区分同一端口上的请求，避免序号冲突混乱</p>
 <p>三次握手实质上让双方验证自身的收发能力和对方的收发能力，信息对等</p>
 <ul>
-<li>客户端收到应答，说明服务端发送没问题，服务端接收没问题</li>
-<li>服务端收到应答，说明客户端发送没问题，客户端接收没问题</li>
+<li>客户端收到应答，说明服务端发送(发出应答)和接收(收到前面请求)没问题</li>
+<li>服务端收到应答，说明客户端发送(发出应答)和接收(收到前面应答)没问题</li>
 </ul>
 <p>客户端收到就进入连接状态，而服务端收到需要再次二次确认<br>
-这样能避免超时到达而建立脏连接，客户端请求可能延迟，可能重发请求，如果服务器第一次应答就建立连接，可能建立脏连接</p>
+这样能避免超时到达而建立脏连接，网络环境复杂可能有重发请求，如果服务器收到就建立连接，可能建立脏连接，不是客户端的意愿,二次确认能确认确实是客户端想建立连接</p>
 <p>连接在系统层面实际上是对应文件句柄，在逻辑上是通信两端的状态维护，并不存在一个实体连接，只是占用了一个端口通道</p>
 <h1 id="断开连接">断开连接</h1>
 <hr>
 <p>四次放手<br>
 双方各主动发送一次，告知不再发送，但是可以接收</p>
-<p>主动方状态<br>
-ESTABLISHED<br>
-FIN_WAIT_1 主动方发起FIN后<br>
-FIN_WAIT_2 主动方收到ACK后<br>
-TIME_WAIT  主动方收到FIN后<br>
-CLOSED</p>
-<p>被动方状态<br>
-ESTABLISHED<br>
-CLOSE_WAIT 被动方收到FIN后<br>
-LAST_ACK   被动方发起FIN后<br>
-CLOSED</p>
-<p>-&gt; FIN=1, seq=u<br>
-&lt;- ACK=1, seq=v, ack=u+1<br>
-&lt;- FIN=1, seq=w<br>
--&gt; ACK=1, seq=u+1, ack=w+1</p>
-<p>FIN和ACK可以组合成FIN+ACK一并发送</p>
-<p>最后一次发送ACK后，进入TIME_WAIT，等待2MSL（maximum segment lifetime，最大生存时间，MSL建议2分钟）之后才关闭，主要是基于网络不可靠性考虑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-&gt; FIN=1, seq=u</span><br><span class="line">&lt;- ACK=1, seq=v, ack=u+1</span><br><span class="line">&lt;- FIN=1, seq=w</span><br><span class="line">-&gt; ACK=1, seq=u+1, ack=w+1</span><br></pre></td></tr></table></figure>
+<p>中间FIN和ACK可以组合成FIN+ACK一并发送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主动方状态：ESTABLISHED -&gt; (发起FIN后)FIN_WAIT_1 -&gt; (收到ACK后)FIN_WAIT_2 -&gt; (收到FIN后)TIME_WAIT -&gt; CLOSED</span><br><span class="line">被动方状态：ESTABLISHED -&gt; (收到FIN后)CLOSE_WAIT -&gt; (发起FIN后)LAST_ACK -&gt; CLOSED</span><br></pre></td></tr></table></figure>
+<p>主动方最后一次发送ACK后，进入TIME_WAIT<br>
+虽然后续没有任务，但是仍然要等待2MSL（maximum segment lifetime，最大生存时间，MSL建议2分钟）之后才关闭，主要是基于网络不可靠性考虑</p>
 <ul>
-<li>防止应答丢失，最后发送可能网络问题没收到，对方会重发，还需要响应</li>
-<li>防止混淆新旧连接，太早释放可能马上用来建立新连接，会遇到之前连接上的信息到达</li>
+<li>防止应答丢失，最后发送可能网络问题没收到，对方会重发FIN，还需要响应</li>
+<li>防止混淆新旧连接，太早释放端口可能马上用来建立新连接，会遇到之前连接上的信息到达</li>
 </ul>
-<p>主动关闭一方会进入Time Wait, 如果服务端主动关闭，并发又很大，那么大量连接不能建立</p>
+<p>如果服务端主动关闭进入TIME_WAIT，并发又很大，那么大量连接不能建立</p>
 <p>/etc/sysctl.conf控制相关参数,sysctl -p生效<br>
 缩短等待时间到30s<br>
 net.ipv4.tcp_fin_timeout = 30<br>
@@ -349,55 +340,41 @@ net.ipv4.tcp_fin_timeout = 30<br>
 net.ipv4.tcp_tw_reuse = 1</p>
 <h1 id="连接细节">连接细节</h1>
 <hr>
-<ul>
-<li>
-<p>Backlog队列<br>
-建立连接过程中，服务端维护队列</p>
+<h2 id="backlog队列">Backlog队列</h2>
+<p>建立连接过程中，服务端维护队列</p>
 <ul>
 <li>syns queue： 收到syn，等待响应的半连接</li>
 <li>accept queue： 已完成握手，但是还没accept的连接<br>
 backlog参数和系统参数somaxconn取小值控制队列大小,超过队列大小连接会被拒绝</li>
 </ul>
-</li>
-<li>
-<p>SYN Flood攻击<br>
-伪造大量不存在的ip发syn包，服务端收到后进入SYN_RECV状态并加入未连接队列<br>
+<h2 id="syn-flood攻击">SYN Flood攻击</h2>
+<p>伪造大量不存在的ip发syn包，服务端收到后进入SYN_RECV状态并加入未连接队列<br>
 服务端的响应肯定无人应答，服务端会不断重试很长一段时间才放弃，耗费资源，同时占用队列可能导致正常请求无法连接</p>
-</li>
-<li>
-<p>SYN Cookies<br>
-服务端不维护syn队列,好处是不会丢弃请求，而是进行哈希出一个cookies作为序号，后期建立连接会验证序号合法性</p>
-</li>
-<li>
-<p>大量CLOSE_WAIT状态<br>
-进入CLOSE_WAIT说明是被动关闭，如果迟迟不发起主动关闭，会一直维持在这个状态，没有超时时间<br>
+<h2 id="syn-cookies">SYN Cookies</h2>
+<p>服务端不维护syn队列,好处是不会丢弃请求，而是进行哈希出一个cookies作为序号，后期建立连接会验证序号合法性</p>
+<h2 id="大量close-wait状态">大量CLOSE_WAIT状态</h2>
+<p>进入CLOSE_WAIT说明是被动关闭，如果迟迟不发起主动关闭，会一直维持在这个状态，没有超时时间<br>
 通常原因是代码漏洞，没释放资源<br>
 比如数据库主动发起断开连接，服务端收到后进入CLOSE_WAIT，但是服务端代码忘了释放连接，一直持有<br>
 比如业务服务器请求资源服务器，如果资源不存在，那么资源服务器主动发起断开，此时业务服务器代码忘了关闭资源，业务服务器一直处于CLOSE_WAIT状态</p>
-</li>
-</ul>
 <p>还有可能BackLog太大，服务器还没来得及处理，客户端已经超时关闭了</p>
-<ul>
-<li>大量TIME_WAIT状态<br>
-主动关闭一方会进入TIME_WAIT状态，并持续2MSL通常4分钟才关闭<br>
-如果发起大量短请求比如爬虫，那么会导致大量TIME_WAIT连接，占用资源影响新连接建立<br>
-可以适当调低参数减少等待</li>
-</ul>
+<h2 id="大量time-wait状态">大量TIME_WAIT状态</h2>
+<p>主动关闭一方会进入TIME_WAIT状态，并持续2MSL通常4分钟才关闭<br>
+如果发起大量短请求比如爬虫，那么会导致大量TIME_WAIT连接，占用资源影响新连接建立，可以适当调低参数减少等待</p>
 <h1 id="keepalive">KeepAlive</h1>
 <hr>
-<p>TCP级心跳，发送空报文</p>
+<p>TCP级心跳，发送空报文，和应用级心跳相比，更轻量，但没有业务逻辑</p>
 <ul>
 <li>检测连接是否存活</li>
 <li>防止网络不活动而断开<br>
-和应用级心跳相比，更轻量，但没有业务逻辑</li>
+KeepAlive机制可以清理异常CLOSE_WAIT，但默认两小时才发起一轮检测，可以适当减小</li>
 </ul>
-<p>KeepAlive机制可以清理异常CLOSE_WAIT，但默认两小时才发起一轮检测，可以适当减小</p>
-<h1 id="粘包问题">粘包问题</h1>
+<h1 id="粘包半包问题">粘包半包问题</h1>
 <hr>
-<p>同一连接上连续发送，一个完整消息可能会被拆分成多个，也可能多个包封装成一个进行发送<br>
+<p>同一连接上连续发送，一个完整消息可能会被拆分成多个，也可能多个消息封装成一个进行发送<br>
 Nagle算法，发送数据量太小就暂时不发，等数据多了一起发，避免频繁发送小包减少开销<br>
-TCP流传输，不区分业务结构，只考虑字节，导致不完整不相关数据在一起发送</p>
-<p>解决思路是加入边界信息，便于应用层识别完整的包</p>
+原因在于TCP流传输，不区分业务结构，只考虑字节，导致不完整不相关数据在一起发送</p>
+<p>解决思路是加入边界信息，便于应用层识别完整数据，进行分包</p>
 <ul>
 <li>数据前先写入长度信息</li>
 <li>插入不影响协议的特殊符号</li>
@@ -526,6 +503,6 @@ tcpdump抓包</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

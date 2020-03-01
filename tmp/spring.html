@@ -4,19 +4,19 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>spring | Blog of Linest</title>
+  <title>Spring | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="解决：降低开发复杂性，松耦合 低侵入设计，无需继承框架类，实现框架接口，保持POJO IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Express">
+  <meta name="description" content="解决：降低开发复杂性，松耦合 低侵入设计，保持POJO，无需继承框架类或者实现框架接口 IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Expres">
 <meta property="og:type" content="website">
-<meta property="og:title" content="spring">
+<meta property="og:title" content="Spring">
 <meta property="og:url" content="http://linest.github.io/tmp/spring.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="解决：降低开发复杂性，松耦合 低侵入设计，无需继承框架类，实现框架接口，保持POJO IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Express">
+<meta property="og:description" content="解决：降低开发复杂性，松耦合 低侵入设计，保持POJO，无需继承框架类或者实现框架接口 IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Expres">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:53:18.179Z">
+<meta property="og:updated_time" content="2020-03-01T09:29:57.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring">
-<meta name="twitter:description" content="解决：降低开发复杂性，松耦合 低侵入设计，无需继承框架类，实现框架接口，保持POJO IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Express">
+<meta name="twitter:title" content="Spring">
+<meta name="twitter:description" content="解决：降低开发复杂性，松耦合 低侵入设计，保持POJO，无需继承框架类或者实现框架接口 IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Expres">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring.html" class="article-date">
-  	<time datetime="2020-01-22T03:53:18.179Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-03-01T09:29:57.449Z" itemprop="datePublished">2020-03-01</time>
 </a>
     </div>
   
@@ -163,7 +163,7 @@ Zjuer
         
   
     <h1 class="article-title" itemprop="name">
-      spring
+      Spring
     </h1>
   
 
@@ -180,7 +180,7 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <p>解决：降低开发复杂性，松耦合</p>
-<p>低侵入设计，无需继承框架类，实现框架接口，保持POJO<br>
+<p>低侵入设计，保持POJO，无需继承框架类或者实现框架接口<br>
 IOC解耦合<br>
 专注业务逻辑</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Data Access: JDBC ORM OXM JMS Transactions   Web: Web Servlet</span><br><span class="line">AOP  Aspects Instrumentation</span><br><span class="line">Core Container: Beans, Core, Context, SpEL(Expression Language)</span><br><span class="line">Test</span><br></pre></td></tr></table></figure>
@@ -190,8 +190,6 @@ IOC解耦合<br>
 Spring 3.0  2009   Config类配置<br>
 Spring 4.0  2013   java8<br>
 Spring 5.0  2017   响应式编程</p>
-<p>Spring 哪些设计模式<br>
-default-lazy-init=“true” 扫描时不初始化？</p>
 <h1 id="设计模式">设计模式</h1>
 <hr>
 <ul>
@@ -210,6 +208,136 @@ HttpRequestHandlerAdapter 处理器实现HttpRequestHandler接口<br>
 SimpleControllerHandlerAdapter 处理器实现Controller接口<br>
 RequestMappingHandlerAdapter 处理器为HandlerMethod，通过注解标注</li>
 </ul>
+<h1 id="web">Web</h1>
+<hr>
+<h2 id="流程">流程</h2>
+<p>围绕DispatcherServlet</p>
+<ol>
+<li>用户发送请求至前端控制器<code>DispatcherServlet</code></li>
+<li>DispatcherServlet收到请求调用<code>HandlerMapping</code>处理器映射器</li>
+<li>处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器<code>HandlerInterceptor</code>(如果有则生成)一并返回给DispatcherServlet</li>
+<li>DispatcherServlet调用HandlerAdapter处理器适配器</li>
+<li>HandlerAdapter经过适配调用具体的处理器(Controller，也叫后端控制器)</li>
+<li><code>Controller</code>执行完成返回<code>ModelAndView</code></li>
+<li>HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet</li>
+<li>DispatcherServlet将ModelAndView传给<code>ViewReslover</code>视图解析器</li>
+<li>ViewReslover通过视图名和地域信息解析后返回具体<code>View</code></li>
+<li>DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）</li>
+<li>DispatcherServlet响应用户</li>
+</ol>
+<h3 id="handlerinterceptor">HandlerInterceptor</h3>
+<p>请求处理前，处理后，渲染后<br>
+WebMvcConfigurer注册<br>
+i18n就是LocaleChangeInterceptor从请求中获取地域信息</p>
+<h3 id="异常处理">异常处理</h3>
+<p>@ExceptionHandler<br>
+@ControllerAdvice</p>
+<h1 id="aop">AOP</h1>
+<hr>
+<h2 id="方法间调用">方法间调用</h2>
+<p>两个方法A,B都有代理增强，A内部调用B，基于接口实现时调用A会走代理，内部B不走<br>
+基于接口实现，除了附加逻辑，基于原对象调用，那么内部其他调用都是基于原对象</p>
+<p>开启@EnableAspectJAutoProxy(exposeProxy=true)暴露出代理对象，可以通过AopContext.currentProxy()获取代理，可以显示把内部调用改写成用代理调用</p>
+<h2 id="代理生成">代理生成</h2>
+<p>ProxyFactory<br>
+没有接口，设置优化模式isOptimize，设置类代理模式isProxyTargetClass，则使用CGLIB代理<br>
+特例如果目标本身是个代理或者接口，则使用JDK代理<br>
+通常情况下都会指定接口，不开启特殊模式，会使用JDK代理</p>
+<h2 id="容器内代理">容器内代理</h2>
+<p>BeanPostProcessor<br>
+DefaultAdvisorProxyCreator根据已有切面判断类实例构建代理增强</p>
+<h2 id="责任链模式">责任链模式</h2>
+<p>链式调用多个增强</p>
+<h1 id="事务">事务</h1>
+<hr>
+<h2 id="事务级别">事务级别</h2>
+<p>Require两个，要求和要求新<br>
+Support两个，支持和不支持<br>
+异常两个，必须和必须不<br>
+嵌套</p>
+<h2 id="回滚条件">回滚条件</h2>
+<ul>
+<li>默认RuntimeException</li>
+<li>@Transactional(rollbackFor=Exception.class)扩大到全部异常</li>
+<li>手动设置回滚标记TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()</li>
+</ul>
+<h2 id="事务本质">事务本质</h2>
+<p>本质是代理，TransactionInterceptor<br>
+不同代理类型，对方法有要求，@Transactional可能失效</p>
+<h1 id="容器">容器</h1>
+<hr>
+<h2 id="aware机制">Aware机制</h2>
+<p>基于BeanPostProcessor比如ApplicationContextAwareProcessor<br>
+实现接口会把实例注入</p>
+<h2 id="生命周期">生命周期</h2>
+<p>全局贯穿BeanPostProcessor<br>
+实例化(Instantiation)</p>
+<ol>
+<li>先执行InstantiationAwareBeanPostProcessor的postProcessBeforeInstantiation方法</li>
+<li>执行构造</li>
+<li>执行InstantiationAwareBeanPostProcessor的postProcessAfterInstantiation方法</li>
+<li>执行InstantiationAwareBeanPostProcessor的postProcessProperties方法</li>
+</ol>
+<p>注入属性</p>
+<ol start="5">
+<li>注入属性</li>
+<li>调用BeanNameAware的setBeanName</li>
+<li>调用BeanFactoryAware的setBeanFactory</li>
+</ol>
+<p>初始化(Initialization)</p>
+<ol start="8">
+<li>执行BeanPostProcessor的postProcessBeforeInitailization</li>
+<li>调用InitializingBean的afterPropertiesSet</li>
+<li>调用initMethod</li>
+<li>执行BeanPostProcessor的postProcessAfterInitailization</li>
+<li>如果实现SmartInitializingSingleton执行afterSingletonsInstantiated</li>
+</ol>
+<p>销毁</p>
+<ol>
+<li>执行DestructionAwareBeanPostProcessor</li>
+<li>调用DisposibleBean的destroy方法</li>
+<li>调用@Bean的destroy-method</li>
+</ol>
+<p>三套方案BeanPostProcessor先于接口先于方法</p>
+<h1 id="feign">feign</h1>
+<hr>
+<p>用户定义接口，接口上附带注解提供元数据<br>
+Feign通过builder模式，提供接口，提供请求地址，构建一个接口实例<br>
+内部解析注解，每个接口方法建立MethodHandler，维护在FeignInvocationHandler<br>
+JDK代理生成实例，调用接口方法时，根据方法名找到处理器，使用处理器发送请求</p>
+<p>Spring集成后</p>
+<ol>
+<li>@EnableFeignClients引入FeignClientsRegistrar(ImportBeanDefinitionRegistrar)</li>
+<li>FeignClientsRegistrar扫描@FeignClient注册FeignClientFactoryBean</li>
+<li>FactoryBean调用getObject时进行Feign的builder获取实例</li>
+</ol>
+<h1 id="hystrix">hystrix</h1>
+<hr>
+<h2 id="降级触发条件">降级触发条件</h2>
+<ul>
+<li>异常，不想参与需要包装</li>
+<li>超时，默认1秒</li>
+<li>熔断</li>
+<li>线程/信号量资源受限</li>
+</ul>
+<h2 id="熔断策略">熔断策略</h2>
+<p>10秒内 至少20次请求并且失败率超过50% 熔断时间5秒</p>
+<h2 id="线程池策略">线程池策略</h2>
+<p>默认线程固定10个 没有队列容量SynchronousQueue</p>
+<h2 id="隔离">隔离</h2>
+<p>默认线程池隔离，如果不涉及网络或者响应很快，使用信号量</p>
+<h1 id="eureka">eureka</h1>
+<hr>
+<p>每隔30s拉取，每隔30s心跳<br>
+对等集群，异步同步</p>
+<h2 id="三级缓存">三级缓存</h2>
+<p>减少读写并发冲突<br>
+只读cache-读写cache-内存</p>
+<ol>
+<li>写入内存，无效化读写</li>
+<li>后端线程发现后无效化只读</li>
+<li>请求发现无数据，从内存中加载填充</li>
+</ol>
 
         
     <div class="donate_module">
@@ -322,6 +450,6 @@ RequestMappingHandlerAdapter 处理器为HandlerMethod，通过注解标注</li>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

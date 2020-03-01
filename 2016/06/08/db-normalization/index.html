@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="关系表设计模式">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:51.986Z">
+<meta property="og:updated_time" content="2020-03-01T13:43:10.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库范式">
 <meta name="twitter:description" content="关系表设计模式">
@@ -231,7 +231,7 @@ Zjuer
 <p>水果配送表，三个属性共同作为主键<br>
 每家店供应多种水果，每家店配送多个地区，这些值是确定的<br>
 店铺决定了水果范围和地区范围，但是店铺能供应的水果和配送地区之间无关，这是多值依赖<br>
-这种设计后果是增加水果或者配送范围，都要插入多条记录</p>
+这种设计后果是增加水果或者配送范围，都要插入多条记录，单独拆分成店铺水果表和店铺配送表比较好</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--------------------------------------</span><br><span class="line">| Shop Id | Fruit Id | Delivery Area |</span><br><span class="line">--------------------------------------</span><br><span class="line">| 1       | 1        | A             |</span><br><span class="line">--------------------------------------</span><br></pre></td></tr></table></figure>
 <h1 id="范式化">范式化</h1>
 <hr>
@@ -385,6 +385,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

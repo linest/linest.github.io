@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>分库分表 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同">
+  <meta name="description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同一">
 <meta property="og:type" content="website">
 <meta property="og:title" content="分库分表">
 <meta property="og:url" content="http://linest.github.io/tmp/db-split.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同">
+<meta property="og:description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同一">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:44:13.355Z">
+<meta property="og:updated_time" content="2020-02-20T14:24:27.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分库分表">
-<meta name="twitter:description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同">
+<meta name="twitter:description" content="根据数据量发展路径：单库单表，单库分表，分库分表 单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库 读压力过大可以先考虑一主多从分担，写压力过大考虑分库 缺点  分库分表提升了维护开销 分库分表后，分页排序聚合等操作会受到限制 分布式事务问题  原则：尽量合理分库，使业务查询集中在单库单表，避免跨库 水平分库  IO,CPU压力过大，需要由不同机器承担  每个库结构一样 每个库存同一">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/db-split.html" class="article-date">
-  	<time datetime="2020-01-22T03:44:13.355Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-20T14:24:27.055Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -179,8 +179,7 @@ Zjuer
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<p>根据数据量发展路径：单库单表，单库分表，分库分表</p>
+        <p>根据数据量发展路径：单库单表，单库分表，分库分表</p>
 <p>单库分表优化了表性能，对整个库而言压力没变，解决库压力需要分库<br>
 读压力过大可以先考虑一主多从分担，写压力过大考虑分库</p>
 <p>缺点</p>
@@ -199,13 +198,11 @@ Zjuer
 </ul>
 <h1 id="水平分表">水平分表</h1>
 <hr>
-<p>单表数据过多，影响查询效率</p>
+<p>单表数据过多，一般单表千万级别，影响查询效率</p>
 <ul>
 <li>原表分割成多个新表，每个表结构相同</li>
 <li>每个新表存储原表部分数据</li>
 </ul>
-<p>单表千万级别</p>
-<p>一般分为2的幂次，扩容时能够减少数据迁移量</p>
 <h1 id="垂直分库">垂直分库</h1>
 <hr>
 <p>通过拆分业务方式实现压力分担</p>
@@ -231,7 +228,7 @@ Zjuer
 <ul>
 <li>
 <p>按范围: 连续区间<br>
-优点是划分后数据量基本固定并且后续数据增长容易扩展，缺点是有可能不均匀比如按时间划分，不同时间段数据量不同，而且活跃度不同，越新的越活跃</p>
+优点是划分后数据量基本固定并且后续数据增长容易扩展，缺点是有可能不均匀比如按时间划分，不同时间段数据量不同，而且活跃度不同，越新的越活跃导致访问集中</p>
 </li>
 <li>
 <p>按哈希：哈希取模<br>
@@ -250,7 +247,8 @@ Zjuer
 </li>
 </ul>
 <h2 id="数据迁移">数据迁移</h2>
-<p>目标是尽量减少对业务影响</p>
+<p>一般分为2的幂次，扩容时能够减少数据迁移量<br>
+目标是尽量减少对业务影响</p>
 <h1 id="中间件">中间件</h1>
 <hr>
 <p>sql中间件,底层切分对上层透明</p>
@@ -371,6 +369,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

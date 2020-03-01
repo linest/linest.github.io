@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>spring-aop | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  类的所有方法都添加了横切逻辑，硬编码粒度控制 逻辑执行位置，方法开始或者结束也是硬编码编写 需要手工创建代理实例  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public inte">
+  <meta name="description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  需要手工创建代理实例 需要手工编写处理器，协调附加逻辑和原逻辑 类的所有方法都添加了横切逻辑，硬编码粒度控制  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public interf">
 <meta property="og:type" content="website">
 <meta property="og:title" content="spring-aop">
 <meta property="og:url" content="http://linest.github.io/tmp/spring-aop.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  类的所有方法都添加了横切逻辑，硬编码粒度控制 逻辑执行位置，方法开始或者结束也是硬编码编写 需要手工创建代理实例  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public inte">
+<meta property="og:description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  需要手工创建代理实例 需要手工编写处理器，协调附加逻辑和原逻辑 类的所有方法都添加了横切逻辑，硬编码粒度控制  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public interf">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:52:09.581Z">
+<meta property="og:updated_time" content="2020-02-29T05:52:15.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-aop">
-<meta name="twitter:description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  类的所有方法都添加了横切逻辑，硬编码粒度控制 逻辑执行位置，方法开始或者结束也是硬编码编写 需要手工创建代理实例  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public inte">
+<meta name="twitter:description" content="spring-aop https://www.cnblogs.com/chihirotan/p/7356683.html 普通的织入  需要手工创建代理实例 需要手工编写处理器，协调附加逻辑和原逻辑 类的所有方法都添加了横切逻辑，硬编码粒度控制  org.aopalliance.aop.Advice 增强逻辑接口  所有增强顶层都是Advice Advice.java12public interf">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-aop.html" class="article-date">
-  	<time datetime="2020-01-22T03:52:09.581Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-29T05:52:15.941Z" itemprop="datePublished">2020-02-29</time>
 </a>
     </div>
   
@@ -183,9 +183,9 @@ Zjuer
 <a href="https://www.cnblogs.com/chihirotan/p/7356683.html" target="_blank" rel="noopener">https://www.cnblogs.com/chihirotan/p/7356683.html</a></p>
 <p>普通的织入</p>
 <ul>
-<li>类的所有方法都添加了横切逻辑，硬编码粒度控制</li>
-<li>逻辑执行位置，方法开始或者结束也是硬编码编写</li>
 <li>需要手工创建代理实例</li>
+<li>需要手工编写处理器，协调附加逻辑和原逻辑</li>
+<li>类的所有方法都添加了横切逻辑，硬编码粒度控制</li>
 </ul>
 <p>org.aopalliance.aop.Advice</p>
 <h1 id="增强逻辑接口">增强逻辑接口</h1>
@@ -249,10 +249,9 @@ MethodInterceptor是Around型增强的实现</p>
 <figure class="highlight java"><figcaption><span>AopProxyFactory.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AopProxyFactory</span> </span>&#123;</span><br><span class="line">	<span class="function">AopProxy <span class="title">createAopProxy</span><span class="params">(AdvisedSupport config)</span> <span class="keyword">throws</span> AopConfigException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>生成的代理AopProxy有两种</p>
 <ul>
-<li>如果设置策略优化isOptimize，或者配置指定进行类代理isProxyTargetClass,或者没提供接口
+<li>如果设置策略优化isOptimize，或者配置指定进行类代理isProxyTargetClass,或者没提供接口，应该使用Cglib代理
 <ul>
-<li>目标本身是个接口或者代理，那么使用JDK代理</li>
-<li>其他情况使用使用JDK代理</li>
+<li>特例目标本身是个接口或者代理，那么使用JDK代理</li>
 </ul>
 </li>
 <li>其他情况默认使用JDK代理</li>
@@ -417,6 +416,6 @@ BeanPostProcessor</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

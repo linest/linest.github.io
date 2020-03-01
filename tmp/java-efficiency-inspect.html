@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="堆溢出自动保存dump -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\temp FullGC时也可保存 -XX:+HeapDumpBeforeFullGC -XX:+HeapDumpAfterFullGC 打印GC日志 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:04:06.543Z">
+<meta property="og:updated_time" content="2020-02-27T16:24:37.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存监控">
 <meta name="twitter:description" content="堆溢出自动保存dump -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\temp FullGC时也可保存 -XX:+HeapDumpBeforeFullGC -XX:+HeapDumpAfterFullGC 打印GC日志 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-efficiency-inspect.html" class="article-date">
-  	<time datetime="2020-01-22T03:04:06.543Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-27T16:24:37.271Z" itemprop="datePublished">2020-02-28</time>
 </a>
     </div>
   
@@ -200,9 +200,32 @@ Zjuer
 <p>Runtime.getRuntime().freeMemory() 当前已获取内存下的空余内存<br>
 Runtime.getRuntime().totalMemory() 当前已从系统获取到的内存<br>
 Runtime.getRuntime().maxMemory() 受xmx限制，能从操作系统获取内存的上限</p>
-<p>MAT<br>
-Eclipse Memory Analyser Tool<br>
-<a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">http://www.eclipse.org/mat/downloads.php</a></p>
+<h1 id="java-version参数检验">Java -version参数检验</h1>
+<hr>
+<p>查看版本是最轻量级执行，可以方便进行参数验证</p>
+<h2 id="尝试内存最大允许分配">尝试内存最大允许分配</h2>
+<p>启动尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1000m -version</span><br></pre></td></tr></table></figure>
+<h2 id="查看参数默认值">查看参数默认值</h2>
+<p>原理是不指定参数即所有使用默认值，打印出所有参数再从中搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -XX:+PrintFlagsFinal -version |grep &lt;param&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="jps">jps</h1>
+<hr>
+<p>显示进程，同时显示详情，可以看到启动路径(l),相关JVM参数(v),main方法参数(m)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -lvm</span><br></pre></td></tr></table></figure>
+<h1 id="jinfo">jinfo</h1>
+<hr>
+<p>输出全部配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jinfo</span><br></pre></td></tr></table></figure>
+<p>输出所有指定的非默认JVM参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jinfo -flags &lt;pid&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="jstack">jstack</h1>
+<hr>
+<p>查看进程下的线程栈,可以看到死锁状况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack -l pid</span><br></pre></td></tr></table></figure>
+<p>统计线程状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack -l pid| grep java.lang.Thread.State | awk &apos;&#123;print $2$3$4$5&#125;&apos; | sort | uniq -c</span><br></pre></td></tr></table></figure>
+<p>死循环代码出现频率很高，可以采取jstack两次，有对照，有助于发现死循环</p>
 <h1 id="jmap">jmap</h1>
 <hr>
 <p>jmap查看堆情况</p>
@@ -222,42 +245,20 @@ Eclipse Memory Analyser Tool<br>
 <li>YGC新生代GC次数 FGC全GC次数 YGCT/FGCT所用时间秒数</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -gc pid</span><br></pre></td></tr></table></figure>
-<h1 id="jps">jps</h1>
+<h1 id="工具分析">工具分析</h1>
 <hr>
-<p>显示进程，同时显示详情，可以看到启动路径(l),相关JVM参数(v),main方法参数(m)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps -lvm</span><br></pre></td></tr></table></figure>
-<h1 id="jinfo">jinfo</h1>
-<hr>
-<p>输出全部配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jinfo</span><br></pre></td></tr></table></figure>
-<p>输出所有指定的非默认JVM参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jinfo -flags &lt;pid&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="jstack">jstack</h1>
-<hr>
-<p>查看进程下的线程栈,可以看到死锁状况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack -l pid</span><br></pre></td></tr></table></figure>
-<p>统计线程状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack -l pid| grep java.lang.Thread.State | awk &apos;&#123;print $2$3$4$5&#125;&apos; | sort| uniq -c</span><br></pre></td></tr></table></figure>
-<h1 id="visualvm">visualVM</h1>
-<hr>
+<h2 id="visualvm">visualVM</h2>
 <p>jvisualvm, 常见命令的界面化综合工具</p>
+<h2 id="mat">MAT</h2>
+<p>Eclipse Memory Analyser Tool<br>
+<a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">http://www.eclipse.org/mat/downloads.php</a></p>
 <p>MAT 分析<br>
 <a href="http://www.importnew.com/7869.html" target="_blank" rel="noopener">http://www.importnew.com/7869.html</a></p>
-<h1 id="dump文件过大">Dump文件过大</h1>
-<hr>
+<h2 id="dump文件过大">Dump文件过大</h2>
 <p>如果文件大小大于本地内存大小，那么可能分析工具OOM<br>
 需要配置分析工具的JVM参数,比如8g内存去分析16g的文件<br>
 <code>config.ini</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-Xms6144m</span><br><span class="line">-Xmx8192m</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:+UseParNewGC</span><br><span class="line">-XX:+CMSParallelRemarkEnabled</span><br><span class="line">-XX:+CMSClassUnloadingEnabled</span><br><span class="line">-XX:+UseCMSInitiatingOccupancyOnly</span><br></pre></td></tr></table></figure>
-<h1 id="java-version参数检验">Java -version参数检验</h1>
-<hr>
-<p>查看版本是最轻量级执行，可以方便进行参数验证</p>
-<h2 id="尝试内存最大允许分配">尝试内存最大允许分配</h2>
-<p>启动尝试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1000m -version</span><br></pre></td></tr></table></figure>
-<h2 id="查看参数默认值">查看参数默认值</h2>
-<p>原理是不指定参数即所有使用默认值，打印出所有参数再从中搜索</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -XX:+PrintFlagsFinal -version |grep &lt;param&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="cpu监控">CPU监控</h1>
 <hr>
 <p>JProfile<br>
@@ -311,8 +312,11 @@ Yourkit</p>
 <ol>
 <li><code>ps -ef | grep tomcat</code> 找到线程id</li>
 <li><code>lsof -p 线程号 | wc -l</code> 统计打开文件数量</li>
-<li><code>ulimit -a</code> 查看允许上限</li>
+<li><code>ulimit -a</code> 查看文件描述符允许上限</li>
 </ol>
+<p><code>ulimit -n 数量</code> 设置临时上限，可以写入<code>/etc/rc.local</code>开机启动文件<br>
+还可以修改<code>/etc/security/limits.conf</code>，超过软限制会警告信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">soft nofile 数量</span><br><span class="line">hard nofile 数量</span><br></pre></td></tr></table></figure>
 <h2 id="定时任务">定时任务</h2>
 <ol>
 <li><code>crontab -l</code>查看定时任务</li>
@@ -429,8 +433,7 @@ Yourkit</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
@@ -447,5 +450,6 @@ Yourkit</p>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end --></body>
+<!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

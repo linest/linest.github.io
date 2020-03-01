@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>distribute-id | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库自增  获取id由写请求触发，开销大 宕机恢复id可能重复  单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x`">
+  <meta name="description" content="数据库自增   单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x` tinyint(4) NOT NULL DEFAUL">
 <meta property="og:type" content="website">
 <meta property="og:title" content="distribute-id">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-id.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="数据库自增  获取id由写请求触发，开销大 宕机恢复id可能重复  单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x`">
+<meta property="og:description" content="数据库自增   单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x` tinyint(4) NOT NULL DEFAUL">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.620Z">
+<meta property="og:updated_time" content="2020-02-20T10:09:51.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-id">
-<meta name="twitter:description" content="数据库自增  获取id由写请求触发，开销大 宕机恢复id可能重复  单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x`">
+<meta name="twitter:description" content="数据库自增   单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x` tinyint(4) NOT NULL DEFAUL">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-id.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.620Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-20T10:09:51.395Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -181,8 +181,6 @@ Zjuer
       
         <h1 id="数据库自增">数据库自增</h1>
 <hr>
-<p>获取id由写请求触发，开销大<br>
-宕机恢复id可能重复</p>
 <ol>
 <li>单独维护一张表，表里只有一行，主键永远是0</li>
 <li>replace into反复删除插入同一行，迫使unique列自增</li>
@@ -194,28 +192,35 @@ Zjuer
 <p>假设每个实例不同步长值，每个实例产生号码结合步长值不重复<br>
 auto-increment-offset设置初始值 auto-increment-increment设置步长值<br>
 设置值为全局，实例下所有表都会受影响</p>
+<p>缺点</p>
+<ul>
+<li>获取id由写请求触发，开销大</li>
+<li>自增内存维护，宕机恢复id可能重复</li>
+</ul>
 <h1 id="数据库号段">数据库号段</h1>
 <hr>
 <p>服务端一次请求一批id，缓存在本地<br>
-不是真的从请求多个号，依然请求一个，不同的是数据库返回值看作id的高位部分，低位部分内存自增</p>
-<p>比如64位，前3个字节数据库维护，后5个字节内存维护</p>
+不是真的从请求多个号，依然请求一个，不同的是数据库返回值看作id的高位部分，低位部分内存自增<br>
+比如64位，前3个字节数据库维护，后5个字节内存维护</p>
 <h1 id="uuid">UUID</h1>
 <hr>
 <p>Universally Unique Identifier<br>
-无需中心化控制，产生唯一识别码</p>
-<p>32个16进制字符，格式为<code>8-4-4-4-12</code>五段结构，共36个字符</p>
+32个16进制字符，格式为<code>8-4-4-4-12</code>五段结构，共36个字符</p>
 <p>为了满足时空差异</p>
 <ul>
 <li>同一机器不同时间产出不同</li>
 <li>同一时间不同机器产出不同<br>
 生成过程利用时间，CPU时钟序列以及机器识别号如网卡MAC</li>
 </ul>
-<p>缺点是字符串太长，并且无序，作为id不太适合</p>
+<p>优点是无需中心化控制，产生唯一识别码<br>
+缺点是字符串太长，并且无序，作为id不太适合</p>
 <h1 id="snowflake">Snowflake</h1>
 <hr>
 <p>全局唯一性，单机递增</p>
 <p>64位的long<br>
 1位正负标识(固定为0保持正数) + 41位时间戳(毫秒级，当前时间戳与起始时间戳差值，够69年) + 10位机器编号(数据中心5位+机器编号5位) + 12位序列号(区分同一毫秒内不同id，12位支持4096个)</p>
+<p>满配环境下，每毫秒可以生成1024*4096约400万个id</p>
+<p>缺点</p>
 <ul>
 <li>时钟避免回调，记录上个id的时间用于比较，如果新时间小说明发生回调
 <ul>
@@ -234,9 +239,8 @@ auto-increment-offset设置初始值 auto-increment-increment设置步长值<br>
 </ul>
 <h1 id="redis-incr">Redis INCR</h1>
 <hr>
-<p>全局唯一</p>
-<p>注意崩溃恢复<br>
-redis可能丢数据，恢复时跳过一段避免重复</p>
+<p>单线程<br>
+注意崩溃恢复时redis可能丢数据，可以采取恢复时跳过一段避免重复</p>
 
         
     <div class="donate_module">
@@ -349,6 +353,6 @@ redis可能丢数据，恢复时跳过一段避免重复</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

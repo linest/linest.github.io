@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="缓存操作">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-14T14:30:20.651Z">
+<meta property="og:updated_time" content="2020-02-29T03:57:16.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 系统缓存">
 <meta name="twitter:description" content="缓存操作">
@@ -223,10 +223,10 @@ CPU以缓存行为单位，即块操作，常见大小是<code>64字节</code><b
 那么任意修改xy都会造成另一CPU对应的缓存行失效，那么就要发送RFO请求进行状态控制，造成了竞争</p>
 <h2 id="解决方案">解决方案</h2>
 <p>编程时可以刻意定义多余无用的成员变量进行填补，避免特定变量间使用同一缓存行<br>
-Java8增加了标签<code>@sun.misc.Contended</code>，设置JVM参数启用-XX:-RestrictContended<br>
+Java8增加了标签<code>@sun.misc.Contended</code>，设置JVM参数启用<code>-XX:-RestrictContended</code><br>
 注解使得被标记字段单独占用一个缓存行，虽然浪费空间但是避免竞争提升了效率</p>
 <h2 id="应用">应用</h2>
-<p>Striped64类使用数组减少竞争，是LongAdder的基类<br>
+<p><code>Striped64</code>类使用数组减少竞争，是LongAdder的基类<br>
 数组容易连续分配，造成缓存伪共享，因此加上<code>@Contended</code>标签进行优化</p>
 <figure class="highlight java"><figcaption><span>Striped64.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Striped64</span> <span class="keyword">extends</span> <span class="title">Number</span> </span>&#123;</span><br><span class="line">    <span class="meta">@sun</span>.misc.Contended</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Cell</span> </span>&#123;</span><br><span class="line">        <span class="keyword">volatile</span> <span class="keyword">long</span> value;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">volatile</span> Cell[] cells;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -360,6 +360,6 @@ Java8增加了标签<code>@sun.misc.Contended</code>，设置JVM参数启用-XX:
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>QPS | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则，活跃用户占用户总量20%，20%时间活跃访问期承载8">
+  <meta name="description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则 活跃用户占用户总量20% 20%时间活跃访问期承载8">
 <meta property="og:type" content="website">
 <meta property="og:title" content="QPS">
 <meta property="og:url" content="http://linest.github.io/tmp/qps.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则，活跃用户占用户总量20%，20%时间活跃访问期承载8">
+<meta property="og:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则 活跃用户占用户总量20% 20%时间活跃访问期承载8">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:51:55.186Z">
+<meta property="og:updated_time" content="2020-03-01T16:11:10.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="QPS">
-<meta name="twitter:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则，活跃用户占用户总量20%，20%时间活跃访问期承载8">
+<meta name="twitter:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则 活跃用户占用户总量20% 20%时间活跃访问期承载8">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/qps.html" class="article-date">
-  	<time datetime="2020-01-22T03:51:55.186Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-03-01T16:11:10.949Z" itemprop="datePublished">2020-03-02</time>
 </a>
     </div>
   
@@ -192,10 +192,12 @@ Zjuer
 </ul>
 <h1 id="估算">估算</h1>
 <hr>
-<p>28原则，活跃用户占用户总量20%，20%时间活跃访问期承载80%访问，即活跃期访问为4倍的QPS<br>
-峰值访问为活跃期访问2~3倍，取2.5即10倍QPS<br>
-峰值qps = 10 * 日pv / 24<em>3600， 即平摊每秒后的10倍<br>
-并发(同时线程数) = QPS</em>平均耗时</p>
+<p>28原则<br>
+活跃用户占用户总量20%<br>
+20%时间活跃访问期承载80%访问，即活跃期访问QPS为4倍的平均QPS<br>
+峰值访问为活跃期访问2~3倍，取2.5即10倍平均QPS<br>
+<code>峰值qps = 10 * 日pv / 24*3600， 即平摊每秒后的10倍</code><br>
+<code>并发(同时线程数) = QPS*平均耗时</code></p>
 <h1 id="概况">概况</h1>
 <hr>
 <p>光纤速度：C/1.5 = 20万千米/s<br>
@@ -203,8 +205,8 @@ Zjuer
 极限QPS：千兆带宽，10kb数据请求 1000Mbps/8/10kb = 1.25w/s</p>
 <p>单机并发，端口1024~65536可用，理论上60000并发连接，但是受其他资源约束</p>
 <p>普通服务器4核8G动态请求500QPS, 一个请求多个数据库操作，数据库承受几倍的QPS<br>
-mysql实体机16核32G一般查询3000QPS，写入800QPS</p>
-<p>普通服务器4核8G，并发50~200开线程100多就负载很高，建议线程数几十个</p>
+mysql实体机16核32G一般查询3000QPS，写入800QPS<br>
+普通服务器4核8G，按照500QPS算每个请求100ms时并发50，实际上并发50~200，开线程100多就负载很高，建议线程数几十个</p>
 <h1 id="性能部件">性能部件</h1>
 <hr>
 <ul>
@@ -325,6 +327,6 @@ mysql实体机16核32G一般查询3000QPS，写入800QPS</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

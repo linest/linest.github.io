@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="输入输出">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:44:38.542Z">
+<meta property="og:updated_time" content="2020-02-20T14:38:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java IO">
 <meta name="twitter:description" content="输入输出">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-io.html" class="article-date">
-  	<time datetime="2020-01-22T03:44:38.542Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-20T14:38:17.000Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
@@ -182,16 +182,19 @@ Zjuer
         <p>输入输出</p>
 <a id="more"></a>
 <h1 id="文件访问接口">文件访问接口</h1>
+<hr>
 <p>Java中用户接触的接口是read/write方法，访问的终极目标是物理磁盘中的文件<br>
-访问并非一步到位，还会经过内存中的缓存空间<br>
+访问并非一步到位从设备到内存，还会经过缓冲区，缓冲的作用是避免频繁交互<br>
 访问依赖操作系统，通过内核调用完成，中间存在应用缓存和内核缓存数据复制的问题</p>
 <p>实际可划分三个阶段交互</p>
 <ul>
-<li>接口调用和用户缓存</li>
-<li>用户缓存和内核缓存</li>
-<li>内核缓存和物理磁盘</li>
+<li>接口调用和用户缓冲</li>
+<li>用户缓冲和内核缓冲</li>
+<li>内核缓冲和物理磁盘</li>
 </ul>
+<p>不管是写文件到磁盘，还是发数据给网卡，本质是一样的</p>
 <h1 id="文件访问方式">文件访问方式</h1>
+<hr>
 <ul>
 <li>标准<br>
 写入到内核空间就算完成，操作系统真正写入磁盘是异步的</li>
@@ -206,12 +209,13 @@ Zjuer
 内存映射只是映射地址，没有数据复制，真正访问时触发缺页中断，从磁盘直接复制到内存应用空间，不经过内核空间</li>
 </ul>
 <h1 id="从路径到数据">从路径到数据</h1>
+<hr>
 <p>传入一个文件路径，读取文件数据</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FileReader reader = <span class="keyword">new</span> FileReader(<span class="string">"foo.txt"</span>);</span><br><span class="line"><span class="keyword">int</span> character = reader.read();</span><br></pre></td></tr></table></figure>
 <p>FileReader实际创建出了FileInputStream,构建父类InputStreamReader</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">FileReader</span><span class="params">(String fileName)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="keyword">new</span> FileInputStream(fileName));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>InputStreamReader处理字符流，因此构建一个解码器，从字节转字符</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">InputStreamReader</span><span class="params">(InputStream in)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(in);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        sd = StreamDecoder.forInputStreamReader(in, <span class="keyword">this</span>, (String)<span class="keyword">null</span>); <span class="comment">// ## check lock object</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// The default encoding should always be available</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Error(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">InputStreamReader</span><span class="params">(InputStream in)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(in);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        sd = StreamDecoder.forInputStreamReader(in, <span class="keyword">this</span>, (String)<span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// The default encoding should always be available</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Error(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>FileInputStream用路径去创建File对象后，进入另一构造。File只是抽象描述，不关心路径是否真的有效</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">FileInputStream</span><span class="params">(String name)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(name != <span class="keyword">null</span> ? <span class="keyword">new</span> File(name) : <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>检查路径有效性，构建FileDescriptor，真正的描述物理文件，并打开文件</p>
@@ -221,15 +225,16 @@ Zjuer
 <p>读取比较简单，直接调用解码器去读，至此成功的从文件路径读取到了数据</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sd.read();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="buffer的作用">Buffer的作用</h1>
+<hr>
 <p>用户每次调用read/write方法都要内核调用，哪怕只读写一个字符，耗时<br>
 预读策略，读取多于需求的数据，缓存起来备用，如果下次需求刚好在缓存范围内，就可以直接返回，无需内核调用</p>
 <p>加缓冲是以装饰器的模式实现，直接包装已有reader即可<br>
 加缓冲后，可以进行readLine读入整行操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"foo.txt"</span>));</span><br><span class="line">String line = bufferedReader.readLine();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"foo.txt"</span>));</span><br><span class="line">String line = bufferedReader.readLine();</span><br></pre></td></tr></table></figure>
 <p>BufferedReader维护一个数组作为缓冲区，默认大小8192个字符<br>
 由于有了缓冲区这个共享可变成员，读取时加锁保护<br>
 BufferedReader即使读取单个字符，也会填满整个缓冲区</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">        ensureOpen();</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nextChar &gt;= nChars) &#123;</span><br><span class="line">                fill();</span><br><span class="line">                <span class="keyword">if</span> (nextChar &gt;= nChars)</span><br><span class="line">                    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">            <span class="keyword">return</span> cb[nextChar++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">        ensureOpen();</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nextChar &gt;= nChars) &#123;</span><br><span class="line">                fill();</span><br><span class="line">                <span class="keyword">if</span> (nextChar &gt;= nChars)</span><br><span class="line">                    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">            <span class="keyword">return</span> cb[nextChar++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
     <div class="donate_module">
@@ -342,6 +347,6 @@ BufferedReader即使读取单个字符，也会填满整个缓冲区</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

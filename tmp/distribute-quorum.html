@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Quorum | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可以有不同策略 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随意取一个节点">
+  <meta name="description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可采取不同策略保证读到最新 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Quorum">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-quorum.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可以有不同策略 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随意取一个节点">
+<meta property="og:description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可采取不同策略保证读到最新 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T09:02:52.615Z">
+<meta property="og:updated_time" content="2020-02-24T05:10:44.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Quorum">
-<meta name="twitter:description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可以有不同策略 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随意取一个节点">
+<meta name="twitter:description" content="解决多副本不一致环境下读写最新数据问题 分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可采取不同策略保证读到最新 WARO  WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可 坏处是写操作很脆弱，有一个节点宕机或者网络问题就不会成功，并且等待所有都成功很耗时，但好处是写操作一旦成功，说明所有节点数据都就绪，读操作随">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-quorum.html" class="article-date">
-  	<time datetime="2020-01-11T09:02:52.615Z" itemprop="datePublished">2020-01-11</time>
+  	<time datetime="2020-02-24T05:10:44.459Z" itemprop="datePublished">2020-02-24</time>
 </a>
     </div>
   
@@ -180,7 +180,7 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <p>解决多副本不一致环境下读写最新数据问题<br>
-分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可以有不同策略</p>
+分布式环境下数据都是备份存储，同一份数据可能在多个节点都有，读写操作可采取不同策略保证读到最新</p>
 <h1 id="waro">WARO</h1>
 <hr>
 <p>WARO(Write All Read one)：极端情况，写操作要所有节点写成功才行，读操作选取任一节点即可<br>
@@ -316,6 +316,6 @@ Zjuer
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

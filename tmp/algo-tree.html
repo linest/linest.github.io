@@ -4,19 +4,19 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>树 | Blog of Linest</title>
+  <title>Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基本结构  为了简化，采用public形式 123456789public class Node &amp;#123;    public int value;    public Node left;    public Node right;    public Node(int data) &amp;#123;        this.value = data;    &amp;#125;&amp;#125; 遍历  前序">
+  <meta name="description" content="平衡二叉树 AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，右边高就向左旋转 红黑树，不严格追求高度差，而是保证最长路径不超过最短路径2倍(路径黑节点数相同，红节点还不能连续)，大致上平衡，最差O(logn)，效率更高  根节点黑色 叶节点下认为有两个黑色虚节点 路径不能出现相邻红节点 任何子树路径上包含相同的黑色节点  AVL树高度绝对保证，有利于查询，但是修改成本高 红黑树牺牲了一定">
 <meta property="og:type" content="website">
-<meta property="og:title" content="树">
+<meta property="og:title" content="Blog of Linest">
 <meta property="og:url" content="http://linest.github.io/tmp/algo-tree.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="基本结构  为了简化，采用public形式 123456789public class Node &amp;#123;    public int value;    public Node left;    public Node right;    public Node(int data) &amp;#123;        this.value = data;    &amp;#125;&amp;#125; 遍历  前序">
+<meta property="og:description" content="平衡二叉树 AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，右边高就向左旋转 红黑树，不严格追求高度差，而是保证最长路径不超过最短路径2倍(路径黑节点数相同，红节点还不能连续)，大致上平衡，最差O(logn)，效率更高  根节点黑色 叶节点下认为有两个黑色虚节点 路径不能出现相邻红节点 任何子树路径上包含相同的黑色节点  AVL树高度绝对保证，有利于查询，但是修改成本高 红黑树牺牲了一定">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:43:55.898Z">
+<meta property="og:updated_time" content="2020-02-20T13:52:39.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树">
-<meta name="twitter:description" content="基本结构  为了简化，采用public形式 123456789public class Node &amp;#123;    public int value;    public Node left;    public Node right;    public Node(int data) &amp;#123;        this.value = data;    &amp;#125;&amp;#125; 遍历  前序">
+<meta name="twitter:title" content="Blog of Linest">
+<meta name="twitter:description" content="平衡二叉树 AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，右边高就向左旋转 红黑树，不严格追求高度差，而是保证最长路径不超过最短路径2倍(路径黑节点数相同，红节点还不能连续)，大致上平衡，最差O(logn)，效率更高  根节点黑色 叶节点下认为有两个黑色虚节点 路径不能出现相邻红节点 任何子树路径上包含相同的黑色节点  AVL树高度绝对保证，有利于查询，但是修改成本高 红黑树牺牲了一定">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,74 +152,16 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/algo-tree.html" class="article-date">
-  	<time datetime="2020-01-22T03:43:55.898Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-20T13:52:39.932Z" itemprop="datePublished">2020-02-20</time>
 </a>
     </div>
   
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      树
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-        
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="基本结构">基本结构</h1>
-<hr>
-<p>为了简化，采用public形式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> Node left;</span><br><span class="line">    <span class="keyword">public</span> Node right;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="遍历">遍历</h1>
-<hr>
-<h2 id="前序-中-左-右">前序（中-左-右）</h2>
-<p>递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(root.value);</span><br><span class="line">    preOrder(root.left);</span><br><span class="line">    preOrder(root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>迭代</p>
-<ol>
-<li>新发现的节点总是优先老节点，新节点栈顶LIFO</li>
-<li>左子树总是优先右子树，进栈先右后左</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Stack&lt;Node&gt; stack = <span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    stack.add(root);</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty()) &#123;</span><br><span class="line">        Node n = stack.pop();</span><br><span class="line">        System.out.println(n.value);</span><br><span class="line">        <span class="keyword">if</span>(n.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(n.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(n.left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="后序-左-右-中">后序（左-右-中）</h2>
-<p>递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    postOrder(root.left);</span><br><span class="line">    postOrder(root.right);</span><br><span class="line">    System.out.println(root.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>迭代</p>
-<ol>
-<li>子节点优先，子节点出栈之前，父节点不能出栈</li>
-</ol>
-<ul>
-<li>如果节点有左子树，那么上个出栈节点必须等于子节点才可能轮到自己出栈</li>
-<li>如果节点有右子树，那么上个出栈节点必须等于右节点才能轮到自己出栈</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Stack&lt;Node&gt; stack = <span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    stack.push(root);</span><br><span class="line">    Node last;</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty()) &#123;</span><br><span class="line">        Node n = stack.peek();</span><br><span class="line">        <span class="keyword">if</span>(n.left != <span class="keyword">null</span> &amp;&amp; last != n.left &amp;&amp; last != n.right) &#123;</span><br><span class="line">            stack.push(n.left);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n.right != <span class="keyword">null</span> &amp;&amp; last != n.right) &#123;</span><br><span class="line">            stack.push(n.right);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            last = stack.pop();</span><br><span class="line">            System.out.println(last.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="中序-左-中-右">中序（左-中-右）</h2>
-<p>递归</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    inOrder(root.left);</span><br><span class="line">    System.out.println(root.value);</span><br><span class="line">    inOrder(root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>迭代</p>
-<ol>
-<li>最左边的节点是第一个节点，一直往左走，沿途进栈</li>
-<li>走不下去尝试出栈，相当于中间节点出栈，再次操作右节点</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Stack&lt;Node&gt; stack = <span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    Node curr = root;</span><br><span class="line">    <span class="keyword">while</span>(!stack.isEmpty() || curr != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(curr != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(curr);</span><br><span class="line">            curr = curr.left;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            curr = stack.pop();</span><br><span class="line">            System.out.println(curr.value);</span><br><span class="line">            curr = curr.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>非递归遍历</p>
-<p>中序配合前序或后序遍历树</p>
-<p>二叉排序树<br>
-极端情况下退化成链表，降低查询效率</p>
-<p>平衡二叉树<br>
+        <p>平衡二叉树<br>
 AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，右边高就向左旋转</p>
 <p>红黑树，不严格追求高度差，而是保证最长路径不超过最短路径2倍(路径黑节点数相同，红节点还不能连续)，大致上平衡，最差O(logn)，效率更高</p>
 <ul>
@@ -230,10 +172,6 @@ AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，�
 </ul>
 <p>AVL树高度绝对保证，有利于查询，但是修改成本高<br>
 红黑树牺牲了一定高度保证，即降低查询性能，提升修改性能，任何操作都能在3步内调整到平衡，并且跨两层操作</p>
-<h1 id="前缀树">前缀树</h1>
-<hr>
-<p>26叉，每个分支对应一个字母，根节点是个空节点<br>
-每个节点内有字段标记是否单词和单词内容</p>
 
         
     <div class="donate_module">
@@ -346,6 +284,6 @@ AVL树，左右高度差不超过1，旋转平衡，左边高就向右旋转，�
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

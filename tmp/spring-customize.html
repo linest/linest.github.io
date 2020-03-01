@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="Servlet编码注册  WebApplicationInitializer暴露了ServletContext 可以编码注册Servlet Filter Listeners等，取代了web.xml WebApplicationInitializer.java123public interface WebApplicationInitializer &amp;#123;	void onStartup(Ser">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:52:52.843Z">
+<meta property="og:updated_time" content="2020-02-25T13:06:22.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-customize">
 <meta name="twitter:description" content="Servlet编码注册  WebApplicationInitializer暴露了ServletContext 可以编码注册Servlet Filter Listeners等，取代了web.xml WebApplicationInitializer.java123public interface WebApplicationInitializer &amp;#123;	void onStartup(Ser">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-customize.html" class="article-date">
-  	<time datetime="2020-01-22T03:52:52.843Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-02-25T13:06:22.464Z" itemprop="datePublished">2020-02-25</time>
 </a>
     </div>
   
@@ -186,6 +186,13 @@ Zjuer
 <figure class="highlight java"><figcaption><span>WebApplicationInitializer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WebApplicationInitializer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(ServletContext servletContext)</span> <span class="keyword">throws</span> ServletException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>所有WebApplicationInitializer的实现类会被检测到，作为列表传给SpringServletContainerInitializer<br>
 SpringServletContainerInitializer是ServletContainerInitializer的实现类，容器启动时会调用</p>
+<h1 id="增加handlerinterceptor拦截器">增加HandlerInterceptor拦截器</h1>
+<hr>
+<h1 id="嵌入服务器配置">嵌入服务器配置</h1>
+<hr>
+<p>EmbeddedServletContainerCustomizer<br>
+获取ServletContainer对象，可以在上面注册连接器等</p>
+<figure class="highlight java"><figcaption><span>EmbeddedServletContainerCustomizer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EmbeddedServletContainerCustomizer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableEmbeddedServletContainer container)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="额外新增bean">额外新增Bean</h1>
 <hr>
 <p>处理@Configuration时，可以手动注册新的Bean</p>
@@ -194,6 +201,13 @@ SpringServletContainerInitializer是ServletContainerInitializer的实现类，�
 <hr>
 <p>ClassPathScanningCandidateComponentProvider的addIncludeFilter方法配合AnnotationTypeFilter<br>
 BeanDefinitionReaderUtils.registerBeanDefinition注册到容器</p>
+<h1 id="修改request">修改Request</h1>
+<hr>
+<p>直接无法修改，可以通过HttpServletRequestWrapper包装原request重写方法</p>
+<h1 id="注册mvc组件">注册MVC组件</h1>
+<hr>
+<p>WebMvcConfigurer<br>
+拦截器HandlerInterceptor注册</p>
 
         
     <div class="donate_module">
@@ -306,6 +320,6 @@ BeanDefinitionReaderUtils.registerBeanDefinition注册到容器</p>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>

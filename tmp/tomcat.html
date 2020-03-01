@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="架构  由conf/server.xml提供配置 12345678Server   |--- Listener   |--- Service           |--- Connector           |--- Engine                   |--- Host                          |-- Context">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:53:25.401Z">
+<meta property="og:updated_time" content="2020-03-01T17:07:25.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat">
 <meta name="twitter:description" content="架构  由conf/server.xml提供配置 12345678Server   |--- Listener   |--- Service           |--- Connector           |--- Engine                   |--- Host                          |-- Context">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/tomcat.html" class="article-date">
-  	<time datetime="2020-01-22T03:53:25.401Z" itemprop="datePublished">2020-01-22</time>
+  	<time datetime="2020-03-01T17:07:25.701Z" itemprop="datePublished">2020-03-02</time>
 </a>
     </div>
   
@@ -222,17 +222,21 @@ Service包含容器和连接器。一个Service可以包含多个连接器，只
 </ol>
 <h1 id="线程模型">线程模型</h1>
 <hr>
-<p>BIO protocol =&quot; org.apache.coyote.http11.Http11Protocol&quot; Tomcat7及之前默认<br>
+<p>BIO protocol =“org.apache.coyote.http11.Http11Protocol” Tomcat7及之前默认<br>
 NIO protocol =“org.apache.coyote.http11.Http11NioProtocol” Tomcat8开始默认<br>
 APR protocol =“org.apache.coyote.http11.Http11AprProtocol” 调用APR库，操作系统级别异步IO，需要额外安装<br>
 AIO protocol =“org.apache.coyote.http11.Http11Nio2Protocol” Tomcat8支持</p>
 <p>Acceptor线程，从队列中accept建立好的连接<br>
 Poller线程维护Selector<br>
 Worker线程</p>
-<p>acceptCount 新来请求，等待acceptor操作的队列,默认100<br>
-acceptorThreadCount acceptor线程数，默认值1，多核下可以每个核一个<br>
-maxConnections 最大连接数，超过后acceptor线程阻塞，并不阻止新建连接，而是阻止accept，默认10000<br>
-maxThreads 工作线程数，默认200</p>
+<p>关键参数</p>
+<ul>
+<li>acceptCount：新来请求等待acceptor操作的队列,默认100，达到maxConnections，超过acceptCount，会拒绝连接</li>
+<li>acceptorThreadCount：acceptor线程数，默认值1，多核下可以每个核一个</li>
+<li>maxConnections：最大连接数，超过后acceptor线程阻塞，并不阻止新建连接，而是阻止accept，默认10000</li>
+<li>maxThreads：工作线程数，默认200，过多增加上下文切换开销和内存开销，4核8g经验值800</li>
+</ul>
+<p>acceptCount门外排队人数，maxConnections大厅内人数，maxThreads服务窗口数</p>
 <h1 id="代码">代码</h1>
 <hr>
 <p>模式<br>
@@ -261,28 +265,48 @@ Eclipse下项目部署在<br>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">Context</span> <span class="attr">docBase</span>=<span class="string">"cim"</span> <span class="attr">path</span>=<span class="string">"/cim"</span> <span class="attr">reloadable</span>=<span class="string">"false"</span> <span class="attr">source</span>=<span class="string">"org.eclipse.jst.j2ee.server:cim"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Resource</span> <span class="attr">driverClassName</span>=<span class="string">"oracle.jdbc.driver.OracleDriver"</span> <span class="attr">maxActive</span>=<span class="string">"-1"</span> <span class="attr">maxIdle</span>=<span class="string">"-1"</span> <span class="attr">maxWait</span>=<span class="string">"5000"</span> <span class="attr">name</span>=<span class="string">"jdbc/cim"</span> <span class="attr">password</span>=<span class="string">"cimlx"</span> </span></span><br><span class="line"><span class="tag">              <span class="attr">type</span>=<span class="string">"javax.sql.DataSource"</span> <span class="attr">url</span>=<span class="string">"jdbc:oracle:thin:@localhost:1521:xe"</span> <span class="attr">username</span>=<span class="string">"cimlx"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="生产环境jvm参数">生产环境JVM参数</h1>
 <hr>
+<p>服务端模式</p>
 <ul>
 <li>-server</li>
+</ul>
+<p>内存打满，栈减小，永久代</p>
+<ul>
 <li>-Xms-Xmx：设成一样，预先分配避免变化</li>
 <li>-Xss: 线程栈，默认为1M，设512k/128k</li>
 <li>-XX:PermSize和-XX:MaxPermSize=512m</li>
-<li><code>-XX:+UseBiasedLocking</code>: 偏向锁优化,每个请求一个线程</li>
-<li><code>-XX:LargePageSizeInBytes</code>: 分页页面 128M</li>
-<li><code>-XX:+UseFastAccessorMethods</code>: get/set方法本地化</li>
-<li><code>-XX:MaxTenuringThreshold</code>: 晋升老年代所需次数 31</li>
+<li>-XX:MaxTenuringThreshold: 测试后设置</li>
+</ul>
+<p>gc算法</p>
+<ul>
+<li>-XX:+UseConcMarkSweepGC：采用CMS</li>
+<li>-XX:+UseParNewGC：新生代并行</li>
+<li>-XX:+UseCMSCompactAtFullCollection：碎片整理</li>
+<li>-XX:+UseCMSInitiatingOccupancyOnly：只根据配置决定</li>
+<li>-XX:CMSInitiatingOccupancyFraction=70</li>
+</ul>
+<p>锁优化</p>
+<ul>
+<li>-XX:+UseBiasedLocking: 偏向锁优化，每个请求对应一个线程，优化线程间锁访问</li>
+</ul>
+<p>其他</p>
+<ul>
+<li>-XX:LargePageSizeInBytes: 堆分页页面 128M</li>
+<li>-XX:+UseFastAccessorMethods: get/set方法本地化</li>
+<li>-XX:+DisableExplicitGC：禁止代码显式gc</li>
+<li>-XX:+AggressiveOpts：引入版本升级后最新优化</li>
 </ul>
 <h1 id="connector参数">Connector参数</h1>
 <hr>
 <ul>
 <li>编码控制：URIEncoding=“UTF-8”</li>
 <li>线程控制：maxThreads=“300” minSpareThreads=“25” maxSpareThreads=“75”，一般来说线程数200~500，需根据配置压测</li>
+<li>等待队列：acceptCount=“300”</li>
 <li>关闭查找：enableLookups=“false”</li>
 <li>超时：connectionTimeout=“20000”</li>
 <li>延长上传超时时间:disableUploadTimeout=“true”</li>
-<li>等待队列：acceptCount=“300”</li>
 <li>压缩：compression=“on” compressionMinSize=“2048” compressableMimeType=“text/html,text/xml,text/javascript,text/css,text/plain”</li>
 </ul>
-<p>4核8g线程数800？</p>
+<p><a href="https://blog.csdn.net/hereiskxm/article/details/9618437" target="_blank" rel="noopener">https://blog.csdn.net/hereiskxm/article/details/9618437</a></p>
 
         
     <div class="donate_module">
@@ -395,6 +419,6 @@ Eclipse下项目部署在<br>
 
 
 
-  </div>
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
 </html>
