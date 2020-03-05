@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="智能的环卫工人~">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-21T13:03:59.748Z">
+<meta property="og:updated_time" content="2020-03-04T13:07:32.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存与垃圾回收">
 <meta name="twitter:description" content="智能的环卫工人~">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-gc.html" class="article-date">
-  	<time datetime="2020-02-21T13:03:59.748Z" itemprop="datePublished">2020-02-21</time>
+  	<time datetime="2020-03-04T13:07:32.154Z" itemprop="datePublished">2020-03-04</time>
 </a>
     </div>
   
@@ -190,7 +190,7 @@ JVM数据内存</p>
 <li>堆(Heap): 容纳几乎所有对象</li>
 <li>线程私有数据
 <ul>
-<li>程序计数器(PC register): 指示当前运行字节码行号，执行本地方法时计数器undefine</li>
+<li>程序计数器(PC register): 指示下一条字节码行号，分支循环跳转都是通过计数器实现，执行本地方法时计数器undefine</li>
 <li>虚拟机方法栈(JVM method stack)：方法执行和结束时对应栈帧的push/pop操作，包含操作数，局部变量表(基本类型直接栈上存储，对象类型栈上存储堆地址)，方法返回信息等</li>
 <li>本地方法栈(Native method stack)：调用C语言本地方法</li>
 </ul>
@@ -215,7 +215,7 @@ JVM数据内存</p>
 <ul>
 <li>bootstrap加载的对象</li>
 <li>虚拟机栈/本地栈中引用的对象</li>
-<li>方法区静态引用的对象</li>
+<li>方法区常量/静态引用的对象</li>
 </ul>
 </li>
 </ul>
@@ -250,7 +250,7 @@ GC每次把Eden中存活和一个Survivor中存活一并复制移动到另一Sur
 <h1 id="老年代">老年代</h1>
 <hr>
 <p>major GC/full GC<br>
-老年代空间不足，晋升空间不足，或者空间使用率已达到设定百分比<br>
+老年代空间不足，晋升空间不足，或者空间使用率已达到设定百分比，方法区不足也会触发<br>
 在JVM中如果98%的时间是用于GC且可用的Heap size不足2%的时候将抛出此异常信息<br>
 java.lang.OutOfMemoryError: Java heap space</p>
 <p>来源</p>
@@ -307,7 +307,7 @@ GC少次多量，垃圾积累多，每次停顿时间长</p>
 先遍历，标注可达对象，再遍历，清除不可达<br>
 需要全暂停，产生碎片</li>
 <li>复制(Copying)<br>
-需要双倍空间</li>
+需要双倍空间，反复复制开销大</li>
 <li>标记-清除-整理<br>
 先遍历标记，再遍历一边清除一边复制整理</li>
 </ul>
@@ -347,6 +347,7 @@ GC少次多量，垃圾积累多，每次停顿时间长</p>
 <ul>
 <li>堆划分成很多固定大小区域Region，一些区域集合为年轻代，剩下为老年代，逻辑分带无需连续</li>
 <li>区域内继续划分默认512B卡片(Card)，作为对象分配的基本单位</li>
+<li>卡表(CardTable)维护，新生代的垃圾收集通常很频繁，如果老年代对象引用了新生代的对象，那么需要跟踪从老年代到新生代的所有引用，从而避免每次YGC时扫描整个老年代，减少开销</li>
 <li>不同线程可以使用不同区域，构成本地分配缓冲TLAB(Thread local allocation buffer)</li>
 <li>巨型对象无法TLAB，直接分配老年代，并且需要扫描寻找连续空间，成本高，回收优先级也高</li>
 <li>分区维护记忆集合(RSet)，把对象引用和所在位置单独维护在一些区域，这样无需整堆扫描就能获取内存占用情况</li>

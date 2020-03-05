@@ -7,14 +7,14 @@
   <title>Java volatile关键字 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="volatile: 易变的，不稳定的">
-<meta name="keywords" content="关键字,多线程">
+<meta name="keywords" content="多线程,关键字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java volatile关键字">
 <meta property="og:url" content="http://linest.github.io/2017/08/10/java-volatile/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="volatile: 易变的，不稳定的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:04:06.527Z">
+<meta property="og:updated_time" content="2020-03-02T11:01:16.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java volatile关键字">
 <meta name="twitter:description" content="volatile: 易变的，不稳定的">
@@ -230,7 +230,7 @@ volatile读：把本地副本无效化，从主内存加载<br>
 内存模型是概念模型，为了屏蔽硬件实现差异</p>
 <ul>
 <li>主内存，根据共享特性，可以近似理解为堆，物理上理解为内存</li>
-<li>工作内存，根据共享特性，可以近似理解为栈，物理上理解为各种高速缓存</li>
+<li>工作内存，根据独占特性，可以近似理解为栈，物理上理解为各种高速缓存</li>
 </ul>
 <p>线程有独立的工作内存(PC计数器，栈)，存储了主内存共享变量副本<br>
 工作内存并非额外内存，只是栈，副本位于栈帧的局部变量表，只针对基本类型，引用指向的对象都是主存中的堆，是共享的<br>

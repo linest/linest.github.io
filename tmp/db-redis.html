@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-29T13:43:37.772Z">
+<meta property="og:updated_time" content="2020-03-04T12:21:59.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="REmote DIctionary Server 远程目录服务 默认端口 6379 特点  内存KV存储 redis相比memcached  value更强大，支持复杂类型，并且value上限达到1GB 速度更快 支持持久化 支持集群  高性能  高并发，低延迟，每秒万级别处理性能10w/s  内存, 内存访问速度100ns以内 C语言，更近底层 单线程，避免竞争加锁和线程切换 非阻塞IO，多路复">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/db-redis.html" class="article-date">
-  	<time datetime="2020-02-29T13:43:37.772Z" itemprop="datePublished">2020-02-29</time>
+  	<time datetime="2020-03-04T12:21:59.757Z" itemprop="datePublished">2020-03-04</time>
 </a>
     </div>
   
@@ -411,26 +411,32 @@ Redis单线程，事务是串行的，一个事务执行后会从watch链表中�
 <p>上述不能保证清除，而内存是有限的，可能会写满达到设置的最大内存上限(比如config set maxmemory 2gb)<br>
 内存满时写操作失败，但是读操作可以，触发淘汰策略，即没空间写考虑释放一些空间</p>
 <ul>
-<li>noeviction： 不回收，直接报错</li>
+<li>noeviction： 默认，不回收，直接报错</li>
 <li>allkeys-lru： 最常用，所有key都参与的LRU</li>
 <li>volatile-lru：会过期的key参与的LRU</li>
 <li>allkeys-random: 所有key随机</li>
 <li>volatile-random: 会过期的key随机</li>
 <li>volatile-ttl: 会过期的key中具有最短存活时间</li>
 </ul>
+<p>LRU实现<br>
+RedisObject有个字段叫lru，每次访问，记录时间戳<br>
+Redis采取近似实现，旧算法每次选5个key，比较挑出最老的，新算法维护一个容量16的池，移除时舍弃最老的，新增时如果在池范围内，替换最新的</p>
 <h1 id="持久化">持久化</h1>
 <hr>
 <p>定期异步保存到磁盘</p>
 <ul>
-<li>RDB(Redis DataBase)：时间间隔快照<br>
+<li>
+<p>RDB(Redis DataBase)：时间间隔快照<br>
 save命令启动会进行大IO，阻塞业务，一般使用bgsave会Fork子进程处理<br>
-子进程和父进程初始共享内存数据，父进程数据变化时COW(Copy On Write)分离，减少内存分配</li>
-</ul>
-<ul>
-<li>AOF(Append-Only File)：操作后记录日志，恢复时重放<br>
-随时间退役，日志可能会非常大<br>
+子进程和父进程初始共享内存数据，父进程数据变化时COW(Copy On Write)分离，减少内存分配<br>
+子进程将数据写到磁盘上一个临时RDB文件中。当子进程完成写临时文件后，将原来的RDB替换掉</p>
+</li>
+<li>
+<p>AOF(Append-Only File)：操作后记录日志，恢复时重放<br>
+随时间推移，日志可能会非常大<br>
 bgrewriteaof可以异步重写文件，进行优化，减少文件大小<br>
-fsync异步每秒刷盘，如果磁盘很忙，异步fsync超过2秒还没完成，为了数据安全会阻塞等待</li>
+fsync异步每秒刷盘，如果磁盘很忙，异步fsync超过2秒还没完成，为了数据安全会阻塞等待</p>
+</li>
 </ul>
 <p>取舍<br>
 如果可以容忍数分钟以内的数据丢失，只使用RDB即可满足，恢复速度快<br>

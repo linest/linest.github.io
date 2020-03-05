@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="内存原理">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T13:01:26.467Z">
+<meta property="og:updated_time" content="2020-03-04T12:41:18.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存机制">
 <meta name="twitter:description" content="内存原理">
@@ -226,7 +226,7 @@ instanceKlass对象放在了方法区/元空间，instanceOop放在了堆，inst
 <li>2字节 short/char</li>
 <li>1字节 byte</li>
 </ul>
-<p>除了<code>布尔</code>类型，在每种类型下都有一个<code>SIZE</code>常量表示占用比特位数。布尔类型在规范中没明确定义，取决于虚拟机实现，可能1字节也可能采取整型4字节</p>
+<p>除了<code>布尔</code>类型，在每种类型下都有一个<code>SIZE</code>常量表示占用比特位数。布尔类型在规范中没明确定义，取决于虚拟机实现，可能1字节也可能采取整型4字节。布尔型可采用int,布尔数组采用byte数组</p>
 <figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Double.SIZE); <span class="comment">// 64</span></span><br><span class="line">System.out.println(Long.SIZE); <span class="comment">// 64</span></span><br><span class="line">System.out.println(Float.SIZE); <span class="comment">// 32</span></span><br><span class="line">System.out.println(Integer.SIZE); <span class="comment">// 32</span></span><br><span class="line">System.out.println(Short.SIZE); <span class="comment">// 16</span></span><br><span class="line">System.out.println(Character.SIZE); <span class="comment">// 16</span></span><br><span class="line">System.out.println(Byte.SIZE); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
 <h2 id="引用大小">引用大小</h2>
 <p>引用可以看成地址，跟寻址空间有关<br>

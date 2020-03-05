@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="给等待状态线程提供响应机制">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:04:06.511Z">
+<meta property="og:updated_time" content="2020-03-02T11:01:16.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 线程中断机制">
 <meta name="twitter:description" content="给等待状态线程提供响应机制">
@@ -221,7 +221,8 @@ Zjuer
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    normalThreadAction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="不支持中断">不支持中断</h1>
 <hr>
-<p>中断只对Waiting状态有效，对于Block状态无效，阻塞IO无效比如IO中的Socket<br>
+<p>中断只对Waiting状态有效，对于Block状态无效<br>
+一些阻塞IO也无效比如IO中的Socket<br>
 Socket调用close()会退出阻塞并抛出异常，提供类似的机制<br>
 针对阻塞状态没有通行的方法，取决于具体应用提供机制</p>
 

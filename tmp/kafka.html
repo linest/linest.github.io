@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="追求吞吐量，初始设计用于日志收集，实时处理数据流 消息可能重复、丢失、错误 Zookeeper维护 Kafka服务端 ProducerRecord消息 KafkaProducer生产者客户端 KafkaConsumer消费者客户端 基础概念  Broker：集群中每台服务器 Topic： 一类信息 Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-24T10:07:41.086Z">
+<meta property="og:updated_time" content="2020-03-04T12:38:55.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka">
 <meta name="twitter:description" content="追求吞吐量，初始设计用于日志收集，实时处理数据流 消息可能重复、丢失、错误 Zookeeper维护 Kafka服务端 ProducerRecord消息 KafkaProducer生产者客户端 KafkaConsumer消费者客户端 基础概念  Broker：集群中每台服务器 Topic： 一类信息 Partition：Topic拆分多个,分布在不同Broker上,好处是便于扩容及Topic并行读写">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/kafka.html" class="article-date">
-  	<time datetime="2020-02-24T10:07:41.086Z" itemprop="datePublished">2020-02-24</time>
+  	<time datetime="2020-03-04T12:38:55.080Z" itemprop="datePublished">2020-03-04</time>
 </a>
     </div>
   
@@ -346,6 +346,8 @@ Topic不保证顺序</p>
 好的配置下直接从系统缓存读</li>
 </ul>
 <p>JVM内存分配不是越大越好，要留空间给系统缓存</p>
+<h2 id="压缩">压缩</h2>
+<p>生产者通过GZIP或Snappy格式</p>
 
         
     <div class="donate_module">

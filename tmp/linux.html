@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-28T08:08:39.164Z">
+<meta property="og:updated_time" content="2020-03-04T12:35:14.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux">
 <meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/linux.html" class="article-date">
-  	<time datetime="2020-02-28T08:08:39.164Z" itemprop="datePublished">2020-02-28</time>
+  	<time datetime="2020-03-04T12:35:14.637Z" itemprop="datePublished">2020-03-04</time>
 </a>
     </div>
   
@@ -226,6 +226,20 @@ Zjuer
 <li>用户态内核态切换</li>
 <li>上下文切换，(寄存器、计数器、线程栈)</li>
 <li>缓存缺失</li>
+</ul>
+<h1 id="进程间通信">进程间通信</h1>
+<hr>
+<ul>
+<li>管道<br>
+文件作为中间介质。单向通信，写进程和读进程。可以临时的无名管道局限亲缘关系进程和永久的命名管道<br>
+传输速度慢</li>
+<li>消息队列<br>
+消息缓冲区为中间介质，消息的链接表，存放在内核中</li>
+<li>信号量<br>
+不能传递数据，只用于同步</li>
+<li>共享内存<br>
+开辟一块内存，映射到各个进程的虚拟地址空间，各进程像访问私有空间一样访问共享<br>
+优点是效率很高避免了数据内核/用户间拷贝，缺点是没有同步机制容易混乱</li>
 </ul>
 <h1 id="虚拟内存">虚拟内存</h1>
 <hr>

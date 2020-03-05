@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="无锁非阻塞同步">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T11:56:04.722Z">
+<meta property="og:updated_time" content="2020-03-02T11:01:16.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java CAS">
 <meta name="twitter:description" content="无锁非阻塞同步">
@@ -203,12 +203,11 @@ Zjuer
 <li>避免死锁、饥饿等生存性问，单个线程出问题不会波及其他线程，不会出现持锁线程不放，其他等待无法运行的情况</li>
 </ul>
 <p>加锁是悲观机制，假定存在同时修改，严格排他保护，CAS是乐观机制，进行尝试操作，假定没有同时修改，CAS加锁失败后外围逻辑一般会发起重新尝试<br>
-CAS相比volatile更加完备，volatile保证了可见性，但是无法进行序列原子操作</p>
-<p>竞争激烈时，CAS一致自旋尝试，会浪费CPU</p>
+竞争激烈时，CAS一致自旋尝试，会浪费CPU</p>
 <h1 id="jdk应用">JDK应用</h1>
 <hr>
 <p>CAS是原子类及其他并发类实现的基石，广泛应用于进行线程调度，垃圾收集，锁实现等。在Java中，sun.misc.Unsafe类提供了相关功能<br>
-java.util.concurrent.atomic.AtomicInteger是典型实现</p>
+比如java.util.concurrent.atomic.AtomicInteger是典型实现</p>
 <h1 id="unsafe">Unsafe</h1>
 <hr>
 <p>Java类库中使用的unsafe对象都是直接获取的</p>
