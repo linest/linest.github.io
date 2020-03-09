@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="常见的字符串操作问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-20T23:57:36.340Z">
+<meta property="og:updated_time" content="2020-03-05T12:01:34.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 字符串操作">
 <meta name="twitter:description" content="常见的字符串操作问题">
@@ -207,7 +207,7 @@ Zjuer
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String c = a.contact(b);</span><br></pre></td></tr></table></figure>
 <p>上述方法都是针对字符变量而言，如果是常量，直接使用<code>+</code>反而最快，因为直接在编译期优化,运行时已经合为一体</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String helloWorld = <span class="string">"hello"</span>+<span class="string">"world"</span>;</span><br></pre></td></tr></table></figure>
-<p>如果在循环中使用<code>+</code>进行连续拼接,那么每次循环都会生成独立的<code>StringBuilder</code>，此时需要在循环外显式操作<code>StringBuilder</code>,并且如果能提前预知结果大小，提前分配容量可以提升性能</p>
+<p>如果在循环中使用<code>+</code>进行连续拼接,那么每次循环都会生成独立的StringBuilder，此时需要在循环外显式操作StringBuilder,并且如果能提前预知结果大小，提前分配容量可以提升性能</p>
 <h1 id="移除前后缀">移除前后缀</h1>
 <hr>
 <p>前后缀相同</p>
