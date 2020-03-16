@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="总结  可视为特殊类型数组，toCharArray()转换 关注  null 空串 大小写 长度  技巧  ASCII码a 97 A 65 Character提供工具方法isLetter,isDigit,isLetterOrDigit,toUpperCase,toLowerCase String可以截取部分数组进行构造 String(char value[], int offset, int co">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T13:29:24.378Z">
+<meta property="og:updated_time" content="2020-03-12T01:54:46.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-字符串篇">
 <meta name="twitter:description" content="总结  可视为特殊类型数组，toCharArray()转换 关注  null 空串 大小写 长度  技巧  ASCII码a 97 A 65 Character提供工具方法isLetter,isDigit,isLetterOrDigit,toUpperCase,toLowerCase String可以截取部分数组进行构造 String(char value[], int offset, int co">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/leetcode/leetcode-string.html" class="article-date">
-  	<time datetime="2020-02-25T13:29:24.378Z" itemprop="datePublished">2020-02-25</time>
+  	<time datetime="2020-03-12T01:54:46.555Z" itemprop="datePublished">2020-03-12</time>
 </a>
     </div>
   
@@ -328,7 +328,7 @@ A至少长度大于等于B才有可能<br>
 <blockquote>
 <p>多个字符串最长公共前缀</p>
 </blockquote>
-<p>选第一个作为基准，其他串依次比较</p>
+<p>选第一个作为基准，判断每个下标位置是否其他串也相同</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestCommonPrefix</span><span class="params">(String[] strs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(strs == <span class="keyword">null</span> || strs.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String base = strs[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">//每个下标位置</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; base.length(); i++) &#123;</span><br><span class="line">            <span class="comment">//每个字符串</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; strs.length; j++) &#123;</span><br><span class="line">                String curr = strs[j];</span><br><span class="line">                <span class="keyword">if</span>(curr.length() &lt;= i || curr.charAt(i) != base.charAt(i)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> base.substring(<span class="number">0</span>, i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> base;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="❀720-longest-word-in-dictionary">❀720. Longest Word in Dictionary</h2>
 <p>能逐个字母生成的最长单词，即所有前缀都存在的最长单词,多个结果时取字母序小的</p>

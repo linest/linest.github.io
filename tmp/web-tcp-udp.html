@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 支持一对多交互 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-04T12:28:14.901Z">
+<meta property="og:updated_time" content="2020-03-15T10:28:22.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&amp;UDP">
 <meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 支持一对多交互 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-tcp-udp.html" class="article-date">
-  	<time datetime="2020-03-04T12:28:14.901Z" itemprop="datePublished">2020-03-04</time>
+  	<time datetime="2020-03-15T10:28:22.254Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -275,13 +275,19 @@ RTT(Round-Trip Time)往返时间</p>
 <h3 id="重传歧义">重传歧义</h3>
 <p>重传时序号和原来一样，即对于数据而言，序号是确定的<br>
 如果超时重发后，收到响应，无法确定是原来数据响应还是重传数据响应，影响RTO计算</p>
+<h3 id="其他比较">其他比较</h3>
+<ul>
+<li>GBN(Go back N): 如果中间发生错误，重发之后所有</li>
+<li>SR(Select repeat): 接收方缓存，只应答收到的单个包，缺失包超时重传</li>
+<li>TCP：接收方缓存，快速重传机制，累计应答</li>
+</ul>
 <h1 id="流量拥塞控制">流量拥塞控制</h1>
 <hr>
 <h2 id="流量控制">流量控制</h2>
 <p>滑动窗口，防止把接收方缓存塞满<br>
 接收窗口(rwnd)不是固定的，比如应用一直不读取接收的数据，没有空间缓存后续内容<br>
 接收方每次应答时，还发送窗口大小，这样发送方相应调整窗口，甚至停止发送<br>
-<code>发送未确认窗口大小 + 待发送窗口大小 = 接收窗口</code></p>
+<code>接收窗口制约发送窗口 = 发送未确认窗口大小 + 待发送窗口大小</code></p>
 <h2 id="拥塞控制">拥塞控制</h2>
 <p>网络容量=带宽*往返延迟，同时传输的数量有限<br>
 如果没控制，网络变慢超时后都重发，那么网络上负担更重，恶性循环<br>
@@ -290,9 +296,10 @@ RTT(Round-Trip Time)往返时间</p>
 发送方无法直接检测外界，只能从侧面感知拥塞，发送太多超出网络处理速度，要么被中间设备丢弃，要么被中间设备缓存导致超时，重发就是感知的标准<br>
 慢启动</p>
 <ul>
-<li>从只发1个开始，每次收到全部应答后发送数量二倍指数增长，涨到65535(ssthresh)时改成线性增长(拥塞避免)</li>
-<li>普通重发算法，遇到重发，窗口重置为1，ssthresh变为cwnd窗口一半</li>
-<li>快速重发算法，遇到连续三次冗余应答，窗口减至一半左右，ssthresh变为cwnd窗口一半，线性增加</li>
+<li>cwnd从只发1个开始，每次收到全部应答后窗口发送数量二倍指数增长，涨到65535(ssthresh)时改成线性增长(拥塞避免)</li>
+<li>普通重发算法，遇到重发，ssthresh变为cwnd窗口一半，窗口重置为1</li>
+<li>快速恢复算法，遇到连续三次冗余应答要求快速重传，ssthresh变为cwnd窗口一半，即直接进入线性增加的拥塞避免阶段<br>
+窗口可能线性增长到很大，ssthresh设为窗口一半后可能比原来要大，即阈值上下变化</li>
 </ul>
 <p>机制问题</p>
 <ul>
@@ -334,11 +341,6 @@ ESTABLISHED： 连接建立</p>
 <li>防止混淆新旧连接，太早释放端口可能马上用来建立新连接，会遇到之前连接上的信息到达</li>
 </ul>
 <p>如果服务端主动关闭进入TIME_WAIT，并发又很大，那么大量连接不能建立</p>
-<p>/etc/sysctl.conf控制相关参数,sysctl -p生效<br>
-缩短等待时间到30s<br>
-net.ipv4.tcp_fin_timeout = 30<br>
-开启重用<br>
-net.ipv4.tcp_tw_reuse = 1</p>
 <h1 id="连接细节">连接细节</h1>
 <hr>
 <h2 id="backlog队列">Backlog队列</h2>
@@ -354,14 +356,28 @@ backlog参数和系统参数somaxconn取小值控制队列大小,超过队列大
 <h2 id="syn-cookies">SYN Cookies</h2>
 <p>服务端不维护syn队列,好处是不会丢弃请求，而是进行哈希出一个cookies作为序号，后期建立连接会验证序号合法性</p>
 <h2 id="大量close-wait状态">大量CLOSE_WAIT状态</h2>
-<p>进入CLOSE_WAIT说明是被动关闭，如果迟迟不发起主动关闭，会一直维持在这个状态，没有超时时间<br>
-通常原因是代码漏洞，没释放资源<br>
+<p>进入CLOSE_WAIT说明是被动关闭，通常这个阶段很短，但如果迟迟不发起主动关闭，会一直维持在这个状态，没有超时时间</p>
+<ul>
+<li>通常原因是代码漏洞，没释放资源<br>
 比如数据库主动发起断开连接，服务端收到后进入CLOSE_WAIT，但是服务端代码忘了释放连接，一直持有<br>
-比如业务服务器请求资源服务器，如果资源不存在，那么资源服务器主动发起断开，此时业务服务器代码忘了关闭资源，业务服务器一直处于CLOSE_WAIT状态</p>
-<p>还有可能BackLog太大，服务器还没来得及处理，客户端已经超时关闭了</p>
+比如业务服务器请求资源服务器，如果资源不存在，那么资源服务器主动发起断开，此时业务服务器代码忘了关闭资源，业务服务器一直处于CLOSE_WAIT状态</li>
+<li>还有可能Accept的BackLog太大，服务器要处理的太多来不及发，客户端已经超时关闭了</li>
+</ul>
+<p>Keepalive可以清理，但是治标不治本</p>
+<h2 id="大量fin-wait2状态">大量FIN_WAIT2状态</h2>
+<p>主动方发起关闭，但是被动方一直不发起，协议没有规定超时<br>
+即被动方处于CLOSE_WAIT,主动方处于FIN_WAIT2<br>
+有超时机制，可配置</p>
 <h2 id="大量time-wait状态">大量TIME_WAIT状态</h2>
 <p>主动关闭一方会进入TIME_WAIT状态，并持续2MSL通常4分钟才关闭<br>
-如果发起大量短请求比如爬虫，那么会导致大量TIME_WAIT连接，占用资源影响新连接建立，可以适当调低参数减少等待</p>
+如果发起大量短请求比如爬虫，那么会导致大量TIME_WAIT连接，占用资源影响新连接建立</p>
+<ul>
+<li>考虑扩大端口范围，增加资源</li>
+<li>减少短请求，优化业务使用长连接</li>
+<li>客户端配置参数允许重用<br>
+客户端开启tcp_tw_reuse选项，双方tcp_timestamps选项也必须同时打开，携带时间戳，可以通过时间判定是不是旧的<br>
+时间戳是精确到秒级的，因此最短要超过1s之后才能重用</li>
+</ul>
 <h1 id="keepalive">KeepAlive</h1>
 <hr>
 <p>TCP级心跳，发送空报文，和应用级心跳相比，更轻量，但没有业务逻辑</p>
@@ -380,6 +396,27 @@ Nagle算法，发送数据量太小就暂时不发，等数据多了一起发，
 <li>数据前先写入长度信息</li>
 <li>插入不影响协议的特殊符号</li>
 </ul>
+<h1 id="tcp参数">TCP参数</h1>
+<hr>
+<p>/etc/sysctl.conf控制相关参数,sysctl -p生效</p>
+<ul>
+<li>net.ipv4.tcp_syncookies = 1<br>
+表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭</li>
+<li>net.ipv4.tcp_tw_reuse = 1<br>
+表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭</li>
+<li>net.ipv4.tcp_tw_recycle = 1<br>
+表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭</li>
+<li>net.ipv4.tcp_max_tw_buckets = 5000<br>
+表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。默认为180000，改为5000</li>
+<li>net.ipv4.tcp_fin_timeout = 30<br>
+表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间</li>
+<li>net.ipv4.tcp_keepalive_time = 1200<br>
+表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟</li>
+<li>net.ipv4.ip_local_port_range = 1024 65000<br>
+表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000</li>
+<li>net.ipv4.tcp_max_syn_backlog = 8192<br>
+表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数</li>
+</ul>
 <h1 id="tcp的缺点">TCP的缺点</h1>
 <hr>
 <p>性能</p>
@@ -392,6 +429,12 @@ Nagle算法，发送数据量太小就暂时不发，等数据多了一起发，
 <p>netstat<br>
 lsof<br>
 tcpdump抓包</p>
+<h2 id="端口探测">端口探测</h2>
+<ul>
+<li>tcp: telnet ip port/ ping</li>
+<li>udp: nc -vuz ip port<br>
+nc是netcat工具</li>
+</ul>
 
         
     <div class="donate_module">

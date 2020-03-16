@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="架构  由conf/server.xml提供配置 12345678Server   |--- Listener   |--- Service           |--- Connector           |--- Engine                   |--- Host                          |-- Context">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T17:07:25.701Z">
+<meta property="og:updated_time" content="2020-03-15T11:24:08.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat">
 <meta name="twitter:description" content="架构  由conf/server.xml提供配置 12345678Server   |--- Listener   |--- Service           |--- Connector           |--- Engine                   |--- Host                          |-- Context">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/tomcat.html" class="article-date">
-  	<time datetime="2020-03-01T17:07:25.701Z" itemprop="datePublished">2020-03-02</time>
+  	<time datetime="2020-03-15T11:24:08.851Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -226,9 +226,12 @@ Service包含容器和连接器。一个Service可以包含多个连接器，只
 NIO protocol =“org.apache.coyote.http11.Http11NioProtocol” Tomcat8开始默认<br>
 APR protocol =“org.apache.coyote.http11.Http11AprProtocol” 调用APR库，操作系统级别异步IO，需要额外安装<br>
 AIO protocol =“org.apache.coyote.http11.Http11Nio2Protocol” Tomcat8支持</p>
-<p>Acceptor线程，从队列中accept建立好的连接<br>
-Poller线程维护Selector<br>
-Worker线程</p>
+<p>NIO</p>
+<ul>
+<li>Acceptor线程，从队列中accept建立好的连接</li>
+<li>Poller线程维护Selector</li>
+<li>Executor线程</li>
+</ul>
 <p>关键参数</p>
 <ul>
 <li>acceptCount：新来请求等待acceptor操作的队列,默认100，达到maxConnections，超过acceptCount，会拒绝连接</li>

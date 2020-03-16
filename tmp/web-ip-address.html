@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-20T07:40:31.543Z">
+<meta property="og:updated_time" content="2020-03-15T10:28:22.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IP地址">
 <meta name="twitter:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-ip-address.html" class="article-date">
-  	<time datetime="2020-02-20T07:40:31.543Z" itemprop="datePublished">2020-02-20</time>
+  	<time datetime="2020-03-15T10:28:22.252Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -197,6 +197,13 @@ Zjuer
 <li>C类：前三段网络号，后一段主机号，二进制110开头，每个网络可容纳主机数254</li>
 <li>D类：多播地址，二进制1110开头</li>
 <li>E类：预备保留，二进制1111开头</li>
+</ul>
+<h2 id="ipv6">IPv6</h2>
+<p>128位，是原来的4倍</p>
+<ul>
+<li>地址更多：可以实现每人分配固定ip</li>
+<li>路由表小: 分配遵循聚类原则，相同区域前缀相同</li>
+<li>安全性：原生IPSec加密传输</li>
 </ul>
 <h1 id="cidr">CIDR</h1>
 <hr>
@@ -280,6 +287,9 @@ NAT(Network Address Translation)<br>
 <li>traceroute基于差错报文实现，故意发一个不可能的端口值的UDP，强制目标报错返回ICMP差错报文。并且使用TTL递增，每次多一个路径节点，探测路径上所有的ip<br>
 有些设备禁止ping或者不响应traceroute，不代表不连通</li>
 </ul>
+<h1 id="ip">IP</h1>
+<hr>
+<p>包含TTL字段(Time to live)每次转发后减1，避免报文在网络中的循环转发，浪费网络带宽</p>
 
         
     <div class="donate_module">

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-29T15:31:40.494Z">
+<meta property="og:updated_time" content="2020-03-14T07:08:20.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计">
 <meta name="twitter:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/system-design.html" class="article-date">
-  	<time datetime="2020-02-29T15:31:40.494Z" itemprop="datePublished">2020-02-29</time>
+  	<time datetime="2020-03-14T07:08:20.240Z" itemprop="datePublished">2020-03-14</time>
 </a>
     </div>
   
@@ -583,7 +583,6 @@ feed表：文字内容，图片url，可见范围<br>
 <p>高可用？</p>
 </li>
 </ul>
-<h1 id="100万的优惠码-怎样保证每个用户只能领取一个">100万的优惠码，怎样保证每个用户只能领取一个</h1>
 <h1 id="双十一设计">双十一设计</h1>
 <p>双11大促的时候如何设计系统的动态扩容/缩容的机制</p>
 <h1 id="操作状态持久化">操作状态持久化</h1>
@@ -607,13 +606,6 @@ feed表：文字内容，图片url，可见范围<br>
 <li>选择策略，结合车型，司机评价，空闲时间，在线时间</li>
 </ul>
 <p>如何存储不断变化的位置</p>
-<h1 id="即时通讯服务">即时通讯服务</h1>
-<hr>
-<p>如何设计一对一会话<br>
-如何支持群聊<br>
-如何处理用户离线<br>
-何时推送通知<br>
-如何提供加密</p>
 <h1 id="问答服务">问答服务</h1>
 <hr>
 <p>如何记录答案状态，顶踩数<br>
@@ -624,6 +616,31 @@ feed表：文字内容，图片url，可见范围<br>
 <p>如何上传/查看/搜索/分享文件<br>
 如何管理文件权限<br>
 如何协同编辑</p>
+<h1 id="即时通讯服务">即时通讯服务</h1>
+<hr>
+<p>数据库表</p>
+<ul>
+<li>发送消息表：消息id, 发送方id，接受方id，群id, 消息序号，消息内容，发送时间</li>
+<li>接受消息表：消息id, 发送方id，接受方id，群id, 消息序号，消息内容，状态(已推送，未推送)</li>
+<li>群信息表：群id, 名称，创建用户，创建时间，群公告</li>
+<li>群成员表：群id, 用户id</li>
+</ul>
+<p>架构</p>
+<ul>
+<li>接入层：TCP接入(应用直连)，WebSocket接入(网页端)</li>
+<li>负载均衡：返回相对空闲的ip</li>
+<li>写扩散：发出的消息写入相关用户</li>
+<li>消息队列</li>
+<li>用户在线判断：缓存维护，记录用户是否在线，连接channel, 上次应答时间</li>
+<li>推拉: 在线用户获取连接推送，离线用户上线后自行拉取</li>
+<li>消息体采取Protobuf协议</li>
+<li>数据库utf8mb4支持emoji字符</li>
+<li>文件存储</li>
+<li>发送接收表分别按照发送方和接收方水平分表存储</li>
+<li>历史数据归档hdfs</li>
+</ul>
+<p>一个海量在线用户即时通讯系统（IM）的完整设计<br>
+<a href="https://msd.misuland.com/pd/2884250103256716572?page=1" target="_blank" rel="noopener">https://msd.misuland.com/pd/2884250103256716572?page=1</a></p>
 <h1 id="抢红包">抢红包</h1>
 <hr>
 <ul>
@@ -632,6 +649,15 @@ feed表：文字内容，图片url，可见范围<br>
 <li>实时随机：内存实时计算拆得红包金额，避免预先分好占用存储资源</li>
 <li>入库入账：数据库实时插入拆红包记录，异步写入用户账户</li>
 <li>水平扩展：分片，一致性哈希，同一红包的请求由同一台机器对应</li>
+</ul>
+<h1 id="优惠码分发">优惠码分发</h1>
+<hr>
+<p>100万的优惠码，怎样保证每个用户只能领取一个<br>
+高并发，并发请求太多，采取队列<br>
+缓存维护发放数量，已发放用户</p>
+<ul>
+<li>如果已发完或者已经发放过，直接返回</li>
+<li>如果还有，更新缓存，放入消息队列，后端异步发放</li>
 </ul>
 <h1 id="大数据量视频播放top-n">大数据量视频播放top N</h1>
 <hr>
@@ -643,10 +669,20 @@ feed表：文字内容，图片url，可见范围<br>
 <li>分片计算，以分钟统计结果为整体，进行滑动窗口</li>
 <li>数据采样，数据量下降</li>
 </ul>
+<h1 id="下载器断点续传">下载器断点续传</h1>
+<hr>
+<ul>
+<li>客户端分片：整个文件分成不同连续区间</li>
+<li>多线程下载：每片独立，并行下载</li>
+<li>客户端日志：记录每个分片下载位置</li>
+<li>客户端数据合并：合并成完整文件</li>
+<li>客户端数据清理：受损数据重新下，旧数据清理</li>
+<li>文件完整性校验</li>
+</ul>
 <h1 id="总结">总结</h1>
 <hr>
 <p>读多写少 =&gt; 读写分离，缓存<br>
-流量大 =&gt; 过滤拦截<br>
+流量大 =&gt; 过滤拦截，队列限流<br>
 访问量大 =&gt; 多实例服务负载均衡<br>
 图片大量访问 =&gt; CDN<br>
 复杂稳定 =&gt; 离线计算<br>

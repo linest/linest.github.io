@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="不定类型的公共框架">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-05T12:12:19.112Z">
+<meta property="og:updated_time" content="2020-03-10T09:39:46.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 泛型">
 <meta name="twitter:description" content="不定类型的公共框架">
@@ -278,7 +278,7 @@ Zjuer
 <hr>
 <p>泛型在编译期进行约束，可以静态检查，但是考虑到老代码兼容性，类型信息在真正运行时会被抹去</p>
 <p>虽然两个列表看上去是不同类型的，但是运行时都是加载同一个类java.util.ArrayList，没有类型信息</p>
-<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; intList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; stringList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">System.out.println(intList.getClass() == stringList.getClass());  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; intList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">List&lt;String&gt; stringList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">System.out.println(intList.getClass() == stringList.getClass());  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 <p>重载失败,因为类型抹掉后参数类型是一样的</p>
 <figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>类型擦除后，如果泛型参数没有上界，就用Object替代，如果有，就用第一个上界参数替代</p>

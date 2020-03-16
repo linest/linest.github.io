@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-26T13:03:30.976Z">
+<meta property="og:updated_time" content="2020-03-15T02:40:19.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper">
 <meta name="twitter:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/zookeeper.html" class="article-date">
-  	<time datetime="2020-02-26T13:03:30.976Z" itemprop="datePublished">2020-02-26</time>
+  	<time datetime="2020-03-15T02:40:19.621Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -198,8 +198,8 @@ Google Chubby的开源实现，使用zab协议，paxos变种<br>
 <hr>
 <p>ZNode以树的形式组织</p>
 <ul>
-<li>持久节点：主动删除才可移除</li>
-<li>临时节点：客户端会话失效(不是断开，断开可重连)，所创建节点自动移除</li>
+<li>持久节点(Persistent)：主动删除才可移除</li>
+<li>临时节点(Ephemeral)：客户端会话失效(不是断开，断开可重连)，所创建节点自动移除</li>
 <li>持久顺序节点：持久节点，节点名带有顺序数字编号后缀</li>
 <li>临时顺序节点：临时节点，节点名带有顺序数字编号后缀</li>
 </ul>

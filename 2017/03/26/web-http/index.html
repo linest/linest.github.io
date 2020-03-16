@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="日常最常用的协议">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-15T15:07:44.465Z">
+<meta property="og:updated_time" content="2020-03-14T13:04:29.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP">
 <meta name="twitter:description" content="日常最常用的协议">
@@ -228,6 +228,9 @@ Zjuer
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请求行(请求方法 URL 协议版本)</span><br><span class="line">请求头(字段名 值)</span><br><span class="line">空行</span><br><span class="line">请求数据</span><br></pre></td></tr></table></figure>
 <p>响应格式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">状态行(协议版本 状态码 状态文字)</span><br><span class="line">响应头(字段名 值)</span><br><span class="line">空行</span><br><span class="line">响应数据</span><br></pre></td></tr></table></figure>
+<p>body数据长度由头部字段<code>Content-Length</code>决定<br>
+如果很大无法提前预知长度，可以使用头部字段<code>Transfer-Encoding: chunked</code><br>
+每个chunk包含自己的长度和内容，空行分隔，遇到长度0的chunk表示结束</p>
 <h1 id="请求方式">请求方式</h1>
 <hr>
 <ul>
@@ -257,7 +260,8 @@ Zjuer
 <li>204 No Content<br>
 请求成功处理并且响应主体不包含内容，多用于PUT/DELETE返回</li>
 <li>206 Partial Content<br>
-客户端进行范围请求，响应头包含<code>Content-Range</code>字段</li>
+客户端进行范围请求请求头包含<code>Range</code>，响应头包含<code>Content-Range</code>字段<br>
+可以实现断点续传</li>
 </ul>
 <h2 id="3xx-重定向">3XX 重定向</h2>
 <ul>

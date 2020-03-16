@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>distribute-transaction | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+  <meta name="description" content="跨库，跨服务事务 XA协议  全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互 2PC两阶段提交 分布式跨节点事务提交 2PC(Two-Phase Commit) 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事">
 <meta property="og:type" content="website">
 <meta property="og:title" content="distribute-transaction">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-transaction.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+<meta property="og:description" content="跨库，跨服务事务 XA协议  全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互 2PC两阶段提交 分布式跨节点事务提交 2PC(Two-Phase Commit) 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-15T02:55:09.352Z">
+<meta property="og:updated_time" content="2020-03-10T09:16:57.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-transaction">
-<meta name="twitter:description" content="跨库，跨服务事务 2PC两阶段提交  分布式跨节点事务提交 2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务 参与者锁">
+<meta name="twitter:description" content="跨库，跨服务事务 XA协议  全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互 2PC两阶段提交 分布式跨节点事务提交 2PC(Two-Phase Commit) 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-transaction.html" class="article-date">
-  	<time datetime="2020-01-15T02:55:09.352Z" itemprop="datePublished">2020-01-15</time>
+  	<time datetime="2020-03-10T09:16:57.934Z" itemprop="datePublished">2020-03-10</time>
 </a>
     </div>
   
@@ -180,18 +180,21 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <p>跨库，跨服务事务</p>
-<h1 id="2pc两阶段提交">2PC两阶段提交</h1>
+<h1 id="xa协议">XA协议</h1>
 <hr>
+<p>全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互</p>
+<h2 id="2pc两阶段提交">2PC两阶段提交</h2>
 <p>分布式跨节点事务提交<br>
-2PC(Two-Phase Commit)在XA规范中，应用为TM(Transaction Manager),数据库为RM(Resource Manager)角色</p>
+2PC(Two-Phase Commit)</p>
 <p>一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)</p>
 <ol>
 <li>客户端发起事务提交请求，协调者向参与者发起prepare命令发起事务</li>
-<li>参与者锁定资源本地执行并写log,不提交，返回是否执行成功</li>
+<li>参与者锁定资源本地执行并写undo和redo日志但不提交，返回是否执行成功</li>
 <li>如果大家都返回成功，执行commit命令真正提交，如果有返回失败或者超时无响应，执行abort命令全部节点回滚</li>
 <li>参与者执行提交或者回滚，返回是否执行成功</li>
 <li>协调者收集结果，返回</li>
 </ol>
+<p>优点：一般由数据库层提供，对应用层透明</p>
 <p>局限</p>
 <ul>
 <li>单点问题，协调者是单点，如果协调者挂了，各参与者无超时机制一直阻塞等待</li>
@@ -199,8 +202,7 @@ Zjuer
 <li>数据不一致，协调者发起提交，网络原因部分参与者没收到，此时只有部分节点有新数据</li>
 </ul>
 <p>2PC牺牲可用性，换取强一致性，适合参与者少，并且可用性高的场景</p>
-<h1 id="3pc三阶段提交">3PC三阶段提交</h1>
-<hr>
+<h2 id="3pc三阶段提交">3PC三阶段提交</h2>
 <p>改进两阶段提交</p>
 <ul>
 <li>
@@ -228,7 +230,13 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 <ul>
 <li>Try：检查及预留资源(如资金冻结,进入预备状态)，确保后续能执行成功</li>
 <li>Confirm: 执行(如转账)，只使用预留过资源，要求幂等</li>
-<li>Cancel: 回滚(如冻结返还)，要求幂等</li>
+<li>Cancel: 解除预留资源(如冻结返还)，要求幂等</li>
+</ul>
+<p>AB转账流程，A汇款服务，B收款服务</p>
+<ul>
+<li>try: 检查A有效性并冻结A金额，检查B有效性</li>
+<li>confirm: A无操作，B增加金额</li>
+<li>cancel: A解冻金额，B无操作</li>
 </ul>
 <p>要求</p>
 <ul>
@@ -242,6 +250,10 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 <li>缺失，允许空回滚：可能网络故障没收到try，但是收到cancel</li>
 <li>逆序，防止过期请求：可能超时，执行cancel后又收到try，此时要拒绝</li>
 </ul>
+<p>优点</p>
+<ul>
+<li>纯逻辑控制，灵活控制锁定粒度</li>
+</ul>
 <p>局限</p>
 <ul>
 <li>业务侵入性强，实现复杂</li>
@@ -251,7 +263,7 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 <hr>
 <p>场景：在不同公司订联程机票，发起后不立刻出结果，等结果通知<br>
 部分参与者可能执行周期很长，甚至需要人工，那么周期短的也长期锁定资源不现实<br>
-可以先分开执行，如果遇到部分执行失败，反操作已经成功部分实现回滚</p>
+可以先分开执行，不进行资源锁定，如果遇到部分执行失败，反操作已经成功部分实现回滚</p>
 <p>过程中数据不一致，最终一致，牺牲强一致性换取可用性</p>
 <h1 id="消息队列异步确保">消息队列异步确保</h1>
 <hr>
@@ -280,12 +292,12 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 </ol>
 <h2 id="最大努力通知">最大努力通知</h2>
 <p>场景：订单完成后获得积分</p>
-<p>主动方不受被动方影响，即成功后不会回滚，提供查询接口<br>
+<p>发起方不受被调用方影响，即没有回滚操作，发起方不断尝试，发起方提供查询接口<br>
 可单独部署可靠消息服务</p>
 <p>异常情况下</p>
 <ol>
-<li>主动方尝试发送通知一定次数后就不再尝试</li>
-<li>被动方定期向主动方查询，尝试处理缺失的消息</li>
+<li>发起尝试发送通知一定次数后就不再尝试</li>
+<li>被调用方定期向发起方查询，尝试处理缺失的消息</li>
 </ol>
 <h1 id="方案比较">方案比较</h1>
 <hr>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-04T13:19:38.094Z">
+<meta property="og:updated_time" content="2020-03-15T10:28:22.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/db-mysql.html" class="article-date">
-  	<time datetime="2020-03-04T13:19:38.094Z" itemprop="datePublished">2020-03-04</time>
+  	<time datetime="2020-03-15T10:28:22.244Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -518,7 +518,7 @@ InnoDB行锁加在索引上，没有索引那么就加表锁</p>
 <h1 id="隔离级别实现">隔离级别实现</h1>
 <hr>
 <h2 id="mvcc机制">MVCC机制</h2>
-<p>多版本并发控制, 读不加锁，读写可以并发不冲突即读操作不会阻塞，提升吞吐量<br>
+<p>多版本并发控制(Multi-version Cocurrent Control), 读不加锁，读写可以并发不冲突即读操作不会阻塞，提升吞吐量<br>
 每新创建一个事务，获得一个自增的全局系统版本号作为事务的版本号<br>
 每行有两个隐藏域，trx_id相当于创建时版本号，roll_pointer指向undo日志中上一条形成版本链，当前版本号相当于上一条的过期时版本号</p>
 <ul>
@@ -539,10 +539,12 @@ ReadView机制，包含当前活跃的事务号集合，可以在记录版本链
 RU级别，直接读最新<br>
 RC级别每次读取都会生成一次ReadView，效果是读最新快照<br>
 RR级别只在事务内第一次读时生成ReadView，效果是外部事务状态可能变化但是ReadView不变读取同一快照，结果保持不变<br>
-解决了可重复读，顺便解决了读场景的幻读，但是写场景没解决需要后期加锁处理(如果只普通查询的话无视外界变化，但是如果锁定读或者更新，会看到其他已提交的数据)<br>
+解决了可重复读，但是写场景没解决需要后期加锁处理(如果只普通查询的话无视外界变化，但是如果锁定读或者更新，会看到其他已提交的数据)<br>
 比如</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//初始值1,100</span><br><span class="line">session 1: select id,val from tb where id=1; 看到100</span><br><span class="line">session 2: 修改值为101，并提交</span><br><span class="line">session 1: select id,val from tb where id=1; 还是100，快照读机制</span><br><span class="line">session 1: select id,val from tb where id=1 LOCK IN SHARE MODE; 看到101</span><br><span class="line">session 1: update tb set val=val+1 where id=1; 更新成102，受其他已提交的值影响</span><br></pre></td></tr></table></figure>
+<p>解决了部分幻读，即其他事务插入了新数据，因为ReadView只形成一次，所以查询select不会看到新数据<br>
+但是更新可能特例，比如执行update条件范围正好包含了新数据，此时新数据变为本次事务的事务号，再次查询符合ReadView，能看到新数据</p>
 <p>S级别如果开启自动提交并且只有一条查询直接MVCC，否则加读锁</p>
 <ul>
 <li>

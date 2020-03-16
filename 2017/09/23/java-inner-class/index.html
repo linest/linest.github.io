@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="类中类">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-29T08:31:53.856Z">
+<meta property="og:updated_time" content="2020-03-10T10:10:10.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 内部类">
 <meta name="twitter:description" content="类中类">
@@ -236,6 +236,21 @@ Zjuer
 <h1 id="局部内部类">局部内部类</h1>
 <hr>
 <p>可以如同声明局部变量一样存在，比如方法体内，遵从作用域并且无需修饰符，比较少使用</p>
+<h1 id="访问机制">访问机制</h1>
+<hr>
+<p>内部类可以访问外部类的所有成员</p>
+<ul>
+<li>对于可见成员，内部类通过隐式持有的<code>外部类.this</code>引用来访问</li>
+<li>对于不可见成员，外部类内会生成静态的<code>access</code>方法</li>
+</ul>
+<p>如果内部类在方法里，还需要访问外围方法局部变量</p>
+<ul>
+<li>内部类构造时复制一份传入构造方法</li>
+</ul>
+<p>因为内部类拿到的是副本，修改无意义不会影响外部，容易出错<br>
+因此编译器要求局部变量需要加上final，明示不可修改<br>
+如果事实上没有修改，可以不加</p>
+<figure class="highlight java"><figcaption><span>Sample</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        Runnable r = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(i); <span class="comment">//正常</span></span><br><span class="line">                i = <span class="number">1</span>;  <span class="comment">//报错 Local variable i defined in an enclosing scope must be final or effectively final</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
     <div class="donate_module">

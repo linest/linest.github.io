@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>linux | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
+  <meta name="description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 库函数是编程接口">
 <meta property="og:type" content="website">
 <meta property="og:title" content="linux">
 <meta property="og:url" content="http://linest.github.io/tmp/linux.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
+<meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 库函数是编程接口">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-04T12:35:14.637Z">
+<meta property="og:updated_time" content="2020-03-15T10:39:36.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux">
-<meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 用户态到内核态切">
+<meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 库函数是编程接口">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/linux.html" class="article-date">
-  	<time datetime="2020-03-04T12:35:14.637Z" itemprop="datePublished">2020-03-04</time>
+  	<time datetime="2020-03-15T10:39:36.356Z" itemprop="datePublished">2020-03-15</time>
 </a>
     </div>
   
@@ -180,7 +180,8 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">                   -------</span><br><span class="line">                /          \</span><br><span class="line">内核 -- 系统调用 -- 库函数 -- 应用程序</span><br><span class="line">                \          /</span><br><span class="line">                   Shell</span><br></pre></td></tr></table></figure>
-<p>内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用</p>
+<p>内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用<br>
+库函数是编程接口，便于编程，实现上封装了系统调用，屏蔽了复杂性，并且加入缓冲提升性能。很多库函数和系统调用同名，比如read write</p>
 <p>用户态到内核态切换方式</p>
 <ul>
 <li>系统调用：主动请求</li>
@@ -189,13 +190,17 @@ Zjuer
 </ul>
 <h1 id="文件句柄-描述符">文件句柄/描述符</h1>
 <hr>
-<p>文件描述符是一个非负整数，内核为了高效管理已经打开的文件，创建索引</p>
-<p>默认1024，即单个进程最多只能接受1024个socket连接</p>
+<p>文件描述符是一个非负整数，内核为了高效管理已经打开的文件，创建索引<br>
+默认1024，即单个进程最多只能接受1024个socket连接</p>
 <h1 id="进程线程">进程线程</h1>
 <hr>
 <p>内核不区分进程线程，普通进程和轻量级进程<br>
 进程由fork创建， 线程由pthread_create创建，两者最终都调用do_fork</p>
 <p>do_fork有很多参数，CLONE_VM（共享内存空间）、CLONE_FS（共享文件系统信息）、 CLONE_FILES（共享文件描述符表）、CLONE_SIGHAND（共享信号句柄表）和CLONE_PID（共享进程ID，仅对核内进程，即0号进程有效）即轻量级进程共享进程资源</p>
+<p>调用fork后，创建一个新的进程控制块(PCB)，子进程完全拷贝父进程地址空间(堆，栈，代码段等)<br>
+CopyOnWrite, 一开始只读共享，如果写操作会触发缺页异常，让父子进程拥有各自的内存页</p>
+<p>在fork函数执行完毕后，如果创建新进程成功，则出现两个进程，一个是子进程，一个是父进程。在子进程中，fork函数返回0，在父进程中，fork返回新创建子进程的进程ID。可以通过fork返回的值来判断当前进程是子进程还是父进程。</p>
+<p>父子进程执行同样的逻辑，如果子进程想执行其他，可以exec, 删除pcb信息从磁盘调入新代码，形成新的pcb</p>
 <h1 id="线程模型">线程模型</h1>
 <hr>
 <ul>
@@ -243,7 +248,8 @@ Zjuer
 </ul>
 <h1 id="虚拟内存">虚拟内存</h1>
 <hr>
-<p>虚拟内存为进程提供私有独立逻辑地址空间，进程不直接操作内存而是操作虚拟内存，操作系统完成虚拟内存到真正物理内存的映射，避免了多个进程同时操作真实地址空间<br>
+<p>虚拟内存为进程提供私有独立逻辑地址空间，有隔离作用，进程不直接操作内存而是操作虚拟内存，操作系统完成虚拟内存到真正物理内存的映射，避免了多个进程同时操作真实地址空间<br>
+不连续的物理内存可以在虚拟内存层面连续<br>
 虚拟内存可以大于真正内存，暂时不用的数据会映射到磁盘预留的Swap分区，需要时调入内存<br>
 虚拟内存还可以设置共享页，实现多进程内存共享</p>
 <p>虚拟内存结构</p>
