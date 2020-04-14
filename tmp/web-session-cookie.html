@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="作用   Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据 Session: 服务端保存数据  解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联 为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户 Session和Cookie是配合关">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-20T08:11:34.638Z">
+<meta property="og:updated_time" content="2020-03-17T13:02:58.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Session 和 Cookie">
 <meta name="twitter:description" content="作用   Cookie: 客户端浏览器保存数据，访问目标自动上传对应数据 Session: 服务端保存数据  解决HTTP无状态问题，用户通常会进行一系列交互操作，称为会话，但是默认每次访问独立无关联 为了识别同一用户，分配一个session存储在服务端，并把sessionId作为标识传给客户端，接下来的每次请求都携带这个sessionId服务器就能够区分用户 Session和Cookie是配合关">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-session-cookie.html" class="article-date">
-  	<time datetime="2020-02-20T08:11:34.638Z" itemprop="datePublished">2020-02-20</time>
+  	<time datetime="2020-03-17T13:02:58.821Z" itemprop="datePublished">2020-03-17</time>
 </a>
     </div>
   
@@ -204,6 +204,9 @@ Cookie减轻了服务端的存储压力，但是每次回传增加了传输量�
 Cookie中的sessionid的过期时间是session,这样在session结束的时候(一般是浏览器关闭)自动清除</p>
 <p>Session不会自动创建，要服务器端逻辑调用HttpServletRequest.getSession(true)，参数true表示不存在时会创建新的<br>
 Session跟浏览器的关闭无关，还会存在，直到超时失效或者服务端程序调用HttpSession.invalidate()才会清除</p>
+<h1 id="sessionid算法">SessionId算法</h1>
+<hr>
+<p>Tomcat默认SHA1PRNG即基于SHA1的伪随机数， 生成之后会检查是否已有，因此不担心会重复</p>
 <h1 id="session存储转移">Session存储转移</h1>
 <hr>
 <ul>
@@ -382,6 +385,6 @@ Session跟浏览器的关闭无关，还会存在，直到超时失效或者服�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

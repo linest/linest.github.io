@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="跨库，跨服务事务 XA协议  全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互 2PC两阶段提交 分布式跨节点事务提交 2PC(Two-Phase Commit) 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-10T09:16:57.934Z">
+<meta property="og:updated_time" content="2020-04-10T04:11:36.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-transaction">
 <meta name="twitter:description" content="跨库，跨服务事务 XA协议  全局事务管理器TM(Transaction Manager)和多个资源管理器RM(Resource Manager)交互 2PC两阶段提交 分布式跨节点事务提交 2PC(Two-Phase Commit) 一个节点是协调者(coordinator)，其他涉及的节点作为参与者(participant)  客户端发起事务提交请求，协调者向参与者发起prepare命令发起事">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-transaction.html" class="article-date">
-  	<time datetime="2020-03-10T09:16:57.934Z" itemprop="datePublished">2020-03-10</time>
+  	<time datetime="2020-04-10T04:11:36.278Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -202,6 +202,12 @@ Zjuer
 <li>数据不一致，协调者发起提交，网络原因部分参与者没收到，此时只有部分节点有新数据</li>
 </ul>
 <p>2PC牺牲可用性，换取强一致性，适合参与者少，并且可用性高的场景</p>
+<p>情景</p>
+<ul>
+<li>如果第一阶段参与者挂掉或者网络问题，协调者等待响应超时，那么发起中止流程</li>
+<li>如果第二阶段参与者挂掉或者网络问题，部分参与者成功提交数据不一致，协调者尝试轮询，直到参与者都成功提交</li>
+<li>如果协调者挂掉，参与者会等待</li>
+</ul>
 <h2 id="3pc三阶段提交">3PC三阶段提交</h2>
 <p>改进两阶段提交</p>
 <ul>
@@ -217,11 +223,11 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 </ul>
 <p>改善问题</p>
 <ul>
-<li>单点问题，参与者引入超时机制，协调者挂了也可以退出</li>
+<li>单点问题，参与者也引入超时机制，协调者挂了也可以退出</li>
 <li>性能问题，第一阶段先询问，至少节点正常时再做，比2PC直接锁定资源好，避免无谓的等待</li>
 </ul>
 <p>一致性问题没解决，并且超时机制可能更加不一致</p>
-<h1 id="tcc补偿">TCC补偿</h1>
+<h1 id="tcc补偿事务">TCC补偿事务</h1>
 <hr>
 <p>场景：创建订单(try)，冻结资金(try)，成功就扣钱(confirm)，否则解除冻结(cancel)</p>
 <p>三种操作，每个都由业务完全控制<br>
@@ -418,6 +424,6 @@ CanCommit阶段，不锁定资源，单纯的询问，都应答后才开始PreCo
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

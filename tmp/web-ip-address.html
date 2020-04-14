@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T10:28:22.252Z">
+<meta property="og:updated_time" content="2020-03-29T11:29:06.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IP地址">
 <meta name="twitter:description" content="IP地址是网卡MAC地址的通讯地址，具有定位功能 同一个局域网内可以通过MAC来找，网外用IP来找，即不同网的两个设备即使MAC被修改成一样也不影响 IP地址结构  32位，一般划分为两部分：网络号和主机号 私有ip地址段  10段：10.0.0.0~10.255.255.255 172.16-172.31段：172.16.0.0~172.31.255.255 192.168段：192.168.0">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-ip-address.html" class="article-date">
-  	<time datetime="2020-03-15T10:28:22.252Z" itemprop="datePublished">2020-03-15</time>
+  	<time datetime="2020-03-29T11:29:06.724Z" itemprop="datePublished">2020-03-29</time>
 </a>
     </div>
   
@@ -249,7 +249,8 @@ MAC作用是网卡收到数据，发现MAC是自己，就进行处理<br>
 <hr>
 <p>网关和当前机器IP地址要在一个网段，作用是向其他网段转发<br>
 路由器，交换机或者是PC都可以作为网关</p>
-<p>发送时，已知自身MAC，自身和目标IP</p>
+<p>发送时，已知自身MAC，自身和目标IP<br>
+通过自身ip与子网掩码计算网络，判断目标IP是否是同网段</p>
 <ul>
 <li>同网段：ARP获取目标MAC，直接发给目标，不通过网关</li>
 <li>不同网段：ARP获取网关MAC，发给网关，靠网关转发，网关知道通向其他网段下一跳地址</li>
@@ -402,6 +403,6 @@ NAT(Network Address Translation)<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

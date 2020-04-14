@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 支持一对多交互 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T10:28:22.254Z">
+<meta property="og:updated_time" content="2020-03-29T12:50:08.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&amp;UDP">
 <meta name="twitter:description" content="IP层指定TCP还是UDP IP地址+端口+协议类型作为唯一标识，即TCP和UDP可以同时指定同一端口号 UDP  数据报协议User datagram protocol 简单不可靠传送，没有TCP的复杂机制 基于数据报文，非流式传输，有长度字段，保留应用层数据边界 支持一对多交互 UDP报文格式 123来源端口号(16)目标端口号(16)UDP长度(16)校验和(16)数据 适合环境  网络情况">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/web-tcp-udp.html" class="article-date">
-  	<time datetime="2020-03-15T10:28:22.254Z" itemprop="datePublished">2020-03-15</time>
+  	<time datetime="2020-03-29T12:50:08.041Z" itemprop="datePublished">2020-03-29</time>
 </a>
     </div>
   
@@ -325,7 +325,7 @@ ESTABLISHED： 连接建立</p>
 <li>服务端收到应答，说明客户端发送(发出应答)和接收(收到前面应答)没问题</li>
 </ul>
 <p>客户端收到就进入连接状态，而服务端收到需要再次二次确认<br>
-这样能避免超时到达而建立脏连接，网络环境复杂可能有重发请求，如果服务器收到就建立连接，可能建立脏连接，不是客户端的意愿,二次确认能确认确实是客户端想建立连接</p>
+这样能避免超时到达而建立脏连接，网络环境复杂可能有重发请求，如果服务器收到就建立连接，可能建立脏连接，不是客户端的意愿,二次确认能确认确实是客户端想建立连接, 如果收到异常请求，会发送RST断开</p>
 <p>连接在系统层面实际上是对应文件句柄，在逻辑上是通信两端的状态维护，并不存在一个实体连接，只是占用了一个端口通道</p>
 <h1 id="断开连接">断开连接</h1>
 <hr>
@@ -547,6 +547,6 @@ nc是netcat工具</li>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="给等待状态线程提供响应机制">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-02T11:01:16.750Z">
+<meta property="og:updated_time" content="2020-03-28T11:13:41.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 线程中断机制">
 <meta name="twitter:description" content="给等待状态线程提供响应机制">
@@ -219,6 +219,8 @@ Zjuer
 <li>抛出这个异常，交给外部处理</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">    normalThreadAction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通常线程会外围循环检查是否中断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!isInterrupted())&#123; <span class="comment">//非阻塞过程中通过判断中断标志来退出</span></span><br><span class="line">   <span class="keyword">try</span>&#123;</span><br><span class="line">       Thread.sleep(<span class="number">5</span>*<span class="number">1000</span>); <span class="comment">//阻塞过程捕获中断异常来退出</span></span><br><span class="line">   &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">       e.printStackTrace();</span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">//捕获到异常之后，执行break跳出循环，或者重新设置中断标记让外围检测到</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="不支持中断">不支持中断</h1>
 <hr>
 <p>中断只对Waiting状态有效，对于Block状态无效<br>
@@ -356,6 +358,6 @@ Socket调用close()会退出阻塞并抛出异常，提供类似的机制<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

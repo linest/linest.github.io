@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="Servlet编码注册  WebApplicationInitializer暴露了ServletContext 可以编码注册Servlet Filter Listeners等，取代了web.xml WebApplicationInitializer.java123public interface WebApplicationInitializer &amp;#123;	void onStartup(Ser">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-10T04:20:42.972Z">
+<meta property="og:updated_time" content="2020-03-28T11:13:41.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-customize">
 <meta name="twitter:description" content="Servlet编码注册  WebApplicationInitializer暴露了ServletContext 可以编码注册Servlet Filter Listeners等，取代了web.xml WebApplicationInitializer.java123public interface WebApplicationInitializer &amp;#123;	void onStartup(Ser">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-customize.html" class="article-date">
-  	<time datetime="2020-03-10T04:20:42.972Z" itemprop="datePublished">2020-03-10</time>
+  	<time datetime="2020-03-28T11:13:41.955Z" itemprop="datePublished">2020-03-28</time>
 </a>
     </div>
   
@@ -210,7 +210,12 @@ BeanDefinitionReaderUtils.registerBeanDefinition注册到容器</p>
 <h1 id="修改request">修改Request</h1>
 <hr>
 <p>直接无法修改，可以通过HttpServletRequestWrapper包装原request重写方法</p>
-
+<h1 id="测试模式config">测试模式config</h1>
+<hr>
+<p>实现condition, 检查环境变量是否是开发模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InDevelopModeCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> StringUtils.equalsIgnoreCase(System.getProperty(DEV_MODE_KEY, DEFAULT_DEV_MODE), <span class="string">"develop"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用时加条件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Conditional</span>(InDevelopModeCondition.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalExecutionConfig</span> </span>&#123;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
     <div class="donate_module">
         <div id="donate_board" class="donate_bar">
@@ -322,6 +327,6 @@ BeanDefinitionReaderUtils.registerBeanDefinition注册到容器</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

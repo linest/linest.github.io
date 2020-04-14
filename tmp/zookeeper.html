@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T02:40:19.621Z">
+<meta property="og:updated_time" content="2020-04-10T04:11:36.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper">
 <meta name="twitter:description" content="分布式协调服务框架  端口2181 Google Chubby的开源实现，使用zab协议，paxos变种 解决分布式下全局数据维护，保证一致性 连接  客户端长连接会话Session，心跳保持 各种原因断开，只要在SessionTimeout时间内连上，原会话依然有效 KeeperState连接状态  Expired: 租约到期服务端没续，连接过期，客户端放弃这个链接，重新尝试建立 Disconn">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/zookeeper.html" class="article-date">
-  	<time datetime="2020-03-15T02:40:19.621Z" itemprop="datePublished">2020-03-15</time>
+  	<time datetime="2020-04-10T04:11:36.278Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -385,8 +385,9 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 </ul>
 <p>方案2 Curator实现原理，链式监听<br>
 并发在同一目录下创建临时顺序节点，临时节点分配序号有序<br>
-排在后面的临时节点监听前面的，构成监听链<br>
-如果发现成为最小序号，视为持有锁，临时节点删除后自动通知下一个</p>
+如果没加到锁，获取目录下所有节点，找到比自己序号小的最后一个节点，即排在后面的临时节点监听前面的，构成监听链<br>
+被通知后客户端发现自己节点已经成为最小序号，视为持有锁，临时节点删除后自动通知下一个<br>
+读写锁实现：名字带WR类型标记，如果读发现排在前面的都是读，视为加锁，如果写必须排第一才视为加锁，读监听上一个写，写监听上一个任意</p>
 <p>问题</p>
 <ul>
 <li>如果网络问题使得Zookeeper认为会话失效，删掉临时节点视为放锁，此时可能多个客户端能加到锁</li>
@@ -520,6 +521,6 @@ Zookeeper还提供sync方法，调用之后再读取能保证读到最新，因�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="最常见的字符串">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-22T03:04:06.521Z">
+<meta property="og:updated_time" content="2020-03-28T15:46:36.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java String">
 <meta name="twitter:description" content="最常见的字符串">
@@ -275,6 +275,7 @@ Java6版本，subString为了速度，子串依然使用原始字符串的数组
 <hr>
 <ul>
 <li>String不可变，非常适合作为HashMap的key</li>
+<li>String不可变，多线程直接共享无需保护</li>
 <li>String不可变，垃圾回收之前会在内存驻留，涉及私密信息用char[]存储更好，使用后直接赋新值清除</li>
 <li>String对于byte[]没有valueOf方法，但是可以通过构造函数创建，还可以指定编码</li>
 </ul>
@@ -409,7 +410,8 @@ Java6版本，subString为了速度，子串依然使用原始字符串的数组
 
 
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
@@ -426,6 +428,5 @@ Java6版本，subString为了速度，子串依然使用原始字符串的数组
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+<!-- hexo-inject:end --></body>
 </html>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T10:28:22.244Z">
+<meta property="og:updated_time" content="2020-04-08T13:21:11.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="默认端口3306 服务端进程mysqld,客户端进程mysql">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/db-mysql.html" class="article-date">
-  	<time datetime="2020-03-15T10:28:22.244Z" itemprop="datePublished">2020-03-15</time>
+  	<time datetime="2020-04-08T13:21:11.793Z" itemprop="datePublished">2020-04-08</time>
 </a>
     </div>
   
@@ -249,7 +249,7 @@ Zjuer
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines</span><br></pre></td></tr></table></figure>
 <p>常见引擎</p>
 <ul>
-<li>MyISAM：不支持事务，速度快，表锁，查询会阻塞更新，适合查询及低并发插入更新，计数准确无需count扫描</li>
+<li>MyISAM：不支持事务，速度快，表锁，支持全文索引，查询会阻塞更新，适合查询及低并发插入更新，计数准确无需count扫描</li>
 <li>InnoDB: 支持事务，行锁和表锁，外键，5.5版本后的默认引擎</li>
 <li>Memory: 内存中存储，表锁，适合临时表</li>
 <li>Archive: 数据插入后不能更改，数据压缩存储，不支持索引，适合存档并且很少查询</li>
@@ -333,6 +333,13 @@ Zjuer
 <li>非叶节点不存数据，空间可以存更多指针，同样条记录树高更低<br>
 一个页16kb，主键算8字节，指针6字节，估算3层高度即可存2000万条数据</li>
 <li>任何查询都要到达叶子节点，查询效率稳定</li>
+<li>叶节点链表连接，便于范围查询</li>
+</ul>
+<h3 id="b-树相比平衡二叉树-红黑树">B+树相比平衡二叉树，红黑树</h3>
+<ul>
+<li>红黑树深度更深</li>
+<li>红黑树逻辑上很近的节点物理上可能相距很远，预读数据很多无用，效果很差，需要更多的磁盘IO</li>
+<li>B+数节点大小等于页大小，一次IO可以读入，并且可以利用磁盘预读机制，查询时主要在内存，减少磁盘IO</li>
 </ul>
 <h3 id="索引使用">索引使用</h3>
 <p>一定要符合索引中的维护的顺序，从左到右按序，不能跳跃</p>
@@ -494,7 +501,7 @@ InnoDB行锁加在索引上，没有索引那么就加表锁</p>
 <li>防止新数据插入间隙</li>
 <li>防止旧数据修改后插入间隙</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">比如主键id, 普通索引val</span><br><span class="line">id  val</span><br><span class="line">2    5</span><br><span class="line">-------&lt;</span><br><span class="line">4    6</span><br><span class="line">-------&lt;</span><br><span class="line">7    6</span><br><span class="line">-------&lt;</span><br><span class="line">9    8</span><br><span class="line">执行select * from tb where val = 6 for update后三个间隙</span><br><span class="line">根据索引排序特性，val升序，对应的主键id也是升序</span><br><span class="line">插入(2,5)会落入第一个间隙，插入(5,6)会落入第二个间隙，插入(8,8)会落入第三个间隙，都不能执行</span><br><span class="line">而插入(1,5)，(10,8)则可以执行，因为根据排序规则不会进入间隙</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">比如主键id, 普通索引val</span><br><span class="line">id  val</span><br><span class="line">2    5</span><br><span class="line">-------&lt;</span><br><span class="line">4    6</span><br><span class="line">-------&lt;</span><br><span class="line">7    6</span><br><span class="line">-------&lt;</span><br><span class="line">9    8</span><br><span class="line">执行select * from tb where val = 6 for update后三个间隙</span><br><span class="line">根据索引排序特性，val升序，对应的主键id也是升序</span><br><span class="line">插入(3,5)会落入第一个间隙，插入(5,6)会落入第二个间隙，插入(8,8)会落入第三个间隙，都不能执行</span><br><span class="line">而插入(1,5)，(10,8)则可以执行，因为根据排序规则不会进入间隙</span><br></pre></td></tr></table></figure>
 <h2 id="下一键锁-next-key-locks">下一键锁（Next-Key Locks）</h2>
 <p>行锁，索引记录本身锁以及前面间隙二者结合</p>
 <h2 id="意向锁-intention-locks">意向锁（Intention Locks）</h2>
@@ -582,7 +589,14 @@ RR：</p>
 普通二级索引：c=6  锁定聚簇索引a=7行，锁定二级索引(2,6] (6,9]<br>
 无索引：d=8  锁定聚簇索引<br>
 范围查询：b&lt;=6  锁定聚簇索引a=1,a=4行，锁定二级索引(-∞,2] (2,6] (6,8] 之所以锁8因为要先读到不满足为止</p>
-<p>二级索引锁定范围后，因为二级索引也有主键，实际上主键也有隐含的范围锁定</p>
+<p>二级索引锁定范围后，因为二级索引也有主键，实际上主键也有隐含的范围锁定<br>
+下一键锁前开后闭表示</p>
+<h2 id="悲观锁和乐观锁">悲观锁和乐观锁</h2>
+<ul>
+<li>乐观锁：不加锁，维护版本字段，如果发现数据已经变更说明被别人修改过，放弃更新可以后期再重试</li>
+<li>悲观锁：先加锁再说，阻止别人修改<br>
+一般来说乐观锁适合竞争小的场景，因为竞争大的话会不断重试，造成无谓开销；但是高并发场景下数据库还是推荐乐观锁，悲观锁阻塞会造成访问数据库性能下降，乐观锁需要允许操作失败，即并非一定要重试成功</li>
+</ul>
 <h1 id="事务">事务</h1>
 <hr>
 <p>除非显式开始事务，每个语句都是一个事务，而且默认自动提交<br>
@@ -917,6 +931,18 @@ Join Buffer 默认256K加载多条驱动表记录，扫描被驱动表，每条�
 <p>可以使用SELECT * FROM sample FORCE INDEX(name) WHERE name = “xxx” 强制使用索引</p>
 <h1 id="优化">优化</h1>
 <hr>
+<p>精简</p>
+<ul>
+<li>合理使用字段长度</li>
+<li>尽量把字段的默认值设置成not null，除非你想存储null，需要专门is null判断
+<ul>
+<li>null值在count字段时不会统计在内，count*能包含</li>
+<li>null值在不等于条件时也不会包含在内</li>
+<li>null可以破坏唯一性，因为认为不相等</li>
+<li>null占用空间，而空字符串不占用</li>
+</ul>
+</li>
+</ul>
 <h2 id="结构">结构</h2>
 <ul>
 <li>主键not null auto_increment</li>
@@ -997,6 +1023,8 @@ limit offset,n 从头扫描到偏移位置offset，最终返回之后n行，相�
 <li>关闭事务自动提交或者关闭每次刷新innodb_flush_log_at_trx_commit<br>
 一般基础可以达到30w/s的速度</li>
 </ul>
+<h2 id="互联网场景">互联网场景</h2>
+<p>几乎全部单表查询，join，子查询等操作由java逻辑实现，对于后期分库分表等改造也方便</p>
 <h1 id="主从">主从</h1>
 <hr>
 <p>主从延迟</p>
@@ -1122,6 +1150,6 @@ limit offset,n 从头扫描到偏移位置offset，最终返回之后n行，相�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

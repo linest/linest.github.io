@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="解决：降低开发复杂性，松耦合 低侵入设计，保持POJO，无需继承框架类或者实现框架接口 IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Expres">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T09:29:57.449Z">
+<meta property="og:updated_time" content="2020-04-08T13:21:11.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring">
 <meta name="twitter:description" content="解决：降低开发复杂性，松耦合 低侵入设计，保持POJO，无需继承框架类或者实现框架接口 IOC解耦合 专注业务逻辑 1234Data Access: JDBC ORM OXM JMS Transactions   Web: Web ServletAOP  Aspects InstrumentationCore Container: Beans, Core, Context, SpEL(Expres">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring.html" class="article-date">
-  	<time datetime="2020-03-01T09:29:57.449Z" itemprop="datePublished">2020-03-01</time>
+  	<time datetime="2020-04-08T13:21:11.812Z" itemprop="datePublished">2020-04-08</time>
 </a>
     </div>
   
@@ -299,6 +299,13 @@ Support两个，支持和不支持<br>
 <li>调用@Bean的destroy-method</li>
 </ol>
 <p>三套方案BeanPostProcessor先于接口先于方法</p>
+<h2 id="bean覆盖机制">Bean覆盖机制</h2>
+<p>同名后处理覆盖前面<br>
+@ComponentScan<br>
+@Import<br>
+@Bean 同类内@Bean不覆盖使用最先<br>
+@ImportResource<br>
+ImportBeanDefinitionRegistra</p>
 <h1 id="feign">feign</h1>
 <hr>
 <p>用户定义接口，接口上附带注解提供元数据<br>
@@ -450,6 +457,6 @@ JDK代理生成实例，调用接口方法时，根据方法名找到处理器�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="spring-beans Bean  Spring容器管理生命周期的对象 容器  职责  生产bean 依赖注入  容器  BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能 123456789101112public interface BeanFactory &amp;#123;	String FACTORY_BEAN_PREFIX = &quot;&amp;amp;&quot;;    //最基础，通">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-10T04:15:51.566Z">
+<meta property="og:updated_time" content="2020-04-08T13:21:11.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-ioc">
 <meta name="twitter:description" content="spring-beans Bean  Spring容器管理生命周期的对象 容器  职责  生产bean 依赖注入  容器  BeanFactory提供容器功能最基本接口，提供了一些单一bean查询功能 123456789101112public interface BeanFactory &amp;#123;	String FACTORY_BEAN_PREFIX = &quot;&amp;amp;&quot;;    //最基础，通">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-context.html" class="article-date">
-  	<time datetime="2020-03-10T04:15:51.566Z" itemprop="datePublished">2020-03-10</time>
+  	<time datetime="2020-04-08T13:21:11.806Z" itemprop="datePublished">2020-04-08</time>
 </a>
     </div>
   
@@ -369,18 +369,19 @@ bean标签的autowire属性可指定策略</p>
 <figure class="highlight java"><figcaption><span>GenericApplicationContext.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAllowCircularReferences</span><span class="params">(<span class="keyword">boolean</span> allowCircularReferences)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.beanFactory.setAllowCircularReferences(allowCircularReferences);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="容器bean覆盖">容器bean覆盖</h1>
 <hr>
-<p>Configutation内</p>
+<p>Configutation处理顺序，后处理会覆盖前处理</p>
 <ol>
 <li>处理@Import进来的Bean</li>
 <li>处理@Bean</li>
 <li>处理@ImportResources</li>
 <li>处理ImportBeanDefinitionRegistra</li>
 </ol>
-<p>同一Config文件内同名bean, 第一个生效<br>
+<p>同一Config文件内使用@Bean指定同名bean, 不会覆盖，第一个生效<br>
 不同文件内同名bean, 依据加载顺序后面的生效<br>
 @ComponentScan优先级很低，会被@Bean覆盖掉</p>
 <p>默认允许覆盖并打日志，ApplicationContext可以设置allowBeanDefinitionOverriding覆盖时报错</p>
 <p>可以使用ApplicationContextInitializer</p>
+<p><a href="https://cloud.tencent.com/developer/article/1497702" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1497702</a></p>
 <h1 id="事件体系">事件体系</h1>
 <hr>
 <p>ApplicationContext实现了事件发布接口</p>
@@ -510,6 +511,6 @@ EventListenerMethodProcessor是处理类，同时实现了BeanFactoryPostProcess
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -7,14 +7,14 @@
   <title>Java volatile关键字 | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="volatile: 易变的，不稳定的">
-<meta name="keywords" content="多线程,关键字">
+<meta name="keywords" content="关键字,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java volatile关键字">
 <meta property="og:url" content="http://linest.github.io/2017/08/10/java-volatile/index.html">
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="volatile: 易变的，不稳定的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-02T11:01:16.760Z">
+<meta property="og:updated_time" content="2020-04-02T14:05:41.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java volatile关键字">
 <meta name="twitter:description" content="volatile: 易变的，不稳定的">
@@ -204,7 +204,7 @@ volatile读：把本地副本无效化，从主内存加载<br>
 同一volatile变量上多个操作不会重排序</p>
 <p>使用事项</p>
 <ul>
-<li>long double高低各32位，多线程下加volatile可以保证原子性读写</li>
+<li>long double高低各32位，32位环境下多线程下加volatile可以保证原子性读写</li>
 <li>static变量类共享，但是多线程访问下还是会有副本机制，也需要volatile修饰，常用于一写多读情况下控制状态标志，写线程改变了状态，其他读线程能够及时发现</li>
 <li>volatile修饰数组只能保护指向数组的引用，不能保护数组内容</li>
 <li>volatile不是锁，也不能保证操作的原子性(比如n++)，不能替代synchronized</li>
@@ -213,8 +213,8 @@ volatile读：把本地副本无效化，从主内存加载<br>
 <hr>
 <p>可见性和有序性都是系统优化产生的问题，之所以维护副本和乱序都是为了提升性能</p>
 <ul>
-<li>可见性原因：处理器每个核使用自己的写缓冲，好处是可以批量合并，一起操作内存，所以内存并非实时保持最新</li>
-<li>重排序原因：编译器，处理器出于优化目的对没有数据依赖的指令进行重排序，比如两个不同变量赋值先后没关系，可以增加并行度</li>
+<li>可见性原因：处理器每个核使用自己的设施(寄存器，高速缓存，写缓冲)，好处是可以批量合并，一起操作内存，所以内存并非实时保持最新</li>
+<li>重排序原因：编译器和处理器出于优化目的对没有数据依赖的指令进行重排序，比如两个不同变量赋值先后没关系，可以增加并行度</li>
 </ul>
 <p>执行效果(Within-Thread As-If-Serial)，即单线程观测效果符合顺序预期，但是多线程可能观测到不同结果<br>
 比如A线程内x=1和y=2</p>
@@ -263,13 +263,19 @@ volatile读：把本地副本无效化，从主内存加载<br>
 <li>LoadStore: <code>Load1;LoadStore;Store2</code></li>
 <li>StoreLoad: <code>Store1;StoreLoad;Load2</code></li>
 </ul>
-<p>volatile保障机制</p>
+<p>volatile重排序保障机制：内存屏障</p>
 <ul>
 <li>写操作前插入StoreStore, 写操作后插入StoreLoad</li>
 <li>读操作前插入LoadLoad, 读操作后插入LoadStore<br>
 宗旨是自己操作前，先让前面操作完; 自己没操作完，阻止后面操作</li>
 </ul>
+<p>volatile可见性实现细节：Lock前缀指令+MESI协议<br>
+写操作完成后立刻发送Lock前缀指令，锁定缓存把结果写回主内存，同时MESI缓存一致性协议嗅探失效，下次读就从主内存加载</p>
 <p>final和synchronized同样基于内存屏障</p>
+<ul>
+<li>可见性：进入同步块时有Load屏障，保证读取最新数据，退出同步块时有Store屏障，保证写回最新数据</li>
+<li>有序性：进入同步块时有Acquire屏障，退出同步块时有Release屏障，保证块内不会和块外重排序</li>
+</ul>
 
         
     <div class="donate_module">
@@ -401,6 +407,6 @@ volatile读：把本地副本无效化，从主内存加载<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

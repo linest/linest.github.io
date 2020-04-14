@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="基础理论">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T14:03:05.931Z">
+<meta property="og:updated_time" content="2020-03-17T13:02:58.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务与锁">
 <meta name="twitter:description" content="基础理论">
@@ -223,10 +223,10 @@ Zjuer
 <p>一般数据库都有读写锁，部分数据库有更新锁</p>
 <h2 id="死锁场景">死锁场景</h2>
 <ul>
-<li>请求不同资源，加锁顺序不同<br>
-两个事务先分别获取锁，再请求对方</li>
 <li>请求同一资源，都是先读后写<br>
 两个事务都成功加到读锁，谁都不能继续升级为写锁</li>
+<li>请求不同资源，加锁顺序不同<br>
+两个事务先分别获取锁，再请求对方</li>
 </ul>
 <h1 id="隔离级别">隔离级别</h1>
 <hr>
@@ -400,6 +400,6 @@ Mysql支持四种，默认级别REPEATABLE_READ</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

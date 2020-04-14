@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Eureka | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基于AP不同于Zookeeper的CP Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查询，每天可以累计千万级 内存ConcurrentHa">
+  <meta name="description" content="基于AP不同于Zookeeper的CP 通过Jersey Client基于Http协议交互 Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Eureka">
 <meta property="og:url" content="http://linest.github.io/tmp/spring-cloud-eureka.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="基于AP不同于Zookeeper的CP Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查询，每天可以累计千万级 内存ConcurrentHa">
+<meta property="og:description" content="基于AP不同于Zookeeper的CP 通过Jersey Client基于Http协议交互 Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-28T16:20:07.677Z">
+<meta property="og:updated_time" content="2020-04-02T14:05:41.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Eureka">
-<meta name="twitter:description" content="基于AP不同于Zookeeper的CP Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查询，每天可以累计千万级 内存ConcurrentHa">
+<meta name="twitter:description" content="基于AP不同于Zookeeper的CP 通过Jersey Client基于Http协议交互 Eureka  解决服务去哪调用的问题  服务注册与发现 心跳故障检测  每个服务携带一个Eureka客户端，一方面告知服务端自己的位置信息，一方面从服务端拉取别人的位置信息 读多写少，读写锁 各服务端Eureka客户端组件每隔30s拉取更新，每隔30s心跳，时间间隔保障大规模集群Eureka每秒负载百次查">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-cloud-eureka.html" class="article-date">
-  	<time datetime="2020-02-28T16:20:07.677Z" itemprop="datePublished">2020-02-29</time>
+  	<time datetime="2020-04-02T14:05:41.374Z" itemprop="datePublished">2020-04-02</time>
 </a>
     </div>
   
@@ -180,6 +180,7 @@ Zjuer
     <div class="article-entry" itemprop="articleBody">
       
         <p>基于AP不同于Zookeeper的CP</p>
+<p>通过Jersey Client基于Http协议交互</p>
 <h1 id="eureka">Eureka</h1>
 <hr>
 <p>解决服务去哪调用的问题</p>
@@ -339,6 +340,6 @@ Map&lt;String, Lease<instanceinfo>&gt; 服务名称key, 实例信息包括ip和�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

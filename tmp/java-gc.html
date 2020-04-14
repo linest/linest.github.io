@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="智能的环卫工人~">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-04T13:07:32.154Z">
+<meta property="og:updated_time" content="2020-03-28T11:48:53.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存与垃圾回收">
 <meta name="twitter:description" content="智能的环卫工人~">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/java-gc.html" class="article-date">
-  	<time datetime="2020-03-04T13:07:32.154Z" itemprop="datePublished">2020-03-04</time>
+  	<time datetime="2020-03-28T11:48:53.187Z" itemprop="datePublished">2020-03-28</time>
 </a>
     </div>
   
@@ -271,15 +271,16 @@ java.lang.OutOfMemoryError: Java heap space</p>
 <p>同样参与GC，满了会触发full GC<br>
 java.lang.OutOfMemoryError: PermGen Space 比如框架动态生成大量类，类信息很多<br>
 物理上属于堆内，但是逻辑上独立的一块<br>
+之所以单独列出来，因为回收只是常量池和类卸载，收益很少<br>
 保存加载的类信息，常量池，静态变量和方法描述等的方法区保存在这里。方法区是逻辑区，非Hotspot虚拟机可能存储在其他地方。</p>
 <p>java7已经将常量池，静态变量等转移到普通堆中可进行回收减少持久代OOM风险，符号引用转到本地内存</p>
-<p>-XX:PermSize<br>
--XX:MaxPermSize</p>
+<p>-XX:PermSize 持久代初始大小<br>
+-XX:MaxPermSize 持久代最大大小</p>
 <h1 id="元空间">元空间</h1>
 <hr>
 <p>java.lang.OutOfMemoryError: Metaspace<br>
 java8中持久代被删除，由元空间取代。元空间并不在虚拟机堆中，在本地内存，理论上本地内存只受物理内存限制。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:MetaspaceSize 扩容触发FullGC的初始阈值，系统会动态调整</span><br><span class="line">-XX:MaxMetaspaceSize  最大空间大小</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:MetaspaceSize 并非初始大小，初始总是20M左右，而是扩容触发FullGC的初始阈值，后期系统会动态调整</span><br><span class="line">-XX:MaxMetaspaceSize  最大空间大小</span><br></pre></td></tr></table></figure>
 <h1 id="堆外本地内存">堆外本地内存</h1>
 <hr>
 <p>java.lang.OutOfMemoryError: native memory exhausted<br>
@@ -315,7 +316,7 @@ GC少次多量，垃圾积累多，每次停顿时间长</p>
 <h2 id="串行gc-xx-useserialgc-新生代老年代都串行">串行GC(-XX:+UseSerialGC): 新生代老年代都串行</h2>
 <p>新生代老年代都串行。老年代单线程mark-sweep-compact,标记存活，清理，压缩成连续空间。简单，开销比较小。</p>
 <h2 id="并行gc-xx-useparallelgc-也叫throughput吞吐量收集">并行GC(-XX:+UseParallelGC):也叫Throughput吞吐量收集</h2>
-<p>新生代收集采用并行(Parallel Scavenge)，老年代串行。适合大内存，多核环境。<br>
+<p>新生代收集采用并行(Parallel Scavenge)自适应调节吞吐量，老年代串行。适合大内存，多核环境。<br>
 可控(-XX:MaxGCPauseMills)和(-XX:GCTimeRatio)，动态调整新生代空间，降低GC频率。</p>
 <h2 id="老年代并行-xx-useparalleloldgc-新生代老年代都采用并行">老年代并行(-XX:+UseParallelOldGC): 新生代老年代都采用并行</h2>
 <h2 id="cms-gc-xx-useconcmarksweepgc-并发标记清除">CMS GC(-XX:+UseConcMarkSweepGC): 并发标记清除</h2>
@@ -515,6 +516,6 @@ jdk 1.7开始已经默认开启逃逸分析</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

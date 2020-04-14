@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="数据库自增   单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x` tinyint(4) NOT NULL DEFAUL">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-20T10:09:51.395Z">
+<meta property="og:updated_time" content="2020-04-10T05:34:05.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-id">
 <meta name="twitter:description" content="数据库自增   单独维护一张表，表里只有一行，主键永远是0 replace into反复删除插入同一行，迫使unique列自增 last_insert_id返回自增字段  123456789CREATE TABLE `id` (    `h` bigint(10) unsigned NOT NULL AUTO_INCREMENT,    `x` tinyint(4) NOT NULL DEFAUL">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-id.html" class="article-date">
-  	<time datetime="2020-02-20T10:09:51.395Z" itemprop="datePublished">2020-02-20</time>
+  	<time datetime="2020-04-10T05:34:05.305Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -186,10 +186,8 @@ Zjuer
 <li>replace into反复删除插入同一行，迫使unique列自增</li>
 <li>last_insert_id返回自增字段</li>
 </ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`id`</span> (</span><br><span class="line">    <span class="string">`h`</span> <span class="built_in">bigint</span>(<span class="number">10</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    <span class="string">`x`</span> tinyint(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`x`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`h`</span> (<span class="string">`h`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=latin1</span><br><span class="line"></span><br><span class="line"><span class="keyword">REPLACE</span> <span class="keyword">INTO</span>  <span class="keyword">id</span>(x) <span class="keyword">VALUES</span> (<span class="number">0</span>);</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LAST_INSERT_ID</span>();</span><br></pre></td></tr></table></figure>
-<p>避免单点，分布式方案<br>
-同一表只能有一个自增列，可以多个实例采用不同表</p>
-<p>假设每个实例不同步长值，每个实例产生号码结合步长值不重复<br>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`id`</span> (</span><br><span class="line">    <span class="string">`h`</span> <span class="built_in">bigint</span>(<span class="number">10</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    <span class="string">`x`</span> tinyint(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'0'</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`x`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`h`</span> (<span class="string">`h`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=latin1</span><br><span class="line"></span><br><span class="line"><span class="keyword">REPLACE</span> <span class="keyword">INTO</span> <span class="keyword">id</span>(x) <span class="keyword">VALUES</span> (<span class="number">0</span>);</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LAST_INSERT_ID</span>();</span><br></pre></td></tr></table></figure>
+<p>避免单点，分布式方案，多个数据库实例，每个实例内一张表，每个实例不同步长值，每个实例产生号码结合步长值不重复<br>
 auto-increment-offset设置初始值 auto-increment-increment设置步长值<br>
 设置值为全局，实例下所有表都会受影响</p>
 <p>缺点</p>
@@ -222,7 +220,7 @@ auto-increment-offset设置初始值 auto-increment-increment设置步长值<br>
 <p>满配环境下，每毫秒可以生成1024*4096约400万个id</p>
 <p>缺点</p>
 <ul>
-<li>时钟避免回调，记录上个id的时间用于比较，如果新时间小说明发生回调
+<li>时钟回调可能造成重复id, 首先避免时钟回调，其次记录上个id的时间用于比较，如果新时间小说明发生回调
 <ul>
 <li>如果时间短，追上再继续</li>
 <li>如果时间长，尝试更换机器编号，保障和之前id不重复。可用机器编号可以集中存储比如zookeeper，保障每台机器使用不同的编号即可</li>
@@ -353,6 +351,6 @@ auto-increment-offset设置初始值 auto-increment-increment设置步长值<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

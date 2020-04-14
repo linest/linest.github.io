@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="从外部文件载入类信息">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T13:23:02.918Z">
+<meta property="og:updated_time" content="2020-03-17T16:10:20.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 类加载">
 <meta name="twitter:description" content="从外部文件载入类信息">
@@ -202,7 +202,7 @@ Zjuer
 <li>解析Resolving: 常量池符号引用替换成直接引用，编译时，被引用目标尚未载入内存，用常量符号引用(Symbol Reference)代替</li>
 </ul>
 </li>
-<li>初始化Initializing: 静态变量赋值，执行静态初始化块。不涉及实例因此只有静态行为</li>
+<li>初始化Initializing: 执行类构造器<code>&lt;client&gt;</code>过程，静态变量赋值，执行静态初始化块。不涉及实例因此只有静态行为</li>
 </ul>
 <h1 id="类加载器工作行为">类加载器工作行为</h1>
 <hr>
@@ -451,7 +451,8 @@ loadClass()是个模板方法，实现委派逻辑<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]]}});
 </script>
@@ -468,6 +469,5 @@ loadClass()是个模板方法，实现委派逻辑<br>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+<!-- hexo-inject:end --></body>
 </html>

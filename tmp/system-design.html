@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-14T07:08:20.240Z">
+<meta property="og:updated_time" content="2020-04-10T05:12:04.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统设计">
 <meta name="twitter:description" content="https://github.com/donnemartin/system-design-primer 明确业务功能，设计API 明确数据特点，设计表结构，决定存储设施 明确量级，估算QPS，设计分布式 高可用，避免单点  服务副本，不能无服务 数据副本，不能丢数据 监控  高性能  缓存  可扩展性  开放API  电影售票服务  业务功能  电影院选取  城市筛选 电影筛选   电影院场次选取">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/system-design.html" class="article-date">
-  	<time datetime="2020-03-14T07:08:20.240Z" itemprop="datePublished">2020-03-14</time>
+  	<time datetime="2020-04-10T05:12:04.204Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -504,6 +504,14 @@ feed表：文字内容，图片url，可见范围<br>
 <li>SPI扩展</li>
 <li>拦截器、插件等自定义支持</li>
 </ul>
+<h1 id="定时器设计">定时器设计</h1>
+<hr>
+<p>线程周期触发</p>
+<ul>
+<li>任务存储在小顶堆，每次顶部不执行那么里面的也不会执行</li>
+<li>环形链表，任务挂载在环形链表上</li>
+</ul>
+<p>线程保障，别挂掉</p>
 <h1 id="积分系统">积分系统</h1>
 <hr>
 <p>业务功能</p>
@@ -652,12 +660,14 @@ feed表：文字内容，图片url，可见范围<br>
 </ul>
 <h1 id="优惠码分发">优惠码分发</h1>
 <hr>
-<p>100万的优惠码，怎样保证每个用户只能领取一个<br>
+<p>相当于抢金额均等的红包<br>
+100万的优惠码，怎样保证每个用户只能领取一个<br>
 高并发，并发请求太多，采取队列<br>
 缓存维护发放数量，已发放用户</p>
 <ul>
 <li>如果已发完或者已经发放过，直接返回</li>
 <li>如果还有，更新缓存，放入消息队列，后端异步发放</li>
+<li>数据库层面唯一键约束保障</li>
 </ul>
 <h1 id="大数据量视频播放top-n">大数据量视频播放top N</h1>
 <hr>
@@ -679,9 +689,25 @@ feed表：文字内容，图片url，可见范围<br>
 <li>客户端数据清理：受损数据重新下，旧数据清理</li>
 <li>文件完整性校验</li>
 </ul>
+<h1 id="积分过期设计">积分过期设计</h1>
+<hr>
+<p>滑动窗口，优先消耗老积分</p>
+<p>表结构<br>
+用户积分表(用户id, 可用积分，更新日期)<br>
+积分日志表(自增id, 用户id, 积分，添加时间，过期时间)</p>
+<p>方案：</p>
+<ul>
+<li>每天定时批量计算</li>
+<li>单用户每日首次登陆计算</li>
+</ul>
+<p>计算后又有新消费则无效化，单用户重新计算？？</p>
+<h1 id="海量评论抽奖">海量评论抽奖</h1>
+<hr>
+<p>流式处理？</p>
+<p>先随机一次取一个数字，然后收集评论id哈希后等值的部分，然后再随机一次</p>
 <h1 id="总结">总结</h1>
 <hr>
-<p>读多写少 =&gt; 读写分离，缓存<br>
+<p>读多写少 =&gt; 读写分离，缓存，写扩散<br>
 流量大 =&gt; 过滤拦截，队列限流<br>
 访问量大 =&gt; 多实例服务负载均衡<br>
 图片大量访问 =&gt; CDN<br>
@@ -803,6 +829,6 @@ feed表：文字内容，图片url，可见范围<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 库函数是编程接口">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-15T10:39:36.356Z">
+<meta property="og:updated_time" content="2020-04-02T14:05:41.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux">
 <meta name="twitter:description" content="12345                   -------                /          \内核 -- 系统调用 -- 库函数 -- 应用程序                \          /                   Shell 内核有资源CPU、存储、IO, 系统调用是内核提供的接口，用户不能直接访问内核资源只能直接或间接使用系统调用 库函数是编程接口">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/linux.html" class="article-date">
-  	<time datetime="2020-03-15T10:39:36.356Z" itemprop="datePublished">2020-03-15</time>
+  	<time datetime="2020-04-02T14:05:41.370Z" itemprop="datePublished">2020-04-02</time>
 </a>
     </div>
   
@@ -191,7 +191,7 @@ Zjuer
 <h1 id="文件句柄-描述符">文件句柄/描述符</h1>
 <hr>
 <p>文件描述符是一个非负整数，内核为了高效管理已经打开的文件，创建索引<br>
-默认1024，即单个进程最多只能接受1024个socket连接</p>
+默认1024，即单个进程最多只能接受1024个连接</p>
 <h1 id="进程线程">进程线程</h1>
 <hr>
 <p>内核不区分进程线程，普通进程和轻量级进程<br>
@@ -224,6 +224,7 @@ CopyOnWrite, 一开始只读共享，如果写操作会触发缺页异常，让�
 <ul>
 <li>时间片轮转，正常用完</li>
 <li>线程阻塞，进行不下去</li>
+<li>资源没满足，进行不下去</li>
 <li>主动放弃</li>
 </ul>
 <p>开销</p>
@@ -236,15 +237,18 @@ CopyOnWrite, 一开始只读共享，如果写操作会触发缺页异常，让�
 <hr>
 <ul>
 <li>管道<br>
-文件作为中间介质。单向通信，写进程和读进程。可以临时的无名管道局限亲缘关系进程和永久的命名管道<br>
-传输速度慢</li>
+文件作为中间介质。单向通信，写进程和读进程。可以局限亲缘关系进程临时的无名管道(pipe)和永久的命名管道(fifo), 传输速度慢</li>
 <li>消息队列<br>
 消息缓冲区为中间介质，消息的链接表，存放在内核中</li>
 <li>信号量<br>
 不能传递数据，只用于同步</li>
+<li>信号<br>
+比如<code>Ctrl+C</code>发出SIGINT，关闭终端session发出SIGHUP</li>
 <li>共享内存<br>
-开辟一块内存，映射到各个进程的虚拟地址空间，各进程像访问私有空间一样访问共享<br>
+开辟一块内存，映射到各个进程的虚拟地址空间，修改对各进程都可见<br>
 优点是效率很高避免了数据内核/用户间拷贝，缺点是没有同步机制容易混乱</li>
+<li>Socket<br>
+可以用于不同机器间</li>
 </ul>
 <h1 id="虚拟内存">虚拟内存</h1>
 <hr>
@@ -260,6 +264,9 @@ CopyOnWrite, 一开始只读共享，如果写操作会触发缺页异常，让�
 <li>用户代码和数据</li>
 </ul>
 <p>内存管理单元MMU完成映射</p>
+<h1 id="内存映射">内存映射</h1>
+<hr>
+<p>通过虚拟内存访问，如果双方虚拟内存地址映射到同一段物理内存地址，那么实际上操控同一段实现了共享</p>
 <h1 id="磁盘文件读取">磁盘文件读取</h1>
 <hr>
 <p>ext文件系统中，对一个文件的读需要先从磁盘中读取到文件对应的Inode，然后根据inode获取到对应的block的位置信息，进行第二次磁盘读取目标文件的内容，这样就需要两次磁盘IO。在系统中会有inode缓存，这样可保证一些文件读取只需要一次磁盘IO</p>
@@ -403,6 +410,6 @@ select，poll,epoll都是同步IO, 就绪后自行读写，而异步IO是拷贝�
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

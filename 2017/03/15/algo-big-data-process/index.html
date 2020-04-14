@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="一次放不下，拆分处理">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-27T15:57:25.526Z">
+<meta property="og:updated_time" content="2020-03-28T11:13:41.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单机有限内存处理海量数据">
 <meta name="twitter:description" content="一次放不下，拆分处理">
@@ -193,8 +193,8 @@ Zjuer
 <h1 id="量级估算">量级估算</h1>
 <hr>
 <ul>
-<li>GB在数量上是2的30次方，是billion级别，即10亿个字节</li>
-<li>MB在数量上是2的20次方，是million级别，即100万个字节</li>
+<li>GB在数量上是2的30次方，是billion级别，即大约10亿个字节</li>
+<li>MB在数量上是2的20次方，是million级别，即大约100万个字节</li>
 <li>32位整型理论是40亿，但是考虑到正负数，最大值大约20亿</li>
 <li>整型全部数字有<code>2^32</code>个，<code>2^32bit=0.5*2^30byte=0.5GB=512MB</code>，即容纳全部数字的位图只需要512M</li>
 <li>IP地址4字节，共<code>2^32</code>组合，即全部存储需要16G</li>
@@ -217,6 +217,16 @@ Zjuer
 <li>哈希划分</li>
 <li>范围划分</li>
 <li>小文件归并</li>
+</ul>
+<h1 id="大数据存在性检测">大数据存在性检测</h1>
+<hr>
+<blockquote>
+<p>大量IP, 判断某个IP是否存在</p>
+</blockquote>
+<p>每个ip对应一个整数，都是32位</p>
+<ul>
+<li>位图，精准判断</li>
+<li>布隆过滤器，模糊判断</li>
 </ul>
 <h1 id="大数据查重">大数据查重</h1>
 <hr>
@@ -245,10 +255,10 @@ Zjuer
 <p>有限512MB内存下对10GB数据排序</p>
 </blockquote>
 <ul>
-<li>位图<br>
-条件：如果数据是int类型，并且没有重复的话，可以考虑位图，用一个bit表示一个数字</li>
-</ul>
-<ul>
+<li>
+<p>位图<br>
+条件：如果数据是int类型，并且没有重复的话，可以考虑位图，用一个bit表示一个数字</p>
+</li>
 <li>
 <p>桶排序，范围划分<br>
 条件：如果范围有限，分布比较均匀的话<br>
@@ -262,31 +272,21 @@ Zjuer
 </ul>
 <ol>
 <li>首先进行文件切分，10GB文件分成40份，每份256MB这样每次就可以同时加载两个文件</li>
-<li>依次将每份文件载入内存，进行排序，这样可以得到40份有序文件。</li>
+<li>依次将每份文件载入内存，进行排序，这样可以得到40份有序文件</li>
 <li>接下来使用归并排序，最基本的是2路归并，每次开两个文件，输出一个文件。还可以进行多路归并，减少IO次数。最终将所有文件合并为一个文件</li>
 </ol>
 <h1 id="大数据单机topn">大数据单机topN</h1>
 <hr>
+<p>统计词频</p>
 <blockquote>
 <p>文件20亿个整数，内存2G，找出次数最多的数字</p>
 </blockquote>
-<p>直接划分，计数，结果归并</p>
+<p>哈希划分，计数，结果归并</p>
 <ol>
 <li>20亿个整数，即使都是同一个数，也在int范围内，即计数采用4字节整型就够</li>
-<li>计算能容纳多少哈希记录，一条计数key和value各4个字节，一共8字节，2亿条记录占用1.6G，即内存能同时维护2亿个不同的数值</li>
-<li>20亿个整数最多有20亿个不同，所以划分成10个文件，这样每个文件内不同数字不超过2亿个，可以内存处理，计数结果输出成文件</li>
+<li>计算能容纳多少哈希记录，一条计数key和value各4个字节，一共8字节，2.5亿条记录占用2G，即内存能同时维护2.5亿个不同的数值</li>
+<li>全整数范围40亿个，哈希划分16个文件，每个文件不同数字不会超过2.5亿个，可以内存处理，计数结果输出成文件</li>
 <li>每个文件都可以统计出次数最多的数，不同文件结果进行归并，过程中找到最多</li>
-</ol>
-<blockquote>
-<p>有一个1G大小的文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M，要求返回频数最高的100个词</p>
-</blockquote>
-<p>哈希划分，计数排序，结果归并</p>
-<ol>
-<li>即使单词1个字节，最多出现10亿次，int计数即可</li>
-<li>单条kv最多20字节, 内存能计数50000个单词，即使单词1个字节，内存能处理50KB的文件</li>
-<li>哈希切割，相同词聚在一起，满足内存限制</li>
-<li>加载每个小文件，统计产出词频文件，内部排好序</li>
-<li>两两归并，只保留前100，最终产出一个文件</li>
 </ol>
 <blockquote>
 <p>海量访问日志中找出访问某一网站次数最多的IP</p>
@@ -298,6 +298,17 @@ Zjuer
 <li>每个小文件内部统计次数，找到最多的IP</li>
 <li>汇总，找到全局最多</li>
 </ol>
+<blockquote>
+<p>有一个1G大小的文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M，要求返回频数最高的100个词</p>
+</blockquote>
+<p>哈希划分，计数排序，结果归并</p>
+<ol>
+<li>即使单词1个字节，最多出现10亿次，int计数即可</li>
+<li>单条kv最多20字节, 内存能计数50000个单词，即使单词1个字节最多有10亿个单词，可以划分20000个文件</li>
+<li>哈希切割，相同词聚在一起，满足内存限制</li>
+<li>加载每个小文件，统计产出词频文件，内部排好序或者使用小顶堆</li>
+<li>两两归并，只保留前100，最终产出一个文件</li>
+</ol>
 <h1 id="大数据缺失查找">大数据缺失查找</h1>
 <hr>
 <blockquote>
@@ -308,7 +319,7 @@ Zjuer
 <p>内存10M，找出一个没出现的数字即可</p>
 </blockquote>
 <ol>
-<li>全部位图需要占用512M，按照范围划分成64份，每个范围4M可满足内存需求</li>
+<li>全部位图需要占用512M，按照范围划分成64份，每个范围8M可满足内存需求</li>
 <li>先找一个大概范围，计数统计64个区间上每个区间上出现的数字个数，如果个数小于范围，肯定缺失</li>
 <li>在区间上建立位图，找出一个缺失数字</li>
 </ol>
@@ -468,6 +479,6 @@ Zjuer
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

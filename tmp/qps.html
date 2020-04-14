@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则 活跃用户占用户总量20% 20%时间活跃访问期承载8">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T16:11:10.949Z">
+<meta property="og:updated_time" content="2020-04-10T04:11:36.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="QPS">
 <meta name="twitter:description" content="吞吐量QPS = 并发数/ 响应时间 并发数：同时工作的线程数，受CPU核数影响 响应时间：处理一个请求所需实现，那么每秒能处理的数量为1/响应时间 并发线程10，请求耗时100ms，即每秒每线程处理10个请求共计100个请求，QPS为100 用户数   用户总量：不管在不在线 日活用户：日内在线用户 在线用户：同时在线用户  估算  28原则 活跃用户占用户总量20% 20%时间活跃访问期承载8">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/qps.html" class="article-date">
-  	<time datetime="2020-03-01T16:11:10.949Z" itemprop="datePublished">2020-03-02</time>
+  	<time datetime="2020-04-10T04:11:36.278Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -196,6 +196,7 @@ Zjuer
 活跃用户占用户总量20%<br>
 20%时间活跃访问期承载80%访问，即活跃期访问QPS为4倍的平均QPS<br>
 峰值访问为活跃期访问2~3倍，取2.5即10倍平均QPS<br>
+一天86400秒，近似10w秒<br>
 <code>峰值qps = 10 * 日pv / 24*3600， 即平摊每秒后的10倍</code><br>
 <code>并发(同时线程数) = QPS*平均耗时</code></p>
 <h1 id="概况">概况</h1>
@@ -327,6 +328,6 @@ mysql实体机16核32G一般查询3000QPS，写入800QPS<br>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

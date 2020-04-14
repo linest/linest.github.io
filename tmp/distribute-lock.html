@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>distribute-lock | Blog of Linest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方 基于数据库 基于Redis 基于Zookeeper Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存  加锁">
+  <meta name="description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方  基于数据库 基于Redis 基于Zookeeper  Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存">
 <meta property="og:type" content="website">
 <meta property="og:title" content="distribute-lock">
 <meta property="og:url" content="http://linest.github.io/tmp/distribute-lock.html">
 <meta property="og:site_name" content="Blog of Linest">
-<meta property="og:description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方 基于数据库 基于Redis 基于Zookeeper Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存  加锁">
+<meta property="og:description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方  基于数据库 基于Redis 基于Zookeeper  Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-14T00:48:52.246Z">
+<meta property="og:updated_time" content="2020-04-10T05:37:19.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="distribute-lock">
-<meta name="twitter:description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方 基于数据库 基于Redis 基于Zookeeper Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存  加锁">
+<meta name="twitter:description" content="只锁定自己是不够的，别人看不见 做到全局共享，需要一个大家都可见的第三方  基于数据库 基于Redis 基于Zookeeper  Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务 Redis可以大规模集群，可以高并发 高并发优化，大量请求同时对一把锁加锁，集中在一台机器上  拆分合并，把一个锁拆成多个锁，每个锁一部分库存，可能需要同时加多个锁，合并库存满足需求  操作库存">
   
     <link rel="alternative" href="/atom.xml" title="Blog of Linest" type="application/atom+xml">
   
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/distribute-lock.html" class="article-date">
-  	<time datetime="2020-01-14T00:48:52.246Z" itemprop="datePublished">2020-01-14</time>
+  	<time datetime="2020-04-10T05:37:19.737Z" itemprop="datePublished">2020-04-10</time>
 </a>
     </div>
   
@@ -181,9 +181,11 @@ Zjuer
       
         <p>只锁定自己是不够的，别人看不见<br>
 做到全局共享，需要一个大家都可见的第三方</p>
-<p>基于数据库<br>
-基于Redis<br>
-基于Zookeeper</p>
+<ul>
+<li>基于数据库</li>
+<li>基于Redis</li>
+<li>基于Zookeeper</li>
+</ul>
 <p>Zookeeper不适合部署大规模集群，不承载高并发，只是为了协调服务<br>
 Redis可以大规模集群，可以高并发</p>
 <p>高并发优化，大量请求同时对一把锁加锁，集中在一台机器上</p>
@@ -307,6 +309,6 @@ Redis可以大规模集群，可以高并发</p>
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

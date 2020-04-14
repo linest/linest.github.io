@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Blog of Linest">
 <meta property="og:description" content="简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configuration配置 组件手动装配 ——&amp;gt; 自动感知装配  依赖间整合   web.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-01T09:31:43.888Z">
+<meta property="og:updated_time" content="2020-04-14T01:16:41.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-boot">
 <meta name="twitter:description" content="简化开发流程，自动化配置 xml -&amp;gt; 2.5 注解扫描 -&amp;gt; 3.0 config类配置 -&amp;gt; boot打包配置 简化  独立Maven依赖 ——&amp;gt; starter套装  经验总结，包含常见功能 经过测试，确保版本适配   Spring配置文件 ——&amp;gt; 注解扫描 + Configuration配置 组件手动装配 ——&amp;gt; 自动感知装配  依赖间整合   web.">
@@ -152,7 +152,7 @@ Zjuer
   
     <div class="article-meta">
       <a href="/tmp/spring-boot.html" class="article-date">
-  	<time datetime="2020-03-01T09:31:43.888Z" itemprop="datePublished">2020-03-01</time>
+  	<time datetime="2020-04-14T01:16:41.399Z" itemprop="datePublished">2020-04-14</time>
 </a>
     </div>
   
@@ -209,15 +209,29 @@ xml -&gt; 2.5 注解扫描 -&gt; 3.0 config类配置 -&gt; boot打包配置</p>
 spring init -dweb,data-jpa,h2,thymeleaf --build gradle example</p>
 <h1 id="启动类">启动类</h1>
 <hr>
-<p>@SpringBootApplication<br>
+<p>@SpringBootApplication，一般标注的类在根目录下，这样所有子包都能扫描到<br>
 开启组件扫描和自动配置<br>
 集合下设功能<br>
-@SpringBootConfiguration<br>
-@EnableAutoConfiguration<br>
-@ComponentScan</p>
+@SpringBootConfiguration：自身也作为配置<br>
+@EnableAutoConfiguration: 启用自用配置，spring.factories机制定位自动配置类，根据@Conditional判定<br>
+@ComponentScan: 启用包扫描</p>
 <p>main方法，支持jar方式运行，内嵌数据库，内嵌服务器，直接可运行<br>
 自动配置maven构建插件，mvn spring-boot:run目标</p>
-<p>main方法中SpringApplication.run方法启动应用，启动之前可以进行参数配置，比如寻找可用端口</p>
+<p>main方法中SpringApplication.run方法启动应用，启动之前可以进行参数配置，比如寻找可用端口<br>
+启动过程</p>
+<ol>
+<li>以@SpringBootApplication本身类作为一个配置参数，静态调用SpringApplication的run方法</li>
+<li>静态方法实际上构造一个SpringApplication实例，构造函数中进行初始化</li>
+<li>初始化逻辑判断是否是web应用，影响后期建立什么ApplicationContext</li>
+<li>SpringFactoriesLoader查找所有可用ApplicationContextInitializer</li>
+<li>SpringFactoriesLoader查找所有可用ApplicationListener</li>
+<li>通过Exception的stacktrace方式推断设置main定义类</li>
+<li>构建Environment信息，比如配置信息</li>
+<li>构建ApplicationContext，并在声明周期中调用通知相关Listener</li>
+<li>开始自动配置</li>
+<li>refresh完成容器</li>
+<li>如果容器内有CommandLineRunner则执行，用于启动后执行逻辑场景</li>
+</ol>
 <p>spring-boot-autoconfigure包含各类配置，4.0条件化配置@Conditional<br>
 应用启动时，根据classpath内容自动生效相关配置</p>
 <p>spring-boot提供常用基础，允许用户自定义调整</p>
@@ -234,6 +248,8 @@ spring init -dweb,data-jpa,h2,thymeleaf --build gradle example</p>
 <li>命令行参数</li>
 <li>环境变量</li>
 </ul>
+<p>优先级，越是外部越高<br>
+命令行 &gt; 环境变量 &gt; 包外配置文件 &gt; 包内配置文件 &gt; @Configuration类@PropertySource指定文件</p>
 <h2 id="starter包调整依赖">starter包调整依赖</h2>
 <p>Spring Boot默认使用Logback日志，如果需要使用Log4j，先排除再引入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-log4j&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
@@ -379,7 +395,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</
 @ConditionalOnJava</p>
 <h2 id="配置文件注入">配置文件注入</h2>
 <p>@ConfigurationProperties(prefix=“local”) 本身不会导致加入容器，可以定义配置文件和配置类的对应关系<br>
-@EnableConfigurationProperties(XxxProperties.class) 注入配置类到容器</p>
+@EnableConfigurationProperties(XxxProperties.class) 注入配置类到容器，即让相关类上的@ConfigurationProperties生效</p>
 
         
     <div class="donate_module">
@@ -492,6 +508,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=自动配置类</
 
 
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script></body>
+  </div>
+<script>!function(i){var o=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function r(t,e){var n=new Image,i=t.getAttribute("data-original");n.onload=function(){t.src=i,e&&e()},n.src=i}function t(){for(var t=0;t<o.length;t++)e=o[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(i.innerHeight||document.documentElement.clientHeight)&&r(o[t],function(){o.splice(t,t)});var e,n}t(),i.addEventListener("scroll",t)}(this);</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
